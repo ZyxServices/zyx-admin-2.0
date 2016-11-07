@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyx.mapper.CircleMapper">
+    <resultMap id="circleMap" type="com.zyx.model.Circle">
+        <!--
+          WARNING - @mbggenerated
+        -->
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="create_id" property="createId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="BIGINT"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+        <result column="admin_ids" property="adminIds" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="circle_master_id" property="circleMasterId" jdbcType="INTEGER"/>
+        <result column="head_img_url" property="headImgUrl" jdbcType="VARCHAR"/>
+        <result column="top" property="top" jdbcType="INTEGER"/>
+        <result column="hot" property="hot" jdbcType="INTEGER"/>
+        <result column="circle_type" property="circleType" jdbcType="INTEGER"/>
+        <result column="details" property="details" jdbcType="LONGVARCHAR"/>
+        <result column="tag" property="tag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="circleVo" type="com.zyx.model.vo.CircleVo" extends="circleMap">
+        <!--<result column="userName" property="userName" jdbcType="VARCHAR"/>-->
+        <!--<result column="masterName" property="masterName" jdbcType="VARCHAR"/>-->
+        <!--<result column="type_name" property="circleTypeName" jdbcType="VARCHAR"/>-->
+        <!--<result column="circleItem_count" property="circleItemCount" jdbcType="INTEGER"/>-->
+        <result column="circleTypeName" property="circleTypeName" jdbcType="VARCHAR"/>
+        <!--<result column="concern_count" property="concernCount" jdbcType="INTEGER"/>-->
+        <association property="circleItemCount" column="id" select="circleItemSelect"/>
+        <association property="concernCount" column="id" select="myConcernSelect"/>
+        <association property="userVo" column="create_id" select="userSelect"/>
+        <association property="masterVo" column="circle_master_id" select="userSelect"/>
+        <association property="isDeva" column="id" select="queryIsDeva"/>
+    </resultMap>
+
+    <select id="circleItemSelect" parameterType="int" resultType="int">
+         SELECT count(id) FROM circle_item WHERE circle_id =#{circleId}
+    </select>
+
+
+    <select id="userSelect" parameterType="int" resultType="com.zyx.model.vo.UserVo">
+        SELECT id,nickname,official,authenticate FROM `user` WHERE id=#{user_id}
+    </select>
+
+    <!--<select id="circleTypeSelect" parameterType="int" resultType="com.zyx.model.vo.CircleTypeVo">-->
+    <!--SELECT * FROM circle_type WHERE id =#{circle_type_id}-->
+    <!--</select>-->
+
+
+    <select id="myConcernSelect" parameterType="int" resultType="int">
+          SELECT count(id) FROM myconcern WHERE concern_id =#{circleId} AND concern_type = 4
+    </select>
+
+    <select id="findByPager" resultMap="circleVo">
+        SELECT
+        circle.id,
+        circle.title,
+        circle.create_id,
+        circle.create_time,
+        circle.state,
+        circle.type,
+        circle.circle_master_id,
+        circle.details,
+        circle.head_img_url,
+        circle.top,
+        circle.hot,
+        circle.admin_ids,
+        circle.tag,
+        circle.circle_type,
+        circle_type.type_name AS circleTypeName
+        FROM
+        circle
+        INNER JOIN circle_type ON circle.circle_type = circle_type.id
+        WHERE `circle`.state != -1
+        ORDER BY
+        circle.create_time DESC
+         LIMIT #{start},#{end}
+    </select>
+    <select id="findById" resultMap="circleMap">
+        SELECT * FROM circle WHERE id=#{id} AND state != -1
+    </select>
+    <update id="tuiJian">
+        UPDATE circle SET top=#{top_size} where id=#{circle_id}
+    </update>
+    <update id="setState">
+        UPDATE circle SET state=#{state} WHERE id=#{id}
+    </update>
+    <select id="existCircle" resultMap="circleMap">
+        SELECT * FROM circle WHERE  title=#{title}
+    </select>
+
+    <select id="search" resultMap="circleVo">
+       SELECT
+        circle.id,
+        circle.title,
+        circle.create_id,
+        circle.create_time,
+        circle.state,
+        circle.type,
+        circle.circle_master_id,
+        circle.details,
+        circle.head_img_url,
+        circle.top,
+        circle.hot,
+        circle.admin_ids,
+        circle.tag,
+        circle.circle_type,
+        circle_type.type_name AS circleTypeName
+        FROM
+        circle
+        INNER JOIN circle_type ON circle.circle_type = circle_type.id
+        WHERE `circle`.state != -1 AND  (`circle`.`title` LIKE  CONCAT('%','${title}','%'))  ORDER BY create_time DESC  LIMIT #{start},#{end}
+    </select>
+
+    <select id="searchCount" resultType="java.lang.Integer">
+		SELECT COUNT(id) as acounts FROM circle
+	</select>
+
+    <update id="editCircle" parameterType="com.zyx.model.Circle">
+        UPDATE circle
+        <set>
+            <if test="title !=null and title!=''">
+                title=#{title},
+            </if>
+            <if test="headImgUrl !=null and title!=''">
+                head_img_url=#{headImgUrl},
+            </if>
+            <if test="circleType != null">
+                circle_type=#{circleType},
+            </if>
+            <if test="details!=null and details!=''">
+                details=#{details},
+            </if>
+            <if test="circleMasterId!=null">
+                circle_master_id=#{circleMasterId},
+            </if>
+            <if test="adminIds!=null and adminIds!=''">
+                admin_ids=#{adminIds}
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByIds">
+        UPDATE circle SET state = -1 WHERE id IN
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <select id="queryIsDeva" parameterType="java.lang.Integer" resultType="boolean">
+        SELECT NOT ISNULL(id) as isDeva FROM devaluation WHERE model = 3 AND model_id = #{id}
+    </select>
+</mapper>

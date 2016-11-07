@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyx.mapper.ConcernMapper">
+    <resultMap id="concernMap" type="com.zyx.model.Concern">
+        <!--
+          WARNING - @mbggenerated
+        -->
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="topic_content" property="topicContent" jdbcType="VARCHAR"/>
+        <result column="topic_title" property="topicTitle" jdbcType="VARCHAR"/>
+        <result column="topic_visible" property="topicVisible" jdbcType="INTEGER"/>
+        <result column="img_url" property="imgUrl" jdbcType="VARCHAR"/>
+        <result column="video_url" property="videoUrl" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="BIGINT"/>
+    </resultMap>
+    <resultMap id="concernVoMap" type="com.zyx.model.vo.ConcernVo" extends="concernMap">
+        <!--<association property="zanCounts" column="id" select="zanCountsSelect"/>-->
+        <!--<association property="commentCounts" column="id" select="commentCountsSelect"/>-->
+        <association property="userVo" column="user_id" select="userSelect"/>
+        <association property="appUserAuthDto" column="user_id" select="authSelect"/>
+    </resultMap>
+
+    <select id="zanCountsSelect" parameterType="int" resultType="int">
+        SELECT COUNT(id) FROM zan WHERE zan.body_type = 2 AND body_id = #{concernId}
+    </select>
+
+    <select id="commentCountsSelect" parameterType="int" resultType="int">
+       SELECT COUNT(id) FROM comment WHERE comment_type = 3  AND comment_id = #{concernId}
+    </select>
+
+    <select id="userSelect" parameterType="int" resultType="com.zyx.model.vo.UserVo">
+        SELECT nickname,official,authenticate FROM `user` WHERE id=#{user_id}
+    </select>
+
+    <select id="authSelect" parameterType="int" resultType="com.zyx.dto.AppUserAuthDto">
+        SELECT * FROM user_auth where user_id = #{appUserId}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count("id") as counts FROM concern
+    </select>
+
+    <select id="findByPager" resultMap="concernVoMap">
+     SELECT
+        concern.id,
+        concern.user_id,
+        concern.type,
+        concern.topic_content,
+        concern.topic_title,
+        concern.topic_visible,
+        concern.img_url,
+        concern.video_url,
+        concern.create_time,
+        concern.state,
+        (SELECT COUNT(id) FROM zan WHERE zan.body_type = 2 AND body_id = concern.id) as zanCounts,
+        (SELECT COUNT(id) FROM comment WHERE comment_type = 3  AND comment_id =  concern.id) as commentCounts
+    FROM
+        concern
+    ORDER BY
+    create_time DESC
+    LIMIT #{start},#{end}
+--         WHERE state !=-1
+  </select>
+    <!--SELECT * FROM concern WHERE state >=0 ORDER BY create_time DESC  LIMIT #{start},#{end}-->
+    <select id="findById" resultMap="concernMap">
+            SELECT * FROM concern  WHERE id=#{id}
+--             AND state != -1
+    </select>
+
+    <update id="setState">
+        UPDATE concern SET state=#{state} WHERE id=#{id}
+    </update>
+
+    <update id="edit">
+        UPDATE concern SET topic_content=#{topic_content},img_url=#{img_url} WHERE id=#{id}
+    </update>
+    <select id="search" resultMap="concernVoMap">
+    SELECT
+	concern.id,
+	concern.user_id,
+	concern.type,
+	concern.topic_content,
+	concern.topic_title,
+	concern.topic_visible,
+	concern.img_url,
+	concern.video_url,
+	concern.create_time,
+	concern.state,
+    (SELECT COUNT(id) FROM zan WHERE zan.body_type = 2 AND body_id = concern.id) as zanCounts,
+    (SELECT COUNT(id) FROM comment WHERE comment_type = 3  AND comment_id =  concern.id) as commentCounts
+    FROM
+	concern
+    INNER JOIN `user` ON concern.user_id = `user`.id
+    WHERE (`user`.nickname LIKE CONCAT('%','${userName}','%' ) OR `concern`.`topic_content` LIKE CONCAT('%','${userName}','%')) ORDER BY create_time DESC  LIMIT #{start},#{end}
+    </select>
+</mapper>

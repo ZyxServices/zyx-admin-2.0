@@ -1,0 +1,37 @@
+@charset "UTF-8";
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+.p5{
+    padding: 5px;
+}
+.hide{
+    display: none;
+}
+
+.live_manage{
+    margin-top: 20px;
+}
+.dynamicEdit, .create_liveType , .dynamicPreview , .liveEditClass , .createLiveClass{
+    display: none;
+}
+.create_liveType.on ,.dynamicPreview.on,.create_liveType.on,.liveEditClass.on,.createLiveClass.on{
+    display: block ;
+}
+.dynamicEdit.on {
+    display: inline-block;
+}
+
+.dynamicPic{
+    margin-bottom: 15px;
+}
+.dynamicPic img{
+    padding: 5px;
+}
+/*bootstraptable中btn样式*/
+.bootstrap-table button.btn, input[name="refresh"].btn{
+    padding: 10px 14px;
+}
