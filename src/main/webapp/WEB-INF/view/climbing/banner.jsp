@@ -12,7 +12,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <meta content="体育家-banner管理" name="description" />
+    <meta content="体育家-攀岩馆banner管理" name="description" />
 
     <meta content="" name="author" />
 
@@ -42,7 +42,7 @@
                     </ul>
                 </div>
                 <div>
-                    <select class="form-control">
+                    <select class="form-control" onchange="changeBannerTable(this)">
                         <option value="1">攀岩馆banner</option>
                         <option value="2">求约banner</option>
                     </select>
@@ -57,9 +57,9 @@
                                 <th data-checkbox="true"></th>
                                 <th data-field="id">ID</th>
                                 <th data-field="modelTitle">banner模块</th>
-                                <th data-field="image">banner位置</th>
+                                <th data-field="sequence">banner位置</th>
                                 <th data-field="sequence">banner类型</th>
-                                <th data-field="state">图片</th>
+                                <th data-field="image">图片</th>
                                 <th data-formatter="operate" data-events="operateEvents">操作</th>
                             </tr>
                             </thead>
@@ -74,12 +74,12 @@
             <div class="row-fluid">
                 <div class="span12">
                     <h3 class="page-title">
-                        首页banner管理<small>statistics and more</small>
+                        攀岩馆banner管理<small>statistics and more</small>
                     </h3>
                     <ul class="breadcrumb">
                         <li>
                             <i class="icon-home"></i>
-                            <a href="javascript:void(0)">首页banner</a>
+                            <a href="javascript:void(0)">攀岩馆banner</a>
                             <i class="icon-angle-right"></i>
                         </li>
                         <li><a href="#">编辑banner</a></li>
@@ -92,21 +92,14 @@
                     <form class="form-horizontal" role="form" id="bannerForm">
                         <input type="hidden" name="id" id="devaId">
                         <div class="control-group form-group">
-                            <label class="control-label">活动名称</label>
+                            <label class="control-label">banner模块</label>
                             <div class="controls col-xs-5">
                                 <input type="text" id="title" class="span6" disabled/>
                             </div>
                         </div>
 
                         <div class="control-group">
-                            <label class="control-label">活动原有封面图</label>
-                            <div class="controls" id="preImage">
-
-                            </div>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label">banner排序</label>
+                            <label class="control-label">banner位置</label>
                             <div class="controls">
                                 <select class="span6" id="sequence" name="sequence">
 
@@ -115,10 +108,9 @@
                         </div>
 
                         <div class="control-group">
-                            <label class="control-label">banner状态</label>
-                            <div class="controls">
-                                <label class="radio"><input type="radio" name="state" value="1">激活</label>
-                                <label class="radio"><input type="radio" name="state" value="0">未激活</label>
+                            <label class="control-label">活动原有封面图</label>
+                            <div class="controls" id="preImage">
+
                             </div>
                         </div>
 
@@ -166,7 +158,7 @@
 <script src="../../js/app.js" type="text/javascript"></script>
 <script src="../../js/index.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../js/banner/bannerCommon.js"></script>
-<script type="text/javascript" src="../../js/banner/activitybanner.js"></script>
+<script type="text/javascript" src="../../js/climbing/banner.js"></script>
 <script>
 
     jQuery(document).ready(function() {

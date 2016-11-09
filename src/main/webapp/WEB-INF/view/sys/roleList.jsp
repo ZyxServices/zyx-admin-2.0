@@ -316,15 +316,16 @@
                                 <div class="span6">
                                     <select id="menu-edit-select" multiple="multiple">
                                         <option value="menu:climbing:banner" data-section="攀岩管理" data-index="1">banner管理</option>
-                                        <option value="menu:climbing:equipment" data-section="攀岩管理" data-index="2">装备控</option>
-                                        <option value="menu:climbing:talentshow" data-section="攀岩管理" data-index="3">达人秀</option>
-                                        <option value="menu:climbing:appointment" data-section="攀岩管理" data-index="4">求约</option>
-                                        <option value="menu:climbing:venues" data-section="攀岩管理" data-index="5">场馆</option>
+                                        <option value="menu:climbing:introduction" data-section="攀岩管理" data-index="2">教程攻略</option>
+                                        <option value="menu:climbing:equipment" data-section="攀岩管理" data-index="3">装备控</option>
+                                        <option value="menu:climbing:talentshow" data-section="攀岩管理" data-index="4">达人秀</option>
+                                        <option value="menu:climbing:appointment" data-section="攀岩管理" data-index="5">求约</option>
+                                        <option value="menu:climbing:venues" data-section="攀岩管理" data-index="6">场馆</option>
 
-                                        <option value="menu:community:dynamic" data-section="社区" data-index="6">动态管理</option>
-                                        <option value="menu:community:grades" data-section="社区" data-index="7">等级管理</option>
+                                        <option value="menu:community:dynamic" data-section="社区" data-index="7">动态管理</option>
+                                        <option value="menu:community:grades" data-section="社区" data-index="8">等级管理</option>
 
-                                        <option value="menu:city:city" data-section="城市" data-index="8">城市</option>
+                                        <option value="menu:city:city" data-section="城市" data-index="9">城市</option>
 
                                         <option value="menu:live:living" data-section="直播" data-index="23">直播</option>
 

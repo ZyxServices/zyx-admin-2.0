@@ -133,6 +133,10 @@ public class MenuController {
     public ModelAndView redirectClimbingBanner() {
         return new ModelAndView("/climbing/banner");
     }
+    @RequestMapping(value = "/climbing/introduction", method = RequestMethod.GET)
+    public ModelAndView redirectClimbingIntroduction() {
+        return new ModelAndView("/climbing/introduction");
+    }
     @RequestMapping(value = "/climbing/equipment", method = RequestMethod.GET)
     public ModelAndView redirectClimbingEquipment() {
         return new ModelAndView("/climbing/equipment");

@@ -30,7 +30,7 @@
         </li>
         <%--攀岩管理--%>
         <shiro:hasPermission
-                name="menu:climbing:banner or menu:climbing:equipment or menu:climbing:talentshow or menu:climbing:appointment or menu:climbing:venues">
+                name="menu:climbing:banner or menu:climbing:equipment or menu:climbing:talentshow or menu:climbing:appointment or menu:climbing:venues or menu:climbing:introduction">
             <li class="climbing">
                 <a href="javascript:;">
                     <i class="icon-tags"></i>
@@ -43,6 +43,11 @@
                         <li class="banner">
                             <a href="<%=request.getContextPath()%>/menu/climbing/banner">banner管理<span
                                     class="selected"></span></a>
+                        </li>
+                    </shiro:hasPermission>
+                    <shiro:hasPermission name="menu:climbing:introduction">
+                        <li class="introduction">
+                            <a href="<%=request.getContextPath()%>/menu/climbing/introduction">教程攻略</a>
                         </li>
                     </shiro:hasPermission>
                     <shiro:hasPermission name="menu:climbing:equipment">
