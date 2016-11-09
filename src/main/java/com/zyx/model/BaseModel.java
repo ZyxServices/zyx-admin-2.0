@@ -1,6 +1,5 @@
 package com.zyx.model;
 
-import javax.persistence.Column;
 import javax.persistence.Transient;
 
 /**
@@ -20,11 +19,9 @@ public class BaseModel {
     @Transient
     private  Integer page=10;
     /**
-     * 创建时间
+     * 删除标记 0-正常 1-删除
      */
-    @Column(name = "create_time")
-    private  Long createTime;
-
+    private  int del;
     public Integer getPageNumber() { return pageNumber; }
 
     public void setPageNumber(Integer pageNumber) { this.pageNumber = pageNumber; }
@@ -33,7 +30,7 @@ public class BaseModel {
 
     public void setPage(Integer page) { this.page = page; }
 
-    public Long getCreateTime() { return createTime; }
+    public int getDel() { return del; }
 
-    public void setCreateTime(Long createTime) { this.createTime = createTime; }
+    public void setDel(int del) { this.del = del; }
 }
