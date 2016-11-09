@@ -191,7 +191,7 @@
                             <div class="controls col-xs-5">
                                 <div class="span6">
                                     <select id="menu-create-select" multiple="multiple">
-                                        <option value="menu:activity:list" data-section="活动">活动列表</option>
+                                        <option value="menu:climbing:banner" data-section="活动">banner管理</option>
                                         <option value="menu:activity:group" data-section="活动">组合活动</option>
 
                                         <option value="menu:live:living" data-section="直播">直播</option>
@@ -315,19 +315,27 @@
                             <div class="controls col-xs-5">
                                 <div class="span6">
                                     <select id="menu-edit-select" multiple="multiple">
-                                        <option value="menu:activity:list" data-section="活动" data-index="1">活动列表</option>
-                                        <option value="menu:activity:group" data-section="活动" data-index="2">组合活动</option>
+                                        <option value="menu:climbing:banner" data-section="攀岩管理" data-index="1">banner管理</option>
+                                        <option value="menu:climbing:equipment" data-section="攀岩管理" data-index="2">装备控</option>
+                                        <option value="menu:climbing:talentshow" data-section="攀岩管理" data-index="3">达人秀</option>
+                                        <option value="menu:climbing:appointment" data-section="攀岩管理" data-index="4">求约</option>
+                                        <option value="menu:climbing:venues" data-section="攀岩管理" data-index="5">场馆</option>
 
-                                        <option value="menu:live:living" data-section="直播" data-index="3">直播</option>
+                                        <option value="menu:community:dynamic" data-section="社区" data-index="6">动态管理</option>
+                                        <option value="menu:community:grades" data-section="社区" data-index="7">等级管理</option>
 
-                                        <option value="menu:dynamic:dynamicIndex" data-section="动态" data-index="4">动态</option>
+                                        <option value="menu:city:city" data-section="城市" data-index="8">城市</option>
+
+                                        <option value="menu:live:living" data-section="直播" data-index="23">直播</option>
+
+                                        <option value="menu:dynamic:dynamicIndex" data-section="动态" data-index="24">动态</option>
 
                                         <option value="menu:circle:circleclassify" data-section="圈子">圈子类别</option>
-                                        <option value="menu:circle:circlelist" data-section="圈子" data-index="5">圈子列表</option>
-                                        <option value="menu:circle:circlepost" data-section="圈子" data-index="6">帖子列表</option>
+                                        <option value="menu:circle:circlelist" data-section="圈子" data-index="25">圈子列表</option>
+                                        <option value="menu:circle:circlepost" data-section="圈子" data-index="26">帖子列表</option>
 
-                                        <option value="menu:shop:goods" data-section="商城" data-index="7">商品</option>
-                                        <option value="menu:shop:order" data-section="商城" data-index="8">订单</option>
+                                        <option value="menu:shop:goods" data-section="商城" data-index="27">商品</option>
+                                        <option value="menu:shop:order" data-section="商城" data-index="28">订单</option>
 
                                         <option value="menu:appUser:allAppUser" data-section="用户管理">普通用户列表</option>
                                         <option value="menu:appUser:yrzAppUser" data-section="用户管理">已认证用户列表</option>

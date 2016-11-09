@@ -127,4 +127,40 @@ public class MenuController {
     public ModelAndView redirectCirclePost() {
         return new ModelAndView("/circle/circlepost");
     }
+
+    //攀岩管理
+    @RequestMapping(value = "/climbing/banner", method = RequestMethod.GET)
+    public ModelAndView redirectClimbingBanner() {
+        return new ModelAndView("/climbing/banner");
+    }
+    @RequestMapping(value = "/climbing/equipment", method = RequestMethod.GET)
+    public ModelAndView redirectClimbingEquipment() {
+        return new ModelAndView("/climbing/equipment");
+    }
+    @RequestMapping(value = "/climbing/talentshow", method = RequestMethod.GET)
+    public ModelAndView redirectClimbingTalentShow() {
+        return new ModelAndView("/climbing/talentshow");
+    }
+    @RequestMapping(value = "/climbing/appointment", method = RequestMethod.GET)
+    public ModelAndView redirectClimbingAppointment() {
+        return new ModelAndView("/climbing/appointment");
+    }
+    @RequestMapping(value = "/climbing/venues", method = RequestMethod.GET)
+    public ModelAndView redirectClimbingVenues() {
+        return new ModelAndView("/climbing/venues");
+    }
+    /*社区*/
+    @RequestMapping(value = "/community/dynamic", method = RequestMethod.GET)
+    public ModelAndView redirectCommunityDynamic() {
+        return new ModelAndView("/community/dynamic");
+    }
+    @RequestMapping(value = "/community/grades", method = RequestMethod.GET)
+    public ModelAndView redirectCommunityGrades() {
+        return new ModelAndView("/community/grades");
+    }
+    /*城市*/
+    @RequestMapping(value = "/city/city", method = RequestMethod.GET)
+    public ModelAndView redirectCityCity() {
+        return new ModelAndView("/city/city");
+    }
 }

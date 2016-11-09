@@ -261,7 +261,7 @@
                             <div class="controls">
                                 <div class="span6">
                                     <select id="jurisdiction-select" multiple="multiple">
-                                        <option value="menu:activity:list" data-section="活动">活动列表</option>
+                                        <option value="menu:climbing:banner" data-section="攀岩管理">banner管理</option>
                                         <option value="menu:activity:group" data-section="活动">组合活动</option>
 
                                         <option value="menu:live:living" data-section="直播">直播</option>

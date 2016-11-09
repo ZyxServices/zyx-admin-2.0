@@ -28,32 +28,83 @@
                 <span class="selected"></span>
             </a>
         </li>
-        <%--活动--%>
-        <shiro:hasPermission name="menu:activity:list or menu:activity:group">
-            <li class="activity">
+        <%--攀岩管理--%>
+        <shiro:hasPermission
+                name="menu:climbing:banner or menu:climbing:equipment or menu:climbing:talentshow or menu:climbing:appointment or menu:climbing:venues">
+            <li class="climbing">
                 <a href="javascript:;">
                     <i class="icon-tags"></i>
-                    <span class="title">活动</span>
+                    <span class="title">攀岩管理</span>
                     <span class="arrow"></span>
                     <span class="selected hide"></span>
                 </a>
                 <ul class="sub-menu">
-                    <shiro:hasPermission name="menu:activity:list">
-                        <li class="list">
-                            <a href="<%=request.getContextPath()%>/menu/activity/list">活动列表<span
+                    <shiro:hasPermission name="menu:climbing:banner">
+                        <li class="banner">
+                            <a href="<%=request.getContextPath()%>/menu/climbing/banner">banner管理<span
                                     class="selected"></span></a>
                         </li>
                     </shiro:hasPermission>
-                    <shiro:hasPermission name="menu:activity:group">
-                        <li class="group">
-                            <a href="<%=request.getContextPath()%>/menu/activity/group">组合活动</a>
+                    <shiro:hasPermission name="menu:climbing:equipment">
+                        <li class="equipment">
+                            <a href="<%=request.getContextPath()%>/menu/climbing/equipment">装备控</a>
+                        </li>
+                    </shiro:hasPermission>
+                    <shiro:hasPermission name="menu:climbing:talentshow">
+                        <li class="talentshow">
+                            <a href="<%=request.getContextPath()%>/menu/climbing/talentshow">达人秀</a>
+                        </li>
+                    </shiro:hasPermission>
+                    <shiro:hasPermission name="menu:climbing:appointment">
+                        <li class="appointment">
+                            <a href="<%=request.getContextPath()%>/menu/climbing/appointment">求约</a>
+                        </li>
+                    </shiro:hasPermission>
+                    <shiro:hasPermission name="menu:climbing:venues">
+                        <li class="venues">
+                            <a href="<%=request.getContextPath()%>/menu/climbing/venues">场馆</a>
                         </li>
                     </shiro:hasPermission>
                 </ul>
             </li>
         </shiro:hasPermission>
+        <%--社区--%>
+        <shiro:hasPermission name="menu:community:dynamic or menu:community:grades">
+            <li class="community">
+                <a href="javascript:;">
+                    <i class="icon-globe"></i>
+                    <span class="title">社区管理</span>
+                    <span class="arrow"></span>
+                    <span class="selected hide"></span>
+                </a>
+                <ul class="sub-menu">
+                    <shiro:hasPermission name="menu:community:dynamic">
+                        <li class="dynamic">
+                            <a href="<%=request.getContextPath()%>/menu/community/dynamic">动态管理<span
+                                    class=""></span></a>
+                        </li>
+                    </shiro:hasPermission>
+                    <shiro:hasPermission name="menu:community:grades">
+                        <li class="grades">
+                            <a href="<%=request.getContextPath()%>/menu/community/grades">等级管理<span
+                                    class="selected"></span></a>
+                        </li>
+                    </shiro:hasPermission>
+                </ul>
+            </li>
+        </shiro:hasPermission>
+        <%--城市标签--%>
+        <shiro:hasPermission name="menu:city:city">
+            <li class="city">
+                <a href="<%=request.getContextPath()%>/menu/city/city">
+                    <i class="icon-play-circle"></i>
+                    <span class="title">城市</span>
+                    <span class="selected hide"></span>
+                </a>
+            </li>
+        </shiro:hasPermission>
         <%--直播--%>
-        <shiro:hasPermission name="menu:live:living">
+        <%--<shiro:hasPermission name="menu:live:living">
             <li class="live">
                 <a href="<%=request.getContextPath()%>/menu/live/living">
                     <i class="icon-play-circle"></i>
@@ -61,9 +112,9 @@
                     <span class="selected hide"></span>
                 </a>
             </li>
-        </shiro:hasPermission>
+        </shiro:hasPermission>--%>
         <%--动态--%>
-        <shiro:hasPermission name="menu:dynamic:dynamicIndex">
+        <%--<shiro:hasPermission name="menu:dynamic:dynamicIndex">
             <li class="dynamic">
                 <a href="<%=request.getContextPath()%>/menu/dynamic/dynamicIndex">
                     <i class="icon-heart"></i>
@@ -71,9 +122,9 @@
                     <span class="selected hide"></span>
                 </a>
             </li>
-        </shiro:hasPermission>
+        </shiro:hasPermission>--%>
         <%--圈子--%>
-        <shiro:hasPermission name="menu:circle:circlelist or menu:circle:circlepost or menu:circle:circleclassify" >
+        <%--<shiro:hasPermission name="menu:circle:circlelist or menu:circle:circlepost or menu:circle:circleclassify">
             <li class="circle">
                 <a href="javascript:;">
                     <i class="icon-globe"></i>
@@ -94,16 +145,11 @@
                                     class="selected"></span></a>
                         </li>
                     </shiro:hasPermission>
-       <%--             <shiro:hasPermission name="menu:circle:circlepost">
-                        <li class="circlepost postcreat">
-                            <a href="<%=request.getContextPath()%>/menu/circle/circlepost">帖子列表</a>
-                        </li>
-                    </shiro:hasPermission>--%>
                 </ul>
             </li>
-        </shiro:hasPermission>
+        </shiro:hasPermission>--%>
         <%--商城--%>
-        <shiro:hasPermission name="menu:shop:goods or menu:shop:order">
+        <%--<shiro:hasPermission name="menu:shop:goods or menu:shop:order">
             <li class="shop">
                 <a href="javascript:;">
                     <i class="icon-gift"></i>
@@ -124,7 +170,7 @@
                     </shiro:hasPermission>
                 </ul>
             </li>
-        </shiro:hasPermission>
+        </shiro:hasPermission>--%>
         <%--用户--%>
         <shiro:hasPermission
                 name="menu:appUser:allAppUser or menu:appUser:yrzAppUser or menu:appUser:dshAppUser or menu:appUser:officialAppUser">
@@ -170,7 +216,7 @@
             </li>
         </shiro:hasPermission>
         <%--banner推荐--%>
-        <shiro:hasPermission
+        <%--<shiro:hasPermission
                 name="menu:banner:activitybanner or menu:banner:livebanner or menu:banner:circlebanner or menu:banner:packagebanner or menu:banner:dynamicbanner">
             <li class="banner">
                 <a href="javascript:;">
@@ -212,7 +258,7 @@
                     </shiro:hasPermission>
                 </ul>
             </li>
-        </shiro:hasPermission>
+        </shiro:hasPermission>--%>
         <%--管理员管理--%>
         <shiro:hasPermission name="menu:sys:admin or menu:sys:roleList">
             <li class="sys">
@@ -236,17 +282,6 @@
                 </ul>
             </li>
         </shiro:hasPermission>
-        <%--<li>
-            <a class="active" href="javascript:;">
-                <i class="icon-sitemap"></i>
-                <span class="title">交易</span>
-                <span class="arrow "></span>
-            </a>
-            <ul class="sub-menu">
-                <li><a href="<%=request.getContextPath()%>/transaction/order">订单查询</a></li>
-                <li><a href="<%=request.getContextPath()%>/transaction/recharge">充值记录</a></li>
-            </ul>
-        </li>--%>
     </ul>
     <!-- END SIDEBAR MENU -->
 </div>

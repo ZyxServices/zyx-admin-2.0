@@ -50,7 +50,7 @@
             $("." + getSecondMenuObj[0]).find(".selected").show();
             return;
         }
-        if (getMenuObj == "circle" || getMenuObj == "shop" || getMenuObj == "appUser" || getMenuObj == "homepage" || getMenuObj == "banner" || getMenuObj == "sys" || getMenuObj == "activity") {
+        if (getMenuObj == "appUser" || getMenuObj == "sys" || getMenuObj == "climbing" || getMenuObj == "community") {
             $("." + getMenuObj).addClass("open");
             $("." + getMenuObj).addClass("active");
             $("." + getMenuObj).find(".arrow").addClass("open");
