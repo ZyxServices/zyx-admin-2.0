@@ -12,7 +12,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <meta content="体育家-首页banner" name="description" />
+    <meta content="体育家-banner管理" name="description" />
 
     <meta content="" name="author" />
 
@@ -35,11 +35,17 @@
                     <ul class="breadcrumb">
                         <li>
                             <i class="icon-home"></i>
-                            <a href="javascript:void(0)">banner</a>
+                            <a href="javascript:void(0)">攀岩馆banner</a>
                             <i class="icon-angle-right"></i>
                         </li>
                         <li><a href="#">列表</a></li>
                     </ul>
+                </div>
+                <div>
+                    <select class="form-control">
+                        <option value="1">攀岩馆banner</option>
+                        <option value="2">求约banner</option>
+                    </select>
                 </div>
             </div>
             <div id="banner-list">
@@ -49,12 +55,11 @@
                             <thead>
                             <tr>
                                 <th data-checkbox="true"></th>
-                                <th data-field="modelTitle">活动名称</th>
                                 <th data-field="id">ID</th>
-                                <th data-field="image">图片</th>
-                                <th data-field="sequence">排序</th>
-                                <th data-field="state">是否激活</th>
-                                <th data-field="createTime" data-formatter="timeFormat">创建时间</th>
+                                <th data-field="modelTitle">banner模块</th>
+                                <th data-field="image">banner位置</th>
+                                <th data-field="sequence">banner类型</th>
+                                <th data-field="state">图片</th>
                                 <th data-formatter="operate" data-events="operateEvents">操作</th>
                             </tr>
                             </thead>
