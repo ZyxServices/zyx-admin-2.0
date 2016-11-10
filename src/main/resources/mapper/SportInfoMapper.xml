@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.mapper.SportInfoMapper">
+    <resultMap id="sportInfodto" type="com.zyx.dto.SportInfoDto">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <id column="venue_id" jdbcType="INTEGER" property="venueId"/>
+        <result column="path" jdbcType="VARCHAR" property="path"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="level" jdbcType="VARCHAR" property="level"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
+        <result column="path_type" jdbcType="VARCHAR" property="pathType"/>
+        <result column="developer" jdbcType="VARCHAR" property="developer"/>
+        <result column="develop_time" jdbcType="VARCHAR" property="developTime"/>
+        <result column="path_length" jdbcType="INTEGER" property="pathLength"/>
+        <result column="visit_num" jdbcType="INTEGER" property="visitNum"/>
+        <result column="comment_num" jdbcType="INTEGER" property="commentNum"/>
+    </resultMap>
+
+    <select id="querySportInfo" parameterType="com.zyx.model.SportInfo" resultMap="sportInfodto">
+        select id,venue_id,path,url,level,score,path_type,developer,develop_time,path_length from t_sport_info where del=0
+        <if test="venueId != null and venueId != ''">
+            and venue_id =#{venueId}
+        </if>
+        ORDER BY create_time desc
+        <if test="pageNumber != null and page != null">
+            limit #{page}, #{pageNumber}
+        </if>
+    </select>
+
+    <select id="selectCountSportInfo" resultType="java.lang.Integer" parameterType="com.zyx.model.SportInfo">
+        SELECT COUNT(id) FROM t_sport_info WHERE del=0
+        <if test="venueId != null and venueId != ''">
+            and venue_id =#{venueId}
+        </if>
+    </select>
+
+
+    <update id="delSportInfo" parameterType="java.lang.Integer">
+        UPDATE t_sport_info SET del=1 WHERE  id=#{id}
+    </update>
+
+
+    <update id="updateSportInfo" parameterType="com.zyx.model.SportInfo">
+        UPDATE t_sport_info
+        <set>
+            <if test="path != null and path != ''">
+                path = #{path},
+            </if>
+            <if test="venueId != null and venueId != ''">
+                venue_id = #{venueId},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="level != null and level != ''">
+                level = #{level},
+            </if>
+            <if test="score != null and score != ''">
+                score = #{score},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{type},
+            </if>
+            <if test="pathType != null and pathType != ''">
+                path_type = #{pathType},
+            </if>
+            <if test="developer != null and developer != ''">
+                developer = #{developer},
+            </if>
+            <if test="developTime != null and developTime != ''">
+                develop_time = #{developTime},
+            </if>
+            <if test="pathLength != null and pathLength != ''">
+                path_length = #{pathLength},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+</mapper>

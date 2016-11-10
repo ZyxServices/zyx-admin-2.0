@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.mapper.VenueMapper">
+    <resultMap id="venuedto" type="com.zyx.dto.VenueDto">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="mark" jdbcType="VARCHAR" property="mark"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="level" jdbcType="VARCHAR" property="level"/>
+        <result column="img_urls" jdbcType="VARCHAR" property="imgUrls"/>
+    </resultMap>
+
+    <insert id="insertVenue" parameterType="com.zyx.model.Venue" useGeneratedKeys="true">
+        insert INTO t_venue(name,description,mark,city,type longitude,latitude,address,img_urls,phone,level,create_time)
+        VALUE (#{name}, #{description}, #{mark}, #{city},#{type},#{longitude},#{longitude},#{address},#{imgUrls},#{phone},#{level}, #{create_time})
+        <selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+            select LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+
+    <select id="queryVenue" parameterType="com.zyx.model.Venue" resultMap="venuedto">
+        select id,name,description,type,city,mark,level,address,phone,img_urls from t_venue where del=0
+        <if test="type != null and type != ''">
+            and TYPE =#{type}
+        </if>
+        <if test="mark != null and mark != ''">
+            and mark =#{mark}
+        </if>
+        <if test="city != null and city != ''">
+            and city =#{city}
+        </if>
+        <if test="name != null and name != ''">
+            and name LIKE CONCAT('%',#{name},'%' )
+        </if>
+        ORDER BY create_time desc
+        <if test="pageNumber != null and page != null">
+            limit #{page}, #{pageNumber}
+        </if>
+    </select>
+
+    <select id="selectCountVenue" resultType="java.lang.Integer" parameterType="com.zyx.model.Venue">
+        SELECT COUNT(id) FROM t_venue WHERE del=0
+        <if test="type != null and type != ''">
+            and TYPE =#{type}
+        </if>
+        <if test="mark != null and mark != ''">
+            and mark =#{mark}
+        </if>
+        <if test="city != null and city != ''">
+            and city =#{city}
+        </if>
+        <if test="name != null and name != ''">
+            and name LIKE CONCAT('%',#{name},'%' )
+        </if>
+    </select>
+
+    <update id="delVenue" parameterType="java.lang.Integer">
+        UPDATE t_venue SET del=1 WHERE  id=#{id}
+    </update>
+
+    <update id="updateVenue" parameterType="com.zyx.model.Venue">
+        UPDATE t_venue
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="mark != null and mark != ''">
+                mark = #{mark},
+            </if>
+            <if test="city != null and city != ''">
+                city = #{city},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{type},
+            </if>
+            <if test="longitude != null and longitude != ''">
+                longitude = #{longitude},
+            </if>
+            <if test="latitude != null and latitude != ''">
+                latitude = #{latitude},
+            </if>
+            <if test="latitude != null and latitude != ''">
+                latitude = #{latitude},
+            </if>
+            <if test="address != null and address != ''">
+              address = #{address},
+            </if>
+            <if test="imgUrls != null and imgUrls != ''">
+                img_urls = #{imgUrls},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="level != null and level != ''">
+                level = #{level},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+</mapper>
