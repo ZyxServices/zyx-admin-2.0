@@ -75,6 +75,7 @@ public class VenueServiceIml extends BaseServiceImpl<Venue> implements VenueServ
 
     @Override
     public Map<String, Object> queryVenue(Venue venue) {
+        venue.setPage(venue.getPage()*venue.getPageNumber());
         List<VenueDto> venues = venueMapper.queryVenue(venue);
         int i = venueMapper.selectCountVenue(venue);
         if (venues != null && venues.size() > 0) {

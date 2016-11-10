@@ -69,6 +69,7 @@ public class SportInfoServiceImp extends BaseServiceImpl<SportInfo> implements S
 
     @Override
     public Map<String, Object> querySportInfo(SportInfo pathLevel) {
+        pathLevel.setPage(pathLevel.getPage()*pathLevel.getPageNumber());
         List<SportInfoDto> sportInfoDtos = sportInfoMapper.querySportInfo(pathLevel);
 
         int i = sportInfoMapper.selectCountSportInfo(pathLevel);
