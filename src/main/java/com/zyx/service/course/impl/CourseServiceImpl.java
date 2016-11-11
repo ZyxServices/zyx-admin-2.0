@@ -75,7 +75,7 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
         int i = courseMapper.selectCountCourse();
         if(courses!=null && courses.size() > 0){
             Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", courses);
-            map.put("dataCount", i);
+            map.put("total", i);
             return map;
         } else {
             return MapUtils.buildErrorMap(Constants.NO_DATA, "查无数据");
@@ -93,7 +93,6 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
             Course course = new Course();
             course.setTitle(title);
             List<Course> courses = courseMapper.queryByTitle(course);
-            System.out.println("**********"+courses.get(0));
             if (courses != null && courses.size() > 0) {
                 return MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", courses);
             } else {
