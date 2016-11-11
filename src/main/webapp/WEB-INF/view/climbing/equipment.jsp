@@ -2,23 +2,24 @@
   Created by IntelliJ IDEA.
   User: ZYX
   Date: 2016/11/9
-  Time: 14:30
+  Time: 17:19
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>首页banner</title>
+    <title>装备控</title>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <meta content="体育家-首页banner" name="description" />
+    <meta content="体育家-装备控" name="description" />
 
-    <meta content="" name="author" />
+    <meta content="属于活动" name="author" />
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <jsp:include page="../public/common-styles.jsp"/>
-
+    <link rel="stylesheet" href="../../css/summernote.css" />
+    <link rel="stylesheet" href="../../css/datetimepicker.css" />
     <link rel="stylesheet" href="../../css/tiyujia/style.css" />
 </head>
 <body class="page-header-fixed">
@@ -26,113 +27,89 @@
 <div class="page-container">
     <jsp:include page="../public/nav.jsp"/>
     <div class="page-content">
-        <div class="container-fluid" id="bannerList">
+        <div class="container-fluid" id="activityList">
             <div class="row-fluid">
                 <div class="span12">
                     <h3 class="page-title">
-                        首页banner管理<small>statistics and more</small>
+                        装备控<small>statistics and more</small>
                     </h3>
-                    <ul class="breadcrumb">
-                        <li>
-                            <i class="icon-home"></i>
-                            <a href="javascript:void(0)">首页banner</a>
-                            <i class="icon-angle-right"></i>
-                        </li>
-                        <li><a href="#">列表</a></li>
-                    </ul>
+                    <HR style="border:1 dashed #987cb9;margin: 5px 0 12px 0" width="100%" color=rgb(51, 51, 51) SIZE=1>
                 </div>
             </div>
-            <div id="banner-list">
+            <div id="activity-list">
+                <div class="row-fluid margin-bottom-10">
+                    <div class="span6">
+                        <a class="btn btn-default" href="javascript:void(0)" onclick="createActivity()">发布帖子</a>
+                        <a class="btn btn-default" href="javascript:void(0)" onclick="manageLabel()">装备管理标签</a>
+                    </div>
+                </div>
+                <h3 class="page-title"> 装备帖子管理</h3>
+                <HR style="border:1 dashed #987cb9;margin: 5px 0" width="100%" color=rgb(51, 51, 51) SIZE=1>
                 <div class="row-fluid">
                     <div class="span12 responsive">
-                        <table id="homepage-list-table">
-                            <thead>
-                            <tr>
-                                <th data-checkbox="true"></th>
-                                <th data-field="modelTitle">活动名称</th>
-                                <th data-field="id">ID</th>
-                                <th data-field="image">图片</th>
-                                <th data-field="sequence">排序</th>
-                                <th data-field="state">是否激活</th>
-                                <th data-field="createTime" data-formatter="timeFormat">创建时间</th>
-                                <th data-formatter="operate" data-events="operateEvents">操作</th>
-                            </tr>
-                            </thead>
-                        </table>
+                        <table id="dynamic_table"></table>
                     </div>
                 </div>
             </div>
-
         </div>
-        <%--编辑banner--%>
-        <div class="container-fluid hide" id="bannerEdit">
+        <%--活动创建修改预览--%>
+        <div class="container-fluid hide" id="createModify">
+
+            <!-- BEGIN PAGE HEADER-->
+
             <div class="row-fluid">
+
                 <div class="span12">
-                    <h3 class="page-title">
-                        首页banner管理<small>statistics and more</small>
+
+                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+
+                    <h3 class="page-title" id="pageTitle">
+
+                        发布帖子
+
                     </h3>
-                    <ul class="breadcrumb">
-                        <li>
-                            <i class="icon-home"></i>
-                            <a href="javascript:void(0)">首页banner</a>
-                            <i class="icon-angle-right"></i>
-                        </li>
-                        <li><a href="#">编辑banner</a></li>
-                    </ul>
+                    <HR style="border:1 dashed #987cb9;margin: 5px 0" width="100%" color=rgb(51, 51, 51) SIZE=1>
+
+                    <!-- END PAGE TITLE & BREADCRUMB-->
+
                 </div>
+
             </div>
-            <div id="banner-edit">
+
+            <!-- END PAGE HEADER-->
+
+            <div id="create-modify">
+
+                <!-- BEGIN DASHBOARD STATS -->
                 <div class="row-fluid">
 
-                    <form class="form-horizontal" role="form" id="bannerForm">
-                        <input type="hidden" name="id" id="devaId">
+                    <form id="updateCreateFrom" enctype="multipart/form-data" class="form-horizontal" role="form">
+                        <input type="hidden" name="id" id="avtivityId" value="">
                         <div class="control-group form-group">
-                            <label class="control-label">活动名称</label>
+                            <label class="control-label">标题</label>
                             <div class="controls col-xs-5">
-                                <input type="text" id="title" class="span6" disabled/>
+                                <input type="text" id="title" name="title" class="span3" placeholder="请输入活动标题"/>
+                                <span class="help-inline required">*</span>
                             </div>
                         </div>
 
-                        <div class="control-group">
-                            <label class="control-label">活动原有封面图</label>
-                            <div class="controls" id="preImage">
-
-                            </div>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label">banner排序</label>
-                            <div class="controls">
-                                <select class="span6" id="sequence" name="sequence">
-
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label">banner状态</label>
-                            <div class="controls">
-                                <label class="radio"><input type="radio" name="state" value="1">激活</label>
-                                <label class="radio"><input type="radio" name="state" value="0">未激活</label>
-                            </div>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label">封面</label>
-                            <div class="controls">
-                                <input type="hidden" name="imageUrl" id="imageUrl">
-                                <input id="lefile" type="file" class="hideInput">
-                                <a class="btn btn-default" href="javascript:void (0)" id="photoCover" onclick="$('input[id=lefile]').click();">选择图片</a>
-                                <div style="margin-top: 10px" id="imagesWrap" class="showImg">
-                                    <img id="images" src="">
+                        <div class="control-group form-group">
+                            <label class="control-label">内容</label>
+                            <div class="controls summernote">
+                                <div class="span6 col-xs-5">
+                                    <div id="activity-summernote"></div>
+                                    <input id="desc" type="text" class="hideInput" name="desc" value="">
                                 </div>
+                                <span class="help-inline required">*</span>
                             </div>
                         </div>
+
+                        <hr>
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <a href="javascript:(0)" id="confirmDeva" class="btn btn-default">确定</a>
-                                <a href="javascript:(0)" class="btn btn-default" onclick="window.location.reload();">返回</a>
+                                <button class="btn btn-default" id="czS">确定</button>
+                                <a href="javascript:void(0)" class="btn btn-default" onclick="window.location.reload();">返回</a>
                             </div>
                         </div>
                     </form>
@@ -144,8 +121,40 @@
             </div>
 
         </div>
-        <!-- END PAGE CONTAINER-->
 
+        <div class="container-fluid hide" id="manageLabel">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid">
+
+                <div class="span12">
+
+                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+
+                    <h3 class="page-title" >
+
+                        装备标签管理
+
+                    </h3>
+                    <HR style="border:1 dashed #987cb9;margin: 5px 0" width="100%" color=rgb(51, 51, 51) SIZE=1>
+
+                    <!-- END PAGE TITLE & BREADCRUMB-->
+
+                </div>
+
+            </div>
+
+            <!-- END PAGE HEADER-->
+            <table id="labelTabel"></table>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-default" >确定</button>
+                    <a href="javascript:void(0)" class="btn btn-default" onclick="window.location.reload();">返回</a>
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <!-- END PAGE -->
@@ -156,12 +165,13 @@
 
 <!-- BEGIN FOOTER -->
 
+
 <jsp:include page="../public/footer.jsp"/>
 <jsp:include page="../public/common-js.jsp"/>
+
 <script src="../../js/app.js" type="text/javascript"></script>
-<script src="../../js/index.js" type="text/javascript"></script>
-<script type="text/javascript" src="../../js/banner/bannerCommon.js"></script>
-<script type="text/javascript" src="../../js/banner/activitybanner.js"></script>
+<script type="text/javascript" src="../../js/activity/list.js"></script>
+<script type="text/javascript" src="../../js/climbing/equipment.js"></script>
 <script>
 
     jQuery(document).ready(function() {

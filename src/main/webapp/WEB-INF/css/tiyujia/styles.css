@@ -35,3 +35,9 @@
 .bootstrap-table button.btn, input[name="refresh"].btn{
     padding: 10px 14px;
 }
+.form-horizontal .control-label{
+    width: 37px;
+}
+.form-horizontal .controls{
+    margin-left: 80px;
+}

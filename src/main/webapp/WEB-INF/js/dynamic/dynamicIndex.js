@@ -451,45 +451,45 @@ $(function () {
     //    }
     //    return url;
     //}
-    $("#demo").zyUpload({
-        width: "400px",                 // 宽度
-        height: "200px",                 // 宽度
-        itemWidth: "100px",                 // 文件项的宽度
-        itemHeight: "100px",                 // 文件项的高度
-        url: "/v1/upload/file",  // 上传文件的路径
-        fileType: ["jpg", "png", "jpeg", "bmp", "gif"],// 上传文件的类型
-        fileSize: 51200000,                // 上传文件的大小
-        tailor: false,                    // 是否可以裁剪图片
-        multiple: true,                    // 是否可以多个文件上传
-        dragDrop: true,                    // 是否可以拖动上传文件
-        del: true,                    // 是否可以删除文件
-        finishDel: false,  				  // 是否在上传文件完成后删除预览
-        fileNumber: 9,
-        mustUpload: function () {
-            $('#DynamicSubmit').click();
-        },
-        /* 外部获得的回调接口 */
-        onSelect: function (files, allFiles) {                    // 选择文件的回调方法
-        },
-        onDelete: function (file, surplusFiles) {                     // 删除一个文件的回调方法
-        },
-        onSuccess: function (file, response) {                    // 文件上传成功的回调方法
-            if (JSON.parse(response).state == 902) {
-                alert(JSON.parse(response).errmsg)
-            } else {
-                console.log(JSON.parse(response).data.url)
-                $('#imgFileUrl').val() != '' ? $('#imgFileUrl').val($('#imgFileUrl').val() + ',' + JSON.parse(response).data.url) : $('#imgFileUrl').val(JSON.parse(response).data.url)
-            }
-        },
-        onFailure: function (file) {                    // 文件上传失败的回调方法
-            console.info("此文件上传失败：");
-            console.info(file);
-        },
-        onComplete: function (responseInfo) {           // 上传完成的回调方法
-            $('#DynamicSubmit').click();
-            $('#imgFileUrl').val($('#imgFileUrl').val().substr(0, $('#imgFileUrl').val().length))
-        }
-    });
+    //$("#demo").zyUpload({
+    //    width: "400px",                 // 宽度
+    //    height: "200px",                 // 宽度
+    //    itemWidth: "100px",                 // 文件项的宽度
+    //    itemHeight: "100px",                 // 文件项的高度
+    //    url: "/v1/upload/file",  // 上传文件的路径
+    //    fileType: ["jpg", "png", "jpeg", "bmp", "gif"],// 上传文件的类型
+    //    fileSize: 51200000,                // 上传文件的大小
+    //    tailor: false,                    // 是否可以裁剪图片
+    //    multiple: true,                    // 是否可以多个文件上传
+    //    dragDrop: true,                    // 是否可以拖动上传文件
+    //    del: true,                    // 是否可以删除文件
+    //    finishDel: false,  				  // 是否在上传文件完成后删除预览
+    //    fileNumber: 9,
+    //    mustUpload: function () {
+    //        $('#DynamicSubmit').click();
+    //    },
+    //    /* 外部获得的回调接口 */
+    //    onSelect: function (files, allFiles) {                    // 选择文件的回调方法
+    //    },
+    //    onDelete: function (file, surplusFiles) {                     // 删除一个文件的回调方法
+    //    },
+    //    onSuccess: function (file, response) {                    // 文件上传成功的回调方法
+    //        if (JSON.parse(response).state == 902) {
+    //            alert(JSON.parse(response).errmsg)
+    //        } else {
+    //            console.log(JSON.parse(response).data.url)
+    //            $('#imgFileUrl').val() != '' ? $('#imgFileUrl').val($('#imgFileUrl').val() + ',' + JSON.parse(response).data.url) : $('#imgFileUrl').val(JSON.parse(response).data.url)
+    //        }
+    //    },
+    //    onFailure: function (file) {                    // 文件上传失败的回调方法
+    //        console.info("此文件上传失败：");
+    //        console.info(file);
+    //    },
+    //    onComplete: function (responseInfo) {           // 上传完成的回调方法
+    //        $('#DynamicSubmit').click();
+    //        $('#imgFileUrl').val($('#imgFileUrl').val().substr(0, $('#imgFileUrl').val().length))
+    //    }
+    //});
     $(window).resize(function () {
         $('#dynamic_table').bootstrapTable('resetView');
     });
