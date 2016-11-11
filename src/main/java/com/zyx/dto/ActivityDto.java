@@ -44,6 +44,20 @@ public class ActivityDto {
 
     private  boolean isDeva;
 
+    /**
+     * 点赞数量
+     */
+    private  int zanNum;
+
+    /**
+     * 浏览数
+     */
+    private  int viewNum;
+    /**
+     * 报名数
+     */
+    private  int joinNum;
+
     public Integer getId() { return id; }
 
     public void setId(Integer id) { this.id = id; }
@@ -131,4 +145,16 @@ public class ActivityDto {
     public String getUserName() { return userName; }
 
     public void setUserName(String userName) { this.userName = userName; }
+
+    public int getJoinNum() { return joinNum; }
+
+    public void setJoinNum(int joinNum) { this.joinNum = joinNum; }
+
+    public int getViewNum() { return viewNum; }
+
+    public void setViewNum(int viewNum) { this.viewNum = viewNum; }
+
+    public int getZanNum() { return zanNum; }
+
+    public void setZanNum(int zanNum) { this.zanNum = zanNum; }
 }

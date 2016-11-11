@@ -35,7 +35,7 @@ import static com.zyx.utils.GetTimeUtil.getDateTime;
  * @update 16-7-12 下午2:27
  */
 @Controller
-@RequestMapping("/v1/activity")
+@RequestMapping("/v2/activity")
 public class ActivityController {
 
     @Resource
@@ -91,45 +91,20 @@ public class ActivityController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiOperation(value = "活动修改", notes = "活动修改")
     public ModelAndView update(@ApiParam(name = "id",required = true,value = "主键id")@RequestParam(name = "id", required = true) Integer id,
-                               @ApiParam(name = "userId",required = true,value = "用户id") @RequestParam(name = "userId", required = true) Integer userId,
                                @ApiParam(name = "title",required = true,value = "活动名称")@RequestParam(name = "title", required = true) String title,
                                @ApiParam(name = "descContent",required = true,value = "活动简介")@RequestParam(name = "descContent", required = true) String descContent,
-                               @ApiParam(name = "imageUrls",required = false,value = "活动图片")@RequestParam(name = "imageUrls", required = false) String imageUrls,
                                @ApiParam(name = "activityType",required = true,value = "活动类型 1-求约 2-求带")@RequestParam(name = "activityType", required = true) Integer activityType,
-                               @ApiParam(name = "activityModule",required = false,value = "活动模块 1-攀岩 2-跑步")@RequestParam(name = "activityModule", required = false) Integer activityModule,
-                               @ApiParam(name = "startTime",required = false,value = "活动开始时间")@RequestParam(name = "startTime", required = true) String startTime,//转时间戳
-                               @ApiParam(name = "endTime",required = false,value = "活动结束时间")@RequestParam(name = "endTime", required = true) String endTime,//转时间戳
-                               @ApiParam(name = "lastTime",required = false,value = "活动报名截止时间")@RequestParam(name = "lastTime", required = true) String lastTime,//转时间戳
-                               @ApiParam(name = "address",required = false,value = "活动集合地点")@RequestParam(name = "address", required = false) String address,
-                               @ApiParam(name = "city",required = false,value = "城市")@RequestParam(name = "city", required = false) String city,
-                               @ApiParam(name = "maxPeople",required = false,value = "活动人数上限")@RequestParam(name = "maxPeople", required = false) Integer maxPeople,
                                @ApiParam(name = "price",required = false,value = "活动金额")@RequestParam(name = "price", required = false) Double price,
-                               @ApiParam(name = "targetUrl",required = false,value = "活动跳转地址")@RequestParam(name = "targetUrl", required = false) String targetUrl,
-                               @ApiParam(name = "type",required = false,value = "活动分类 0官方 1用户")@RequestParam(name = "type", required = true) Integer type,
                                @ApiParam(name = "paymentType",required = false,value = "付费类型 0-奖励 1-免费 2-AA")@RequestParam(name = "paymentType", required = false) Integer paymentType) {
 
         AbstractView jsonView = new MappingJackson2JsonView();
         Activity activity = new Activity();
         activity.setId(id);
-        activity.setUserId(userId);
         activity.setTitle(title);
         activity.setDescContent(descContent);
-        activity.setImgUrls(imageUrls);
         activity.setActivityType(activityType);
-        activity.setActivityModule(activityModule);
-
-        activity.setStartTime(getDateTime(startTime));
-        activity.setEndTime(getDateTime(endTime));
-        activity.setLastTime(getDateTime(lastTime));
-
-        activity.setAddress(address);
-        activity.setCity(city);
-        activity.setMaxPeople(maxPeople != null ? maxPeople : 9999);
-
         activity.setPrice(price != null ? price : 0);
-        activity.setType(type);
         activity.setPaymentType(paymentType);
-
         Map<String, Object> map = activityService.updateActivity(activity);
 
         jsonView.setAttributesMap(map);

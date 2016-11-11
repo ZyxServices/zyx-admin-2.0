@@ -15,6 +15,8 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import java.util.Map;
 
+import static org.bouncycastle.asn1.x500.style.RFC4519Style.name;
+
 /**
  * Created by HL on 2016/11/7.
  */
@@ -32,7 +34,7 @@ public class VenueController {
                                 @ApiParam(name = "name",required = true, value = "场馆名称")
                                 @RequestParam(name = "name",required = true)String name,
                                 @ApiParam(name = "level",required = true, value = "难度系数")
-                                @RequestParam(name = "level",required = true)String level,
+                                @RequestParam(name = "level",required = true)Integer level,
                                 @ApiParam(name = "address",required = true, value = "场馆地址")
                                 @RequestParam(name = "address",required = true)String address,
                                 @ApiParam(name = "longitude",required = true, value = "经度")
@@ -84,8 +86,8 @@ public class VenueController {
                                @RequestParam(name ="id",required =true)Integer id,
                                @ApiParam(name = "name",required = true, value = "场馆名称")
                                @RequestParam(name = "name",required = true)String name,
-                               @ApiParam(name = "level",required = true, value = "难度系数")
-                               @RequestParam(name = "level",required = true)String level,
+                               @ApiParam(name = "level",required = true, value = "难度系数、正整数")
+                               @RequestParam(name = "level",required = true)Integer level,
                                @ApiParam(name = "address",required = true, value = "场馆地址")
                                @RequestParam(name = "address",required = true)String address,
                                @ApiParam(name = "longitude",required = true, value = "经度")

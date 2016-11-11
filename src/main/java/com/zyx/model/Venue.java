@@ -60,16 +60,16 @@ public class Venue extends  BaseModel{
     /**
      * 场馆综合难度等级
      */
-    private  String level;
+    private  Integer level;
     /**
      * 创建时间
      */
     @Column(name = "create_time")
     private  Long createTime;
 
-    public String getLevel() { return level; }
+    public Integer getLevel() { return level; }
 
-    public void setLevel(String level) { this.level = level; }
+    public void setLevel(Integer level) { this.level = level; }
 
     public String getDescription() { return description; }
 
