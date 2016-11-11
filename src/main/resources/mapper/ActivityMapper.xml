@@ -29,6 +29,9 @@
         <association property="userName" column="user_id"
                      select="com.zyx.mapper.AppUserMapper.selectAppUserGetName"></association>
         <association property="isDeva" column="id" select="queryIsDeva"></association>
+        <association property="viewNum" column="id" select="queryViewNum"></association>
+        <association property="zanNum" column="id" select="queryZanNum"></association>
+        <association property="joinNum" column="id" select="queryJoinNum"></association>
     </resultMap>
 
 
@@ -67,6 +70,19 @@
     <select id="queryIsDeva" parameterType="java.lang.Integer" resultType="boolean">
         SELECT NOT ISNULL(id) as isDeva FROM devaluation WHERE model = 1 AND model_id = #{id}
     </select>
+
+    <select id="queryJoinNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT count(id) from activity_member WHERE activity_id=#{id}
+    </select>
+
+    <select id="queryZanNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT 0
+    </select>
+
+    <select id="queryViewNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT 0
+    </select>
+
 
     <select id="selectCountActivity" resultType="java.lang.Integer">
         SELECT COUNT(id) FROM activity WHERE  del = 0 AND mask = 0
