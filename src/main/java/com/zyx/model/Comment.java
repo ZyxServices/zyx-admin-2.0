@@ -9,7 +9,7 @@ public class Comment {
     private Integer id;
 
     /**
-     * 回复类型，0：圈子,1:帖子，2：活动，3：动态，4：直播
+     * 回复类型，0：圈子,1:帖子，2：活动，3：动态，4：直播,5:装备贴
      */
     @Column(name = "comment_type")
     private Integer commentType;

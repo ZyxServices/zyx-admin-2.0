@@ -73,7 +73,7 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
         course.setPageNumber(pageNumber);
         List<Course> courses = courseMapper.queryCourse(course);
         int i = courseMapper.selectCountCourse();
-        if(courses!=null && courses.size() > 0){
+        if(courses !=null && courses.size() > 0){
             Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", courses);
             map.put("total", i);
             return map;
