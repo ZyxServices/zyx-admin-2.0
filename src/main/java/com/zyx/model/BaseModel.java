@@ -9,19 +9,21 @@ import javax.persistence.Transient;
  */
 public class BaseModel {
     /**
-     * 每页数量
+     * 每页数量,默认一页取10条数据
      */
     @Transient//使用此注解改字段不会映射为表字段
-    private  Integer pageNumber=0;
+    private  Integer pageNumber=10;
     /**
-     * 页码 默认一页取10条数据
+     * 页码
      */
     @Transient
-    private  Integer page=10;
+    private  Integer page;
+
     /**
      * 删除标记 0-正常 1-删除
      */
     private  int del;
+
     public Integer getPageNumber() { return pageNumber; }
 
     public void setPageNumber(Integer pageNumber) { this.pageNumber = pageNumber; }
@@ -33,4 +35,5 @@ public class BaseModel {
     public int getDel() { return del; }
 
     public void setDel(int del) { this.del = del; }
+
 }

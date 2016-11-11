@@ -1,17 +1,9 @@
 package com.zyx.document;
 
-import static com.google.common.base.Predicates.or;
-import static springfox.documentation.builders.PathSelectors.regex;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import com.google.common.base.Predicate;
 import com.zyx.jopo.BaseResponse;
-
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -20,6 +12,12 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import static com.google.common.base.Predicates.or;
+import static springfox.documentation.builders.PathSelectors.regex;
 
 @Configuration
 @EnableSwagger2 //Loads the spring beans required by the framework
@@ -138,6 +136,18 @@ public class MySwaggerConfig {
                 .apiInfo(sportInfoApiInfo());
     }
 
+    public Docket courseApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("course-api")
+                .select()  // 选择那些路径和api会生成document
+                .apis(RequestHandlerSelectors.basePackage("com.zyx.controller.course"))
+                .paths(PathSelectors.any()) // 对所有路径进行监控
+                .build()
+                .apiInfo(courseApiInfo());
+    }
+
+
+
     private ApiInfo liveApiInfo() {
         ApiInfo apiInfo = new ApiInfo("直播接口API",//大标题
                 "图文直播，视频直播",//小标题
@@ -202,7 +212,6 @@ public class MySwaggerConfig {
 
         return apiInfo;
     }
-
     private ApiInfo venueApiInfo() {
         ApiInfo apiInfo = new ApiInfo("运营端场馆接口API",//大标题
                 "用户操作",//小标题
@@ -222,6 +231,18 @@ public class MySwaggerConfig {
                 "2.0",//版本
                 "成都term",
                 new Contact("胡林", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
+                "智悠行",//链接显示文字
+                "http://112.74.112.143:8081/ui/Delta/index.html "//网站链接
+        );
+        return apiInfo;
+    }
+
+    private ApiInfo courseApiInfo() {
+        ApiInfo apiInfo = new ApiInfo("教程攻略接口API",//大标题
+                "教程攻略，教程标签",//小标题
+                "0.2",//版本
+                "成都term",
+                "赵家兴",//作者
                 "智悠行",//链接显示文字
                 "http://112.74.112.143:8081/ui/Delta/index.html "//网站链接
         );

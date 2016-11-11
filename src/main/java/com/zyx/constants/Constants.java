@@ -264,14 +264,22 @@ public interface Constants {
      * 活动模块（求约）
      */
     int MODEL_ACTIVITY = 2;
-    /**
-     * 教程攻略
-     */
-    int MODEL_COURSE=1;
 
+
+    /**
+     * 教程模块
+     */
+    int MODEL_COURSE=8;
 
     Map<Integer, String> devaNames = new HashMap() {{
         put(1, "courseDevas");
         put(2, "activityDevas");
+        put(1, "activityDevas");
+        put(2, "liveDevas");
+        put(3, "cirleDevas");
+        put(4, "cirleItemDevas");
+        put(5, "concerDevas");
+        put(6, "userDevas");
+        put(8,"courseDevas");
     }};
 }

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.mapper.CourseMapper">
+    <resultMap id="course" type="com.zyx.model.Course">
+
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="img_urls" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+        <result column="course_type" jdbcType="VARCHAR" property="courseType"/>
+        <result column="label_id" jdbcType="VARCHAR" property="labelId"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+
+    </resultMap>
+
+
+    <select id="queryCourse" parameterType="com.zyx.model.Course" resultMap="course">
+        select * from t_course where 1=1
+        <if test="labelId != null and labelId != ''">
+            and label_id=#{labelId}
+        </if>
+        <if test="courseType != null and courseType != ''">
+            and course_type=#{courseType}
+        </if>
+        AND del = 0 AND mask = 0
+        ORDER BY create_time desc
+        <if test="pageNumber != null and page != null">
+            limit #{page}, #{pageNumber}
+        </if>
+    </select>
+
+
+    <select id="queryByTitle" parameterType="com.zyx.model.Course" resultMap="course">
+        SELECT * FROM  t_course where 1=1
+        <if test="title !=null and title !=''">
+            AND title like '%${title}%'
+        </if>
+
+        AND del = 0 AND mask = 0
+        ORDER BY create_time desc
+        <if test="pageNumber != null and page != null">
+            limit #{page}, #{pageNumber}
+        </if>
+
+    </select>
+
+
+    <update id="updateCourse" parameterType="com.zyx.model.Course">
+        UPDATE t_course
+        <set>
+            <if test="userId != null and userId != ''">
+                user_id = #{userId},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="imgUrl != null and imgUrl != ''">
+                img_urls = #{imgUrl},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="courseType != null and courseType != ''">
+                course_type = #{courseType},
+            </if>
+            <if test="labelId != null and labelId != ''">
+                label_id = #{labelId},
+            </if>
+            <if test="createTime != null and createTime != 0">
+                create_time = #{createTime},
+            </if>
+            <if test="del != null">
+                del = #{del},
+            </if>
+            <if test="mask != null">
+                mask = #{mask}
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+
+    <select id="queryIsDeva" parameterType="java.lang.Integer" resultType="boolean">
+        SELECT NOT ISNULL(id) as isDeva FROM devaluation WHERE model = 8 AND model_id = #{id}
+    </select>
+
+    <select id="selectCountCourse" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM t_course WHERE del = 0 AND mask = 0;
+    </select>
+
+
+</mapper>
