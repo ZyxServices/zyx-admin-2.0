@@ -82,4 +82,9 @@ public class DevaServiceImpl extends BaseServiceImpl<Devaluation> implements Dev
     public void cascadeDelete(Integer model, Integer modelId) {
         cascadeDelete(null,model,modelId);
     }
+
+    @Override
+    public int delDeval(Integer id) {
+        return devaMapper.delDeval(id);
+    }
 }

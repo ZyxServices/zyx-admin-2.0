@@ -39,4 +39,11 @@ public interface DevaService extends BaseService<Devaluation>{
 
     void cascadeDelete(Integer area,Integer model,Integer modelId);
     void cascadeDelete(Integer model,Integer modelId);
+
+    /**
+     * 逻辑删除
+     * @param id
+     * @return
+     */
+    int delDeval(Integer id);
 }

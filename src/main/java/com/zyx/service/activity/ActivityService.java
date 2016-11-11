@@ -26,11 +26,11 @@ public interface ActivityService extends BaseService<Activity>{
     /**
      * 多条条件查询活动
      *
-     * @param pageDataNumber
-     * @param pageNumber
+     * @param activity
+     * @param
      * @return
      */
-    Map<String, Object> queryActivity(int pageDataNumber, int pageNumber,String searchText);
+    Map<String, Object> queryActivity(Activity activity);
 
     /**
      * 通过ID查询活动
@@ -59,9 +59,9 @@ public interface ActivityService extends BaseService<Activity>{
     /**
      * 删除活动 （逻辑删除）
      *
-     * @param delType
+     * @param
      * @return
      */
-    Map<String, Object> delActivity(String id,int delType);
+    Map<String, Object> delActivity(String id);
 
 }

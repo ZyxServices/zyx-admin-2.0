@@ -9,58 +9,53 @@
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="img_urls" jdbcType="VARCHAR" property="imgUrls"/>
+        <result column="desc_content" jdbcType="LONGVARCHAR" property="descContent"/>
+        <result column="activity_type" jdbcType="INTEGER" property="activityType"/>
+        <result column="activity_module" jdbcType="INTEGER" property="activityModule"/>
         <result column="start_time" jdbcType="BIGINT" property="startTime"/>
         <result column="end_time" jdbcType="BIGINT" property="endTime"/>
         <result column="last_time" jdbcType="BIGINT" property="lastTime"/>
-        <result column="max_people" jdbcType="INTEGER" property="maxPeople"/>
-        <result column="visible" jdbcType="INTEGER" property="visible"/>
-        <result column="phone" jdbcType="VARCHAR" property="phone"/>
-        <result column="price" jdbcType="DECIMAL" property="price"/>
-        <result column="type" jdbcType="INTEGER" property="type"/>
-        <result column="target_url" jdbcType="VARCHAR" property="targetUrl"/>
         <result column="address" jdbcType="VARCHAR" property="address"/>
-        <result column="examine" jdbcType="INTEGER" property="examine"/>
-        <result column="member_template" jdbcType="VARCHAR" property="memberTemplate"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="max_people" jdbcType="INTEGER" property="maxPeople"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="target_url" jdbcType="VARCHAR" property="targetUrl"/>
+        <result column="payment_type" jdbcType="INTEGER" property="paymentType"/>
         <result column="create_time" jdbcType="BIGINT" property="createTime"/>
-        <result column="del" jdbcType="INTEGER" property="del"/>
         <result column="mask" jdbcType="INTEGER" property="mask"/>
-        <result column="desc_content" jdbcType="LONGVARCHAR" property="descContent"/>
     </resultMap>
-    <resultMap id="activitydto" type="com.zyx.dto.ActivityDto">
-        <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="user_id" jdbcType="INTEGER" property="userId"/>
-        <result column="title" jdbcType="VARCHAR" property="title"/>
-        <result column="img_urls" jdbcType="VARCHAR" property="imgUrls"/>
-        <result column="start_time" jdbcType="BIGINT" property="startTime"/>
-        <result column="end_time" jdbcType="BIGINT" property="endTime"/>
-        <result column="last_time" jdbcType="BIGINT" property="lastTime"/>
-        <result column="max_people" jdbcType="INTEGER" property="maxPeople"/>
-        <result column="visible" jdbcType="INTEGER" property="visible"/>
-        <result column="phone" jdbcType="VARCHAR" property="phone"/>
-        <result column="price" jdbcType="DECIMAL" property="price"/>
-        <result column="type" jdbcType="INTEGER" property="type"/>
-        <result column="target_url" jdbcType="VARCHAR" property="targetUrl"/>
-        <result column="address" jdbcType="VARCHAR" property="address"/>
-        <result column="examine" jdbcType="INTEGER" property="examine"/>
-        <result column="member_template" jdbcType="VARCHAR" property="memberTemplate"/>
-        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
-        <result column="del" jdbcType="INTEGER" property="del"/>
-        <result column="mask" jdbcType="INTEGER" property="mask"/>
-        <result column="desc_content" jdbcType="LONGVARCHAR" property="descContent"/>
+    <resultMap id="activitydto" type="com.zyx.dto.ActivityDto" extends="activity">
         <association property="userName" column="user_id"
                      select="com.zyx.mapper.AppUserMapper.selectAppUserGetName"></association>
         <association property="isDeva" column="id" select="queryIsDeva"></association>
     </resultMap>
 
 
-    <select id="queryActivity" parameterType="com.zyx.parm.activity.QueryActivityParm" resultMap="activitydto">
+    <select id="queryActivity" parameterType="com.zyx.model.Activity" resultMap="activitydto">
         select * from activity where 1=1
-        <if test="groupName != null and groupName != ''">
-            and (title LIKE CONCAT('%',${groupName},'%' ) or address LIKE CONCAT('%',${groupName},'%' ))
+        <if test="title != null and title != ''">
+            and title LIKE CONCAT('%',${title},'%' )
         </if>
-        <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
-            and create_time &gt;= #{startTime}
-            and end_time &lt;= #{endTime}
+        <if test="type != null and type != ''">
+            and type =#{type}
+        </if>
+        <if test="activityType != null and activityType != ''">
+            and activity_type =#{activityType}
+        </if>
+        <if test="paymentType != null and paymentType != ''">
+            and payment_type=#{paymentType}
+        </if>
+        <if test="status != null and status != ''">
+            <if test="status==1">
+                <![CDATA[and #{currentTime} < end_time ]]>
+            </if>
+            <if test="status==0">
+                <![CDATA[
+                and  #{currentTime} < end_time
+                and  #{currentTime} > start_time
+                ]]>
+            </if>
         </if>
         AND del = 0 AND mask = 0
         ORDER BY create_time desc
@@ -74,7 +69,30 @@
     </select>
 
     <select id="selectCountActivity" resultType="java.lang.Integer">
-        SELECT COUNT(id) FROM activity WHERE del = 0 AND mask = 0;
+        SELECT COUNT(id) FROM activity WHERE  del = 0 AND mask = 0
+        <if test="title != null and title != ''">
+            and title LIKE CONCAT('%',${title},'%' )
+        </if>
+        <if test="type != null and type != ''">
+            and type =#{type}
+        </if>
+        <if test="activityType != null and activityType != ''">
+            and activity_type =#{activityType}
+        </if>
+        <if test="paymentType != null and paymentType != ''">
+            and payment_type=#{paymentType}
+        </if>
+        <if test="status != null and status != ''">
+            <if test="status==1">
+                <![CDATA[and #{currentTime} < end_time ]]>
+            </if>
+            <if test="status==0">
+                <![CDATA[
+                and  #{currentTime} < end_time
+                and  #{currentTime} > start_time
+                ]]>
+            </if>
+        </if>
     </select>
 
     <select id="queryActivityIn" parameterType="java.util.List" resultType="com.zyx.model.Activity">
@@ -97,6 +115,12 @@
             <if test="imgUrls != null and imgUrls != ''">
                 img_urls = #{imgUrls},
             </if>
+            <if test="activityType != null and activityType != ''">
+                activity_type = #{activityType},
+            </if>
+            <if test="activityModule != null and activityModule != ''">
+                activity_module = #{activityModule},
+            </if>
             <if test="descContent != null and descContent != ''">
                 desc_content = #{descContent},
             </if>
@@ -109,32 +133,28 @@
             <if test="lastTime != null and lastTime != 0">
                 last_time = #{lastTime},
             </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="city != null and city != 0">
+                city = #{city},
+            </if>
             <if test="maxPeople != null and maxPeople != 0">
                 max_people = #{maxPeople},
             </if>
-            <if test="visible != null and maxPeople &gt; -1 and maxPeople &lt; 3">
-                visible = #{visible},
-            </if>
-            <if test="phone != null and phone != ''">
-                phone = #{phone},
-            </if>
+
             <if test="price != null">
                 price = #{price},
             </if>
-            <if test="type != null and type &gt; -1 and type &lt; 2">
+            <if test="type != null and type !=''">
                 type = #{type},
             </if>
             <if test="targetUrl != null and targetUrl != ''">
                 target_url = #{targetUrl},
             </if>
-            <if test="address != null and address != ''">
-                address = #{address},
-            </if>
-            <if test="examine != null and examine &gt; -1 and examine &lt; 2">
-                examine = #{examine},
-            </if>
-            <if test="memberTemplate != null and memberTemplate != ''">
-                member_template = #{memberTemplate},
+
+            <if test="paymentType != null and paymentType !=''">
+                payment_type = #{paymentType},
             </if>
             <if test="del != null">
                 del = #{del},
@@ -145,5 +165,7 @@
         </set>
         WHERE id=#{id}
     </update>
-
+    <update id="delActivity" parameterType="java.lang.Integer">
+        UPDATE activity set del=1 where id=#{id}
+    </update>
 </mapper>

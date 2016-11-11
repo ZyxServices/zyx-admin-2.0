@@ -59,14 +59,10 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements Ac
     }
 
     @Override
-    public Map<String, Object> queryActivity(int pageDataNumber, int pageNumber, String searchText) {
-
-        QueryActivityParm parm = new QueryActivityParm();
-
-        parm.setPageNumber(pageDataNumber);
-        parm.setPage((pageNumber - 1) * pageDataNumber);
-        parm.setGroupName(searchText);
-        List<ActivityDto> activities = activityMapper.queryActivity(parm);
+    public Map<String, Object> queryActivity(Activity activity) {
+        activity.setPage(activity.getPage()*activity.getPageNumber());
+        activity.setCurrentTime(new Date().getTime());
+        List<ActivityDto> activities = activityMapper.queryActivity(activity);
 
         int i = activityMapper.selectCountActivity();
         if (activities != null && activities.size() > 0) {
@@ -124,16 +120,13 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements Ac
     }
 
     @Override
-    public Map<String, Object> delActivity(String id, int delType) {
-        if (delType > -1 && delType < 2 && id != null && !id.equals("")) {
+    public Map<String, Object> delActivity(String id) {
+        if (id != null && !id.equals("")) {
             int a = 0;
             String[] ids = id.split(",");
             for (String integer : ids) {
                 if (integer != null && Integer.valueOf(integer) > 0) {
-                    Activity activity = new Activity();
-                    activity.setId(Integer.valueOf(integer));
-                    activity.setDel(delType);
-                    int i = activityMapper.updateActivity(activity);
+                    int i = activityMapper.delActivity(Integer.valueOf(id));
                     if (i > 0) {
                         a++;
                     }

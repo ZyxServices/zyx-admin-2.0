@@ -10,14 +10,14 @@
         <result column="sequence" jdbcType="INTEGER" property="sequence"/>
         <result column="state" jdbcType="INTEGER" property="state"/>
         <result column="area" jdbcType="INTEGER" property="area"/>
-        <discriminator javaType="java.lang.Integer" column="model">
+        <!--<discriminator javaType="java.lang.Integer" column="model">
             <case value="1" resultMap="getActivityInfo"/>
             <case value="2" resultMap="getLiveInfo"/>
             <case value="3" resultMap="getCircle"/>
             <case value="4" resultMap="getCircleItem"/>
             <case value="5" resultMap="getConcern"/>
             <case value="6" resultMap="getUser"/>
-        </discriminator>
+        </discriminator>-->
     </resultMap>
 
     <resultMap id="getActivityInfo" type="com.zyx.vo.deva.DevaExVo" extends="FullDevaVo">
@@ -69,10 +69,15 @@
     <select id="selectDevaList" parameterType="com.zyx.parm.deva.DevaParam" resultMap="FullDevaVo">
         SELECT *
         FROM devaluation
-        WHERE
-        model = #{model}
-        AND
-        area = #{area}
+        WHERE del=0
+        <if test="area != null">
+            AND
+            area = #{area}
+        </if>
+        <if test="model != null">
+            AND
+            model = #{model}
+        </if>
         ORDER BY
         sequence
     </select>
@@ -80,10 +85,15 @@
     <select id="selectUsedSequence" resultType="java.lang.Integer">
       SELECT sequence
       FROM devaluation
-      WHERE
-      model = #{0}
-      AND
-      area = #{1}
+      WHERE del=0
+        <if test="param2 != null">
+            AND
+            area = ${param2}
+        </if>
+        <if test="param1 != null">
+            AND
+            model = ${param1}
+        </if>
       ORDER BY
       sequence
   </select>
@@ -92,7 +102,7 @@
         select model_id
         from devaluation
         where
-        1=1
+        del=0
         <if test="area != null">
             AND
             area = #{area}
@@ -124,4 +134,8 @@
             model_id = #{modelId}
         </if>
     </delete>
+
+    <update id="delDeval" parameterType="java.lang.Integer">
+        UPDATE devaluation set del=1 WHERE id=#{id}
+    </update>
 </mapper>

@@ -1,3 +1,4 @@
+/*
 package com.zyx.controller.activity;
 
 import com.zyx.constants.Constants;
@@ -17,6 +18,7 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
+*/
 /**
  * Created by SubDong on 16-7-29.
  *
@@ -26,7 +28,8 @@ import java.util.Map;
  * @title CombinationController
  * @package com.zyx.controller.activity
  * @update 16-7-29 下午2:23
- */
+ *//*
+
 @Controller
 @RequestMapping("/v1/combination")
 public class CombinationController {
@@ -42,9 +45,11 @@ public class CombinationController {
 
         AbstractView jsonView = new MappingJackson2JsonView();
 
-        /*String uploadFile = FileUploadUtils.uploadFile(image);
+        */
+/*String uploadFile = FileUploadUtils.uploadFile(image);
 
-        Map<String, Object> verify = ImagesVerifyUtils.verify(uploadFile);*/
+        Map<String, Object> verify = ImagesVerifyUtils.verify(uploadFile);*//*
+
 
         if (image == null || image.equals("")) {
             jsonView.setAttributesMap(MapUtils.buildErrorMap(Constants.PARAM_MISS, "参数缺失"));
@@ -161,3 +166,4 @@ public class CombinationController {
         return new ModelAndView(jsonView);
     }
 }
+*/

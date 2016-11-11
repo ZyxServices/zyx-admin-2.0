@@ -36,29 +36,13 @@ public interface Constants {
     String SUCCESS_DATA = "data";
 
     /**
-     * 活动首推
+     * 活动首推（求约）
      */
     String ACTIVITY_DEVA = "activityDeva";
-
     /**
-     * 用户首推
+     * 教程攻略
      */
-    String ACCOUNT_DEVA = "accountDeva";
-
-    /**
-     * 视频首推
-     */
-    String LIVE_DEVA = "liveDeva";
-
-    /**
-     *
-     */
-    String CONCER_DEVA = "concerDeva";
-
-    /**
-     *
-     */
-    String CIRLE_DEVA = "cirleDeva";
+    String COURSE_DEVA = "courseDeva";
 
     ////////////// 系统标识符 结束//////////////////
 
@@ -277,40 +261,17 @@ public interface Constants {
     //////////////////Model 模块定义//////////////////
     //子模块 当前数字后加两位如1子模块为101 11子模块为1101
     /**
-     * 活动模块
+     * 活动模块（求约）
      */
-    int MODEL_ACTIVITY = 1;
+    int MODEL_ACTIVITY = 2;
     /**
-     * 直播模块
+     * 教程攻略
      */
-    int MODEL_LIVE = 2;
-    /**
-     * 圈子模块
-     */
-    int MODEL_CIRCLE = 3;
-    /**
-     * 帖子模块
-     */
-    int MODEL_CIRCLE_ITEM = 4;
-    /**
-     * 动态模块
-     */
-    int MODEL_CONCERN = 5;
-    /**
-     * 用户模块
-     */
-    int MODEL_USER = 6;
-    /**
-     * 系统模块
-     */
-    int MODEL_SYSTEM = 7;
+    int MODEL_COURSE=1;
+
 
     Map<Integer, String> devaNames = new HashMap() {{
-        put(1, "activityDevas");
-        put(2, "liveDevas");
-        put(3, "cirleDevas");
-        put(4, "cirleItemDevas");
-        put(5, "concerDevas");
-        put(6, "userDevas");
+        put(1, "courseDevas");
+        put(2, "activityDevas");
     }};
 }
