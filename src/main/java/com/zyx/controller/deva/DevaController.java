@@ -34,8 +34,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.bouncycastle.asn1.x500.style.RFC4519Style.l;
+
 @Controller
-@RequestMapping("/v1/deva")
+@RequestMapping("/v2/deva")
 @Api(description = "首推相关接口")
 public class DevaController {
     @Autowired
@@ -60,22 +62,23 @@ public class DevaController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ApiOperation(value = "首推接口-新增首推", notes = "首推接口-新增首推，同模块同展示区域 模块ID唯一")
     public ModelAndView queryActivity(
-            @ApiParam(required = true, name = "model", value = "模块类型（1活动，2直播，3圈子，4帖子，5动态，6用户，7系统）") @RequestParam(name = "model", required = true) Integer model,
+            @ApiParam(required = true, name = "model", value = "模块类型（1教程攻略，2求约）") @RequestParam(name = "model", required = true) Integer model,
             @ApiParam(required = true, name = "modelId", value = "模块ID") @RequestParam(name = "modelId", required = true) Integer modelId,
-            @ApiParam(required = true, name = "area", value = "展示区域（1首页，2看台，3精选圈子）") @RequestParam(name = "area", required = true) Integer area,
+            @ApiParam(required = true, name = "area", value = "展示区域（首页，2求约）") @RequestParam(name = "area", required = true) Integer area,
             @ApiParam(required = false, name = "imageUrl", value = "图片地址") @RequestParam(name = "imageUrl", required = false) String imageUrl,
             @ApiParam(required = true, name = "state", value = "状态（0-未激活，1-激活）") @RequestParam(name = "state", required = true) Integer state,
             @ApiParam(required = true, name = "sequence", value = "展示顺序") @RequestParam(name = "sequence", required = true) Integer sequence
     ) {
         Map<String, Object> result = new HashMap<>();
-        Integer sSize = DevaContants.DEVA_AREA_MAX_ITEM.get(model + "_" + area);
+        Integer sSize = DevaContants.DEVA_AREA_MAX_ITEM.get(area + "");
         if (sSize == null) {
             result.put(Constants.STATE, DevaContants.DEVA_NOT_EXIST_MODEL_AREA);
             result.put(Constants.ERROR_MSG, DevaContants.MSG_DEVA_NOT_EXIST_MODEL_AREA);
         } else {
             //Redis判断目前条数是否满
             Devaluation entity = new Devaluation();
-            entity.setModel(model);
+            //2.0版本为区域限定个数
+            //entity.setModel(model);
             entity.setArea(area);
             entity.setModelId(modelId);
             List<Devaluation> dblist = devaService.select(entity);
@@ -83,13 +86,15 @@ public class DevaController {
                 result.put(Constants.STATE, DevaContants.DEVA_REPEAT);
                 result.put(Constants.ERROR_MSG, DevaContants.MSG_DEVA_REPEAT);
             } else {
+                entity.setModel(model);
                 entity.setCreateTime(System.currentTimeMillis());
                 entity.setArea(area);
                 entity.setImage(imageUrl);
                 entity.setSequence(sequence);
                 entity.setState(state);
                 int n = devaService.save(entity);
-                refreshDevas(area, model);
+                //2.0版本为区域限定个数
+                refreshDevas(area, null);
                 result.put(Constants.STATE, LiveConstants.SUCCESS);
             }
         }
@@ -102,7 +107,7 @@ public class DevaController {
     @ApiOperation(value = "首推接口-更新首推", notes = "首推接口-更新首推")
     public ModelAndView updateDeva(
             @ApiParam(required = true, name = "id", value = "推荐ID") @RequestParam(name = "id", required = true) Integer id,
-            @ApiParam(required = false, name = "area", value = "展示区域（1首页，2精选圈子）") @RequestParam(name = "area", required = false) Integer area,
+            @ApiParam(required = false, name = "area", value = "展示区域（1首页，2求约）") @RequestParam(name = "area", required = false) Integer area,
             @ApiParam(required = false, name = "imageUrl", value = "图片地址") @RequestParam(name = "imageUrl", required = false) String imageUrl,
             @ApiParam(required = true, name = "state", value = "状态（0-未激活，1-激活）") @RequestParam(name = "state", required = true) Integer state,
             @ApiParam(required = true, name = "sequence", value = "展示顺序") @RequestParam(name = "sequence", required = true) Integer sequence) {
@@ -122,7 +127,8 @@ public class DevaController {
                 entity.setSequence(sequence);
                 entity.setState(state);
                 devaService.updateNotNull(entity);
-                refreshDevas(deva.getArea(), deva.getModel());
+                //2.0版本是展示区域限定个数
+                refreshDevas(deva.getArea(), null);
             }
         }
         result.put(Constants.STATE, LiveConstants.SUCCESS);
@@ -138,7 +144,7 @@ public class DevaController {
         Map<String, Object> result = new HashMap<>();
         Devaluation deva = devaService.selectByKey(id);
         if (deva != null) {
-            devaService.delete(id);
+            devaService.delDeval(id);
 //            refreshDevas(deva.getArea(), deva.getModel());
             result.put(Constants.STATE, LiveConstants.SUCCESS);
         } else {
@@ -151,11 +157,12 @@ public class DevaController {
 
     @RequestMapping(value = "/list", method = {RequestMethod.POST, RequestMethod.GET})
     @ApiOperation(value = "首推接口-获取首推", notes = "首推接口-获取首推")
-    public ModelAndView getDevasByModel(
-            @ApiParam(required = true, name = "model", value = "模块类型（1活动，2直播，3圈子，4帖子，5动态，6用户，7系统）") @RequestParam(name = "model", required = true) Integer model,
-            @ApiParam(required = true, name = "area", value = "展示区域（1首页，2精选圈子）") @RequestParam(name = "area", required = true) Integer area) {
+    public ModelAndView getDevasByArea(
+            //@ApiParam(required = true, name = "model", value = "模块类型（1教程攻略，2求约）") @RequestParam(name = "model", required = true) Integer model,
+            @ApiParam(required = false, name = "area", value = "展示区域（1首页，2求约）") @RequestParam(name = "area", required = false) Integer area) {
         Map<String, Object> result = new HashMap<>();
-        List<DevaVo> list = devaService.getDevaList(model, area);
+        //2.0版本是区域限定个数
+        List<DevaVo> list = devaService.getDevaList(null, area);
         result.put(Constants.DATA, list);
         result.put(Constants.STATE, LiveConstants.SUCCESS);
         AbstractView jsonView = new MappingJackson2JsonView();
@@ -166,15 +173,16 @@ public class DevaController {
     @RequestMapping(value = "/sequence", method = {RequestMethod.POST, RequestMethod.GET})
     @ApiOperation(value = "首推接口-获取未使用的顺序列表", notes = "首推接口-获取未使用的顺序列表")
     public ModelAndView getUnusedSquen(
-            @ApiParam(required = true, name = "model", value = "模块类型（1活动，2直播，3圈子，4帖子，5动态，6用户，7系统）") @RequestParam(name = "model", required = true) Integer model,
-            @ApiParam(required = true, name = "area", value = "展示区域（1首页，2精选圈子）") @RequestParam(name = "area", required = true) Integer area) {
+            //@ApiParam(required = true, name = "model", value = "模块类型（1教程攻略，2求约）") @RequestParam(name = "model", required = true) Integer model,
+            @ApiParam(required = true, name = "area", value = "展示区域（1首页，2求约）") @RequestParam(name = "area", required = true) Integer area) {
         Map<String, Object> result = new HashMap<>();
-        Integer sSize = DevaContants.DEVA_AREA_MAX_ITEM.get(model + "_" + area);
+        Integer sSize = DevaContants.DEVA_AREA_MAX_ITEM.get(area+"");
+
         if (sSize == null) {
             result.put(Constants.STATE, DevaContants.DEVA_NOT_EXIST_MODEL_AREA);
             result.put(Constants.ERROR_MSG, DevaContants.DEVA_NOT_EXIST_MODEL_AREA);
         } else {
-            List<Integer> list = devaService.getUsedSequence(model, area);
+            List<Integer> list = devaService.getUsedSequence(null,area);
             List<Integer> seqList = new ArrayList<>();
             int i = 1;
             if (list != null && !list.isEmpty()) {
@@ -202,27 +210,14 @@ public class DevaController {
         List<Integer> ids = devaService.selectModelIds(area, model);
         List list = null;
         if (null != ids && !ids.isEmpty()) {
-            switch (model) {
+            //2.0版本为区域数量限定
+            switch (area) {
                 case Constants.MODEL_ACTIVITY:
                     list = activityService.selectByIds(ids);
                     break;
-                case Constants.MODEL_LIVE:
+                case Constants.MODEL_COURSE:
+                    //TODO 换成教程攻略的service
                     list = liveInfoService.selectByIds(ids);
-                    break;
-                case Constants.MODEL_CIRCLE:
-                    list = circleService.selectByIds(ids);
-                    break;
-                case Constants.MODEL_CIRCLE_ITEM:
-                    list = circleItemService.selectByIds(ids);
-                    break;
-                case Constants.MODEL_CONCERN:
-                    list = concernService.selectByIds(ids);
-                    break;
-                case Constants.MODEL_USER:
-                    list = appUserService.selectByIds(ids, "id", "createTime", "phone", "nickname", "sex", "avatar");
-                    break;
-                case Constants.MODEL_SYSTEM:
-                    list = null;
                     break;
             }
         }

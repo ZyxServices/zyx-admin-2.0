@@ -1,3 +1,4 @@
+/*
 package com.zyx.controller.pg;
 
 import com.zyx.constants.Constants;
@@ -24,12 +25,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+*/
 /**
  * @author XiaoWei
  * @version V 1.0
  * @package com.zyx.controller.pg
  * Create by XiaoWei on 2016/7/25
- */
+ *//*
+
 @Controller
 @RequestMapping(value = "/concern")
 public class ConcernController {
@@ -119,3 +122,4 @@ public class ConcernController {
 //    }
 
 }
+*/

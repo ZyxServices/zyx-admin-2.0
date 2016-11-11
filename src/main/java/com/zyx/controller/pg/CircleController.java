@@ -1,3 +1,4 @@
+/*
 package com.zyx.controller.pg;
 
 import com.zyx.constants.Constants;
@@ -19,12 +20,14 @@ import javax.annotation.Resource;
 import java.util.Map;
 import java.util.Objects;
 
+*/
 /**
  * @author XiaoWei
  * @version V 1.0
  * @package com.zyx.controller.pg
  * Create by XiaoWei on 2016/7/25
- */
+ *//*
+
 @Controller
 @RequestMapping(value = "circle")
 public class CircleController {
@@ -33,13 +36,15 @@ public class CircleController {
     private CircleService circleService;
     @Autowired
     DevaService devaService;
-    /**
+    */
+/**
      * 圈子列表
      *
      * @param start
      * @param pageSize
      * @return
-     */
+     *//*
+
     @RequestMapping(value = "circleList", method = RequestMethod.GET)
     @ApiOperation(value = "圈子列表", notes = "圈子列表")
     public ModelAndView findCircleList(@RequestParam(value = "start") Integer start,
@@ -56,11 +61,13 @@ public class CircleController {
         return new ModelAndView(jsonView);
     }
 
-    /**
+    */
+/**
      * 创建圈子
      *
      * @return
-     */
+     *//*
+
     @RequestMapping(value = "createCircle", method = RequestMethod.POST)
     @ApiOperation(value = "添加圈子", notes = "添加圈子")
     public ModelAndView addCircle(
@@ -162,3 +169,4 @@ public class CircleController {
     }
 
 }
+*/

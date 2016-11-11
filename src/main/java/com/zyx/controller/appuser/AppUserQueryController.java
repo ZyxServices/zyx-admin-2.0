@@ -103,7 +103,7 @@ public class AppUserQueryController {
     public ModelAndView del(@RequestParam Integer id) {
         AbstractView jsonView = new MappingJackson2JsonView();
         Map<String, Object> map = appUserService.del(id);
-        devaService.cascadeDelete(Constants.MODEL_LIVE,id);
+       // devaService.cascadeDelete(Constants.MODEL_LIVE,id);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }

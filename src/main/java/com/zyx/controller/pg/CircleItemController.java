@@ -1,3 +1,4 @@
+/*
 package com.zyx.controller.pg;
 
 import com.zyx.constants.Constants;
@@ -21,12 +22,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+*/
 /**
  * @author XiaoWei
  * @version V 1.0
  * @package com.zyx.controller.pg
  * Create by XiaoWei on 2016/7/25
- */
+ *//*
+
 @Controller
 @RequestMapping(value = "circleItem")
 public class CircleItemController {
@@ -128,3 +131,4 @@ public class CircleItemController {
     }
 
 }
+*/

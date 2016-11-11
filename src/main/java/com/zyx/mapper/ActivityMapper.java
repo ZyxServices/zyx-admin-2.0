@@ -15,10 +15,10 @@ public interface ActivityMapper extends Mapper<Activity> {
     /**
      * 多条条件查询活动
      *
-     * @param parm
+     * @param activity
      * @return
      */
-    List<ActivityDto> queryActivity(QueryActivityParm parm);
+    List<ActivityDto> queryActivity(Activity activity);
 
     /**
      * 修改活动
@@ -41,5 +41,12 @@ public interface ActivityMapper extends Mapper<Activity> {
      *
      */
     int selectCountActivity();
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    int delActivity(Integer id);
 
 }

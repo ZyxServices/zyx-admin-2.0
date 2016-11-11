@@ -3,7 +3,7 @@ package com.zyx.model;
 import javax.persistence.*;
 
 @Table(name = "activity")
-public class Activity {
+public class Activity extends  BaseModel{
     /**
      * 表id
      */
@@ -27,7 +27,21 @@ public class Activity {
      */
     @Column(name = "img_urls")
     private String imgUrls;
-
+    /**
+     * 活动介绍
+     */
+    @Column(name = "desc_content")
+    private  String descContent;
+    /**
+     * 活动类型 1-求约 2-求带
+     */
+    @Column(name = "activity_type")
+    private Integer activityType;
+    /**
+     * 活动模块 1-攀岩 2-跑步
+     */
+    @Column(name = "activity_module")
+    private Integer activityModule;
     /**
      * 活动开始时间
      */
@@ -45,67 +59,53 @@ public class Activity {
      */
     @Column(name = "last_time")
     private Long lastTime;
+    /**
+     * 活动地址
+     */
+    private String address;
+    /**
+     * 城市
+     */
+    private String city;
 
     /**
-     * 活动人数上线
+     * 活动人数上限
      */
     @Column(name = "max_people")
     private Integer maxPeople;
-
-    /**
-     * 活动可见范围（0 所有可见，1我的可见，2我的关注）
-     */
-    private Integer visible;
-
-    /**
-     * 咨询电话
-     */
-    private String phone;
-
     /**
      * 活动价格
      */
     private Double price;
-
     /**
-     * 活动分类（0  线上活动，  1线下活动）
+     * 活动分类（0  官方，  1 用户）
      */
     private Integer type;
-
     /**
      * 线上活动跳转地址
      */
     @Column(name = "target_url")
     private String targetUrl;
-
     /**
-     * 活动地址
+     * 付费类型 0奖励 1免费 2 AA
      */
-    private String address;
-
+    @Column(name="payment_type")
+    private Integer paymentType;
     /**
-     * 活动是否需要审核（0 不需要审核，1 需要审核）
+     * 创建时间
      */
-    private Integer examine;
-
-    /**
-     * 报名活动模版
-     */
-    @Column(name = "member_template")
-    private String memberTemplate;
-
     @Column(name = "create_time")
     private Long createTime;
-
-    private Integer del;
 
     private Integer mask;
 
     /**
-     * 活动描述
+     * 活动状态 0-正在报名 1-结束
      */
-    @Column(name = "desc_content")
-    private String descContent;
+    @Transient
+    private Integer status;
+    @Transient
+    private  Long currentTime;
 
     /**
      * 获取表id
@@ -250,43 +250,6 @@ public class Activity {
     public void setMaxPeople(Integer maxPeople) {
         this.maxPeople = maxPeople;
     }
-
-    /**
-     * 获取活动可见范围（0 所有可见，1朋友可见）
-     *
-     * @return visible - 活动可见范围（0 所有可见，1朋友可见）
-     */
-    public Integer getVisible() {
-        return visible;
-    }
-
-    /**
-     * 设置活动可见范围（0 所有可见，1朋友可见）
-     *
-     * @param visible 活动可见范围（0 所有可见，1朋友可见）
-     */
-    public void setVisible(Integer visible) {
-        this.visible = visible;
-    }
-
-    /**
-     * 获取咨询电话
-     *
-     * @return phone - 咨询电话
-     */
-    public String getPhone() {
-        return phone;
-    }
-
-    /**
-     * 设置咨询电话
-     *
-     * @param phone 咨询电话
-     */
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     /**
      * 获取活动价格
      *
@@ -360,42 +323,6 @@ public class Activity {
     }
 
     /**
-     * 获取活动是否需要审核（0 不需要审核，1 需要审核）
-     *
-     * @return examine - 活动是否需要审核（0 不需要审核，1 需要审核）
-     */
-    public Integer getExamine() {
-        return examine;
-    }
-
-    /**
-     * 设置活动是否需要审核（0 不需要审核，1 需要审核）
-     *
-     * @param examine 活动是否需要审核（0 不需要审核，1 需要审核）
-     */
-    public void setExamine(Integer examine) {
-        this.examine = examine;
-    }
-
-    /**
-     * 获取报名活动模版
-     *
-     * @return member_template - 报名活动模版
-     */
-    public String getMemberTemplate() {
-        return memberTemplate;
-    }
-
-    /**
-     * 设置报名活动模版
-     *
-     * @param memberTemplate 报名活动模版
-     */
-    public void setMemberTemplate(String memberTemplate) {
-        this.memberTemplate = memberTemplate;
-    }
-
-    /**
      * @return create_time
      */
     public Long getCreateTime() {
@@ -407,20 +334,6 @@ public class Activity {
      */
     public void setCreateTime(Long createTime) {
         this.createTime = createTime;
-    }
-
-    /**
-     * @return del
-     */
-    public Integer getDel() {
-        return del;
-    }
-
-    /**
-     * @param del
-     */
-    public void setDel(Integer del) {
-        this.del = del;
     }
 
     /**
@@ -454,4 +367,28 @@ public class Activity {
     public void setDescContent(String descContent) {
         this.descContent = descContent;
     }
+
+    public Integer getActivityType() { return activityType; }
+
+    public void setActivityType(Integer activityType) { this.activityType = activityType; }
+
+    public Integer getActivityModule() { return activityModule; }
+
+    public void setActivityModule(Integer activityModule) { this.activityModule = activityModule; }
+
+    public String getCity() { return city; }
+
+    public void setCity(String city) { this.city = city; }
+
+    public Integer getPaymentType() { return paymentType; }
+
+    public void setPaymentType(Integer paymentType) { this.paymentType = paymentType; }
+
+    public Integer getStatus() { return status; }
+
+    public void setStatus(Integer status) { this.status = status; }
+
+    public Long getCurrentTime() { return currentTime; }
+
+    public void setCurrentTime(Long currentTime) { this.currentTime = currentTime; }
 }

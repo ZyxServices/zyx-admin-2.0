@@ -44,7 +44,7 @@ public class MySwaggerConfig {
         );
     }
 
-    @Bean
+    /*@Bean
     public Docket liveApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("live")
@@ -53,7 +53,7 @@ public class MySwaggerConfig {
                 .paths(PathSelectors.any()) // 对所有路径进行监控
                 .build()
                 .apiInfo(liveApiInfo());
-    }
+    }*/
 
     @Bean
     public Docket activityApi() {
@@ -66,7 +66,7 @@ public class MySwaggerConfig {
                 .apiInfo(activityApiInfo());
     }
 
-    @Bean
+    /*@Bean
     public Docket pgApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("pg")
@@ -75,7 +75,7 @@ public class MySwaggerConfig {
                 .paths(PathSelectors.any()) // 对所有路径进行监控
                 .build()
                 .apiInfo(pgApiInfo());
-    }
+    }*/
 
     @Bean
     public Docket userApi() {
@@ -154,9 +154,9 @@ public class MySwaggerConfig {
     private ApiInfo activityApiInfo() {
         ApiInfo apiInfo = new ApiInfo("活动接口API",//大标题
                 "活动操作",//小标题
-                "0.1",//版本
+                "2.0",//版本
                 "成都term",
-                "舒子栋",//作者
+                "胡林",//作者
                 "智悠行",//链接显示文字
                 "http://112.74.112.143:8081/ui/Delta/index.html "//网站链接
         );
@@ -180,9 +180,9 @@ public class MySwaggerConfig {
     private ApiInfo devaApiInfo() {
         ApiInfo apiInfo = new ApiInfo("推荐接口API",//大标题
                 "推荐操作",//小标题
-                "0.1",//版本
+                "2.0",//版本
                 "成都term",
-                "舒子栋",//作者
+                "胡林",//作者
                 "智悠行",//链接显示文字
                 "http://112.74.112.143:8081/ui/Delta/index.html "//网站链接
         );
@@ -206,7 +206,7 @@ public class MySwaggerConfig {
     private ApiInfo venueApiInfo() {
         ApiInfo apiInfo = new ApiInfo("运营端场馆接口API",//大标题
                 "用户操作",//小标题
-                "0.1",//版本
+                "2.0",//版本
                 "成都term",
                 new Contact("胡林", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
                 "智悠行",//链接显示文字
@@ -219,7 +219,7 @@ public class MySwaggerConfig {
     private ApiInfo sportInfoApiInfo() {
         ApiInfo apiInfo = new ApiInfo("运营端场馆路线接口API",//大标题
                 "用户操作",//小标题
-                "0.1",//版本
+                "2.0",//版本
                 "成都term",
                 new Contact("胡林", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
                 "智悠行",//链接显示文字

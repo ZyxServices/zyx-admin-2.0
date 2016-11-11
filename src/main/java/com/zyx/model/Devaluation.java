@@ -3,14 +3,14 @@ package com.zyx.model;
 import javax.persistence.*;
 
 @Table(name = "devaluation")
-public class Devaluation {
+public class Devaluation extends BaseModel{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /**
      * 模块类型（1、活动.........）
-     * //  对面模块类型 1、活动，2,直播，3,圈子，4动态，5用户，6帖子
+     * //  对面模块类型 1、教程攻略，2求约
      */
     @Column(name = "model")
     private Integer model;
@@ -154,6 +154,10 @@ public class Devaluation {
         this.state = state;
     }
 
+    /**
+     * 推荐位置 1-首页 2-求约
+     * @return
+     */
     public Integer getArea() {
         return area;
     }
