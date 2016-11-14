@@ -272,14 +272,7 @@ public interface Constants {
     int MODEL_COURSE=8;
 
     Map<Integer, String> devaNames = new HashMap() {{
-        put(1, "courseDevas");
         put(2, "activityDevas");
-        put(1, "activityDevas");
-        put(2, "liveDevas");
-        put(3, "cirleDevas");
-        put(4, "cirleItemDevas");
-        put(5, "concerDevas");
-        put(6, "userDevas");
         put(8,"courseDevas");
     }};
 }

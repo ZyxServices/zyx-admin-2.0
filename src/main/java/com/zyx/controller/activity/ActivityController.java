@@ -2,6 +2,8 @@ package com.zyx.controller.activity;
 
 import com.zyx.constants.Constants;
 import com.zyx.model.Activity;
+import com.zyx.model.SysUser;
+import com.zyx.service.UserService;
 import com.zyx.service.activity.ActivityService;
 import com.zyx.service.deva.DevaService;
 import com.zyx.utils.MapUtils;
@@ -17,12 +19,15 @@ import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.Objects;
 
 import static com.zyx.utils.GetTimeUtil.getDateTime;
+import static javafx.scene.input.KeyCode.H;
+import static org.bouncycastle.asn1.x500.style.RFC4519Style.title;
 
 /**
  * Created by SubDong on 16-7-12.
@@ -45,7 +50,8 @@ public class ActivityController {
 
     @RequestMapping(value = "/release", method = RequestMethod.POST)
     @ApiOperation(value = "活动发布", notes = "活动发布")
-    public ModelAndView release(@ApiParam(name = "userId",required = true,value = "用户id") @RequestParam(name = "userId", required = true) Integer userId,
+    public ModelAndView release(//@ApiParam(name = "userId",required = true,value = "用户id") @RequestParam(name = "userId", required = true) Integer userId,
+                                HttpServletRequest request,
                                 @ApiParam(name = "title",required = true,value = "活动名称")@RequestParam(name = "title", required = true) String title,
                                 @ApiParam(name = "descContent",required = true,value = "活动简介")@RequestParam(name = "descContent", required = true) String descContent,
                                 @ApiParam(name = "imageUrls",required = false,value = "活动图片")@RequestParam(name = "imageUrls", required = false) String imageUrls,
@@ -63,8 +69,9 @@ public class ActivityController {
                                 @ApiParam(name = "paymentType",required = false,value = "付费类型 0-奖励 1-免费 2-AA")@RequestParam(name = "paymentType", required = false) Integer paymentType) {
 
         AbstractView jsonView = new MappingJackson2JsonView();
+        SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
         Activity activity = new Activity();
-        activity.setUserId(userId);
+        activity.setUserId(Integer.valueOf(sysUser.getUserId()));
         activity.setTitle(title);
         activity.setDescContent(descContent);
         activity.setImgUrls(imageUrls);

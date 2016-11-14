@@ -40,7 +40,7 @@ public interface ActivityMapper extends Mapper<Activity> {
     /**
      *
      */
-    int selectCountActivity();
+    int selectCountActivity(Activity activity);
 
     /**
      *

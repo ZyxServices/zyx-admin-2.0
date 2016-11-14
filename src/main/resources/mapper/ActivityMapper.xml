@@ -84,7 +84,7 @@
     </select>
 
 
-    <select id="selectCountActivity" resultType="java.lang.Integer">
+    <select id="selectCountActivity" resultType="java.lang.Integer" parameterType="com.zyx.model.Activity">
         SELECT COUNT(id) FROM activity WHERE  del = 0 AND mask = 0
         <if test="title != null and title != ''">
             and title LIKE CONCAT('%',${title},'%' )

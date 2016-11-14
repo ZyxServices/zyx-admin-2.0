@@ -3,28 +3,19 @@ package com.zyx.controller.deva;
 import com.zyx.constants.Constants;
 import com.zyx.constants.DevaContants;
 import com.zyx.constants.LiveConstants;
-import com.zyx.constants.SystemConstants;
 import com.zyx.model.Devaluation;
-import com.zyx.service.AppUserService;
 import com.zyx.service.activity.ActivityService;
 import com.zyx.service.course.CourseService;
 import com.zyx.service.deva.DevaService;
-import com.zyx.service.live.LiveInfoService;
-import com.zyx.service.pg.CircleItemService;
-import com.zyx.service.pg.CircleService;
-import com.zyx.service.pg.ConcernService;
 import com.zyx.vo.deva.DevaVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
@@ -34,8 +25,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.bouncycastle.asn1.x500.style.RFC4519Style.l;
 
 @Controller
 @RequestMapping("/v2/deva")

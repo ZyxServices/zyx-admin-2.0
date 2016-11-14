@@ -64,7 +64,7 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements Ac
         activity.setCurrentTime(new Date().getTime());
         List<ActivityDto> activities = activityMapper.queryActivity(activity);
 
-        int i = activityMapper.selectCountActivity();
+        int i = activityMapper.selectCountActivity(activity);
         if (activities != null && activities.size() > 0) {
             Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", activities);
             map.put("total", i);
