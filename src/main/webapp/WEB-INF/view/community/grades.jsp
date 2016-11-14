@@ -51,16 +51,7 @@
                 <div class="row-fluid">
                     <div class="span12 responsive">
                         <table id="homepage-list-table">
-                            <thead>
-                            <tr>
-                                <th data-checkbox="true"></th>
-                                <th data-field="id">ID</th>
-                                <th data-field="modelTitle">等级名称</th>
-                                <th data-field="image">阶级</th>
-                                <th data-field="sequence">升级所需积分</th>
-                                <th data-formatter="operate" data-events="operateEvents">操作</th>
-                            </tr>
-                            </thead>
+
                         </table>
                     </div>
                 </div>
@@ -75,38 +66,55 @@
         <button data-dismiss="modal" class="close" type="button"></button>
         <h3>添加等级</h3></div>
     <div class="modal-body">
-        <form id="lineForm" class="form-horizontal" role="form" enctype="multipart/form-data">
-
-            <div class="control-group">
+        <form id="lineForm" class="form-horizontal"  method="post"  role="form" enctype="multipart/form-data">
+            <input type="hidden" name="id">
+            <div class="control-group form-group">
                 <label class="control-label">等级名称</label>
-                <div class="controls">
-                    <input type="text"/>
+                <div class="controls form-group">
+                    <input  type="text" name="name" />
                 </div>
             </div>
 
-            <div class="control-group">
+            <div class="control-group form-group">
                 <label class="control-label">阶级</label>
-                <div class="controls">
-                    <input type="text"/>
+                <div class="controls ">
+                    <input type="text" name="step"/>
                 </div>
             </div>
 
-            <div class="control-group">
-                <label class="control-label">升级所需积分</label>
+            <div class="control-group form-group">
+                <label class="control-label">等级最小积分 </label>
                 <div class="controls">
-                    <input type="text"/>
+                    <input type="text" name="minScore"/>
+                </div>
+
+            </div>
+            <div class="control-group form-group">
+                <label class="control-label">等级最大积分 </label>
+                <div class="controls">
+                    <input type="text" name="maxScore"/>
+                </div>
+
+
+            </div>
+            <div class="control-group form-group">
+                <label class="control-label"></label>
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-default" id="confirmCmd">确定</button>
+                    <a href="javascript:void(0)" onclick="window.location.reload();"
+                       class="btn btn-default">返回</a>
                 </div>
             </div>
         </form>
     </div>
-    <div class="modal-footer">
+   <%-- <div class="modal-footer">
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <a href="javascript:void(0)" class="btn btn-default" id="confirmCmd">确定</a>
                 <a href="javascript:void(0)" class="btn btn-default" data-dismiss='modal'>取消</a>
             </div>
         </div>
-    </div>
+    </div>--%>
 </div>
 <!-- END CONTAINER -->
 

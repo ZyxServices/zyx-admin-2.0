@@ -1,112 +1,179 @@
 /**
  * Created by ZYX on 2016/11/9.
  */
-$(function(){
-    initGrades();
-})
+$(function () {
+    //增加等级验证
+    $("#lineForm").bootstrapValidator({
+        fields: {
+            "name": {
+                validators: {
+                    notEmpty: {
+                        message: '请输入等级名称'
+                    }
+                }
+            },
+            "step": {
+                validators: {
+                    notEmpty: {
+                        message: '请输入阶级序号'
+                    },
+                    numeric: {message: '只能输入数字'}
+                }
+            },
+            "minScore": {
+                validators: {
+                    notEmpty: {
+                        message: '请输入该等级最小积分'
+                    },
+                    numeric: {message: '只能输入数字'}
+                }
+            },
+            "maxScore": {
+                validators: {
+                    notEmpty: {
+                        message: '请输入该等级最大积分'
+                    },
+                    numeric: {message: '只能输入数字'}
+                }
+            }
 
-function initGrades() {
+        }
+    });
     $("#homepage-list-table").bootstrapTable('destroy');
     $("#homepage-list-table").bootstrapTable({
-        url: "/v1/deva/list",
-        method:'post',
-        locale: 'zh-US',
+        type: 'get',
+        url: ("/v2/level/list"),
+        toolbar: '#toolbar',        //工具按钮用哪个容器
         striped: true,           //是否显示行间隔色
-        pagination: true,
-        cache: false,
-        search: true,
-        strictSearch: true,
-        uniqueId: "id",
-        height:500,
-        pageSize: 20,
-        contentType: "application/x-www-form-urlencoded",
-        pageList: new Array(20, 50, 100),
+        cache: true,            //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        pagination: true,          //是否显示分页（*）
         paginationPreText: "上一页",
         paginationNextText: "下一页",
-        sidePagination: 'server',
-        queryParams: function (params) {
-            return {
-                pageDataNum: params.limit,
-                pageNum: (params.offset + 1),
-                search: params.search
-            }
+        pageNumber: 0,            //初始化加载第一页，默认第一页
+        pageSize: 10,            //每页的记录行数（*）
+        checkbox: true,
+        checkboxHeader: "true",
+        sortable: true,           //是否启用排序
+        sortOrder: "asc",          //排序方式
+        pageList: [10, 25, 50, 100],    //可供选择的每页的行数（*）
+        smartDisplay: false,
+        height: 460,            //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+        uniqueId: "id",           //每一行的唯一标识，一般为主键列
+        search: true,
+        sidePagination: "server",
+        strictSearch: false,        //是否启用模糊收索
+        queryParamsType: "undefined",
+        dataField: "data",
+        /*        queryParams: function queryParams(params) {   //设置查询参数
+         console.log(params)
+         var param = {
+         start: 0,
+         pageSize: params.pageSize,
+         searchText: params.searchText
+         //sortName: params.sortName
+         //sortOrder: params.sortOrder
+         };
+         return param;
+         },*/
+        onLoadSuccess: function (data) {  //加载成功时执行
+            console.log(data)
         },
-        responseHandler:groupFromData
+        columns: [
+            {field: '', checkbox: true, align: 'center', valign: 'middle'},
+            {field: 'id', title: 'id', align: 'center', valign: 'middle'},
+            {field: 'name', title: '等级名称'},
+            {field: 'step', title: '阶级'},
+            {field: 'minScore', title: '等级最小积分'},
+            {field: 'maxScore', title: '等级最大积分'},
+            {field: 'operation', title: '操作', align: 'center', events: operateEvent, formatter: circleFormatter}
+        ]
     })
-}
-
-function groupFromData(res) {
-    if (res.state == 200) {
-        var dataArray = [];
-        var datas = res.data;
-        datas.forEach(function (item, a) {
-            var dataObj = {};
-            dataObj.id = item.id;
-            dataObj.modelTitle = item.devaModelVo.modelTitle;
-            dataObj.model = item.model;
-            dataObj.area = item.area;
-            dataObj.createTime = item.createTime;
-            if(item.imageUrl){
-                var imgUrl = item.imageUrl.split(".");
-                dataObj.image = '<a href="http://image.tiyujia.com/'+item.imageUrl+'" target="view_window"><img src="http://image.tiyujia.com/'+imgUrl[0]+'__30x30.'+imgUrl[1]+'"></a>';
-            }
-            dataObj.sequence = item.sequence;
-            dataObj.state = item.state == 1? "是":"否";
-            dataArray.push(dataObj)
-        });
-        return {
-            rows: dataArray,
-            total: res.data.length
-        }
-    }
-}
-function timeFormat(data) {
-    return new Date(data).format("yyyy-mm-dd HH:MM:ss")
-}
+})
 
 /*
  * 列表操作
  * */
-function operate(value, row, index) {
-    var dataArray = new Array();
-    dataArray.push('<a class="remove p5" href="javascript:void(0)" title="remove">删除</a>');
-    dataArray.push('<a class="edit p5" href="javascript:void(0)" title="edit">编辑</a>');
-    return dataArray.join('');
+//分类操作
+function circleFormatter(value, row, index) {
+    return [
+        '<a class="edit p5"   href="javascript:void(0)" title="preview">编辑</a>',
+        '<a class="remove p5" href="javascript:void(0)" title="remove">删除</a>'
+    ].join('');
 }
-/*table事件*/
-var operateEvents = {
-    'click .remove':function (e, value, row, index) {
+//操作分类事件
+var operateEvent = {
+    //编辑等级
+    'click .edit': function (e, value, row, index) {
+        $("#addGradesModal").modal('show');
+        $("input[name=id]").val(row.id);
+        $("input[name=name]").val(row.name);
+        $("input[name=step]").val(row.step).attr("disabled", "disabled");
+        $("input[name=minScore]").val(row.minScore).attr("disabled", "disabled");
+        $("input[name=maxScore]").val(row.maxScore).attr("disabled", "disabled");
+        $("#confirmCmd").click(function () {
+            Grade("/v2/level/update", "修改成功", "编辑失败")
+        })
+    },
+    //等级删除
+    'click .remove': function (e, value, row, index) {
         $.Popup({
-            title: '删除',
-            template: '确定删除该等级么？',
+            template: '确认删除吗?',
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/deva/delete?id=" + row.id,
+                    url: "/v2/level/del?id=" + row.id,
                     async: false,
-                    type: "delete",
-                    success: function (result) {
-                        if (result.state == 200) {
-                            $.Popup({
-                                confirm: false,
-                                template: '删除成功'
-                            })
-                        } else {
-                            $.Popup({
-                                confirm: false,
-                                template: '删除失败'
-                            })
-                        }
+                    type: "post",
+                    success: function (data) {
+                        $('#homepage-list-table').bootstrapTable('remove', {
+                            field: 'id',
+                            values: [row.id]
+                        });
+                        $.Popup({
+                            confirm: false,
+                            template: "删除成功"
+                        });
+                        $("#homepage-list-table").bootstrapTable('refresh');
                     }
                 });
             }
-        })
-    },
-    'click .edit':function (e, value, row, index) {/*编辑有不是公用的部分*/
-        $("#addGradesModal").modal('show');
+        });
+
     }
-}
-/*添加等级*/
+};
+
+/*创建等级*/
 function addGrades() {
     $("#addGradesModal").modal('show');
+    $("#confirmCmd").click(function () {
+        Grade("/v2/level/insert", "创建成功", "创建失败")
+    })
+}
+//创建等级、编辑等级公用方法
+function Grade(url, template, errmsg) {
+    $('#lineForm').ajaxSubmit({
+        url: url,
+        type: 'post',
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        beforeSend: function () {
+            return $("#lineForm").data('bootstrapValidator').isValid();
+        },
+        success: function (result) {
+            if (result.state && result.state == 200) {
+                $.Popup({
+                    confirm: false,
+                    template: template
+                });
+                $("#addGradesModal").modal('hide');
+                $('#homepage-list-table').bootstrapTable('refresh');
+            } else {
+                $.Popup({
+                    confirm: false,
+                    template: errmsg
+                })
+            }
+        }
+    })
 }
 
