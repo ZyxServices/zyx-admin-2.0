@@ -25,6 +25,10 @@ public class VenueDto {
 
     private  String imgUrls;
 
+    private Double longitude;
+
+    private Double latitude;
+
     /**
      * 评论数
      */
@@ -82,4 +86,12 @@ public class VenueDto {
     public int getPathNum() { return pathNum; }
 
     public void setPathNum(int pathNum) { this.pathNum = pathNum; }
+
+    public Double getLongitude() { return longitude; }
+
+    public void setLongitude(Double longitude) { this.longitude = longitude; }
+
+    public Double getLatitude() { return latitude; }
+
+    public void setLatitude(Double latitude) { this.latitude = latitude; }
 }
