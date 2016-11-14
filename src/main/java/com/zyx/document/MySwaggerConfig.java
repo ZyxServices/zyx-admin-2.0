@@ -137,19 +137,6 @@ public class MySwaggerConfig {
     }
 
     @Bean
-    public Docket courseApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("course-api")
-                .select()  // 选择那些路径和api会生成document
-                .apis(RequestHandlerSelectors.basePackage("com.zyx.controller.course"))
-                .paths(PathSelectors.any()) // 对所有路径进行监控
-                .build()
-                .apiInfo(courseApiInfo());
-    }
-
-
-
-    @Bean
     public Docket levelApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("level")
@@ -158,6 +145,17 @@ public class MySwaggerConfig {
                 .paths(PathSelectors.any()) // 对所有路径进行监控
                 .build()
                 .apiInfo(levelApiInfo());
+    }
+
+    @Bean
+    public Docket courseApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("course-api")
+                .select()  // 选择那些路径和api会生成document
+                .apis(RequestHandlerSelectors.basePackage("com.zyx.controller.course"))
+                .paths(PathSelectors.any()) // 对所有路径进行监控
+                .build()
+                .apiInfo(courseApiInfo());
     }
 
     @Bean
@@ -170,6 +168,7 @@ public class MySwaggerConfig {
                 .build()
                 .apiInfo(uploadApiInfo());
     }
+
 
     private ApiInfo liveApiInfo() {
         ApiInfo apiInfo = new ApiInfo("直播接口API",//大标题
