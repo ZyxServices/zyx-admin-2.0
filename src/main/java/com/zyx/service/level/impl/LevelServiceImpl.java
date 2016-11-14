@@ -28,6 +28,10 @@ public class LevelServiceImpl extends BaseServiceImpl<Level> implements LevelSer
 
     @Override
     public Map<String, Object> insertLevel(Level level) {
+        List<String> steps = levelMapper.querySteps(level.getAppType());
+        if (steps.contains(level.getStep())){
+            return MapUtils.buildErrorMap(Constants.DATA_INSERT_FAILED, "添加等级失败,重复的阶级");
+        }
         if (level.getName()!=null&&level.getStep()!=null&&level.getScore()!=null) {
             level.setDel(0);
             level.setCreateTime(new Date().getTime());
@@ -35,7 +39,7 @@ public class LevelServiceImpl extends BaseServiceImpl<Level> implements LevelSer
             if (insert > 0) {
                 return MapUtils.buildSuccessMap(Constants.SUCCESS, "添加等级成功", null);
             } else {
-                return MapUtils.buildErrorMap(ActivityConstants.AUTH_ERROR_10000, "添加等级失败");
+                return MapUtils.buildErrorMap(Constants.DATA_INSERT_FAILED, "添加等级失败");
             }
         } else {
             return MapUtils.buildErrorMap(Constants.PARAM_MISS, "参数缺失");

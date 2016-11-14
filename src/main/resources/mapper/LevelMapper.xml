@@ -28,4 +28,8 @@
     </set>
     WHERE  id=#{id}
   </update>
+
+  <select id="querySteps" parameterType="java.lang.Integer" resultType="java.lang.String">
+      SELECT step from level where app_type=#{appType} and del =0
+  </select>
 </mapper>

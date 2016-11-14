@@ -31,12 +31,18 @@ public class LevelController {
     public ModelAndView insert(@ApiParam(name = "name",required = true,value = "等级名称")@RequestParam(name = "name",required = true) String name,
                                @ApiParam(name = "step",required = true,value = "阶级")@RequestParam(name = "step",required = true) String step,
                                @ApiParam(name = "minScore",required = true,value = "等级最小积分 如：0-300")@RequestParam(name = "minScore",required = true) Integer minScore,
-                               @ApiParam(name = "maxScore",required = true,value = "等级最大积分 如：0-300")@RequestParam(name = "maxScore",required = true) Integer maxScore
+                               @ApiParam(name = "maxScore",required = true,value = "等级最大积分 如：0-300")@RequestParam(name = "maxScore",required = true) Integer maxScore,
+                               @ApiParam(name = "appType",required = false,value = "app类型，1为趣攀岩，默认值为1")@RequestParam(name = "appType",required = false) Integer appType
                                 ){
         AbstractView jsonView = new MappingJackson2JsonView();
         Level level = new Level();
         level.setName(name);
         level.setStep(step);
+        if (appType!=null){
+            level.setAppType(appType);
+        }else {
+            level.setAppType(1);
+        }
         level.setMaxScore(maxScore);
         level.setMinScore(minScore);
         level.setScore(maxScore-minScore);

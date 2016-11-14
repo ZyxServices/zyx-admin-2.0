@@ -2,6 +2,7 @@ package com.zyx.mapper;
 
 import com.zyx.dto.LevelDto;
 import com.zyx.model.Level;
+import io.swagger.models.auth.In;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -30,6 +31,13 @@ public interface LevelMapper extends Mapper<Level> {
      * @return
      */
     List<LevelDto> queryLevel(Level level);
+
+    /**
+     * 获取已有的step
+     * @param appType
+     * @return
+     */
+    List<String>  querySteps(Integer appType);
 
 
 }

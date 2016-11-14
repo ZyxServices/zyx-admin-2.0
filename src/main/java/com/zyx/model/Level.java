@@ -46,6 +46,16 @@ public class Level extends  BaseModel{
     @Column(name = "create_time")
     private Long createTime;
 
+    /**
+     * app类型 1为趣攀岩
+     */
+    @Column(name = "app_type")
+    private Integer appType;
+
+    public Integer getAppType() { return appType; }
+
+    public void setAppType(Integer appType) { this.appType = appType; }
+
     public Integer getId() { return id; }
 
     public void setId(Integer id) { this.id = id; }
