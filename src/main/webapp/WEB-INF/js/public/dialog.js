@@ -73,16 +73,7 @@ dialog.prototype = {
 
 //ajax 预览，屏蔽， 推荐，删除，封装
 var ajaxPlugins = {
-    preview: function () {
-
-    },
     edit: function () {
-
-    },
-    recommend: function () {
-
-    },
-    Shield: function () {
 
     },
     remove: function (url, tableid, type) {
@@ -127,6 +118,36 @@ var ajaxPlugins = {
     }
 
 
+}
+//图片上传
+function uploadImg(imgFileId,imgFileIdUrl,successEvent){
+    var formData = new FormData();
+    formData.append('imgFile', $("#"+imgFileId+"")[0].files[0]);
+        $.ajax({
+            url: "/v1/upload/file",
+            type: 'post',
+            dataType: 'json',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+                if (result.state == 200) {
+                    $("#"+imgFileIdUrl+"").val(result.data.url)
+                    successEvent();
+                } else {
+                    $.Popup({
+                        confirm: false,
+                        template: result.errmsg
+                    })
+                }
+            },
+            error: function () {
+                $.Popup({
+                    confirm: false,
+                    template: '封面图上传失败,请检查图片是否选择'
+                })
+            }
+        })
 }
 //时间戳初始化
 function timeFormat(data) {
