@@ -75,7 +75,7 @@ public class SportInfoServiceImp extends BaseServiceImpl<SportInfo> implements S
         int i = sportInfoMapper.selectCountSportInfo(pathLevel);
         if (sportInfoDtos != null && sportInfoDtos.size() > 0) {
             Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", sportInfoDtos);
-            map.put("dataCount", i);
+            map.put("total", i);
             return map;
         } else {
             return MapUtils.buildErrorMap(Constants.NO_DATA, "查无数据");

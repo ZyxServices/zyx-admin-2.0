@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
@@ -36,7 +37,7 @@ public class UploadController {
 
     @RequestMapping(value = "/file", method = RequestMethod.POST)
     @ApiOperation(value = "文件上传", notes = "文件上传")
-    public ModelAndView uploadFile(@RequestParam(name = "imgFile") MultipartFile file) {
+    public ModelAndView uploadFile(@RequestPart(name = "file") MultipartFile file) {
 
         AbstractView jsonView = new MappingJackson2JsonView();
         try {

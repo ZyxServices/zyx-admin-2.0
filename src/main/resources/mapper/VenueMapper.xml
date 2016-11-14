@@ -12,6 +12,8 @@
         <result column="phone" jdbcType="VARCHAR" property="phone"/>
         <result column="level" jdbcType="INTEGER" property="level"/>
         <result column="img_urls" jdbcType="VARCHAR" property="imgUrls"/>
+        <association property="commentNum" column="id" select="queryCommentNum"></association>
+        <association property="pathNum" column="id" select="queryPathNum"></association>
     </resultMap>
 
     <insert id="insertVenue" parameterType="com.zyx.model.Venue" useGeneratedKeys="true">
@@ -21,6 +23,14 @@
             select LAST_INSERT_ID() AS id
         </selectKey>
     </insert>
+
+    <select id="queryPathNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT count(id) from t_sport_info WHERE del=0 and venue_id=#{id}
+    </select>
+
+    <select id="queryCommentNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT count(id) from comment where comment_type=6 and comment_id=#{id}
+    </select>
 
     <select id="queryVenue" parameterType="com.zyx.model.Venue" resultMap="venuedto">
         select id,name,description,type,city,mark,level,address,phone,img_urls from t_venue where del=0

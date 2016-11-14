@@ -76,7 +76,7 @@ public class LevelServiceImp extends BaseServiceImpl<Level> implements LevelServ
         List<LevelDto> levels = levelMapper.queryLevel(level);
         if (levels != null && levels.size() > 0) {
             Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", levels);
-            map.put("dataCount", levels.size());
+            map.put("total", levels.size());
             return map;
         } else {
             return MapUtils.buildErrorMap(Constants.NO_DATA, "查无数据");

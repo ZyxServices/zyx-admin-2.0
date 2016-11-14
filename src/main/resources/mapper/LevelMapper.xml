@@ -5,11 +5,13 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="step" jdbcType="VARCHAR" property="step" />
-    <result column="score" jdbcType="VARCHAR" property="score" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="max_score" jdbcType="INTEGER" property="maxScore" />
+    <result column="min_score" jdbcType="INTEGER" property="minScore" />
   </resultMap>
 
   <select id="queryLevel" parameterType="com.zyx.model.Level" resultMap="leveldto">
-    SELECT  id,name,step,score from level WHERE  del=0
+    SELECT  id,name,step,score,min_score,max_score from level WHERE  del=0
     ORDER by create_time desc
   </select>
 

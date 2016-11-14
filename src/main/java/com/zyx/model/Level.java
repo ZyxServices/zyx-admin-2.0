@@ -1,5 +1,7 @@
 package com.zyx.model;
 
+import io.swagger.models.auth.In;
+
 import javax.persistence.*;
 
 /**
@@ -22,6 +24,18 @@ public class Level extends  BaseModel{
      *阶级
     */
     private  String step;
+
+    /**
+     * 当前等级最小积分
+     */
+    @Column(name = "min_score")
+    private  Integer minScore;
+
+    /**
+     * 当前等级最大积分
+     */
+    @Column(name = "max_score")
+    private Integer maxScore;
     /**
      * 升级总共需要积分
      */
@@ -51,4 +65,12 @@ public class Level extends  BaseModel{
     public Integer getScore() { return score; }
 
     public void setScore(Integer score) { this.score = score; }
+
+    public Integer getMinScore() { return minScore; }
+
+    public void setMinScore(Integer minScore) { this.minScore = minScore; }
+
+    public Integer getMaxScore() { return maxScore; }
+
+    public void setMaxScore(Integer maxScore) { this.maxScore = maxScore; }
 }

@@ -25,6 +25,16 @@ public class VenueDto {
 
     private  String imgUrls;
 
+    /**
+     * 评论数
+     */
+    private  int commentNum;
+
+    /**
+     * 路线数
+     */
+    private int pathNum;
+
     public Integer getId() { return id; }
 
     public void setId(Integer id) { this.id = id; }
@@ -64,4 +74,12 @@ public class VenueDto {
     public Integer getType() { return type; }
 
     public void setType(Integer type) { this.type = type; }
+
+    public int getCommentNum() { return commentNum; }
+
+    public void setCommentNum(int commentNum) { this.commentNum = commentNum; }
+
+    public int getPathNum() { return pathNum; }
+
+    public void setPathNum(int pathNum) { this.pathNum = pathNum; }
 }

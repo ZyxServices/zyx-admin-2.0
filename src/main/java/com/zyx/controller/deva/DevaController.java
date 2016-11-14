@@ -7,6 +7,7 @@ import com.zyx.constants.SystemConstants;
 import com.zyx.model.Devaluation;
 import com.zyx.service.AppUserService;
 import com.zyx.service.activity.ActivityService;
+import com.zyx.service.course.CourseService;
 import com.zyx.service.deva.DevaService;
 import com.zyx.service.live.LiveInfoService;
 import com.zyx.service.pg.CircleItemService;
@@ -43,15 +44,7 @@ public class DevaController {
     @Autowired
     ActivityService activityService;
     @Autowired
-    LiveInfoService liveInfoService;
-    @Autowired
-    CircleService circleService;
-    @Autowired
-    CircleItemService circleItemService;
-    @Autowired
-    ConcernService concernService;
-    @Autowired
-    AppUserService appUserService;
+    CourseService courseService;
 //    @Autowired
 //    RedisTemplate<String, List<Devaluation>> innerDevaTemplate;
 //    @Autowired
@@ -217,7 +210,7 @@ public class DevaController {
                     break;
                 case Constants.MODEL_COURSE:
                     //TODO 换成教程攻略的service
-                    list = liveInfoService.selectByIds(ids);
+                    list = courseService.selectByIds(ids);
                     break;
             }
         }

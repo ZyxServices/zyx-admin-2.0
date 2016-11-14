@@ -80,7 +80,7 @@ public class VenueServiceIml extends BaseServiceImpl<Venue> implements VenueServ
         int i = venueMapper.selectCountVenue(venue);
         if (venues != null && venues.size() > 0) {
             Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", venues);
-            map.put("dataCount", i);
+            map.put("total", i);
             return map;
         } else {
             return MapUtils.buildErrorMap(Constants.NO_DATA, "查无数据");

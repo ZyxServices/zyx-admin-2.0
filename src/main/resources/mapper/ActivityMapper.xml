@@ -76,11 +76,11 @@
     </select>
 
     <select id="queryZanNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-        SELECT 0
+        SELECT count(id) from zan where body_type=2 and body_id = #{id}
     </select>
 
     <select id="queryViewNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-        SELECT 0
+        SELECT count(id) from comment where comment_type=2 and comment_id=#{id}
     </select>
 
 

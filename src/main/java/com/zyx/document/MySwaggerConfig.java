@@ -136,6 +136,7 @@ public class MySwaggerConfig {
                 .apiInfo(sportInfoApiInfo());
     }
 
+    @Bean
     public Docket courseApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("course-api")
@@ -159,6 +160,16 @@ public class MySwaggerConfig {
                 .apiInfo(levelApiInfo());
     }
 
+    @Bean
+    public Docket uploadApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("upload")
+                .select()  // 选择那些路径和api会生成document
+                .apis(RequestHandlerSelectors.basePackage("com.zyx.controller.jsoup"))
+                .paths(PathSelectors.any()) // 对所有路径进行监控
+                .build()
+                .apiInfo(uploadApiInfo());
+    }
 
     private ApiInfo liveApiInfo() {
         ApiInfo apiInfo = new ApiInfo("直播接口API",//大标题
@@ -264,6 +275,19 @@ public class MySwaggerConfig {
 
     private ApiInfo levelApiInfo() {
         ApiInfo apiInfo = new ApiInfo("运营端等级接口API",//大标题
+                "用户操作",//小标题
+                "2.0",//版本
+                "成都term",
+                new Contact("胡林", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
+                "智悠行",//链接显示文字
+                "http://112.74.112.143:8081/ui/Delta/index.html "//网站链接
+        );
+
+        return apiInfo;
+    }
+
+    private ApiInfo uploadApiInfo() {
+        ApiInfo apiInfo = new ApiInfo("图片上传接口API",//大标题
                 "用户操作",//小标题
                 "2.0",//版本
                 "成都term",
