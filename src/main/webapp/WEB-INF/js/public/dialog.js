@@ -122,7 +122,7 @@ var ajaxPlugins = {
 //图片上传
 function uploadImg(imgFileId,imgFileIdUrl,successEvent){
     var formData = new FormData();
-    formData.append('imgFile', $("#"+imgFileId+"")[0].files[0]);
+    formData.append('file', $("#"+imgFileId+"")[0].files[0]);
         $.ajax({
             url: "/v1/upload/file",
             type: 'post',
