@@ -60,7 +60,7 @@
                 ]]>
             </if>
         </if>
-        AND del = 0 AND mask = 0
+        AND del = 0
         ORDER BY create_time desc
         <if test="pageNumber != null and page != null">
             limit #{page}, #{pageNumber}
@@ -68,7 +68,7 @@
     </select>
 
     <select id="queryIsDeva" parameterType="java.lang.Integer" resultType="boolean">
-        SELECT NOT ISNULL(id) as isDeva FROM devaluation WHERE model = 1 AND model_id = #{id}
+        SELECT NOT ISNULL(id) as isDeva FROM devaluation WHERE model = 2 AND model_id = #{id}
     </select>
 
     <select id="queryJoinNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
@@ -85,7 +85,7 @@
 
 
     <select id="selectCountActivity" resultType="java.lang.Integer" parameterType="com.zyx.model.Activity">
-        SELECT COUNT(id) FROM activity WHERE  del = 0 AND mask = 0
+        SELECT COUNT(id) FROM activity WHERE  del = 0
         <if test="title != null and title != ''">
             and title LIKE CONCAT('%',${title},'%' )
         </if>
