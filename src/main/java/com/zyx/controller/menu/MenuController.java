@@ -153,6 +153,10 @@ public class MenuController {
     public ModelAndView redirectClimbingVenues() {
         return new ModelAndView("/climbing/venues");
     }
+    @RequestMapping(value = "/climbing/couserlabel", method = RequestMethod.GET)
+    public ModelAndView redirectClimbingcouserlabel() {
+        return new ModelAndView("/climbing/couserlabel");
+    }
     /*社区*/
     @RequestMapping(value = "/community/dynamic", method = RequestMethod.GET)
     public ModelAndView redirectCommunityDynamic() {
@@ -162,6 +166,7 @@ public class MenuController {
     public ModelAndView redirectCommunityGrades() {
         return new ModelAndView("/community/grades");
     }
+
     /*城市*/
     @RequestMapping(value = "/city/city", method = RequestMethod.GET)
     public ModelAndView redirectCityCity() {

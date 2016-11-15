@@ -80,10 +80,10 @@ $(function () {
             console.log(data)
         },
         columns: [
-            {field: '', checkbox: true, align: 'center', valign: 'middle'},
-            {field: 'id', title: 'id', align: 'center', valign: 'middle'},
-            {field: 'name', title: '等级名称'},
+            /*    {field: '', checkbox: true, align: 'center', valign: 'middle'},
+             {field: 'id', title: 'id', align: 'center', valign: 'middle'},*/
             {field: 'step', title: '阶级'},
+            {field: 'name', title: '等级名称'},
             {field: 'minScore', title: '等级最小积分'},
             {field: 'maxScore', title: '等级最大积分'},
             {field: 'operation', title: '操作', align: 'center', events: operateEvent, formatter: circleFormatter}

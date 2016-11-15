@@ -321,6 +321,7 @@
                                         <option value="menu:climbing:talentshow" data-section="攀岩管理" data-index="4">达人秀</option>
                                         <option value="menu:climbing:appointment" data-section="攀岩管理" data-index="5">求约</option>
                                         <option value="menu:climbing:venues" data-section="攀岩管理" data-index="6">场馆</option>
+                                        <option value="menu:climbing:couserlabel" data-section="装备标签" data-index="10">装备标签</option>
 
                                         <option value="menu:community:dynamic" data-section="社区" data-index="7">动态管理</option>
                                         <option value="menu:community:grades" data-section="社区" data-index="8">等级管理</option>
