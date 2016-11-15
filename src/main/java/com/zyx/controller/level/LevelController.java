@@ -15,6 +15,8 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import java.util.Map;
 
+import static org.bouncycastle.asn1.x509.X509ObjectIdentifiers.id;
+
 /**
  * Created by HL on 2016/11/11.
  */
@@ -54,7 +56,7 @@ public class LevelController {
 
     @RequestMapping(value = "/del",method = RequestMethod.POST)
     @ApiOperation(value = "删除等级",notes = "删除等级")
-    public ModelAndView del(@ApiParam(name = "id",required = true,value = "等级主键id")@RequestParam(name = "id",required = true)Integer id){
+    public ModelAndView del(@ApiParam(name = "id",required = true,value = "等级主键id")@RequestParam(name = "id",required = true)String id){
         AbstractView jsonView = new MappingJackson2JsonView();
         Map<String,Object> map = levelService.delLevel(id);
         jsonView.setAttributesMap(map);

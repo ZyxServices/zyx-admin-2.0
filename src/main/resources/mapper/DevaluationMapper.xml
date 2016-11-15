@@ -138,4 +138,8 @@
     <update id="delDeval" parameterType="java.lang.Integer">
         UPDATE devaluation set del=1 WHERE id=#{id}
     </update>
+
+    <update id="cancel" parameterType="com.zyx.model.Devaluation">
+        UPDATE  devaluation set state=#{state} WHERE id=#{id}
+    </update>
 </mapper>

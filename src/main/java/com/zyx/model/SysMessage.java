@@ -40,6 +40,15 @@ public class SysMessage extends  BaseModel{
      */
     private Integer done;
 
+    /**
+     * 撤销状态 0-正常 1-撤销
+     */
+    private Integer mask;
+
+    public Integer getMask() { return mask; }
+
+    public void setMask(Integer mask) { this.mask = mask; }
+
     public Integer getDone() { return done; }
 
     public void setDone(Integer done) { this.done = done; }

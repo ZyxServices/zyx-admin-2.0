@@ -1,5 +1,6 @@
 package com.zyx.controller.deva;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.zyx.constants.Constants;
 import com.zyx.constants.DevaContants;
 import com.zyx.constants.LiveConstants;
@@ -11,6 +12,7 @@ import com.zyx.vo.deva.DevaVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -136,6 +138,21 @@ public class DevaController {
         jsonView.setAttributesMap(result);
         return new ModelAndView(jsonView);
     }
+
+    @RequestMapping(value = "/cancel",method = RequestMethod.POST)
+    @ApiOperation(value = "首推接口-撤销、显示",notes = "首推接口-撤销、显示")
+    public ModelAndView cancel(@ApiParam(name = "id",required = true,value = "主键id")@RequestParam(name = "id",required = true)Integer id,
+                               @ApiParam(name = "state",required = true,value = "0-撤销 1-显示")@RequestParam(name = "state",required = true)Integer state
+                                ){
+        AbstractView jsonView = new MappingJackson2JsonView();
+        Devaluation devaluation = new Devaluation();
+        devaluation.setId(id);
+        devaluation.setState(state);
+        Map<String,Object> result = devaService.cancel(devaluation);
+        jsonView.setAttributesMap(result);
+        return new ModelAndView(jsonView);
+    }
+
 
     @RequestMapping(value = "/list", method = {RequestMethod.POST, RequestMethod.GET})
     @ApiOperation(value = "首推接口-获取首推", notes = "首推接口-获取首推")

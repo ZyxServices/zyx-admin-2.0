@@ -71,14 +71,10 @@ public class SportInfoServiceImpl extends BaseServiceImpl<SportInfo> implements 
     public Map<String, Object> querySportInfo(SportInfo pathLevel) {
         pathLevel.setPage(pathLevel.getPage()*pathLevel.getPageNumber());
         List<SportInfoDto> sportInfoDtos = sportInfoMapper.querySportInfo(pathLevel);
-
         int i = sportInfoMapper.selectCountSportInfo(pathLevel);
-        if (sportInfoDtos != null && sportInfoDtos.size() > 0) {
-            Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", sportInfoDtos);
-            map.put("total", i);
-            return map;
-        } else {
-            return MapUtils.buildErrorMap(Constants.NO_DATA, "查无数据");
-        }
+        Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", sportInfoDtos);
+        map.put("total", i);
+        return map;
+
     }
 }

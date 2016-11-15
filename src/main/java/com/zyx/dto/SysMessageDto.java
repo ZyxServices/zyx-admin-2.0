@@ -10,6 +10,11 @@ public class SysMessageDto {
     private Long pushTime;
     private String content;
     private Integer done;
+    private Integer mask;
+
+    public Integer getMask() { return mask; }
+
+    public void setMask(Integer mask) { this.mask = mask; }
 
     public Integer getDone() { return done; }
 

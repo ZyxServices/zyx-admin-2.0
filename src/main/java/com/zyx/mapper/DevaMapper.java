@@ -23,4 +23,11 @@ public interface DevaMapper extends Mapper<Devaluation> {
     public void cascadeDelete(DevaParam param);
 
     int delDeval(Integer id);
+
+    /**
+     * 撤销、显示
+     * @param devaluation
+     * @return
+     */
+    int cancel(Devaluation devaluation);
 }

@@ -46,4 +46,11 @@ public interface DevaService extends BaseService<Devaluation>{
      * @return
      */
     int delDeval(Integer id);
+
+    /**
+     * 显示、撤销
+     * @param devaluation
+     * @return
+     */
+    Map<String,Object> cancel(Devaluation devaluation);
 }

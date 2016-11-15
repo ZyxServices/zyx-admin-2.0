@@ -51,7 +51,7 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements Ac
             if (insert > 0) {
                 return MapUtils.buildSuccessMap(Constants.SUCCESS, "发布成功", null);
             } else {
-                return MapUtils.buildErrorMap(ActivityConstants.AUTH_ERROR_10000, "活动发布失败");
+                return MapUtils.buildErrorMap(Constants.DATA_INSERT_FAILED, "活动发布失败");
             }
         } else {
             return MapUtils.buildErrorMap(Constants.PARAM_MISS, "参数缺失");
@@ -63,15 +63,11 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements Ac
         activity.setPage(activity.getPage()*activity.getPageNumber());
         activity.setCurrentTime(new Date().getTime());
         List<ActivityDto> activities = activityMapper.queryActivity(activity);
-
         int i = activityMapper.selectCountActivity(activity);
-        if (activities != null && activities.size() > 0) {
-            Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", activities);
-            map.put("total", i);
-            return map;
-        } else {
-            return MapUtils.buildErrorMap(Constants.NO_DATA, "差无数据");
-        }
+        Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", activities);
+        map.put("total", i);
+        return map;
+
     }
 
     @Override
@@ -126,7 +122,7 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements Ac
             String[] ids = id.split(",");
             for (String integer : ids) {
                 if (integer != null && Integer.valueOf(integer) > 0) {
-                    int i = activityMapper.delActivity(Integer.valueOf(id));
+                    int i = activityMapper.delActivity(Integer.valueOf(integer));
                     if (i > 0) {
                         a++;
                     }

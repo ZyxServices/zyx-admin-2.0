@@ -87,4 +87,14 @@ public class DevaServiceImpl extends BaseServiceImpl<Devaluation> implements Dev
     public int delDeval(Integer id) {
         return devaMapper.delDeval(id);
     }
+
+    @Override
+    public Map<String, Object> cancel(Devaluation devaluation) {
+        int rst = devaMapper.cancel(devaluation);
+        if (rst>0){
+            return MapUtils.buildSuccessMap(Constants.SUCCESS,"数据更新成功", "数据更新成功");
+        }else {
+            return MapUtils.buildErrorMap(Constants.DATA_UPDATE_FAILED, "数据更新失败");
+        }
+    }
 }

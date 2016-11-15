@@ -7,11 +7,12 @@
         <result column="push_time" jdbcType="BIGINT" property="pushTime"/>
         <result column="type" jdbcType="INTEGER" property="type"/>
         <result column="done" jdbcType="INTEGER" property="done"/>
+        <result column="mask" jdbcType="INTEGER" property="mask"/>
     </resultMap>
 
     <insert id="insertSysMessage" parameterType="com.zyx.model.SysMessage" useGeneratedKeys="true">
-        insert INTO SYS_MSG(content,push_time,push_type,type,del,done,create_time)
-        VALUE (#{content}, #{pushTime}, #{pushType}, #{type},#{del},#{done}, #{createTime})
+        insert INTO SYS_MSG(content,push_time,push_type,type,del,done,create_time,mask)
+        VALUE (#{content}, #{pushTime}, #{pushType}, #{type},#{del},#{done}, #{createTime},#{mask})
         <selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
             select LAST_INSERT_ID() AS id
         </selectKey>
@@ -47,6 +48,9 @@
               </if>
               <if test="pushTime!=null">
                   push_time=#{push_time}
+              </if>
+              <if test="mask!=null">
+                  mask=#{mask}
               </if>
           </set>
         where id=#{id}

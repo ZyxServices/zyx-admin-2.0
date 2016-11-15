@@ -1,6 +1,7 @@
 package com.zyx.controller.sysmessage;
 
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.zyx.model.Devaluation;
 import com.zyx.model.SysMessage;
 import com.zyx.service.sysmessage.SysMessageService;
 import com.zyx.utils.GetTimeUtil;
@@ -49,10 +50,26 @@ public class SysMessageController {
         }
         sysMessage.setPushType(pushType);
         sysMessage.setType(type);
+        sysMessage.setMask(0);
         Map<String, Object> map = sysMessageService.insertSysMessage(sysMessage);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
+
+    @RequestMapping(value = "/mask",method = RequestMethod.POST)
+    @ApiOperation(value = "消息管理 撤销-恢复",notes = "消息管理 撤销-恢复")
+    public ModelAndView mask(@ApiParam(name = "id",required = true,value = "主键id")@RequestParam(name = "id",required = true)Integer id,
+                             @ApiParam(name = "mask",required = true,value = "0-正常 1-撤销")@RequestParam(name = "mask",required = true)Integer mask
+                            ){
+        AbstractView jsonView = new MappingJackson2JsonView();
+        SysMessage sysMessage = new SysMessage();
+        sysMessage.setId(id);
+        sysMessage.setMask(mask);
+        Map<String,Object> result = sysMessageService.updateSysMessage(sysMessage);
+        jsonView.setAttributesMap(result);
+        return new ModelAndView(jsonView);
+    }
+
 
 
     @RequestMapping(value = "/del",method = RequestMethod.POST)

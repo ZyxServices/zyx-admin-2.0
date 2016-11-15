@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import static org.bouncycastle.asn1.x509.X509ObjectIdentifiers.id;
+
 /**
  * Created by HL on 2016/11/11.
  */
@@ -47,16 +49,19 @@ public class LevelServiceImpl extends BaseServiceImpl<Level> implements LevelSer
     }
 
     @Override
-    public Map<String, Object> delLevel(Integer id) {
-        if (id!=null){
-            int rst = levelMapper.delLevel(id);
-            if (rst>0){
-                return MapUtils.buildSuccessMap(Constants.SUCCESS, "删除等级成功", null);
-            }else {
-                return MapUtils.buildSuccessMap(Constants.DATA_UPDATE_FAILED, "删除等级失败", null);
+    public Map<String, Object> delLevel(String id) {
+        String ids[] = id.split(",");
+        int a=0;
+        for(String temp:ids){
+            int i=levelMapper.delLevel(Integer.valueOf(temp));
+            if (i>0){
+                a++;
             }
+        }
+        if (a>0){
+            return MapUtils.buildErrorMap(Constants.SUCCESS, "数据删除成功");
         }else {
-            return MapUtils.buildErrorMap(Constants.PARAM_MISS, "参数缺失");
+            return  MapUtils.buildErrorMap(Constants.ERROR_DEL_1001,"数据删除失败");
         }
     }
 
@@ -77,12 +82,8 @@ public class LevelServiceImpl extends BaseServiceImpl<Level> implements LevelSer
     @Override
     public Map<String, Object> queryLevel(Level level) {
         List<LevelDto> levels = levelMapper.queryLevel(level);
-        if (levels != null && levels.size() > 0) {
             Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", levels);
             map.put("total", levels.size());
             return map;
-        } else {
-            return MapUtils.buildErrorMap(Constants.NO_DATA, "查无数据");
-        }
     }
 }

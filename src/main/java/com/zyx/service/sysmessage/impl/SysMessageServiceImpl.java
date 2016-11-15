@@ -95,12 +95,8 @@ public class SysMessageServiceImpl extends BaseServiceImpl<SysMessage> implement
         sysMessage.setDel(0);
         List<SysMessageDto> sysMessages = sysMessageMapper.querySysMessage(sysMessage);
         int i = sysMessageMapper.selectCountSysMessage(sysMessage);
-        if (sysMessages != null && sysMessages.size() > 0) {
-            Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", sysMessages);
-            map.put("total", i);
-            return map;
-        } else {
-            return MapUtils.buildErrorMap(Constants.NO_DATA, "查无数据");
-        }
+        Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", sysMessages);
+        map.put("total", i);
+        return map;
     }
 }
