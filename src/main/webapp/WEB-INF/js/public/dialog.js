@@ -116,8 +116,6 @@ var ajaxPlugins = {
             }
         })
     }
-
-
 }
 //图片上传
 function uploadImg(imgFileId,imgFileIdUrl,successEvent){

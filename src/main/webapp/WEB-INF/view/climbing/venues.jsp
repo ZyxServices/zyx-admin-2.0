@@ -20,6 +20,10 @@
     <jsp:include page="../public/common-styles.jsp"/>
     <link rel="stylesheet" href="../../css/summernote.css"/>
     <link rel="stylesheet" href="../../css/tiyujia/style.css"/>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=bc83b9475a5b54ab35e22bbaf1b0ab06&plugin=AMap.Autocomplete"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+
 </head>
 <body class="page-header-fixed">
 <jsp:include page="../public/header.jsp"/>
@@ -54,7 +58,7 @@
             </div>
 
         </div>
-        <div class="container-fluid hide" id="lineList" >
+        <div class="container-fluid hide" id="lineList">
             <div class="row-fluid">
                 <div class="span12">
                     <h3 class="page-title">
@@ -62,13 +66,14 @@
                         <small>statistics and more</small>
                     </h3>
                 </div>
-                <div class="margin-bottom-10"><a class="btn btn-default" href="javascript:void(0)" onclick="operateEventssssss.addLineModal()">添加线路</a></div>
+                <div class="margin-bottom-10"><a class="btn btn-default" href="javascript:void(0)"
+                                                 onclick="operateEventssssss.addLineModal()">添加线路</a></div>
             </div>
-                <div class="row-fluid">
-                    <div class="span12 responsive">
-                        <table id="lineTabel" ></table>
-                    </div>
+            <div class="row-fluid">
+                <div class="span12 responsive">
+                    <table id="lineTabel"></table>
                 </div>
+            </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <a href="javascript:void(0)" class="btn btn-default"
@@ -153,7 +158,8 @@
                             <label class="control-label">经度</label>
 
                             <div class="controls">
-                                <input type="text" id="v_longitude" name="longitude" class="span6" placeholder=""/>
+                                <input type="text" id="v_longitude" name="longitude" class="span6"
+                                       placeholder=""/>
                             </div>
                         </div>
 
@@ -161,7 +167,10 @@
                             <label class="control-label">纬度</label>
 
                             <div class="controls">
-                                <input type="text" id="v_latitude" name="latitude" class="span6" placeholder=""/>
+                                <input type="text" id="v_latitude" name="latitude" class="span6"  placeholder=""/>
+
+                                <a onclick="$('#mapModel').modal('show')" class="controls"
+                                   style="margin-left: 0;display: block;cursor:hand">打开地图</a>
                             </div>
                         </div>
 
@@ -245,7 +254,7 @@
             </div>
 
             <div class="control-group">
-                <label   class="control-label">开线者</label>
+                <label class="control-label">开线者</label>
 
                 <div class="controls">
                     <input name="developer" type="text"/>
@@ -269,7 +278,7 @@
             </div>
 
             <div class="control-group">
-                <label  class="control-label">难度对应得分</label>
+                <label class="control-label">难度对应得分</label>
 
                 <div class="controls">
                     <input name="score" type="text"/>
@@ -277,7 +286,7 @@
             </div>
 
             <div class="control-group">
-                <label  class="control-label">难度等级</label>
+                <label class="control-label">难度等级</label>
 
                 <div class="controls">
                     <input name="level" type="text"/>
@@ -293,8 +302,9 @@
             </div>
             <div class="control-group">
                 <label class="control-label">线路图</label>
+
                 <div class="controls">
-                    <input id="lineUrl" type="hidden"  name="url" />
+                    <input id="lineUrl" type="hidden" name="url"/>
                     <input type="file" id="lineImage"/>
                 </div>
             </div>
@@ -303,18 +313,59 @@
     <div class="modal-footer">
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <a href="javascript:void(0)" class="btn btn-default" id="sureLine" onclick="operateEventssssss.submitLineForm()">确定</a>
+                <a href="javascript:void(0)" class="btn btn-default" id="sureLine"
+                   onclick="operateEventssssss.submitLineForm()">确定</a>
                 <a href="javascript:void(0)" class="btn btn-default" data-dismiss='modal'>取消</a>
             </div>
         </div>
     </div>
 </div>
-
+<div class="modal fade hide" id="mapModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-header">
+        <button data-dismiss="modal" class="close" type="button"></button>
+        <h3>经纬度获取</h3></div>
+    <div class="modal-body">
+        <div style="width: 400px;height: 500px">
+            <div id="container"></div>
+            <div id="myPageTop">
+                <table>
+                    <tr>
+                        <td>
+                            <label>按关键字搜索：</label>
+                        </td>
+                        <td class="column2">
+                            <label>左击获取经纬度：</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" placeholder="请输入关键字进行搜索" id="tipinput">
+                        </td>
+                        <td class="column2">
+                            <input type="text" readonly="true" id="lnglat">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <a href="javascript:void(0)" class="btn btn-default"  data-dismiss='modal'>确定</a>
+                <a href="javascript:void(0)" class="btn btn-default" data-dismiss='modal'>取消</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 <jsp:include page="../public/footer.jsp"/>
 <jsp:include page="../public/common-js.jsp"/>
 <script src="../../js/app.js" type="text/javascript"></script>
 <script src="../../js/index.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../js/climbing/venues.js"></script>
+
 <script>
 
     jQuery(document).ready(function () {
@@ -322,7 +373,27 @@
         App.init(); // initlayout and core plugins
 
     });
-
+    var map = new AMap.Map("container", {
+        resizeEnable: true,
+        zoom:17
+    });
+    //为地图注册click事件获取鼠标点击出的经纬度坐标
+    var clickEventListener = map.on('click', function (e) {
+        document.getElementById("lnglat").value = e.lnglat.getLng() + ',' + e.lnglat.getLat()
+        document.getElementById("v_longitude").value = e.lnglat.getLng() ;
+        document.getElementById("v_latitude").value = e.lnglat.getLat() ;
+    });
+    var auto = new AMap.Autocomplete({
+        input: "tipinput"
+    });
+    AMap.event.addListener(auto, "select", select);//注册监听，当选中某条记录时会触发
+    map.setZoom(17);
+    function select(e) {
+        if (e.poi && e.poi.location) {
+            map.setZoom(17);
+            map.setCenter(e.poi.location);
+        }
+    }
 </script>
 </body>
 </html>
