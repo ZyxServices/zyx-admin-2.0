@@ -182,6 +182,7 @@ $(function () {
 });
 
 function initAppointmentTable() {
+    $("#appointment-list-table").bootstrapTable('destroy');
     $("#appointment-list-table").bootstrapTable({
         url: "/v2/activity/queryActivity",
         toolbar: '#toolbar',        //工具按钮用哪个容器
@@ -218,7 +219,11 @@ function queryParams(params) {
     return {
         page: params.pageNumber-1,
         pageNumber: params.pageSize,
-        search: params.search
+        title: params.searchText,
+        type: $("#searchType").val(),
+        activityType: $("#searchActivityType").val(),
+        paymentType: $("#searchPaymentType").val(),
+        status: $("#searchStatus").val()
     };
 }
 
@@ -226,6 +231,12 @@ function fromData(res) {
     if (res.state == 480) {
         $("#content-wrapper").html("<section class='content'>无权限</section>");
         return false;
+    }
+    if(res.state == 804){
+        return {
+            rows: {},
+            total: 0
+        }
     }
     if (res.state == 200) {
         var dataArray = [];
@@ -653,7 +664,7 @@ function getImgURL(file) {
 /*活动批量删除*/
 function batchDelete() {
     var bathId = [];
-    $.map($("#activity-list-table").bootstrapTable('getSelections'), function (row) {
+    $.map($("#appointment-list-table").bootstrapTable('getSelections'), function (row) {
         bathId.push(row.id);
     });
     $.Popup({
@@ -686,5 +697,5 @@ function batchDelete() {
 }
 /*筛选表格----表格过滤条件*/
 function startFilter() {
-    console.log("对表格开始初始化");
+    $('#appointment-list-table').bootstrapTable('refresh');
 }

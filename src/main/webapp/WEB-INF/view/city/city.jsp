@@ -45,7 +45,7 @@
             <div id="banner-list">
                 <div class="row-fluid">
                     <div class="span6">
-                        <a class="btn btn-default" href="javascript:void(0)" onclick="addGrades()">添加城市</a>
+                        <a class="btn btn-default" href="javascript:void(0)" onclick="addCitys()">添加城市</a>
                     </div>
                 </div>
                 <div class="row-fluid">
@@ -55,7 +55,9 @@
                             <tr>
                                 <th data-checkbox="true"></th>
                                 <th data-field="id">ID</th>
-                                <th data-field="modelTitle">城市名称</th>
+                                <th data-field="cityName">城市名称</th>
+                                <th data-field="state">是否启用</th>
+                                <th data-field="createTime">城市名称创建时间</th>
                                 <th data-formatter="operate" data-events="operateEvents">操作</th>
                             </tr>
                             </thead>
@@ -66,21 +68,30 @@
         </div>
     </div>
 </div>
-<%--添加修改等级modal--%>
-<div class="modal fade hide" id="addCityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<%--添加城市--%>
+<div class="modal hide" id="addCityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-header">
         <button data-dismiss="modal" class="close" type="button"></button>
         <h3>添加城市</h3></div>
     <div class="modal-body">
-        <form id="lineForm" class="form-horizontal" role="form" enctype="multipart/form-data">
+        <form id="addCityForm" class="form-horizontal" role="form" enctype="multipart/form-data">
 
-            <div class="control-group">
+            <div class="control-group form-group">
                 <label class="control-label">城市名称</label>
-                <div class="controls">
-                    <input type="text"/>
+                <div class="controls col-xs-5">
+                    <input type="text" name="cityName"/>
+                    <span class="help-inline required">*</span>
                 </div>
             </div>
+
+            <%--<div class="control-group">
+                <label class="control-label">启用状态</label>
+                <div class="controls">
+                    <label class="radio"><input type="radio" checked value="0" name="state">启用</label>
+                    <label class="radio"><input type="radio" value="1" name="state">禁用</label>
+                </div>
+            </div>--%>
 
         </form>
     </div>

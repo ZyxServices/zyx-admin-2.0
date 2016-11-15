@@ -44,35 +44,35 @@
                     </ul>
                 </div>
             </div>
-            <div id="activity-list">
-                <div class="row-fluid margin-bottom-10">
-                    <div class="span8">
-                        <select>
-                            <option value="1">全部</option>
-                            <option value="2">官方活动</option>
-                            <option value="3">用户活动</option>
-                        </select>
-                        <select>
-                            <option value="1">全部</option>
-                            <option value="2">求约</option>
-                            <option value="3">求带</option>
-                        </select>
-                        <select>
-                            <option value="1">全部</option>
-                            <option value="2">正在报名</option>
-                            <option value="3">已经结束</option>
-                        </select>
-                        <select>
-                            <option value="1">全部</option>
-                            <option value="2">奖励</option>
-                            <option value="3">AA</option>
-                        </select>
-                        <a class="btn btn-default margin-bottom-10" href="javascript:void(0)" onclick="startFilter()">开始筛选</a>
-                    </div>
-                    <div class="span4 text-right">
+            <div>
+                <div class="row-fluid">
+                    <div class="span12 margin-bottom-10">
                         <a class="btn btn-default" href="javascript:void(0)" onclick="createActivity()">创建活动</a>
                         <a class="btn btn-default" href="javascript:void(0)" onclick="batchDelete()">批量删除</a>
                     </div>
+                    <form  id="searchCondition" enctype="multipart/form-data" class="form-inline" role="form">
+                        <select name="type" id="searchType">
+                            <option value="0">官方</option>
+                            <option value="1">用户</option>
+                        </select>
+
+                        <select name="activityType" id="searchActivityType">
+                            <option value="1">求约</option>
+                            <option value="2">求带</option>
+                        </select>
+
+                        <select name="paymentType" id="searchPaymentType">
+                            <option value="0">奖励</option>
+                            <option value="1">免费</option>
+                            <option value="2">AA</option>
+                        </select>
+
+                        <select name="status" id="searchStatus">
+                            <option value="0">正在报名</option>
+                            <option value="1">已结束</option>
+                        </select>
+                        <a class="btn btn-default" href="javascript:void(0)" onclick="startFilter()">开始筛选</a>
+                    </form>
                 </div>
                 <div class="row-fluid">
                     <div class="span12 responsive">
