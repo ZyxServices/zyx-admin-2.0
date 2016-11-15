@@ -43,7 +43,7 @@
                 </div>
                 <div>
                     <select class="form-control" onchange="changeBannerTable(this)">
-                        <option value="1">攀岩馆banner</option>
+                        <option value="1">首页banner</option>
                         <option value="2">求约banner</option>
                     </select>
                 </div>
@@ -51,15 +51,16 @@
             <div id="banner-list">
                 <div class="row-fluid">
                     <div class="span12 responsive">
-                        <table id="homepage-list-table">
+                        <table id="banner-list-table">
                             <thead>
                             <tr>
                                 <th data-checkbox="true"></th>
                                 <th data-field="id">ID</th>
-                                <th data-field="modelTitle">banner模块</th>
+                                <th data-field="model">banner模块</th>
+                                <th data-field="area">展示区域</th>
                                 <th data-field="sequence">banner位置</th>
-                                <th data-field="sequence">banner类型</th>
-                                <th data-field="image">图片</th>
+                                <th data-field="imageUrl">图片</th>
+                                <th data-field="state">状态</th>
                                 <th data-formatter="operate" data-events="operateEvents">操作</th>
                             </tr>
                             </thead>
@@ -94,13 +95,26 @@
                         <div class="control-group form-group">
                             <label class="control-label">banner模块</label>
                             <div class="controls col-xs-5">
-                                <input type="text" id="title" class="span6" disabled/>
+                                <select name="model" id="model" disabled class="span6">
+                                    <option value="1">教程攻略</option>
+                                    <option value="2">求约</option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="control-group">
-                            <label class="control-label">banner位置</label>
+                            <label class="control-label">展示区域</label>
                             <div class="controls">
+                                <select name="area" id="area" onchange="changeDevArea(this)" class="span6">
+                                    <option value="1">首页</option>
+                                    <option value="2">求约</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="control-group form-group">
+                            <label class="control-label">banner位置</label>
+                            <div class="controls col-xs-5">
                                 <select class="span6" id="sequence" name="sequence">
 
                                 </select>
@@ -123,6 +137,14 @@
                                 <div style="margin-top: 10px" id="imagesWrap" class="showImg">
                                     <img id="images" src="">
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">推荐状态</label>
+                            <div class="controls">
+                                <label class="radio"><input type="radio" checked value="1" name="state">激活</label>
+                                <label class="radio"><input type="radio" value="0" name="state">未激活</label>
                             </div>
                         </div>
 

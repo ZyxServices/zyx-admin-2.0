@@ -55,7 +55,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="loginLoad">
+<div class="modal fade" id="loginLoad" data-backdrop="static">
     <div class="modal-body">
         <p>登录中...</p>
     </div>

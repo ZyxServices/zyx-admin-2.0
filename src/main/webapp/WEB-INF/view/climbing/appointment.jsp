@@ -76,26 +76,22 @@
                 </div>
                 <div class="row-fluid">
                     <div class="span12 responsive">
-                        <table class="table table-hover" id="activity-list-table">
+                        <table class="table table-hover" id="appointment-list-table">
                             <thead>
                             <tr>
                                 <th data-checkbox="true"></th>
                                 <th data-field="id">id</th>
-                                <th data-field="name">活动标题</th>
-                                <th data-field="name">活动类型</th>
-                                <th data-field="name">活动状态</th>
-                                <th data-field="name">活动图片</th>
-                                <th data-field="createPerson">发布人</th>
-                                <th data-field="time" data-formatter="timeFormat">发布时间</th>
-                                <%--<th data-field="startTime"  data-formatter="timeFormat">开始时间</th>--%>
+                                <th data-field="title">活动标题</th>
+                                <th data-field="activityType">活动类型</th>
+                                <th data-field="status">活动状态</th>
+                                <th data-field="imgUrls">活动图片</th>
+                                <th data-field="userName">发布人</th>
+                                <th data-field="createTime" data-formatter="timeFormat">发布时间</th>
                                 <th data-field="address">活动地点</th>
-                                <th data-field="pv">付费类型</th>
-                                <th data-field="pv">浏览量</th>
-                                <th data-field="pv">点赞数</th>
-                                <th data-field="pv">评论数</th>
-                                <th data-field="pv">已报名</th>
-                                <%--<th data-field="report">举报状态</th>--%>
-                                <%--<th data-field="url">查看url</th>--%>
+                                <th data-field="paymentType">付费类型</th>
+                                <th data-field="zanNum">点赞数</th>
+                                <th data-field="viewNum">评论数</th>
+                                <th data-field="joinNum">已报名</th>
                                 <th data-formatter="operate" data-events="operateEvents">操作</th>
                             </tr>
                             </thead>
@@ -126,18 +122,13 @@
                 <div class="row-fluid">
                     <form id="updateCreateFrom" enctype="multipart/form-data" class="form-horizontal" role="form">
                         <input type="hidden" name="id" id="avtivityId" value="">
-                        <div class="control-group">
-                            <label class="control-label">选择用户</label>
-                            <div class="controls">
-                                <select id="choiceUser" name="userId" class="span6">
-                                </select>
-                            </div>
-                        </div>
+                        <%--代表官方发布类型--%>
+                        <input type="hidden" name="type" value="0">
 
                         <div class="control-group form-group">
                             <label class="control-label">活动名称</label>
                             <div class="controls col-xs-5">
-                                <input type="text" id="title" name="title" class="span6" placeholder="请输入活动标题"/>
+                                <input type="text" id="title" name="title" class="span6" placeholder="请输入活动名称"/>
                                 <span class="help-inline required">*</span>
                             </div>
                         </div>
@@ -146,7 +137,9 @@
                             <label class="control-label">封面</label>
                             <div class="controls col-xs-5">
                                 <div id="imgWrap">
-                                    <input id="image" type="text" class="hideInput" name="image">
+                                    <%--图片的路径--%>
+                                    <input id="image" type="text" class="hideInput" name="imageUrls">
+                                    <%--文件类型--%>
                                     <input id="lefile" type="file" class="hideInput" name="imageR">
                                     <a class="btn btn-default" href="javascript:void (0)" id="photoCover"
                                        onclick="$('input[id=lefile]').click();">选择文件</a>
@@ -163,23 +156,14 @@
                             <div class="controls summernote">
                                 <div class="span6 col-xs-5">
                                     <div id="activity-summernote"></div>
-                                    <input id="desc" type="text" class="hideInput" name="desc" value="">
+                                    <input id="desc" type="text" class="hideInput" name="descContent">
                                 </div>
                                 <span class="help-inline required">*</span>
                             </div>
                         </div>
 
                         <div class="control-group form-group">
-                            <label class="control-label">活动类型</label>
-                            <div class="controls col-xs-5">
-                                <select>
-                                    <option>官方活动</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="control-group form-group">
-                            <label class="control-label">开始时间</label>
+                            <label class="control-label">活动开始时间</label>
                             <div class="controls col-xs-5">
                                 <input type="text" class="span6" id="activityStartTime" name="startTime"
                                        placeholder="活动开始时间"/>
@@ -188,26 +172,35 @@
                         </div>
 
                         <div class="control-group form-group">
-                            <label class="control-label">结束时间</label>
+                            <label class="control-label">活动截止时间</label>
                             <div class="controls col-xs-5">
                                 <input type="text" class="span6" disabled id="activityEndTime" name="endTime"
-                                       placeholder="活动结束时间"/>
+                                       placeholder="活动截止时间"/>
                                 <span class="help-inline required">*</span>
                             </div>
                         </div>
 
-                        <div class="control-group">
+                        <div class="control-group form-group">
                             <label class="control-label">报名截止时间</label>
-                            <div class="controls">
-                                <input type="text" class="span6" id="signEndTime" name="lastTime" placeholder="报名截止时间"/>
+                            <div class="controls col-xs-5">
+                                <input type="text" class="span6" disabled id="signEndTime" name="lastTime" placeholder="报名截止时间"/>
                             </div>
                         </div>
 
                         <div class="control-group form-group">
-                            <label class="control-label">类型</label>
+                            <label class="control-label">报名人数</label>
                             <div class="controls col-xs-5">
-                                <label class="radio"><input type="radio" name="type" checked value="1">线下活动</label>
-                                <label class="radio"><input type="radio" name="type" value="0">线上活动</label>
+                                <input type="text" id="maxPeople" name="maxPeople" class="span6" placeholder="请输入最大人数"/>
+                            </div>
+                        </div>
+
+                        <div class="control-group form-group">
+                            <label class="control-label">活动类型</label>
+                            <div class="controls col-xs-5">
+                                <select name="activityType" id="activityType" class="span6" style="height: 34px">
+                                    <option value="1">求约</option>
+                                    <option value="2">求带</option>
+                                </select>
                             </div>
                         </div>
 
@@ -221,83 +214,12 @@
                         <div class="control-group">
                             <label class="control-label">付费类型</label>
                             <div class="controls">
-                                <select name="payType" class="span6">
-                                    <option value="1">奖励</option>
-                                    <option value="2">免费</option>
-                                    <option value="3">AA</option>
+                                <select name="paymentType" class="span6" id="paymentType" style="height: 34px" onchange="changePaymentType(this)">
+                                    <option value="0">奖励</option>
+                                    <option value="1">免费</option>
+                                    <option value="2">AA</option>
                                 </select>
-                            </div>
-                        </div>
-
-                        <hr>
-
-                        <h4>高级选项</h4>
-
-                        <div class="control-group form-group">
-                            <label class="control-label">人数限制</label>
-                            <div class="controls col-xs-5">
-                                <input type="text" id="maxPeople" name="maxPeople" class="span6" placeholder="请输入最大人数"/>
-                            </div>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label">咨询电话</label>
-                            <div class="controls">
-                                <input type="text" id="phone" name="phone" class="span6" placeholder="请输入正确的手机号码"/>
-                            </div>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label">价格</label>
-                            <div class="controls">
-                                <input type="text" id="price" name="price" class="span6" placeholder="默认免费"/>
-                            </div>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label">可见范围</label>
-                            <div class="controls">
-                                <select id="visible" name="visible" class="span6">
-                                    <option value="0">所有人</option>
-                                    <option value="1">我的粉丝</option>
-                                    <option value="2">我的关注</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label">是否需要审核申请者</label>
-                            <div class="controls">
-                                <select class="span6" id="examine" name="examine" onchange="isReviewed()">
-                                    <option value="0">否</option>
-                                    <option value="1">是</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="control-group hide form-group" id="userRequired">
-                            <label class="control-label">用户报名必填</label>
-                            <div class="controls col-xs-5" id="template">
-                                <label class="checkbox"><input type="checkbox" name="memberString"
-                                                               value="手机号码">手机号码</label>
-                                <label class="checkbox"><input type="checkbox" name="memberString" value="姓名">姓名</label>
-                                <label class="checkbox"><input type="checkbox" name="memberString"
-                                                               value="身份证号码">身份证号码</label>
-                                <label class="checkbox"><input type="checkbox" name="memberString" value="性别">性别</label>
-                                <label class="checkbox"><input type="checkbox" name="memberString" value="年龄">年龄</label>
-                                <label class="checkbox"><input type="checkbox" name="memberString" value="地址">地址</label>
-                                <a href="javascript:void (0)" onclick="choiceMore()" id="addBtn">+</a>
-                            </div>
-                            <input type="hidden" id="memberTemplate" name="memberTemplate"/>
-                        </div>
-
-                        <div class="control-group hide" id="addChoice">
-                            <label class="control-label"></label>
-                            <div class="controls">
-                                <input type="text" class="span3" id="requiredVal"><a href="javascript:void(0)"
-                                                                                     class="btn btn-default"
-                                                                                     onclick="createRequired()">确定</a>
-                                <span class="help-inline required" id="userRequiredInput">*</span>
+                                <input type="text" name="price" placeholder="输入AA金额" id="price" class="hide">
                             </div>
                         </div>
 
@@ -336,52 +258,25 @@
     <div class="modal-body">
         <form id="devaForm" class="form-horizontal" role="form" enctype="multipart/form-data">
 
-            <div class="control-group">
-                <label class="control-label">活动标题</label>
-                <div class="controls">
-                    <input id="activityName" disabled type="text"/>
-                </div>
-            </div>
+            <input type="hidden" name="model" value="2"/>
+            <input type="hidden" name="modelId" id="modelId"/>
+            <input type="hidden" name="imageUrl" id="imageUrl"/>
 
-            <input type="hidden" name="model" value="1"/>
-            <input type="hidden" name="area" value="1"/>
-            <div class="control-group">
-                <label class="control-label">选择推荐图片</label>
-                <div class="controls showImg">
-                    <%--<a href="javascript:void(0)" style="position: relative;display: inline-block" onclick="choiceDevaImg(this)">--%>
-                    <img id="activityImage" src="">
-                    <%--<span class="devaOk hide"><i class="icon-ok"></i></span>--%>
-                    <%--</a>--%>
-                </div>
-            </div>
-            <%--<div class="control-group">
-              <div class="controls">
-                <input type="hidden" name="imageUrl" id="imageUrl">
-                <input id="recommendFile" type="file" class="hideInput">
-                <a class="btn btn-default" href="javascript:void (0)" id="recommendPhotoCover" onclick="$('input[id=recommendFile]').click();">选择文件</a>
-                <div style="margin-top: 10px" id="recommendImgWrap" class="showImg">
-                  <img id="recommendImg" src="">
-                </div>
-              </div>
-            </div>--%>
             <div class="control-group form-group">
-                <label class="control-label">banner排序</label>
+                <label class="control-label">将此活动推荐到</label>
                 <div class="controls col-xs-5">
-                    <select id="sequence" name="sequence">
+                    <select id="area" name="area" onchange="changeDevArea(this)">
+                        <option value="1">首页</option>
+                        <option value="2">求约</option>
                     </select>
                 </div>
             </div>
-            <input type="hidden" name="modelId" id="activityId">
-            <div class="control-group">
-                <label class="control-label">图片</label>
-                <div class="controls">
-                    <input type="hidden" name="imageUrl" id="imageUrl">
-                    <input id="recommendFile" type="file" class="hideInput">
-                    <a class="btn btn-default" href="javascript:void (0)" id="recommendPhotoCover"
-                       onclick="$('input[id=recommendFile]').click();">选择文件</a>
-                    <div style="margin-top: 10px" id="recommendImgWrap" class="showImg">
-                        <img id="recommendImg" src="">
-                    </div>
+
+            <div class="control-group form-group">
+                <label class="control-label">banner位置</label>
+                <div class="controls col-xs-5">
+                    <select id="sequence" name="sequence">
+                    </select>
                 </div>
             </div>
 
@@ -392,6 +287,7 @@
                     <label class="radio"><input type="radio" value="0" name="state">未激活</label>
                 </div>
             </div>
+
         </form>
     </div>
     <div class="modal-footer">

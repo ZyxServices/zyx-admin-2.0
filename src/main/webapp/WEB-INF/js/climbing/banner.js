@@ -3,12 +3,28 @@
  */
 $(function(){
     initBanner(1);
+    /*banner表单验证*/
+    $("#bannerForm").bootstrapValidator({
+        message: '数据无效',
+        feedbackIcons: {
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            'sequence': {
+                validators: {
+                    notEmpty: {
+                        message: 'banner序号不能为空'
+                    }
+                }
+            }
+        }
+    });
 })
 
 function initBanner(area) {
-    $("#homepage-list-table").bootstrapTable('destroy');
-    $("#homepage-list-table").bootstrapTable({
-        url: "/v1/deva/list",
+    $("#banner-list-table").bootstrapTable('destroy');
+    $("#banner-list-table").bootstrapTable({
+        url: "/v2/deva/list",
         method:'post',
         locale: 'zh-US',
         striped: true,           //是否显示行间隔色
@@ -27,7 +43,6 @@ function initBanner(area) {
         queryParams: function (params) {
             return {
                 area: area,
-                model: 1,
                 pageDataNum: params.limit,
                 pageNum: (params.offset + 1),
                 search: params.search
@@ -42,19 +57,15 @@ function groupFromData(res) {
         var dataArray = [];
         var datas = res.data;
         datas.forEach(function (item, a) {
-            var dataObj = {};
-            dataObj.id = item.id;
-            dataObj.modelTitle = item.devaModelVo.modelTitle;
-            dataObj.model = item.model;
-            dataObj.area = item.area;
-            dataObj.createTime = item.createTime;
+            item.area = item.area == 1 ? "首页":"求约";
+            item.model = item.model == 1 ? "教程攻略":"求约";
+            item.state = item.state == 1 ? "激活":"未激活";
+            item._image = item.imageUrl;
             if(item.imageUrl){
                 var imgUrl = item.imageUrl.split(".");
-                dataObj.image = '<a href="http://image.tiyujia.com/'+item.imageUrl+'" target="view_window"><img src="http://image.tiyujia.com/'+imgUrl[0]+'__30x30.'+imgUrl[1]+'"></a>';
+                item.imageUrl = '<a href="http://image.tiyujia.com/'+item.imageUrl+'" target="view_window"><img src="http://image.tiyujia.com/'+imgUrl[0]+'__30x30.'+imgUrl[1]+'"></a>';
             }
-            dataObj.sequence = item.sequence;
-            dataObj.state = item.state == 1? "是":"否";
-            dataArray.push(dataObj)
+            dataArray.push(item)
         });
         return {
             rows: dataArray,
@@ -93,6 +104,7 @@ var operateEvents = {
                                 confirm: false,
                                 template: '撤回成功'
                             })
+                            $('#banner-list-table').bootstrapTable('refresh');
                         } else {
                             $.Popup({
                                 confirm: false,
@@ -110,7 +122,7 @@ var operateEvents = {
             template: '确定删除该banner？',
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/deva/delete?id=" + row.id,
+                    url: "/v2/deva/delete?id=" + row.id,
                     async: false,
                     type: "delete",
                     success: function (result) {
@@ -119,10 +131,11 @@ var operateEvents = {
                                 confirm: false,
                                 template: '删除成功'
                             })
+                            $('#banner-list-table').bootstrapTable('refresh');
                         } else {
                             $.Popup({
                                 confirm: false,
-                                template: '删除失败'
+                                template: '删除失败，请刷新之后再次操作'
                             })
                         }
                     }
@@ -131,209 +144,39 @@ var operateEvents = {
         })
     },
     'click .edit':function (e, value, row, index) {/*编辑有不是公用的部分*/
-        AREA = row.area;
-        MODEL = row.model;
+        console.log(row)
+        row.model = row.model == "教程攻略" ? "1":"2";
+        row.area = row.area == "首页" ? "1":"2";
+        $("#devaId").val(row.id);
+        $("#model").val(row.model);
+        $("#area").val(row.area);
+        $("#imageUrl").val(row._image);
+        $("#preImage").html('<img src="http://image.tiyujia.com/'+ row._image+'">');
+        getBannerSequence(row.area,row.sequence);
+        $("#sequence").val(row.sequence);
+        EDITAREA = row.area;
+        EDITSEQUENCE = row.sequence;
+        $("#images").attr("src", "");
         $("#bannerList").hide();
         $("#bannerEdit").show();
-        $("#photoCover").html('选择图片');
-        $("#images").attr({"src":""});
-        if(row.model == ACTIVITYMODEL || row.model == DYNAMICMODEL){
-            ISVALID = true;
-            var imgUrl = $(row.image).attr("href");
-            $("#preImage").html('<img src='+imgUrl+'>');
-            bannerSequence(row.model,row.area,row.sequence,'sequence');
-            $("#sequence").val(row.sequence);
-        }else if(row.model == USERMODEL){
-            ISVALID = true;
-            bannerSequence(row.model,row.area,row.sequence,'sequence');
-        }else if(row.model == LIVEMODEL){
-            var imgUrl = $(row.image).attr("href");
-            $("#preImage").html('<img src='+imgUrl+'>');
-            if(row.area == HOMEPAGEAREA){
-                $('input[name=area]').eq(0).attr({"checked":"checked"});
-                $("#homepageSequence").show();
-                $("#standSequence").hide();
-                $("#standSequence").removeAttr("name");
-                $("#homepageSequence").attr({"name":'sequence'});
-                bannerSequence(row.model,row.area,row.sequence,"homepageSequence");
-                $("#homepageSequence").val(row.sequence);
-                $('#bannerForm').data('bootstrapValidator')
-                    .updateStatus('sequence', 'NOT_VALIDATED', null)
-                    .validateField('sequence');
-                $("input[name=area]").change(function () {
-                    var _val = $(this).val();
-                    var option = '';
-                    if(_val == 1){/*首页*/
-                        $("#homepageSequence").show();
-                        $("#standSequence").hide();
-                        $("#standSequence").removeAttr("name");
-                        $("#homepageSequence").attr({"name":'sequence'});
-                        bannerSequence(row.model,row.area,row.sequence,"homepageSequence");
-                        $('#bannerForm').data('bootstrapValidator')
-                            .updateStatus('sequence', 'NOT_VALIDATED', null)
-                            .validateField('sequence');
-                    }else{
-                        $("#standSequence").show();
-                        $("#homepageSequence").hide();
-                        $("#homepageSequence").removeAttr("name");
-                        $("#standSequence").attr({"name":'sequence'});
-                        bannerSequence(row.model,STANDAREA,'',"standSequence");
-                        $('#bannerForm').data('bootstrapValidator')
-                            .updateStatus('sequence', 'NOT_VALIDATED', null)
-                            .validateField('sequence');
-                    }
-                })
-            }else{
-                $('input[name=area]').eq(1).attr({"checked":"checked"});
-                $("#standSequence").show();
-                $("#homepageSequence").hide();
-                $("#homepageSequence").removeAttr("name");
-                $("#standSequence").attr({"name":'sequence'});
-                bannerSequence(row.model,row.area,row.sequence,"standSequence");
-                $("#standSequence").val(row.sequence);
-                $('#bannerForm').data('bootstrapValidator')
-                    .updateStatus('sequence', 'NOT_VALIDATED', null)
-                    .validateField('sequence');
-                $("input[name=area]").change(function () {
-                    var _val = $(this).val();
-                    var option = '';
-                    if(_val == 1){/*首页*/
-                        $("#homepageSequence").show();
-                        $("#standSequence").hide();
-                        $("#standSequence").removeAttr("name");
-                        $("#homepageSequence").attr({"name":'sequence'});
-                        bannerSequence(row.model,HOMEPAGEAREA,'',"homepageSequence");
-                        $('#bannerForm').data('bootstrapValidator')
-                            .updateStatus('sequence', 'NOT_VALIDATED', null)
-                            .validateField('sequence');
-                    }else{
-                        $("#standSequence").show();
-                        $("#homepageSequence").hide();
-                        $("#homepageSequence").removeAttr("name");
-                        $("#standSequence").attr({"name":'sequence'});
-                        bannerSequence(row.model,row.area,row.sequence,"standSequence");
-                        $('#bannerForm').data('bootstrapValidator')
-                            .updateStatus('sequence', 'NOT_VALIDATED', null)
-                            .validateField('sequence');
-                    }
-                })
-            }
-
-        }else if(row.model == POSTMODEL || row.model == CIRCLEMODEL){
-            if(row.area == CIRCLEAREA && row.model == POSTMODEL){/*精选圈子的帖子--有图*/
-                $('input[name=area]').eq(1).attr({"checked":"checked"});
-                $("#homepageSequence").hide();
-                $("#circleSequence").show();
-                var imgUrl = $(row.image).attr("href");
-                $("#preImage").html('<img src='+imgUrl+'>');
-                $("#homepageSequence").removeAttr("name");
-                $("#circleSequence").attr({"name":'sequence'});
-                bannerSequence(row.model,row.area,row.sequence,"circleSequence");
-                $("input[name=area]").change(function () {
-                    var _val = $(this).val();
-                    var option = '';
-                    if(_val == 1){/*首页*/
-                        $("#imageWrap").hide();
-                        $("#homepageSequence").show();
-                        $("#circleSequence").hide();
-                        $("#circleSequence").removeAttr("name");
-                        $("#homepageSequence").attr({"name":'sequence'});
-                        bannerSequence(row.model,HOMEPAGEAREA,'',"homepageSequence");
-                        $('#bannerForm').data('bootstrapValidator')
-                            .updateStatus('sequence', 'NOT_VALIDATED', null)
-                            .validateField('sequence');
-                    }else{
-                        $("#imageWrap").show();
-                        $("#circleSequence").show();
-                        $("#homepageSequence").hide();
-                        $("#homepageSequence").removeAttr("name");
-                        $("#circleSequence").attr({"name":'sequence'});
-                        bannerSequence(row.model,row.area,row.sequence,"circleSequence");
-                        $('#bannerForm').data('bootstrapValidator')
-                            .updateStatus('sequence', 'NOT_VALIDATED', null)
-                            .validateField('sequence');
-                    }
-                })
-                $("#homepageSequence").val(row.sequence);
-                $('#bannerForm').data('bootstrapValidator').validateField('sequence');
-            }else{
-                if(row.area == HOMEPAGEAREA){/*首页的精选帖子--无图*/
-                    $("#preImgWrap").hide();
-                    $("#imageWrap").hide();
-                    $("#homepageSequence").show();
-                    $("#circleSequence").hide();
-                    $('input[name=area]').eq(0).attr({"checked":"checked"});
-                    bannerSequence(row.model,row.area,row.sequence,"homepageSequence");
-                    $("input[name=area]").change(function () {
-                        var _val = $(this).val();
-                        var option = '';
-                        if(_val == 1){/*帖子--首页*/
-                            $("#imageWrap").hide();
-                            $("#homepageSequence").show();
-                            $("#circleSequence").hide();
-                            $("#circleSequence").removeAttr("name");
-                            $("#homepageSequence").attr({"name":'sequence'});
-                            bannerSequence(row.model,row.area,row.sequence,"homepageSequence");
-                            $('#bannerForm').data('bootstrapValidator')
-                                .updateStatus('sequence', 'NOT_VALIDATED', null)
-                                .validateField('sequence');
-                            $('#bannerForm')
-                                .bootstrapValidator('removeField', 'imageR')
-                                .data('bootstrapValidator').validate();
-                        }else{/*帖子--圈子--有图*/
-                            $("#imageWrap").show();
-                            $("#circleSequence").show();
-                            $("#homepageSequence").hide();
-                            $("#homepageSequence").removeAttr("name");
-                            $("#circleSequence").attr({"name":'sequence'});
-                            bannerSequence(row.model,CIRCLEAREA,'',"circleSequence");
-                            $('#bannerForm').bootstrapValidator('addField', 'imageR', {
-                                validators: {
-                                    notEmpty: {
-                                        message: '精选圈子的帖子必须有图'
-                                    }
-                                }
-                            });
-                            $('#bannerForm').data('bootstrapValidator')
-                                .updateStatus('sequence', 'NOT_VALIDATED', null)
-                                .validateField('sequence')
-                                .updateStatus('imageR', 'NOT_VALIDATED', null)
-                                .validateField('imageR');
-                        }
-                    })
-                    $('#bannerForm').data('bootstrapValidator').validateField('sequence');
-                }else if(row.area == CIRCLEAREA){/*精选圈子里的圈子--无图*/
-                    $("#preImgWrap").hide();
-                    $("#area").hide();
-                    $("#imageWrap").hide();
-                    $("#circleSequence").show();
-                    bannerSequence(row.model,row.area,row.sequence,"circleSequence");
-                    $('#bannerForm')
-                        .bootstrapValidator('removeField', 'sequence')
-                        .data('bootstrapValidator').validate();
-                }
-            }
-        }
-        $("#title").val(row.modelTitle);
-        $("#devaId").val(row.id);
-        if(row.state == "是"){
-            $('input[name=state]').eq(0).attr({"checked":"checked"});
-        }else{
-            $('input[name=state]').eq(1).attr({"checked":"checked"});
-        }
-
+        $('#bannerForm').data('bootstrapValidator')
+            .updateStatus('sequence', 'NOT_VALIDATED', null)
+            .validateField('sequence');
     }
 }
+/*当前编辑的area和sequence*/
+var EDITAREA = '';
+var EDITSEQUENCE = '';
 /*
  * banner序列的请求
  * */
-function bannerSequence(model, area, currentSequence, idObj) {
+function getBannerSequence(area, currentSequence) {
     $.ajax({
-        url: "/v1/deva/sequence",
+        url: "/v2/deva/sequence",
         type: 'POST',
         dataType: 'json',
         async:false,
-        data: {model: model,area: area},
+        data: {area: area},
         success: function (result) {
             if(result.state == 200){
                 var bannerNoArr = result.data;
@@ -349,13 +192,9 @@ function bannerSequence(model, area, currentSequence, idObj) {
                         option += '<option>'+result.data[i]+'</option>';
                     }
                 }else{
-                    $.Popup({
-                        confirm: false,
-                        template: '活动banner序列号已满，请先删除其他序列号再推荐'
-                    });
                     option = '<option value="">banner序列已满，请先删除</option>'
                 }
-                $("#"+idObj).html(option);
+                $("#sequence").html(option);
             }else{
                 $.Popup({
                     confirm: false,
@@ -365,8 +204,100 @@ function bannerSequence(model, area, currentSequence, idObj) {
         }
     });
 }
+/*改变推荐位置*/
+function changeDevArea(obj) {
+    var area = $(obj).val();
+    if(EDITAREA == area){
+        getBannerSequence(area,EDITSEQUENCE);
+        $("#sequence").val(EDITSEQUENCE);
+    }else{
+        getBannerSequence(area);
+    }
+}
+/*
+ * 修改推荐
+ * */
+$("#confirmDeva").click(function () {
+    if($("#lefile")[0].files[0]== undefined){/*未上传新的图片*/
+        if($("#bannerForm").data('bootstrapValidator').isValid()){
+            confirmDevaSubmit();
+        }
+    }else{
+        var formData = new FormData();
+        formData.append('file', $("#lefile")[0].files[0]);
+        $.ajax({
+            url: '/v1/upload/file',
+            type: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                return $("#bannerForm").data('bootstrapValidator').isValid();
+            },
+            success:function (result) {
+                if(result.state == 200){
+                    $("#imageUrl").val(result.data.url);
+                    confirmDevaSubmit();
+                }
+            }
+        })
+    }
+});
+
+function confirmDevaSubmit() {
+    $('#bannerForm').ajaxSubmit({
+        url: '/v2/deva/update',
+        type: 'post',
+        dataType: 'json',
+        success: function (result) {
+            if (result.state && result.state == 200) {
+                $.Popup({
+                    confirm: false,
+                    template: "修改成功"
+                });
+                $("#bannerList").show();
+                $("#bannerEdit").hide();
+                $('#banner-list-table').bootstrapTable('refresh');
+            } else if (result.state && result.state == 303) {
+                $.Popup({
+                    confirm: false,
+                    template: result.errmsg
+                })
+            }
+        }
+    });
+}
+/*banner表格切换*/
 function changeBannerTable(obj) {
     var _val = $(obj).val();
     initBanner(_val);
+}
+
+/*
+ * 图片的上传和预览
+ * */
+$('#lefile').change(function () {
+    if ($(this).val()) {
+        $('#photoCover').html($(this).val());
+        var objUrl = getImgURL(this.files[0]);
+        if (objUrl) {
+            $("#images").attr("src", objUrl);
+        }
+    }else{
+        console.log($("#lefile")[0].files[0]);
+        $("#photoCover").html("选择图片");
+        $("#images").attr("src", "");
+    }
+});
+function getImgURL(file) {
+    var url = null;
+    if (window.createObjectURL != undefined) { // basic
+        url = window.createObjectURL(file);
+    } else if (window.URL != undefined) { // mozilla(firefox)
+        url = window.URL.createObjectURL(file);
+    } else if (window.webkitURL != undefined) { // webkit or chrome
+        url = window.webkitURL.createObjectURL(file);
+    }
+    return url;
 }
 
