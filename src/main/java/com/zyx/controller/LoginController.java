@@ -6,9 +6,6 @@ import com.zyx.jopo.UserPrincipal;
 import com.zyx.model.SysUser;
 import com.zyx.secure.realm.StatelessToken;
 import com.zyx.service.SysUserService;
-
-import javax.servlet.ServletRequest;
-
 import com.zyx.utils.CipherUtil;
 import com.zyx.utils.RSAUtils;
 import org.apache.shiro.SecurityUtils;
@@ -23,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import javax.servlet.ServletRequest;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Base64;

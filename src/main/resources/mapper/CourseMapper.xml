@@ -8,11 +8,27 @@
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="img_urls" jdbcType="VARCHAR" property="imgUrl"/>
         <result column="content" jdbcType="LONGVARCHAR" property="content"/>
-        <result column="course_type" jdbcType="VARCHAR" property="courseType"/>
+        <result column="course_type" jdbcType="INTEGER" property="courseType"/>
         <result column="label_id" jdbcType="VARCHAR" property="labelId"/>
         <result column="create_time" jdbcType="BIGINT" property="createTime"/>
 
+        <association property="zanCount" column="id" select="zanCountsSelect"/>
+        <association property="commentCount" column="id" select="commentCountsSelect"/>
+        <association property="courseLabelName" column="label_id" select="courseLabelSelect"/>
+
     </resultMap>
+
+    <select id="zanCountsSelect" parameterType="int" resultType="int">
+        SELECT COUNT(id) FROM zan WHERE zan.body_type = 6 AND body_id = #{id}
+    </select>
+
+    <select id="commentCountsSelect" parameterType="int" resultType="int">
+        SELECT COUNT(id) FROM comment WHERE comment_type = 7  AND comment_id = #{id}
+    </select>
+
+    <select id="courseLabelSelect" parameterType="int" resultType="java.lang.String">
+        SELECT label_name FROM t_course_label WHERE id=#{label_id}
+    </select>
 
 
     <select id="queryCourse" parameterType="com.zyx.model.Course" resultMap="course">

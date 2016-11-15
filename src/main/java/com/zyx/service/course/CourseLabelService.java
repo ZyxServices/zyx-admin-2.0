@@ -33,4 +33,18 @@ public interface CourseLabelService extends BaseService<CourseLabel>{
      * @return
      */
     Map<String,Object> queryCourseLabel();
+
+    /**
+     * 设置标签启用或者禁用
+     * @param courseLabel
+     * @return
+     */
+    Map<String,Object> updateState(CourseLabel courseLabel);
+
+    /**
+     * 根据状态查询标签集合
+     * @param
+     * @return
+     */
+    Map<String,Object>queryByState();
 }

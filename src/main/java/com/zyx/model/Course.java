@@ -34,7 +34,7 @@ public class Course extends BaseModel{
      * 教程类型：图文、视频
      */
     @Column(name="course_type")
-    private String courseType;
+    private Integer courseType;
 
     /**
      * 标签id
@@ -71,6 +71,26 @@ public class Course extends BaseModel{
     @Column(name="user_id")
     private Integer userId;
 
+
+    /**
+     * 评论数
+     */
+    @Transient
+    private int commentCount;
+
+    /**
+     * 点赞数
+     */
+    @Transient
+    private int zanCount;
+
+    /**
+     * 标签名字
+     */
+    @Transient
+    private String courseLabelName;
+
+
     /***********************   get/set方法  **********************************************/
 
     public Integer getId() {
@@ -97,11 +117,11 @@ public class Course extends BaseModel{
         this.content = content;
     }
 
-    public String getCourseType() {
+    public Integer getCourseType() {
         return courseType;
     }
 
-    public void setCourseType(String courseType) {
+    public void setCourseType(Integer courseType) {
         this.courseType = courseType;
     }
 
@@ -152,6 +172,30 @@ public class Course extends BaseModel{
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public int getZanCount() {
+        return zanCount;
+    }
+
+    public void setZanCount(int zanCount) {
+        this.zanCount = zanCount;
+    }
+
+    public String getCourseLabelName() {
+        return courseLabelName;
+    }
+
+    public void setCourseLabelName(String courseLabelName) {
+        this.courseLabelName = courseLabelName;
     }
 
     /**********************   toString  ***********************/

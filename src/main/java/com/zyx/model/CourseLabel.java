@@ -33,6 +33,17 @@ public class CourseLabel{
     @Column(name="user_id")
     private Integer userId;
 
+    /**
+     * 创建日期
+     */
+    @Column(name="create_time")
+    private Long createTime;
+
+    /**
+     * 启用状态：0启用、1禁用
+     */
+    private int state;
+
     /**************************** get /set 方法   ***************************************/
 
     public Integer getId() {
@@ -59,5 +70,19 @@ public class CourseLabel{
         this.userId = userId;
     }
 
+    public Long getCreateTime() {
+        return createTime;
+    }
 
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
 }

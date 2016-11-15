@@ -68,7 +68,15 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
     public Map<String, Object> queryCourse(Integer label, String courseType,int page, int pageNumber) {
         Course course = new Course();
         course.setLabelId(label);
-        course.setCourseType(courseType);
+        if(courseType!=null && courseType!=""){
+            if(courseType.equals("图文")){
+                course.setCourseType(0);
+            }else if(courseType.equals("视频")){
+                course.setCourseType(1);
+            }else {
+                MapUtils.buildErrorMap(Constants.PARAM_MISS, "参数缺失");
+            }
+        }
         course.setPage((page-1)*pageNumber);
         course.setPageNumber(pageNumber);
         List<Course> courses = courseMapper.queryCourse(course);

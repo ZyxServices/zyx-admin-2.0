@@ -1,6 +1,9 @@
 package com.zyx.model;
 
+import com.zyx.model.vo.UserVo;
+
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by zjx on 2016/11/11.
@@ -44,10 +47,22 @@ public class Equip extends BaseModel{
     private Integer accountId;
 
     /**
+     * 发布人
+     */
+    @Transient
+    private UserVo account;
+
+    /**
      * 标签id
      */
     @Column(name="label_id")
     private Integer labelId;
+
+    /**
+     * 标签名字
+     */
+    @Transient
+    private String equipLabelName;
 
     /**
      * 是否屏蔽：0正常 1屏蔽
@@ -69,7 +84,12 @@ public class Equip extends BaseModel{
     /**
      * 帖子类型。0用户帖子；1官方帖子
      */
-    private int EquipType;
+    private int equipType;
+    /**
+     * 评论对象集合
+     */
+    @Transient
+    private List<Comment> commentList;
 
 
 
@@ -148,10 +168,34 @@ public class Equip extends BaseModel{
     }
 
     public int getEquipType() {
-        return EquipType;
+        return equipType;
     }
 
     public void setEquipType(int equipType) {
-        EquipType = equipType;
+        this.equipType = equipType;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
+
+    public UserVo getAccount() {
+        return account;
+    }
+
+    public void setAccount(UserVo account) {
+        this.account = account;
+    }
+
+    public String getEquipLabelName() {
+        return equipLabelName;
+    }
+
+    public void setEquipLabelName(String equipLabelName) {
+        this.equipLabelName = equipLabelName;
     }
 }

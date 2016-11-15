@@ -99,5 +99,43 @@ public class CourseLabelServiceImpl extends BaseServiceImpl<CourseLabel> impleme
 
     }
 
+    /**
+     * 设置标签屏蔽
+     * @param courseLabel
+     * @return
+     */
+    @Override
+    public Map<String, Object> updateState(CourseLabel courseLabel) {
+        if(courseLabel!=null){
+            if(courseLabelMapper.selectByPrimaryKey(courseLabel.getId())==null){
+                return MapUtils.buildErrorMap(Constants.NO_DATA,"该标签不存在");
+            }
+            int i = courseLabelMapper.updateState(courseLabel);
+            if(i>0){
+                return MapUtils.buildSuccessMap(Constants.SUCCESS,"修改成功",null);
+            }else {
+                return MapUtils.buildErrorMap(Constants.DATA_UPDATE_FAILED,"数据更新失败");
+            }
+        }else {
+            return MapUtils.buildErrorMap(Constants.PARAM_MISS,"参数缺失");
+        }
+    }
+
+    /**
+     * 查询启用的标签集合
+     * @param
+     * @return
+     */
+    @Override
+    public Map<String, Object> queryByState() {
+        CourseLabel courseLabel = new CourseLabel();
+        courseLabel.setState(0);
+        List<CourseLabel> courseLabels = courseLabelMapper.queryByState(courseLabel);
+        if(courseLabels!=null && courseLabels.size()>0){
+            return MapUtils.buildSuccessMap(Constants.SUCCESS,"查询成功",courseLabels);
+        }else {
+            return MapUtils.buildErrorMap(Constants.NO_DATA,"没有数据");
+        }
+    }
 
 }

@@ -1,20 +1,20 @@
 package com.zyx.mapper;
 
-import com.zyx.model.CourseLabel;
+import com.zyx.model.EquipLabel;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
 /**
- * Created by zjx on 2016/11/10.
+ * Created by zjx on 2016/11/14.
  *
  * @author zhaojiaxing
  * @version V2.0
  *          Copyright (c)2016 tyj-版权所有
  */
-@Repository("courseLabelMapper")
-public interface CourseLabelMapper extends Mapper<CourseLabel>{
+@Repository("equipLabelMapper")
+public interface EquipLabelMapper extends Mapper<EquipLabel>{
 
     /**
      * 删除标签
@@ -35,15 +35,15 @@ public interface CourseLabelMapper extends Mapper<CourseLabel>{
 
     /**
      * 设置标签启用或者禁用
-     * @param courseLabel
+     * @param equipLabel
      * @return
      */
-    int updateState(CourseLabel courseLabel);
+    int updateState(EquipLabel equipLabel);
 
     /**
-     * 查询启用状态的标签集合
-     * @param courseLabel
+     * 根据状态查询标签集合
+     * @param equipLabel
      * @return
      */
-    List<CourseLabel> queryByState(CourseLabel courseLabel);
+    List<EquipLabel> queryByState(EquipLabel equipLabel);
 }

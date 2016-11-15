@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.mapper.EquipLabelMapper">
+    <resultMap id="equipLabelMap" type="com.zyx.model.EquipLabel">
+
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="label_name" jdbcType="VARCHAR" property="labelName"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+    </resultMap>
+
+
+    <select id="queryByState" parameterType="com.zyx.model.EquipLabel" resultMap="equipLabelMap">
+    SELECT * FROM t_equip_label WHERE state=#{state}
+     </select>
+
+
+    <update id="updateState" parameterType="com.zyx.model.EquipLabel">
+        UPDATE t_equip_label SET state=#{state} WHERE id=#{id}
+    </update>
+
+
+</mapper>

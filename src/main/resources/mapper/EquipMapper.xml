@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.mapper.EquipMapper">
+    <resultMap id="equipMap" type="com.zyx.model.Equip">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="account_id" jdbcType="INTEGER" property="accountId"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+        <result column="label_id" jdbcType="VARCHAR" property="labelId"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="mask" jdbcType="INTEGER" property="mask"/>
+        <result column="del" jdbcType="INTEGER" property="del"/>
+        <result column="equip_type" jdbcType="INTEGER" property="equipType"/>
+
+        <association property="zanCount" column="id" select="zanCountsSelect"/>
+        <association property="commentCount" column="id" select="commentCountsSelect"/>
+        <association property="equipLabelName" column="label_id" select="equipLabelSelect"/>
+    </resultMap>
+
+    <resultMap id="equipAllMap" type="com.zyx.model.Equip" extends="equipMap">
+
+        <association property="account" column="account_id" select="userSelect"/>
+        <association property="commentList" column="id" select="commentSelect"/>
+    </resultMap>
+
+    <select id="zanCountsSelect" parameterType="int" resultType="int">
+        SELECT COUNT(id) FROM zan WHERE zan.body_type = 5 AND body_id = #{id}
+    </select>
+
+    <select id="commentCountsSelect" parameterType="int" resultType="int">
+        SELECT COUNT(id) FROM comment WHERE comment_type = 5  AND comment_id = #{id}
+    </select>
+
+    <select id="userSelect" parameterType="int" resultType="com.zyx.model.vo.UserVo">
+        SELECT nickname,official,authenticate FROM `user` WHERE id=#{user_id}
+    </select>
+
+
+    <select id="commentSelect" parameterType="int" resultType="com.zyx.model.Comment">
+        SELECT * FROM comment where comment_type = 5  AND comment_id = #{id}
+    </select>
+
+    <select id="equipLabelSelect" parameterType="int" resultType="java.lang.String">
+        SELECT label_name FROM t_equip_label WHERE id=#{label_id}
+    </select>
+
+    <insert id="insertEquip" parameterType="com.zyx.model.Equip" useGeneratedKeys="true">
+        INSERT INTO equip(title,content,create_time,account_id,label_id,del,mask,equip_type)
+        VALUES (#{title},#{content},#{createTime},#{accountId},#{labelId},#{del},#{mask},(SELECT user.official FROM user
+        WHERE user.id=#{accountId}))
+    </insert>
+
+    <select id="queryEquip" parameterType="com.zyx.model.Equip" resultMap="equipAllMap">
+        select e.* from equip e LEFT JOIN t_equip_label el ON e.label_id=el.id WHERE  e.equip_type=#{equipType}
+        <if test="title !=null and title !=''">
+            AND e.title like '%${title}%'
+        </if>
+        <if test="labelId != null and labelId != ''">
+            and e.label_id=#{labelId}
+        </if>
+        AND e.del = 0 AND e.mask = 0 AND el.state=0
+        ORDER BY e.create_time desc
+        <if test="pageNumber != null and page != null">
+            limit #{page}, #{pageNumber}
+        </if>
+    </select>
+
+
+    <update id="updateEquip" parameterType="com.zyx.model.Equip">
+        UPDATE equip
+        <set>
+            <if test="accountId != null and accountId != ''">
+                account_id = #{accountId},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="labelId != null and labelId != ''">
+                label_id = #{labelId},
+            </if>
+            <if test="createTime != null and createTime != 0">
+                create_time = #{createTime},
+            </if>
+            <if test="del != null">
+                del = #{del},
+            </if>
+            <if test="mask != null">
+                mask = #{mask}
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+
+    <select id="queryIsDeva" parameterType="java.lang.Integer" resultType="boolean">
+        SELECT NOT ISNULL(id) as isDeva FROM devaluation WHERE model = 8 AND model_id = #{id}
+    </select>
+
+    <select id="selectCountEquip" resultType="java.lang.Integer">
+        SELECT COUNT(e.id) FROM equip e LEFT JOIN t_equip_label el ON e.label_id = el.id WHERE e.del = 0 AND e.mask = 0
+        AND el.state=0;
+    </select>
+
+
+</mapper>

@@ -169,6 +169,17 @@ public class MySwaggerConfig {
                 .apiInfo(uploadApiInfo());
     }
 
+    @Bean
+    public Docket equipApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("equip-api")
+                .select()  // 选择那些路径和api会生成document
+                .apis(RequestHandlerSelectors.basePackage("com.zyx.controller.equip"))
+                .paths(PathSelectors.any()) // 对所有路径进行监控
+                .build()
+                .apiInfo(equipApiInfo());
+    }
+
 
     private ApiInfo liveApiInfo() {
         ApiInfo apiInfo = new ApiInfo("直播接口API",//大标题
@@ -291,6 +302,19 @@ public class MySwaggerConfig {
                 "2.0",//版本
                 "成都term",
                 new Contact("胡林", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
+                "智悠行",//链接显示文字
+                "http://112.74.112.143:8081/ui/Delta/index.html "//网站链接
+        );
+
+        return apiInfo;
+    }
+
+    private ApiInfo equipApiInfo() {
+        ApiInfo apiInfo = new ApiInfo("装备控接口API",//大标题
+                "用户操作",//小标题
+                "2.0",//版本
+                "成都term",
+                new Contact("赵家兴", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
                 "智悠行",//链接显示文字
                 "http://112.74.112.143:8081/ui/Delta/index.html "//网站链接
         );
