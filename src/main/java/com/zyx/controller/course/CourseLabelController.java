@@ -31,8 +31,8 @@ public class CourseLabelController {
 
     @RequestMapping(value="/add",method = RequestMethod.POST)
     @ApiOperation(value="添加标签",notes="添加标签")
-    public ModelAndView add(@RequestParam(name="userId",required = true)Integer userId,
-                            @RequestParam(name="labelName",required = true)String labelName){
+    public ModelAndView add(@ApiParam(name = "userId", required = true, value = "用户id")@RequestParam(name="userId",required = true)Integer userId,
+                            @ApiParam(name = "labelName", required = true, value = "标签名字")@RequestParam(name="labelName",required = true)String labelName){
         AbstractView jsonView = new MappingJackson2JsonView();
         CourseLabel courseLabel = new CourseLabel();
         courseLabel.setLabelName(labelName);
@@ -46,7 +46,7 @@ public class CourseLabelController {
 
     @RequestMapping(value="/delCourseLabel",method = RequestMethod.DELETE)
     @ApiOperation(value="删除标签",notes="删除标签")
-    public ModelAndView delCourseLabel(@RequestParam(name = "id", required = true) Integer id){
+    public ModelAndView delCourseLabel(@ApiParam(name = "id", required = true, value = "标签id")@RequestParam(name = "id", required = true) Integer id){
         AbstractView jsonView = new MappingJackson2JsonView();
 
         Map<String,Object> map = courseLabelService.delCourseLabel(id);

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.mapper.CityMapper">
+    <resultMap id="cityMapper" type="com.zyx.model.City">
+
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="city_name" jdbcType="VARCHAR" property="cityName"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+    </resultMap>
+
+
+    <update id="updateState" parameterType="com.zyx.model.City">
+        UPDATE city SET state=#{state} WHERE id=#{id}
+    </update>
+
+    <select id="queryByState" parameterType="com.zyx.model.City" resultMap="cityMapper">
+        SELECT * FROM city WHERE state=0
+    </select>
+
+
+</mapper>

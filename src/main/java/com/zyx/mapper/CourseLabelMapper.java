@@ -12,6 +12,7 @@ import java.util.List;
  * @author zhaojiaxing
  * @version V2.0
  *          Copyright (c)2016 tyj-版权所有
+ *          教程标签的持久层接口
  */
 @Repository("courseLabelMapper")
 public interface CourseLabelMapper extends Mapper<CourseLabel>{
