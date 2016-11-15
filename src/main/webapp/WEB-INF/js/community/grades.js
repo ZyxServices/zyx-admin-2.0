@@ -1,6 +1,7 @@
 /**
  * Created by ZYX on 2016/11/9.
  */
+
 $(function () {
     //增加等级验证
     $("#lineForm").bootstrapValidator({
@@ -88,11 +89,8 @@ $(function () {
             {field: 'operation', title: '操作', align: 'center', events: operateEvent, formatter: circleFormatter}
         ]
     })
-})
 
-/*
- * 列表操作
- * */
+})
 //分类操作
 function circleFormatter(value, row, index) {
     return [
@@ -105,14 +103,13 @@ var operateEvent = {
     //编辑等级
     'click .edit': function (e, value, row, index) {
         $("#addGradesModal").modal('show');
+        $("#lineForm").attr("value", 2);
         $("input[name=id]").val(row.id);
         $("input[name=name]").val(row.name);
         $("input[name=step]").val(row.step).attr("disabled", "disabled");
         $("input[name=minScore]").val(row.minScore).attr("disabled", "disabled");
         $("input[name=maxScore]").val(row.maxScore).attr("disabled", "disabled");
-        $("#confirmCmd").click(function () {
-            Grade("/v2/level/update", "修改成功", "编辑失败")
-        })
+
     },
     //等级删除
     'click .remove': function (e, value, row, index) {
@@ -144,10 +141,23 @@ var operateEvent = {
 /*创建等级*/
 function addGrades() {
     $("#addGradesModal").modal('show');
-    $("#confirmCmd").click(function () {
-        Grade("/v2/level/insert", "创建成功", "创建失败")
-    })
+    $("#lineForm").attr("value", 1);
+    $("input[name=name]").attr("value", "").removeAttr("disabled");
+    $("input[name=step]").attr("value", "").removeAttr("disabled");
+    $("input[name=minScore]").attr("value", "").removeAttr("disabled");
+    $("input[name=maxScore]").attr("value", "").removeAttr("disabled");
+
 }
+$("#confirmCmd").click(function () {
+    var stutate = $("#lineForm").val();
+    if (stutate == 1) {
+        Grade("/v2/level/insert", "创建成功");
+    }
+    else if (stutate == 2) {
+        Grade("/v2/level/update", "修改成功")
+    }
+    console.log(stutate);
+})
 //创建等级、编辑等级公用方法
 function Grade(url, template, errmsg) {
     $('#lineForm').ajaxSubmit({
@@ -170,10 +180,11 @@ function Grade(url, template, errmsg) {
             } else {
                 $.Popup({
                     confirm: false,
-                    template: errmsg
+                    template: result.errmsg
                 })
             }
         }
     })
+
 }
 
