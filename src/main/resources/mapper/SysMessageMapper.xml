@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.mapper.SysMessageMapper">
+    <resultMap id="sysMessagedto" type="com.zyx.dto.SysMessageDto">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+        <result column="push_time" jdbcType="BIGINT" property="pushTime"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="done" jdbcType="INTEGER" property="done"/>
+    </resultMap>
+
+    <insert id="insertSysMessage" parameterType="com.zyx.model.SysMessage" useGeneratedKeys="true">
+        insert INTO SYS_MSG(content,push_time,push_type,type,del,done,create_time)
+        VALUE (#{content}, #{pushTime}, #{pushType}, #{type},#{del},#{done}, #{createTime})
+        <selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+            select LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+
+    <select id="querySysMessage" parameterType="com.zyx.model.SysMessage" resultMap="sysMessagedto">
+        select id,content,push_time,type,done from SYS_MSG where del=0
+        <if test="done!=null">
+            and done=#{done}
+        </if>
+        ORDER BY create_time desc
+        <if test="pageNumber != null and page != null">
+            limit #{page}, #{pageNumber}
+        </if>
+    </select>
+
+    <select id="selectCountSysMessage" resultType="java.lang.Integer" parameterType="com.zyx.model.SysMessage">
+        SELECT COUNT(id) FROM SYS_MSG WHERE del=0
+    </select>
+
+    <update id="delSysMessage" parameterType="java.lang.Integer">
+        UPDATE SYS_MSG SET del=1 WHERE  id=#{id}
+    </update>
+
+    <update id="updateSysMessage" parameterType="com.zyx.model.SysMessage">
+        UPDATE SYS_MSG
+          <set>
+              <if test="done!=null">
+                  done=#{done},
+              </if>
+              <if test="content!=null">
+                  content=#{content},
+              </if>
+              <if test="pushTime!=null">
+                  push_time=#{push_time}
+              </if>
+          </set>
+        where id=#{id}
+    </update>
+    <select id="queryById" resultMap="sysMessagedto" parameterType="java.lang.Integer">
+        select id,content,push_time,type,done from SYS_MSG where id=#{id}
+    </select>
+
+</mapper>
