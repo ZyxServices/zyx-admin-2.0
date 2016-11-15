@@ -74,7 +74,7 @@ public class CourseController {
 
     @RequestMapping(value="/queryCourse",method = RequestMethod.GET)
     @ApiOperation(value="根据标签和类型分页查询教程攻略",notes="根据标签和类型分页查询教程攻略")
-    public ModelAndView queryCourse( @ApiParam(name = "labelId", required = true, value = "标签id")@RequestParam(name="labelId",required = false)Integer labelId,
+    public ModelAndView queryCourse( @ApiParam(name = "labelId", required = false, value = "标签id")@RequestParam(name="labelId",required = false)Integer labelId,
                                      @ApiParam(name = "courseType", required = false, value = "教程类型：图文、视频")@RequestParam(name="courseType",required = false)String courseType,
                                      @ApiParam(name = "page", required = true, value = "页码")@RequestParam(name="page",required = true)Integer page,
                                      @ApiParam(name = "pageNumber", required = true, value = "当页显示数量") @RequestParam(name="pageNumber",required = true)Integer pageNumber){
