@@ -11,6 +11,7 @@ import com.zyx.utils.MapUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +44,8 @@ public class CourseLabelServiceImpl extends BaseServiceImpl<CourseLabel> impleme
     @Override
     public Map<String, Object> insertCourseLabel(CourseLabel courseLabel) {
         if(courseLabel.getLabelName()!=null && courseLabel.getUserId()!=null){
-
+            courseLabel.setState(0);
+            courseLabel.setCreateTime(new Date().getTime());
             int insert = courseLabelMapper.insert(courseLabel);
             if (insert > 0) {
                 return MapUtils.buildSuccessMap(Constants.SUCCESS, "添加成功", null);
