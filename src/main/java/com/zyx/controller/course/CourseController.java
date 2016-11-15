@@ -136,10 +136,10 @@ public class CourseController {
 
     @RequestMapping(value="/delCourse",method = RequestMethod.POST)
     @ApiOperation(value="删除教程",notes="删除教程")
-    public ModelAndView delCourse( @ApiParam(name = "id", required = true, value = "教程id，可以是多个，以，连接")@RequestParam(name = "id", required = true) String id,
-                                   @ApiParam(name = "delType", required = true, value = "删除状态：0正常、1删除")@RequestParam(name = "delType", required = true) Integer delType){
+    public ModelAndView delCourse( @ApiParam(name = "id", required = true, value = "教程id，可以是多个以，连接")
+                                       @RequestParam(name = "id", required = true) String id){
         AbstractView jsonView = new MappingJackson2JsonView();
-        Map<String,Object> map = courseService.delCourse(id,delType);
+        Map<String,Object> map = courseService.delCourse(id,1);
         if (map.get("state").equals("200")) {
             String[] ids = id.split(",");
             for (String s : ids) {
@@ -152,11 +152,10 @@ public class CourseController {
 
     @RequestMapping(value="/maskCourse",method=RequestMethod.POST)
     @ApiOperation(value="屏蔽教程",notes="屏蔽教程攻略")
-    public ModelAndView maskCourse( @ApiParam(name = "id", required = true, value = "教程id")@RequestParam(name = "id", required = true) Integer id,
-                                    @ApiParam(name = "maskType", required = true, value = "屏蔽状态：0正常、1屏蔽")@RequestParam(name = "maskType", required = true) Integer maskType) {
+    public ModelAndView maskCourse( @ApiParam(name = "id", required = true, value = "教程id")@RequestParam(name = "id", required = true) Integer id) {
 
         AbstractView jsonView = new MappingJackson2JsonView();
-        Map<String,Object> map = courseService.maskCourse(id,maskType);
+        Map<String,Object> map = courseService.maskCourse(id,1);
 
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);

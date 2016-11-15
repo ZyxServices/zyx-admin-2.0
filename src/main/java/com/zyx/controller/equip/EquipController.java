@@ -110,11 +110,9 @@ public class EquipController {
     @RequestMapping(value="/delEquip",method = RequestMethod.POST)
     @ApiOperation(value="删除装备控",notes="删除装备控")
     public ModelAndView delEquip( @ApiParam(name = "id", required = true, value = "装备控id")
-                                   @RequestParam(name = "id", required = true) String id,
-                                   @ApiParam(name = "delType", required = true, value = "删除状态：0不删除；1删除")
-                                   @RequestParam(name = "delType", required = true) Integer delType){
+                                   @RequestParam(name = "id", required = true) String id){
         AbstractView jsonView = new MappingJackson2JsonView();
-        Map<String,Object> map = equipService.delEquip(id,delType);
+        Map<String,Object> map = equipService.delEquip(id,1);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
@@ -122,12 +120,10 @@ public class EquipController {
     @RequestMapping(value="/maskEquip",method=RequestMethod.POST)
     @ApiOperation(value="屏蔽装备控",notes="屏蔽准备控")
     public ModelAndView maskEquip(@ApiParam(name = "id", required = true, value = "装备控id")
-                                   @RequestParam(name = "id", required = true) Integer id,
-                                   @ApiParam(name = "maskType", required = true, value = "屏蔽状态：0不屏蔽；1屏蔽")
-                                   @RequestParam(name = "maskType", required = true) Integer maskType) {
+                                   @RequestParam(name = "id", required = true) Integer id) {
 
         AbstractView jsonView = new MappingJackson2JsonView();
-        Map<String,Object> map = equipService.maskEquip(id,maskType);
+        Map<String,Object> map = equipService.maskEquip(id,1);
 
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
