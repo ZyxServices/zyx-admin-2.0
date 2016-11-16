@@ -93,3 +93,7 @@ div.checker span.checked {
     font-size: 18px;
     color: red;
 }*/
+/*地图图层*/
+.amap-sug-result{
+    z-index: 20000;
+}
