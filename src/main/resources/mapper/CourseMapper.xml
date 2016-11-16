@@ -5,6 +5,7 @@
 
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="recommend_type" jdbcType="INTEGER" property="recommendType"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="img_urls" jdbcType="VARCHAR" property="imgUrl"/>
         <result column="content" jdbcType="LONGVARCHAR" property="content"/>
@@ -100,7 +101,11 @@
                 del = #{del},
             </if>
             <if test="mask != null">
-                mask = #{mask}
+                mask = #{mask},
+            </if>
+
+            <if test="recommendType != null">
+                recommend_type = #{recommendType}
             </if>
         </set>
         WHERE id=#{id}

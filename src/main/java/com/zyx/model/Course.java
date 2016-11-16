@@ -90,6 +90,12 @@ public class Course extends BaseModel{
     @Transient
     private String courseLabelName;
 
+    /**
+     * 推荐状态：0未推荐、1推荐
+     */
+    @Column(name="recommend_type")
+    private int recommendType;
+
 
     /***********************   get/set方法  **********************************************/
 
@@ -196,6 +202,14 @@ public class Course extends BaseModel{
 
     public void setCourseLabelName(String courseLabelName) {
         this.courseLabelName = courseLabelName;
+    }
+
+    public int getRecommendType() {
+        return recommendType;
+    }
+
+    public void setRecommendType(int recommendType) {
+        this.recommendType = recommendType;
     }
 
     /**********************   toString  ***********************/

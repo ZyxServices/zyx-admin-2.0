@@ -44,6 +44,7 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
             course.setDel(0);
             course.setMask(0);
             course.setCreateTime(new Date().getTime());
+            course.setRecommendType(0);
 
             int insert = courseMapper.insert(course);
             if (insert > 0) {
@@ -179,6 +180,23 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
             Course course = new Course();
             course.setId(id);
             course.setMask(maskType);
+            int i = courseMapper.updateCourse(course);
+            if (i > 0) {
+                return MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", "");
+            } else {
+                return MapUtils.buildErrorMap(Constants.DATA_UPDATE_FAILED, "数据屏蔽失败");
+            }
+        } else {
+            return MapUtils.buildErrorMap(Constants.PARAM_MISS, "参数有误");
+        }
+    }
+
+    @Override
+    public Map<String, Object> recommendCourse(int id, int recommendType) {
+        if (recommendType > -1 && recommendType < 2 && id > 0) {
+            Course course = new Course();
+            course.setId(id);
+            course.setRecommendType(recommendType);
             int i = courseMapper.updateCourse(course);
             if (i > 0) {
                 return MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", "");

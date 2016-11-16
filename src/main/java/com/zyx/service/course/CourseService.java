@@ -63,4 +63,12 @@ public interface CourseService extends BaseService<Course>{
      */
     Map<String,Object> maskCourse(int id,int maskType);
 
+    /**
+     * 推荐
+     * @param id
+     * @param recommendType
+     * @return
+     */
+    Map<String,Object> recommendCourse(int id,int recommendType);
+
 }

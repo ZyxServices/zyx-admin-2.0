@@ -170,4 +170,16 @@ public class CourseController {
         return new ModelAndView(jsonView);
     }
 
+    @RequestMapping(value="/recommend",method=RequestMethod.POST)
+    @ApiOperation(value="推荐教程",notes="推荐教程攻略")
+    public ModelAndView recommendCourse( @ApiParam(name = "id", required = true, value = "教程id")
+                                    @RequestParam(name = "id", required = true) Integer id) {
+
+        AbstractView jsonView = new MappingJackson2JsonView();
+        Map<String,Object> map = courseService.recommendCourse(id,1);
+
+        jsonView.setAttributesMap(map);
+        return new ModelAndView(jsonView);
+    }
+
 }
