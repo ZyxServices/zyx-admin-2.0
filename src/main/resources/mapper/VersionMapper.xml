@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.mapper.VersionMapper">
+    <resultMap id="version" type="com.zyx.model.Version">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="number" jdbcType="VARCHAR" property="number"/>
+        <result column="publish_time" jdbcType="BIGINT" property="publishTime"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="download_url" jdbcType="VARCHAR" property="downloadUrl"/>
+        <result column="notes" jdbcType="VARCHAR" property="notes"/>
+        <result column="system_type" jdbcType="INTEGER" property="systemType"/>
+    </resultMap>
+
+
+    <select id="queryVersion" parameterType="com.zyx.model.Version" resultMap="version">
+        select id,number,publish_time,create_time,download_url,notes,system_type from version where del=0
+        <if test="systemType!=null">
+            and system_type=#{systemType}
+        </if>
+        ORDER BY create_time desc
+        <if test="pageNumber != null and page != null">
+            limit #{page}, #{pageNumber}
+        </if>
+    </select>
+
+    <select id="selectCountVersion" resultType="java.lang.Integer" parameterType="com.zyx.model.Version">
+        SELECT COUNT(id) FROM version WHERE del=0
+    </select>
+
+    <update id="delVersion" parameterType="java.lang.Integer">
+        UPDATE version SET del=1 WHERE  id=#{id}
+    </update>
+
+    <update id="updateVersion" parameterType="com.zyx.model.Version">
+        UPDATE version
+          <set>
+              <if test="number!=null">
+                  number=#{number},
+              </if>
+              <if test="publishTime!=null">
+                  publish_time=#{publishTime},
+              </if>
+              <if test="createTime!=null">
+                  create_time=#{createTime},
+              </if>
+              <if test="downloadUrl!=null">
+                  download_url=#{downloadUrl},
+              </if>
+              <if test="notes!=null">
+                  notes=#{notes},
+              </if>
+              <if test="systemType!=null">
+                  system_type=#{systemType},
+              </if>
+          </set>
+        where id=#{id}
+    </update>
+
+</mapper>
