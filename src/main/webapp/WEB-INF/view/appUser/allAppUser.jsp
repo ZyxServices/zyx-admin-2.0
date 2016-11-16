@@ -30,7 +30,7 @@
                     <ul class="breadcrumb">
                         <li>
                             <i class="icon-home"></i>
-                            <a href="javascript:void(0)">普通用户管理</a>
+                            <a href="javascript:void(0)">用户管理</a>
                             <i class="icon-angle-right"></i>
                         </li>
                         <li><a href="#" id="listType">用户列表</a></li>
@@ -38,9 +38,14 @@
                 </div>
             </div>
             <div class="live_index">
-                <button class="create_live btn btn-default btn-lg ">创建用户</button>
+                <button class="create_live btn btn-default btn-lg margin-bottom-10">创建用户</button>
+                <div>
+                    <select class="form-control" onchange="changeBannerTable(this)">
+                        <option value="1">官方用户</option>
+                        <option value="2">普通用户</option>
+                    </select>
+                </div>
                 <div class="live_manage">
-                    <button class="fl btn btn-default ">自动/手动排序优先</button>
                     <table id="app_user_table" class="table table-hover"
                            data-pagination="true"
                            data-show-refresh="true"
