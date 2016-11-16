@@ -20,7 +20,7 @@ import java.util.Timer;
  */
 @WebListener
 public class MyTaskListener implements ServletContextListener{
-    private static Logger logger= LoggerFactory.getLogger(Timer.class);
+    private static Logger logger= LoggerFactory.getLogger(MyTaskListener.class);
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         logger.info("开始执行未完成的定时发送任务");

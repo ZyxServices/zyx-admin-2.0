@@ -19,7 +19,7 @@
     </insert>
 
     <select id="querySysMessage" parameterType="com.zyx.model.SysMessage" resultMap="sysMessagedto">
-        select id,content,push_time,type,done from SYS_MSG where del=0
+        select id,content,push_time,type,done,mask from SYS_MSG where del=0
         <if test="done!=null">
             and done=#{done}
         </if>
