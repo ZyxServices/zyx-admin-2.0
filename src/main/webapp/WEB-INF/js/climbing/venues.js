@@ -318,7 +318,7 @@ $(function () {
         dataType: 'json',
         success: function (result) {
             result.data.forEach(function(e){
-                $('#v_city').append('<option value="'+ e.id+'">'+ e.cityName+'</option>')
+                $('#v_city').append('<option value="'+ e.cityName+'">'+ e.cityName+'</option>')
                 $('#city').append('<option value="'+ e.cityName+'">'+ e.cityName+'</option>')
             })
         }
