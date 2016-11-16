@@ -169,10 +169,12 @@ function seeUrlFormatter(value, row, index) {
 var operateEventssssss = {
     'click .edit': function (e, value, row, index) {
         typeInfo()
+        console.log(row)
         $("#createVenue")[0].reset();
         $('#v_name').val(row.name)
         $('#v_title').val(row.level)
-        $('#v_desc').val(row.description)
+        $('#activity-summernote').summernote('code', row.description);
+        //$('#activity-summernote').val(row.description)
         $('#v_address').val(row.address)
         $('#v_longitude').val(row.longitude)
         $('#v_latitude').val(row.latitude)
@@ -344,7 +346,6 @@ $(function () {
     }).summernote({
         callbacks: {
             onImageUpload: function (files) {
-                console.log(files)
                 //上传图片到服务器，使用了formData对象，至于兼容性...据说对低版本IE不太友好
                 var formData = new FormData();
                 formData.append('file', files[0]);

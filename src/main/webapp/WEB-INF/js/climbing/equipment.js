@@ -3,9 +3,10 @@
  */
 var $table = $('#dynamic_table'),
     $remove = $('#remove');
-function initTable() {
+function initTable(num) {
+    $("#dynamic_table").bootstrapTable('destroy');
     $('#dynamic_table').bootstrapTable({
-        url: ("/concern/concernList"),
+        url: ("/v1/equip/queryEquip"),
         method: 'get',
         toolbar: '#toolbar',        //工具按钮用哪个容器
         striped: true,           //是否显示行间隔色
@@ -29,39 +30,26 @@ function initTable() {
         queryParamsType: "undefined",
         dataField: "data",
         silentSort: false,
-        //detailView:true,
-        //detailFormatter:function(index, row, c){
-        //    var html = [];
-        //            html.push('<p>nimabi</p>');
-        //    return html.join('');
-        //},
         queryParams: function queryParams(params) {   //设置查询参数
             var param = {
-                start: params.pageNumber - 1,
-                pageSize: params.pageSize,
+                page: params.pageNumber,
+                pageNumber: params.pageSize,
                 searchText: params.searchText,
-                sortName: params.sortName
+                sortName: params.sortName,
+                equipType:num
                 //sortOrder: params.sortOrder
             };
             return param;
         },
-        onLoadSuccess: function (result) {  //加载成功时执行
-
-        },
-        onLoadError: function () {  //加载失败时执行
-            // alert("加载数据失败");·
-            // layer.msg("加载数据失败", {time : 1500, icon : 2});
-        },
         columns: [
             {field: '', checkbox: true, align: 'center', valign: 'middle'},
-            {field: 'id', title: 'id', align: 'center', valign: 'middle'},
-            {field: 'userVo.nickName', title: '帖子标题'},
-            {field: 'userVo.authenticate', title: '标签', sortable: true, formatter: authFormatter, sortName: 'md'},
-            {field: 'userVo.nickName', title: '发布人'},
-            {field: 'topicContent', title: '发布时间', sortable: true, width: 200},
-            {field: 'createTime', title: '评论数', formatter: timeFormat},
-            //{field: 'type', title: '动态类型', sortable: true, formatter: typeFormatter},
-            {field: 'appUserAuthDto.authInfo', title: '点赞数', sortable: true},
+            {field: 'labelId', title: 'id', align: 'center', valign: 'middle'},
+            {field: 'title', title: '帖子标题'},
+            {field: 'equipLabelName', title: '标签', sortable: true},
+            {field: 'account.nickName', title: '发布人'},
+            {field: 'createTime', title: '发布时间', sortable: true, width: 200, formatter: timeFormat},
+            {field: 'commentCount', title: '评论数'},
+            {field: 'zanCount', title: '点赞数', sortable: true},
             {field: 'operation', title: '操作', align: 'center', events: operateEventssssss, formatter: operateFormatter}]
     });
     $table.on('check.bs.table uncheck.bs.table ' +
@@ -82,6 +70,7 @@ function initTable() {
                         type: "delete",
                         success: function (meg) {
                             $table.bootstrapTable("refresh");
+
                         }
 
                     })
@@ -90,7 +79,7 @@ function initTable() {
         })
     });
     $('#labelTabel').bootstrapTable({
-        url: ("/concern/concernList"),
+        url: ("/v1/equipLabel/queryAll"),
         method: 'get',
         toolbar: '#toolbar',        //工具按钮用哪个容器
         striped: true,           //是否显示行间隔色
@@ -133,8 +122,8 @@ function initTable() {
         columns: [
             {field: '', checkbox: true, align: 'center', valign: 'middle'},
             {field: 'id', title: 'id', align: 'center', valign: 'middle'},
-            {field: 'userVo.nickName', title: '标签名称'},
-            {field: 'operation', title: '操作', align: 'center', events: operateEventssssss, formatter: operateFormatter}]
+            {field: 'labelName', title: '标签名称'},
+            {field: 'operation', title: '操作', align: 'center', events: operateEventssssss, formatter: seeUrlFormatter}]
     });
     $table.on('check.bs.table uncheck.bs.table ' +
     'check-all.bs.table uncheck-all.bs.table', function () {
@@ -142,9 +131,35 @@ function initTable() {
         selections = getIdSelections();
     });
     /*查询创建活动时需要选择的用户*/
+    $.ajax({
+        url: '/v1/equipLabel/queryByState',
+        type: 'get',
+        dataType: 'json',
+        success: function (result) {
+            result.data.forEach(function(e){
+                $('#v_label').append('<option value="'+ e.id+'">'+ e.labelName+'</option>')
+            })
+        }
+    })
 
 }
-
+//操作
+function operateFormatter(value, row, index) {
+    return row.equipType == 1 ? ['<a class="preview p5"   href="javascript:void(0)" title="preview">预览</a>',
+        '<a class="edit p5"   href="javascript:void(0)" title="edit">编辑</a>',
+        '<a class="Shield p5" href="javascript:void(0)" title="Shield">'+btnState(row)+'</a>',
+        '<a class="remove p5" href="javascript:void(0)" title="remove">删除</a>'].join('')
+        : ['<a class="preview p5"   href="javascript:void(0)" title="preview">预览</a>',
+        '<a class="Shield p5" href="javascript:void(0)" title="Shield">'+btnState(row)+'</a>',
+        '<a class="remove p5" href="javascript:void(0)" title="remove">删除</a>'].join('');
+}
+//查看Url
+function seeUrlFormatter(value, row, index) {
+    return [
+        '<a class="labelEnable p5"   href="javascript:void(0)" title="Like">'+EnableState(row)+'</a>',
+        '<a class="labelRemove p5"   href="javascript:void(0)" title="Like">删除</a>',
+    ].join('');
+}
 // 认证状态格式化
 function authFormatter(value) {
     return value == 2 ? "已认证" : value == 1 ? "待审核" : value == 3 ? "认证失败" : "未认证";
@@ -155,27 +170,19 @@ function typeFormatter(data) {
 }
 //动态状态按钮初始化
 function btnState(row) {
-    return row.state == 0 ? "屏蔽" : row.state == -1 ? "撤销删除" : "取消屏蔽";
+    return row.mask == 0 ? "屏蔽" : "取消屏蔽";
 }
-//操作
-function operateFormatter(value, row, index) {
-    return row.state == -1 ? [
-        '<a class="unRemove p5" href="javascript:void(0)" title="unRemove">撤销删除</a>',
-    ].join('') : ['<a class="preview p5"   href="javascript:void(0)" title="preview">预览</a>',
-        '<a class="edit p5"   href="javascript:void(0)" title="edit">编辑</a>',
-        '<a class="recommend p5" href="javascript:void(0)" title="recommend">推荐</a>',
-        '<a class="Shield p5" href="javascript:void(0)" title="Shield">' + btnState(row) + '</a>',
-        '<a class="remove p5" href="javascript:void(0)" title="remove">删除</a>'].join('');
-}
-//查看Url
-function seeUrlFormatter(value, row, index) {
-    return [
-        '<a class="seeUrl p5"   href="javascript:void(0)" title="Like">查看</a>',
-    ].join('');
+//动态状态按钮初始化
+function EnableState(row) {
+    return row.state == 0 ? "禁用" : "启用";
 }
 //判断标题是否为空
 function judgeTiltle(title) {
     return title == null ? '标题为空' : title;
+}
+function manageLabel(){
+    $("#manageLabel").show();
+    $("#activityList").hide();
 }
 //动态推荐内容上传
 function devDynamic() {
@@ -216,176 +223,40 @@ var operateEventssssss = {
         $(".live_index").addClass('hide')
         $('.topicContent').html(row.topicContent)
         $('.username').html(row.userVo.nickName)
-        row.imgUrl!=null?strArry = row.imgUrl.split(','):'';
+        row.imgUrl != null ? strArry = row.imgUrl.split(',') : '';
         for (var i in strArry) {
             $('#container').append(' <div class="box"><div class="boximg"><img src=' + 'http://image.tiyujia.com/' + strArry[i] + '></div></div>')
-            //console.log(i,strArry.length)
-            //parseInt(i)+1==strArry.length?waterFlow("container", "box"):'';
-            //$('.dynamicPic img').attr('src', 'http://image.tiyujia.com/' + row.imgUrl + '');
+
         }
     },
     'click .edit': function (e, value, row, index) {
-        $(".create_liveType").addClass('on')
-        $(".live_index").addClass('hide')
-        $('.create_liveType h3').html('编辑动态')
-        $('#dynamicContent').attr('name', 'topic_content')
-        $('#imgFileUrl').attr('name', 'img_url')
-        $('#dynamicContent').val(row.topicContent)
-        $('#imgFileUrl').val(row.imgUrl)
-        $('#createDynamicForm').append('<input style="display: none" name="id"  value=' + row.id + '>')
-        $(".officeUser").hide()
-        $('#dynamicImg').empty()
-        $('#DynamicSubmit').removeAttr("onclick")
-        $('#DynamicSubmit').click(function () {
-            operateEventssssss.createDynamic(this, 1)
-        })
-        var strArry = row.imgUrl.split(',');
-        for (var i in strArry) {
-            strArry != 0 ? $('#dynamicImg').append('<img style="max-width: 20%" class="dynamicImg' + i + '"  src=' + 'http://image.tiyujia.com/' + strArry[i] + '>') : ''
-            $('.dynamicImg' + i + '').bind("click", {index: i}, clickHandler);
-        }
-        function clickHandler(event) {
-            var index = event.data.index;
-            var item = strArry[index];
-            var t;
-            $('.dynamicImg' + index + '').remove()
-            var s = $('#imgFileUrl').val().indexOf(item);
-            $('#imgFileUrl').val($('#imgFileUrl').val().replace(',,', ','))
-            if (s == 0) {
-                $('#imgFileUrl').val($('#imgFileUrl').val().replace(item + ',', ''))
-                $('#imgFileUrl').val($('#imgFileUrl').val().replace(item, ''))
-            } else(
-                item == '' ? $('#imgFileUrl').val($('#imgFileUrl').val().replace(',,', ',')) : $('#imgFileUrl').val($('#imgFileUrl').val().replace(',' + item, ''))
-            )
-        }
-
-        $(".dynamicEdit").addClass('on')
-        $(".release").addClass('hide')
-    },
-    'click .recommend': function (e, value, row, index) {
-        var html = ''
-        html += '   <form class="form-horizontal" role="form" id="recommend" enctype="multipart/form-data">            '
-        html += '	<div class="container-fluid">';
-        html += '	    <div class="row">';
-        html += '	        <label class="control-label ">动态名称:</label><label class="control-label " style="text-align: left" >' + judgeTiltle(row.topicTitle) + '</label>';
-        html += '	    </div>';
-        html += '	    <div class="row">';
-        html += '	        <label class="col-xs-4 control-label ">推荐模块:</label>';
-        html += '	            <label class="control-label " style="text-align: left" >首页</label>';
-        html += '           <div class="controls">';
-        html += '	            <label class="radio col-xs-4 ">';
-        html += '	              <input value="1" name="area" id="inlineCheckbox1" style="display: none" > ';
-        html += '	            </label>'
-        //html += '	            <label class="radio col-xs-4 ">';
-        //html += '	              <input type="radio" value="3" name="area" id="inlineCheckbox1" > 看台';
-        //html += '	            </label>';
-        html += '	        </div>';
-        html += '	    </div>';
-        html += '	    <div class="row">';
-        html += '	            <div >';
-        html += '	                <input style="display: none" name="model" value="5">';
-        html += '	                <input style="display: none" name="modelId" value="' + row.id + '">';
-        html += '	                <label class="col-xs-6 control-label ">显示顺序: </label>';
-        html += '	                <select name="sequence" class="span2" id="hotSelect">';
-        html += '	                </select>';
-        html += '	            </div>';
-        html += '	     </div>';
-        html += '	     <div class="row">';
-        html += '	         <label class="col-xs-6  control-label ">封面图:</label>';
-        html += '	         <label class="control-label "><input name="imageUrl"  id="Cover" type="file"></label>';
-        html += '	     </div>';
-        html += '	    <div class="row">';
-        html += '	        <label class="col-xs-6 control-label ">推荐状态:</label>';
-        html += '           <div class="controls">';
-        html += '	            <label class="radio col-xs-4 ">';
-        html += '	              <input type="radio" value="1" name="state" checked="checked" > 激活';
-        html += '	            </label>'
-        html += '	            <label class="radio col-xs-4 ">';
-        html += '	              <input type="radio" value="0" name="state"  > 未激活';
-        html += '	            </label>';
-        html += '	        </div>';
-        html += '	    </div>';
-        html += '	</div>';
-        html += '   </from>'
-        $.ajax({
-            type: "get",
-            dateType: "json",
-            url: "/v1/deva/sequence?model=5&area=1",
-            async: false,
-            success: function (res) {
-                if (res.data == 0) {
-                    $.Popup({
-                        confirm: false,
-                        template: '推荐位置已满，请到banner推荐列表中删除，再重新上传推荐！！！'
-                    })
-                } else {
-                    $.Popup({
-                        title: '动态推荐',
-                        template: html,
-                        remove: false,
-                        saveEvent: function () {
-                            $("#upload").modal({backdrop: 'static', keyboard: false});
-                            var formData = new FormData();
-                            formData.append('imgFile', $('#Cover')[0].files[0]);
-                            if ($('#Cover')[0].files.length > 0) {
-                                $.ajax({
-                                    url: '/v1/upload/file',//后台文件上传接口
-                                    type: 'POST',
-                                    data: formData,
-                                    processData: false,
-                                    contentType: false,
-                                    success: function (result) {
-                                        console.log(result)
-                                        if (result.state == 200) {
-                                            $('#recommend').append('<input style="display: none" class="CoverP" name="imageUrl"  value="' + result.data.url + '" >');
-                                            devDynamic()
-                                        } else {
-                                            removeEvent('upload')
-                                            $.Popup({
-                                                confirm: false,
-                                                template: result.successmsg
-                                            })
-                                        }
-                                    },
-                                    error: function (res) {
-                                        $('#recommend').append('<input style="display: none" class="CoverP" name="imageUrl"  value="" >');
-                                        devDynamic();
-                                    }
-                                });
-                            } else {
-                                $('#recommend').append('<input style="display: none" class="CoverP" name="imageUrl"  value="" >');
-                                devDynamic()
-                            }
-                        }
-                    })
-                    res.data.forEach(function (e) {
-                        $('#hotSelect').append("<option value='" + e + "'>" + e + "</option>")
-                    })
-                }
-            }
-        })
+        $('#updateCreateFrom').append('<input type="hidden" name="id" value="'+row.id+'">')
+        $("#pageTitle").html('编辑帖子')
+        $("#title").val(row.labelId)
+        $("#v_label").val(row.labelId)
+        $('#equipment-summernote').summernote('code', row.content);
+        $("#createModify").show();
+        $("#activityList").hide();
+        $('#Czs').attr('onclick','operateEventssssss.createEquip(this,1)')
     },
     'click .Shield': function (e, value, row, index) {
-        var state, btnval, btn,html;
+        var state, btnval, btn, html;
         var btnclick = this
         switch (this.innerHTML) {
             case '屏蔽':
-                state = -2, btnval = '取消屏蔽',html='确认屏蔽吗?';
+                state = 1, btnval = '取消屏蔽', html = '确认屏蔽吗?';
                 break;
             case '取消屏蔽':
-                state = 0, btnval = '屏蔽',html='确定取消屏蔽吗?';
-                break;
-            case '恢复删除':
-                state = -1, btnval = '屏蔽';
+                state = 0, btnval = '屏蔽', html = '确定取消屏蔽吗?';
                 break;
         }
         $.Popup({
             template: html,
             saveEvent: function () {
                 $.ajax({
-                    url: "/concern/setState?id=" + row.id + "&state=" + state + "",
+                    url: "/v1/equip/maskEquip?id=" + row.id + "&maskType=" + state + "",
                     async: false,
-                    type: "delete",
+                    type: "post",
                     dateType: "json",
                     success: function (result) {
                         if (result.state == 200) {
@@ -403,21 +274,54 @@ var operateEventssssss = {
 
     },
     'click .remove': function (e, value, row, index) {
-        var delUrl = '/concern/deleteOne?id=' + row.id;
-        ajaxPlugins.remove(delUrl, 'dynamic_table', 'DELETE')
+        var delUrl = '/v1/equip/delEquip?id=' + row.id;
+        ajaxPlugins.remove(delUrl, 'dynamic_table', 'post')
     },
-    'click .unRemove': function (e, value, row, index) {
-        var delUrl = "/concern/setState?id=" + row.id + "&state=0";
-        ajaxPlugins.unRemove(delUrl, 'dynamic_table', 'DELETE')
+    'click .labelRemove': function (e, value, row, index) {
+        var delUrl = '/v1/equipLabel/delEquipLabel?id=' + row.id;
+        ajaxPlugins.remove(delUrl, 'labelTabel', 'delete')
     },
-    createDynamic: function (obj, eidt) {
+    'click .labelEnable': function (e, value, row, index) {
+        var state, btnval, btn, html;
+        var btnclick = this
+        switch (this.innerHTML) {
+            case '禁用':
+                state = 1, btnval = '启用', html = '确认禁用吗?';
+                break;
+            case '启用':
+                state = 0, btnval = '禁用', html = '确定启用吗?';
+                break;
+        }
+        $.Popup({
+            template: html,
+            saveEvent: function () {
+                $.ajax({
+                    url: "/v1/equipLabel/updateState?id=" + row.id + "&state=" + state + "",
+                    async: false,
+                    type: "post",
+                    dateType: "json",
+                    success: function (result) {
+                        if (result.state == 200) {
+                            btnclick
+                            btn = btnval
+                        } else {
+                            alert(result.successmsg)
+                        }
+                    }
+                })
+                btnclick.innerHTML = btn;
+                //$(btnclick).parent().prevAll()[6].innerHTML = statetext;
+            }
+        })
+    },
+    createEquip: function (obj, eidt) {
         var url;
-        eidt == true ? url = '/concern/edit' : url = '/concern/createConcern'
-        console.log(eidt)
-        $("#createDynamicForm").ajaxForm({
-            url: url,
-            type: 'post',
-            dataType: 'json',
+        eidt == true ? url = '/v1/equip/updateEquip' : url = '/v1/equip/add'
+        $.ajax({
+            url: url,//提交地址
+            data: $("#updateCreateFrom").serialize(),//将表单数据序列化
+            type: "POST",
+            dataType: "json",
             success: function (result) {
                 if (result.state == 200) {
                     window.location.reload();
@@ -432,6 +336,27 @@ var operateEventssssss = {
                 $.Popup({
                     confirm: false,
                     template: '上传失败,请检查内容是否填写完整'
+                })
+            }
+        });
+    },
+    addLabel:function(){
+        $.Popup({
+            title:'添加标签',
+            template: ' <label style="float: left;padding: 0 20px">标签:</label> <div ><input id="labelName"></div>',
+            saveEvent: function () {
+                $.ajax({
+                    url: "/v1/equipLabel/add?userId=1&labelName="+$('#labelName').val()+"",
+                    async: false,
+                    type: "post",
+                    dateType: "json",
+                    success: function (result) {
+                        if (result.state == 200) {
+                            $('#labelTabel').bootstrapTable("refresh");
+                        } else {
+                            alert(result.successmsg)
+                        }
+                    }
                 })
             }
         })
@@ -471,8 +396,45 @@ $(function () {
             }
         });
     })
+    $('#equipment-summernote').on('summernote.change', function (content, $editable) {
+        $("#desc").val($editable);
+        //$('#createVenue').data('bootstrapValidator')
+        //    .updateStatus('descContent', 'NOT_VALIDATED', null)
+        //    .validateField('descContent');
+    }).summernote({
+        callbacks: {
+            onImageUpload: function (files) {
+                //上传图片到服务器，使用了formData对象，至于兼容性...据说对低版本IE不太友好
+                var formData = new FormData();
+                formData.append('file', files[0]);
+                $.ajax({
+                    url: '/v1/upload/file',//后台文件上传接口
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        console.log(result)
+                        if (result.state == 200) {
+                            $('#equipment-summernote').summernote('insertImage', "http://image.tiyujia.com/" + result.data.url, 'img');
+                        } else {
+                            $.Popup({
+                                confirm: false,
+                                template: result.successmsg
+                            })
+                        }
+                    }
+                });
+            }
+        },
+        lang: 'zh-CN',
+        height: 200
+    });
     $(window).resize(function () {
         $('#dynamic_table').bootstrapTable('resetView');
     });
-    initTable();
+    $('#e_user').change(function(){
+        initTable($('#e_user').val());
+    })
+    initTable($('#e_user').val());
 })

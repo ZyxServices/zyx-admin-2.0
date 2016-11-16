@@ -39,12 +39,18 @@
             <div id="activity-list">
                 <div class="row-fluid margin-bottom-10">
                     <div class="span6">
-                        <a class="btn btn-default" href="javascript:void(0)" onclick="createActivity()">发布帖子</a>
+                        <a class="btn btn-default" href="javascript:void(0)" onclick=" $('#createModify').show(); $('#activityList').hide();">发布帖子</a>
                         <a class="btn btn-default" href="javascript:void(0)" onclick="manageLabel()">装备管理标签</a>
                     </div>
                 </div>
                 <h3 class="page-title"> 装备帖子管理</h3>
                 <HR style="border:1 dashed #987cb9;margin: 5px 0" width="100%" color=rgb(51, 51, 51) SIZE=1>
+                <div class="controls">
+                    <select id="e_user" name="labelId">
+                        <option value="1">官方</option>
+                        <option value="0">用户</option>
+                    </select>
+                </div>
                 <div class="row-fluid">
                     <div class="span12 responsive">
                         <table id="dynamic_table"></table>
@@ -84,7 +90,6 @@
                 <div class="row-fluid">
 
                     <form id="updateCreateFrom" enctype="multipart/form-data" class="form-horizontal" role="form">
-                        <input type="hidden" name="id" id="avtivityId" value="">
                         <div class="control-group form-group">
                             <label class="control-label">标题</label>
                             <div class="controls col-xs-5">
@@ -93,26 +98,33 @@
                             </div>
                         </div>
 
+
                         <div class="control-group form-group">
                             <label class="control-label">内容</label>
                             <div class="controls summernote">
                                 <div class="span6 col-xs-5">
-                                    <div id="activity-summernote"></div>
-                                    <input id="desc" type="text" class="hideInput" name="desc" value="">
+                                    <div id="equipment-summernote"></div>
+                                    <input id="desc" type="text" class="hideInput" name="content" value="">
                                 </div>
                                 <span class="help-inline required">*</span>
                             </div>
                         </div>
+                        <div class="control-group">
+                            <label class="control-label">标签</label>
 
-                        <hr>
-
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button class="btn btn-default" id="czS">确定</button>
-                                <a href="javascript:void(0)" class="btn btn-default" onclick="window.location.reload();">返回</a>
+                            <div class="controls">
+                                <select id="v_label" name="labelId">
+                                </select>
                             </div>
                         </div>
+                        <hr>
                     </form>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button class="btn btn-default" id="Czs"  onclick="operateEventssssss.createEquip()">确定</button>
+                            <a href="javascript:void(0)" class="btn btn-default" onclick="window.location.reload();">返回</a>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -138,7 +150,11 @@
 
                     </h3>
                     <HR style="border:1 dashed #987cb9;margin: 5px 0" width="100%" color=rgb(51, 51, 51) SIZE=1>
-
+                    <div class="row-fluid margin-bottom-10">
+                        <div class="span6">
+                            <a class="btn btn-default" href="javascript:void(0)" onclick="operateEventssssss.addLabel()">添加标签</a>
+                        </div>
+                    </div>
                     <!-- END PAGE TITLE & BREADCRUMB-->
 
                 </div>
@@ -168,9 +184,7 @@
 
 <jsp:include page="../public/footer.jsp"/>
 <jsp:include page="../public/common-js.jsp"/>
-
 <script src="../../js/app.js" type="text/javascript"></script>
-<script type="text/javascript" src="../../js/activity/list.js"></script>
 <script type="text/javascript" src="../../js/climbing/equipment.js"></script>
 <script>
 
