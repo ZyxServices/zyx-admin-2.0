@@ -39,7 +39,7 @@
         <if test="courseType != null and courseType != ''">
             and course_type=#{courseType}
         </if>
-        AND del = 0 AND mask = 0
+        AND del = 0
         ORDER BY create_time desc
         <if test="pageNumber != null and page != null">
             limit #{page}, #{pageNumber}
@@ -53,11 +53,21 @@
             AND title like '%${title}%'
         </if>
 
-        AND del = 0 AND mask = 0
+        AND del = 0
         ORDER BY create_time desc
         <if test="pageNumber != null and page != null">
             limit #{page}, #{pageNumber}
         </if>
+
+    </select>
+
+    <select id="selectCountTitle" resultType="java.lang.Integer" parameterType="com.zyx.model.Course">
+        SELECT COUNT(id) from t_course where 1=1
+        <if test="title !=null and title !=''">
+            AND title like '%${title}%'
+        </if>
+
+        AND del = 0
 
     </select>
 
@@ -101,8 +111,15 @@
         SELECT NOT ISNULL(id) as isDeva FROM devaluation WHERE model = 8 AND model_id = #{id}
     </select>
 
-    <select id="selectCountCourse" resultType="java.lang.Integer">
-        SELECT COUNT(id) FROM t_course WHERE del = 0 AND mask = 0;
+    <select id="selectCountCourse" resultType="java.lang.Integer" parameterType="com.zyx.model.Course">
+        SELECT COUNT(id) from t_course where 1=1
+        <if test="labelId != null and labelId != ''">
+            and label_id=#{labelId}
+        </if>
+        <if test="courseType != null and courseType != ''">
+            and course_type=#{courseType}
+        </if>
+        AND del = 0
     </select>
 
 

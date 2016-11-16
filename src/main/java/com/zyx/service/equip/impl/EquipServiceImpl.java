@@ -62,7 +62,7 @@ public class EquipServiceImpl extends BaseServiceImpl<Equip> implements EquipSer
     @Override
     public Map<String, Object> queryEquip(Equip equip) {
         List<Equip> equipList = equipMapper.queryEquip(equip);
-        int i = equipMapper.selectCountEquip();
+        int i = equipMapper.selectCountEquip(equip);
         if(equipList!=null && equipList.size()>0){
             Map<String, Object> map =MapUtils.buildSuccessMap(Constants.SUCCESS,"查询成功",equipList);
             map.put("total",i);

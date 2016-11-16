@@ -43,7 +43,7 @@ public interface EquipMapper extends Mapper<Equip> {
      * 记录查询数量
      * @return
      */
-    int selectCountEquip();
+    int selectCountEquip( Equip equip);
 
     /**
      * 添加装备控

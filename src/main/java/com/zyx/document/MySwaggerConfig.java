@@ -202,6 +202,18 @@ public class MySwaggerConfig {
                 .apiInfo(sysMessageApiInfo());
     }
 
+    @Bean
+    public Docket concernApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("concern-api")
+                .select()  // 选择那些路径和api会生成document
+                .apis(RequestHandlerSelectors.basePackage("com.zyx.controller.community"))
+                .paths(PathSelectors.any()) // 对所有路径进行监控
+                .build()
+                .apiInfo(concernApiInfo());
+
+    }
+
 
     private ApiInfo liveApiInfo() {
         ApiInfo apiInfo = new ApiInfo("直播接口API",//大标题
@@ -333,7 +345,7 @@ public class MySwaggerConfig {
 
     private ApiInfo equipApiInfo() {
         ApiInfo apiInfo = new ApiInfo("装备控接口API",//大标题
-                "用户操作",//小标题
+                "装备控以及装备标签",//小标题
                 "2.0",//版本
                 "成都term",
                 new Contact("赵家兴", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
@@ -356,7 +368,20 @@ public class MySwaggerConfig {
 
     private ApiInfo cityApiInfo() {
         ApiInfo apiInfo = new ApiInfo("城市接口API",//大标题
-                "用户操作",//小标题
+                "城市管理",//小标题
+                "2.0",//版本
+                "成都term",
+                new Contact("赵家兴", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
+                "智悠行",//链接显示文字
+                "http://112.74.112.143:8081/ui/Delta/index.html "//网站链接
+        );
+
+        return apiInfo;
+    }
+
+    private ApiInfo concernApiInfo() {
+        ApiInfo apiInfo = new ApiInfo("社区动态接口API",//大标题
+                "社区动态",//小标题
                 "2.0",//版本
                 "成都term",
                 new Contact("赵家兴", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
