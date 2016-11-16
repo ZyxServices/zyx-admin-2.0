@@ -136,7 +136,6 @@
 
                         <div class="control-group form-group">
                             <label class="control-label">场馆介绍</label>
-
                             <div class="controls summernote">
                                 <div class="span6 col-xs-5">
                                     <div id="activity-summernote"></div>
@@ -373,16 +372,30 @@
         App.init(); // initlayout and core plugins
 
     });
+    $('#tipinput').on('input',function(){
+        document.getElementById("v_address").value=''
+        document.getElementById("lnglat").value =''
+        document.getElementById("v_longitude").value=''
+        document.getElementById("v_latitude").value =''
+    })
     var map = new AMap.Map("container", {
         resizeEnable: true,
         zoom:17
     });
-    //为地图注册click事件获取鼠标点击出的经纬度坐标
-    var clickEventListener = map.on('click', function (e) {
-        document.getElementById("lnglat").value = e.lnglat.getLng() + ',' + e.lnglat.getLat()
-        document.getElementById("v_longitude").value = e.lnglat.getLng() ;
-        document.getElementById("v_latitude").value = e.lnglat.getLat() ;
-    });
+    AMap.plugin(['AMap.Autocomplete','AMap.PlaceSearch','AMap.Geocoder'],function(){
+        var geocoder = new AMap.Geocoder({
+            city: "010"//城市，默认：“全国”
+        });
+        map.on('click',function(e){
+
+            geocoder.getAddress(e.lnglat,function(status,result){
+                document.getElementById("v_address").value=result.regeocode.formattedAddress
+            })
+            document.getElementById("lnglat").value = e.lnglat.getLng() + ',' + e.lnglat.getLat()
+            document.getElementById("v_longitude").value = e.lnglat.getLng() ;
+            document.getElementById("v_latitude").value = e.lnglat.getLat() ;
+        })
+    })
     var auto = new AMap.Autocomplete({
         input: "tipinput"
     });
