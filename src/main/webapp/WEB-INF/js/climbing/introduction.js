@@ -95,15 +95,23 @@ $(function () {
 });
 //分类操作
 function courseFormatter(value, row, index) {
+    console.log(row);
     var btnText;
+    var Recommend;
     if (row.mask == 0) {
         btnText = "屏蔽"
     } else if (row.mask == 1) {
         btnText = "取消屏蔽"
     }
+    if (row.recommendType == 0) {
+        Recommend = "未推荐"
+    }
+    else if (row.recommendType == 1) {
+        Recommend = "推荐"
+    }
     return [
         '<a class="preview p5"   href="javascript:void(0)" title="preview">预览</a>',
-        '<a class="recommend p5" href="javascript:void(0)" title="recommend">推荐</a>',
+        '<a class="recommend p5" href="javascript:void(0)" title="recommend">' + Recommend + '</a>',
         '<a class="edit p5"   href="javascript:void(0)" title="preview">编辑</a>',
         '<a class="Shield p5" href="javascript:void(0)" title="Shield">' + btnText + '</a>',
         '<a class="remove p5" href="javascript:void(0)" title="remove">删除</a>'
@@ -113,12 +121,11 @@ function courseFormatter(value, row, index) {
 var operateEvent = {
     //预览
     'click .preview': function (e, value, row, index) {
-        console.log(row);
         $("#createModify").show();
         $("#activityList").hide();
-        $("input[name=title]").val(row.title).attr("disabled", "disabled")
-        $('#course-summernote').summernote('code', row.content);
-        $("#labelId").chosen();
+        $("input[name=title]").val(row.title).attr("disabled", "disabled");
+        $('#activity-summernote').summernote('destroy');
+        $('#summernotContent').html(row.content);
         $("#labelId option[value='" + row.labelId + "']").attr("selected", true);
         $("#examine option[value='" + row.courseType + "']").attr("selected", true);
         $("#labelId").trigger("liszt:updated");
@@ -128,22 +135,47 @@ var operateEvent = {
     },
     //推荐
     'click .recommend': function (e, value, row, index) {
+        $("#CourseModal").modal("show");
+        $("input[name=modelId]").val(row.id);
+        $("#courseSelect").empty();
+        $.post("/v2/deva/sequence", {model: "1", area: "1"}, function (result) {
+            console.log(result);
+            if (result.state == 200) {
+                if (result.data.length > 0) {
+                    for (var i = 0; i < result.data.length; i++) {
+                        $("#courseSelect").append("<option value='" + result.data[i] + "'>" + result.data[i] + "</option>");
+                    }
+                }
+                else {
+                    $("#courseSelect").html('<option value="">圈子序列号已满，请先删除</option>');
+                    $("#RdSures").attr("disabled", true);
+                }
+            }
 
-
+        })
     },
     //编辑
     'click .edit': function (e, value, row, index) {
-
+        console.log(row);
+        $("#createModify").show();
+        $("#activityList").hide();
+        $("#courseCreateFrom").attr("value", 2);
+        $("input[name=title]").val(row.title);
+        $('#course-summernote').summernote('code', row.content);
+        $("#labelId option[value='" + row.labelId + "']").attr("selected", true);
+        $("#examine option[value='" + row.courseType + "']").attr("selected", true);
+        $("#labelId").trigger("liszt:updated");
+        $("#labelId").chosen();
     },
 
     //屏蔽
     'click .Shield': function (e, value, row, index) {
         //屏蔽状态
         var state;
-        if (row.state == 0) {
+        if (row.mask == 0) {
             state = 1;
         }
-        else if (row.state == 1) {
+        else if (row.mask == 1) {
             state = 0;
         }
         //屏蔽确认
@@ -152,16 +184,17 @@ var operateEvent = {
             saveEvent: function () {
                 $.ajax({
                     async: false,
-                    type: "delete",
-                    url: "/v1/course/maskCourse?id=" + row.id + "&state=" + state,
+                    type: "POST",
+                    url: "/v1/course/maskCourse?id=" + row.id + "&maskType=" + state,
                     success: function (data) {
-                        if (row.state == 1) {
+                        console.log(row.mask)
+                        if (row.mask == 1) {
                             $.Popup({
                                 confirm: false,
                                 template: "取消屏蔽成功"
                             });
                         }
-                        else if (row.state = 0) {
+                        else if (row.mask = 0) {
                             $.Popup({
                                 confirm: false,
                                 template: "屏蔽成功"
@@ -184,23 +217,51 @@ var operateEvent = {
                     async: false,
                     type: "delete",
                     success: function (data) {
-                        $('#Course_table').bootstrapTable('remove', {
-                            field: 'id',
-                            values: [row.id]
-                        });
-                        $.Popup({
-                            confirm: false,
-                            template: "删除成功"
-                        });
-                        $("#Course_table").bootstrapTable('refresh');
+                        if (result.state && result.state == 200) {
+                            $('#Course_table').bootstrapTable('remove', {
+                                field: 'id',
+                                values: [row.id]
+                            });
+                            $.Popup({
+                                confirm: false,
+                                template: "删除成功"
+                            });
+                            $("#Course_table").bootstrapTable('refresh');
+                        }
+                        else {
+                            $.Popup({
+                                confirm: false,
+                                template: result.errmsg
+                            })
+                        }
                     }
+
                 });
             }
         });
 
     }
 };
+//圈子推荐
+$("#RdSures").click(function () {
+    if ($("select[name=sequence]").val() != '') {
+        $("#courseRecommend").ajaxSubmit({
+            type: "post",
+            dateType: "json",
+            url: "/v2/deva/add",
+            async: false,
+            success: function (result) {
+                $.Popup({
+                    confirm: false,
+                    title: "推荐成功"
+                });
+                $("#CourseModal").modal("hide");
+                $('#courseCreateFrom').bootstrapTable('refresh');
+            }
 
+        })
+    }
+})
 /*查询标签*/
 var firstopction = "<option value=''></option>";
 var courseLable = $.ajax({
@@ -232,6 +293,10 @@ $("#courseSure").click(function () {
     if (courseStatue == 1) {
         Grade("/v1/course/add", "创建成功");
     }
+    else if (courseStatue == 2) {
+        Grade("/v1/course/updateCourse", "编辑成功");
+    }
+
 });
 //summernote图片路径处理
 $('#course-summernote').on('summernote.change', function (content, $editable) {
@@ -245,7 +310,8 @@ $('#course-summernote').on('summernote.change', function (content, $editable) {
             console.log(files);
             //上传图片到服务器，使用了formData对象，至于兼容性...据说对低版本IE不太友好
             var formData = new FormData();
-            formData.append('imgFile', files[0]);
+            formData.append('file', files[0]);
+            console.log(formData);
             $.ajax({
                 url: '/v1/upload/file',//后台文件上传接口
                 type: 'POST',
@@ -254,8 +320,9 @@ $('#course-summernote').on('summernote.change', function (content, $editable) {
                 contentType: false,
                 success: function (result) {
                     console.log(result);
+                    console.log(result);
                     if (result.state == 200) {
-                        $('#post-summernote').summernote('insertImage', "http://image.tiyujia.com/" + result.data.url, 'img');
+                        $('#course-summernote').summernote('insertImage', "http://image.tiyujia.com/" + result.data.url, 'img');
                     } else {
                         $.Popup({
                             confirm: false,

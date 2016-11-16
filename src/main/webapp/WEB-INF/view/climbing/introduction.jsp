@@ -107,10 +107,6 @@
                 <div class="row-fluid">
                     <form class="form-horizontal" role="form" id="courseCreateFrom"
                           enctype="multipart/form-data" method="post">
-                        <%--     <input name="createId" type="hidden" value="20"/>--%>
-                        <input name="circleId" type="hidden"/>
-                        <%--        <input name="state" type="hidden" value="-2">--%>
-
                         <div class="control-group form-group">
                             <label class="control-label">标题</label>
                             <div class="controls col-xs-6">
@@ -121,7 +117,7 @@
                         <div class="control-group form-group">
                             <label class="control-label">内容</label>
                             <div class="controls summernote">
-                                <div class="span6 col-xs-5">
+                                <div class="span6 col-xs-5" id="summernotContent">
                                     <div id="course-summernote"></div>
                                     <input id="desc" type="text" class="hideInput" name="content">
                                 </div>
@@ -170,7 +166,48 @@
     </div>
     <!-- END PAGE -->
 </div>
+<!-- 推荐弹窗-->
+<div class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel" id="CourseModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">教程攻略推荐</h4>
+            </div>
+            <form class="form-horizontal form_bottom" role="form" id="courseRecommend"
+                  enctype="multipart/form-data" method="post" style="margin-bottom:0px;">
+                <div class="modal-body" style="padding:10px 20px ;">
+                    <div class="container-fluid">
+                        <div class="control-group  form-group">
+                            <label class="col-xs-6 col-md-4 control-label">
+                                攀岩馆banner排序：
+                            </label>
+                        <span class="col-xs-6 col-md-4">
+                            <select id="courseSelect" name="sequence"></select>
+                        </span>
+                        </div>
+            <%--            <div class="control-group form-group">
+                            <label class="control-label">推荐状态：</label>
+                            <div class="controls">
+                                <label class="radio"><input type="radio" checked value="1" name="state">激活</label>
+                                <label class="radio"><input type="radio" value="0" name="state">未激活</label>
+                            </div>
+                        </div>--%>
+                        <input type="hidden" name="model" value="1">
+                        <input type="hidden" name="modelId">
+                        <input type="hidden" name="area" value="1">
+                        <input type="hidden" name="state" value="1">
 
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-default" data-dismiss="modal">取消</a>
+                    <a class="btn btn-primary" id="RdSures">确认</a>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
 <jsp:include page="../public/footer.jsp"/>

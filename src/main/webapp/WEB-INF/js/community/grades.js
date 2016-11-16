@@ -121,15 +121,22 @@ var operateEvent = {
                     async: false,
                     type: "post",
                     success: function (data) {
-                        $('#homepage-list-table').bootstrapTable('remove', {
-                            field: 'id',
-                            values: [row.id]
-                        });
-                        $.Popup({
-                            confirm: false,
-                            template: "删除成功"
-                        });
-                        $("#homepage-list-table").bootstrapTable('refresh');
+                        if (result.state && result.state == 200) {
+                            $('#homepage-list-table').bootstrapTable('remove', {
+                                field: 'id',
+                                values: [row.id]
+                            });
+                            $.Popup({
+                                confirm: false,
+                                template: "删除成功"
+                            });
+                            $("#homepage-list-table").bootstrapTable('refresh');
+                        } else {
+                            $.Popup({
+                                confirm: false,
+                                template: result.errmsg
+                            })
+                        }
                     }
                 });
             }
