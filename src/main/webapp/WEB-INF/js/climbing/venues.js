@@ -4,7 +4,8 @@
 var $table = $('#dynamic_table'),
     $remove = $('#remove');
 //场馆列表
-function initTable() {
+function initTable(city) {
+    $("#dynamic_table").bootstrapTable('destroy');
     $('#dynamic_table').bootstrapTable({
         url: ("/v2/venue/queryVenue"),
         method: 'get',
@@ -35,7 +36,8 @@ function initTable() {
                 page: params.pageNumber - 1,
                 pageNumber: params.pageSize,
                 searchText: params.searchText,
-                sortName: params.sortName
+                sortName: params.sortName,
+                city:city
                 //sortOrder: params.sortOrder
             };
             return param;
@@ -310,6 +312,17 @@ var seeUrl = {
     }
 }
 $(function () {
+    $.ajax({
+        url: '/v1/city/queryByState',
+        type: 'get',
+        dataType: 'json',
+        success: function (result) {
+            result.data.forEach(function(e){
+                $('#v_city').append('<option value="'+ e.id+'">'+ e.cityName+'</option>')
+                $('#city').append('<option value="'+ e.cityName+'">'+ e.cityName+'</option>')
+            })
+        }
+    })
     $(".create_live").click(function () {
         $.ajax({
             url: "/v1/appUser/list/official/all",
@@ -383,5 +396,5 @@ function typeInfo(){
 
 function changeBannerTable(obj) {
     var _val = $(obj).val();
-    initVenuesTable(_val);
+    initTable(_val);
 }

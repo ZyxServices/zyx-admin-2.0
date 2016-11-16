@@ -42,10 +42,8 @@
                     <div class="margin-bottom-10"><a class="btn btn-default" href="javascript:void(0)"
                                                      onclick="typeInfo()">录入场馆信息</a></div>
                     <span>城市</span>
-                    <select class="form-control" onchange="changeBannerTable(this)">
-                        <option value="1">北京</option>
-                        <option value="2">上海</option>
-                        <option value="3">成都</option>
+                    <select id="city" class="form-control" onchange="changeBannerTable(this)">
+                        <option value="">全部</option>
                     </select>
                 </div>
             </div>
@@ -186,9 +184,6 @@
 
                             <div class="controls">
                                 <select id="v_city" name="city">
-                                    <option value="成都">成都</option>
-                                    <option value="北京">北京</option>
-                                    <option value="上海">上海</option>
                                 </select>
                             </div>
                         </div>
