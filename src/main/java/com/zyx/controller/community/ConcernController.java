@@ -59,7 +59,7 @@ public class ConcernController {
 
     @RequestMapping(value = "/findConcern", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有动态", notes = "查询所有动态")
-    public ModelAndView findConcern(@ApiParam(name = "page", required = true, value = "页码")
+    public ModelAndView findConcern(@ApiParam(name = "page", required = true, value = "页码。从零开始")
                                     @RequestParam(value = "page") Integer page,
                                     @ApiParam(name = "pageSize", required = true, value = "显示数量")
                                     @RequestParam(value = "pageSize") Integer pageSize,
