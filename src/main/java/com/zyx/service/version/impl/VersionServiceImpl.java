@@ -30,7 +30,7 @@ public class VersionServiceImpl extends BaseServiceImpl<Version> implements Vers
         version.setCreateTime(new Date().getTime());
         int rst=versionMapper.insert(version);
         if (rst>0){
-            return MapUtils.buildErrorMap(Constants.SUCCESS, "数据插入成功");
+            return MapUtils.buildSuccessMap(Constants.SUCCESS, "发布成功", null);
         }else {
             return  MapUtils.buildErrorMap(Constants.DATA_INSERT_FAILED,"数据插入失败");
         }
@@ -57,7 +57,7 @@ public class VersionServiceImpl extends BaseServiceImpl<Version> implements Vers
             }
         }
         if (a>0){
-            return MapUtils.buildErrorMap(Constants.SUCCESS, "数据删除成功");
+            return MapUtils.buildSuccessMap(Constants.SUCCESS, "数据删除成功", null);
         }else {
             return  MapUtils.buildErrorMap(Constants.ERROR_DEL_1001,"数据删除失败");
         }

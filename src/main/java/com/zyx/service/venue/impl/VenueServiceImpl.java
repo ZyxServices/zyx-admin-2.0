@@ -33,7 +33,7 @@ public class VenueServiceImpl extends BaseServiceImpl<Venue> implements VenueSer
             venue.setCreateTime(new Date().getTime());
             int rst=venueMapper.insert(venue);
             if (rst>0){
-                return MapUtils.buildErrorMap(Constants.SUCCESS, "数据插入成功");
+                return MapUtils.buildSuccessMap(Constants.SUCCESS, "数据插入成功", null);
             }else {
                 return  MapUtils.buildErrorMap(Constants.DATA_INSERT_FAILED,"数据插入失败");
             }
@@ -46,7 +46,7 @@ public class VenueServiceImpl extends BaseServiceImpl<Venue> implements VenueSer
     public Map<String, Object> updateVenue(Venue venue) {
         int i = venueMapper.updateVenue(venue);
         if (i > 0) {
-            return MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", "");
+            return MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", null);
         } else {
             return MapUtils.buildErrorMap(Constants.DATA_UPDATE_FAILED, "数据更新失败");
         }
@@ -64,7 +64,7 @@ public class VenueServiceImpl extends BaseServiceImpl<Venue> implements VenueSer
             }
         }
         if (a>0){
-            return MapUtils.buildErrorMap(Constants.SUCCESS, "数据删除成功");
+            return MapUtils.buildSuccessMap(Constants.SUCCESS, "数据删除成功", null);
         }else {
             return  MapUtils.buildErrorMap(Constants.ERROR_DEL_1001,"数据删除失败");
         }

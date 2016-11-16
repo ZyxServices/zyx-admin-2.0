@@ -59,7 +59,7 @@ public class LevelServiceImpl extends BaseServiceImpl<Level> implements LevelSer
             }
         }
         if (a>0){
-            return MapUtils.buildErrorMap(Constants.SUCCESS, "数据删除成功");
+            return MapUtils.buildSuccessMap(Constants.SUCCESS, "数据删除成功",null);
         }else {
             return  MapUtils.buildErrorMap(Constants.ERROR_DEL_1001,"数据删除失败");
         }
