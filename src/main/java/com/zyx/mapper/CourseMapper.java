@@ -43,8 +43,14 @@ public interface CourseMapper extends Mapper<Course> {
      * 记录查询数量
      * @return
      */
-    int selectCountCourse();
+    int selectCountCourse(Course course);
 
+    /**
+     * 记录按照标题搜素的查询数量
+     * @param course
+     * @return
+     */
+    int selectCountTitle(Course course);
 
 
 }

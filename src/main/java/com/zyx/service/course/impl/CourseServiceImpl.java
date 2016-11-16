@@ -80,7 +80,7 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
         course.setPage((page-1)*pageNumber);
         course.setPageNumber(pageNumber);
         List<Course> courses = courseMapper.queryCourse(course);
-        int i = courseMapper.selectCountCourse();
+        int i = courseMapper.selectCountCourse(course);
         if(courses !=null && courses.size() > 0){
             Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", courses);
             map.put("total", i);
@@ -101,8 +101,11 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
             Course course = new Course();
             course.setTitle(title);
             List<Course> courses = courseMapper.queryByTitle(course);
+            int i = courseMapper.selectCountTitle(course);
             if (courses != null && courses.size() > 0) {
-                return MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", courses);
+                Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", courses);
+                map.put("total", i);
+                return map;
             } else {
                 return MapUtils.buildErrorMap(Constants.NO_DATA, "查无数据");
             }

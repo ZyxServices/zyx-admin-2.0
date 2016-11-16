@@ -40,9 +40,14 @@ public interface Constants {
      */
     String ACTIVITY_DEVA = "activityDeva";
     /**
-     * 教程攻略
+     * 教程攻略首推
      */
     String COURSE_DEVA = "courseDeva";
+
+    /**
+     * 社区动态首推
+     */
+    String CONCERN_DEVA = "concernDeva";
 
     ////////////// 系统标识符 结束//////////////////
 
@@ -271,8 +276,14 @@ public interface Constants {
      */
     int MODEL_COURSE=8;
 
+    /**
+     * 社区动态模块
+     */
+    int MODEL_CONCERN=9;
+
     Map<Integer, String> devaNames = new HashMap() {{
         put(2, "activityDevas");
         put(8,"courseDevas");
+        put(9,"concernDevas");
     }};
 }

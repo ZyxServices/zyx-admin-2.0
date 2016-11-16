@@ -1,6 +1,8 @@
 package com.zyx.controller.equip;
 
+import com.zyx.constants.Constants;
 import com.zyx.model.Equip;
+import com.zyx.model.SysUser;
 import com.zyx.service.equip.EquipService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -33,8 +36,7 @@ public class EquipController {
 
     @RequestMapping(value="/add",method = RequestMethod.POST)
     @ApiOperation(value="添加装备控帖子",notes = "添加装备控帖子")
-    public ModelAndView add(@ApiParam(name = "accountId", required = true, value = "账户id")
-                            @RequestParam(name="accountId",required = true)Integer accountId,
+    public ModelAndView add( HttpServletRequest request,
                             @ApiParam(name = "title", required = true, value = "标题")
                             @RequestParam(name="title",required = true)String title,
                             @ApiParam(name = "content", required = true, value = "内容")
@@ -43,8 +45,9 @@ public class EquipController {
                             @RequestParam(name="labelId",required = true)Integer labelId){
 
         AbstractView jsonView = new MappingJackson2JsonView();
+        SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
         Equip equip = new Equip();
-        equip.setAccountId(accountId);
+        equip.setAccountId(Integer.valueOf(sysUser.getUserId()));
         equip.setContent(content);
         equip.setTitle(title);
         equip.setLabelId(labelId);
@@ -82,20 +85,20 @@ public class EquipController {
     @ApiOperation(value = "编辑装备控",notes="编辑装备控")
         public ModelAndView updateEquip(@ApiParam(name = "id", required = true, value = "装备控id")
                                          @RequestParam(name="id",required = true)Integer id,
-                                         @ApiParam(name = "accountId", required = true, value = "账户id")
-                                         @RequestParam(name="accountId",required = true)Integer accountId,
-                                         @ApiParam(name = "title", required = true, value = "标题")
-                                         @RequestParam(name="title",required = true)String title,
-                                         @ApiParam(name = "content", required = true, value = "内容")
-                                         @RequestParam(name="content",required = true)String content,
-                                         @ApiParam(name = "labelId", required = true, value = "标签id")
-                                          @RequestParam(name="labelId",required = true)Integer labelId){
+//                                        HttpServletRequest request,
+                                         @ApiParam(name = "title", required = false, value = "标题")
+                                         @RequestParam(name="title",required = false)String title,
+                                         @ApiParam(name = "content", required = false, value = "内容")
+                                         @RequestParam(name="content",required = false)String content,
+                                         @ApiParam(name = "labelId", required = false, value = "标签id")
+                                          @RequestParam(name="labelId",required = false)Integer labelId){
         AbstractView jsonView = new MappingJackson2JsonView();
 
 
         Equip equip = new Equip();
         equip.setId(id);
-        equip.setAccountId(accountId);
+//        SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
+//        equip.setAccountId(Integer.valueOf(sysUser.getUserId()));
         equip.setContent(content);
         equip.setTitle(title);
         equip.setLabelId(labelId);
@@ -120,10 +123,12 @@ public class EquipController {
     @RequestMapping(value="/maskEquip",method=RequestMethod.POST)
     @ApiOperation(value="屏蔽装备控",notes="屏蔽准备控")
     public ModelAndView maskEquip(@ApiParam(name = "id", required = true, value = "装备控id")
-                                   @RequestParam(name = "id", required = true) Integer id) {
+                                   @RequestParam(name = "id", required = true) Integer id,
+                                  @ApiParam(name = "maskType", required = true, value = "屏蔽：0取消屏蔽、1屏蔽")
+                                  @RequestParam(name = "maskType", required = true) Integer maskType) {
 
         AbstractView jsonView = new MappingJackson2JsonView();
-        Map<String,Object> map = equipService.maskEquip(id,1);
+        Map<String,Object> map = equipService.maskEquip(id,maskType);
 
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
