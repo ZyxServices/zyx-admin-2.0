@@ -8,6 +8,8 @@
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="user_id" property="userId" jdbcType="INTEGER"/>
         <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+        <result column="concern_type" property="concernType" jdbcType="INTEGER"/>
         <result column="topic_content" property="topicContent" jdbcType="VARCHAR"/>
         <result column="topic_title" property="topicTitle" jdbcType="VARCHAR"/>
         <result column="topic_visible" property="topicVisible" jdbcType="INTEGER"/>
@@ -21,6 +23,13 @@
         <association property="userVo" column="user_id" select="userSelect"/>
         <association property="appUserAuthDto" column="user_id" select="authSelect"/>
     </resultMap>
+
+    <insert id="insertConcern" parameterType="com.zyx.model.Concern" useGeneratedKeys="true">
+        INSERT INTO concern(user_id,type,state,concern_type,topic_content,topic_title,topic_visible,img_url,video_url,create_time)
+        VALUES (#{userId},#{type},#{state},(SELECT user.official FROM user
+        WHERE user.id=#{userId}),#{topicContent},#{topicTitle},#{topicVisible},#{imgUrl},
+        #{videoUrl},#{createTime})
+    </insert>
 
     <select id="zanCountsSelect" parameterType="int" resultType="int">
         SELECT COUNT(id) FROM zan WHERE zan.body_type = 2 AND body_id = #{concernId}
@@ -41,6 +50,8 @@
     <select id="count" resultType="java.lang.Integer">
         SELECT count("id") as counts FROM concern
     </select>
+
+
 
     <select id="findByPager" resultMap="concernVoMap">
      SELECT
@@ -64,18 +75,33 @@
 --         WHERE state !=-1
   </select>
     <!--SELECT * FROM concern WHERE state >=0 ORDER BY create_time DESC  LIMIT #{start},#{end}-->
-    <select id="findById" resultMap="concernMap">
-            SELECT * FROM concern  WHERE id=#{id}
---             AND state != -1
-    </select>
+    <!--<select id="findById" resultMap="concernMap">-->
+            <!--SELECT * FROM concern  WHERE id=#{id}-->
+<!--&#45;&#45;             AND state != -1-->
+    <!--</select>-->
 
     <update id="setState">
         UPDATE concern SET state=#{state} WHERE id=#{id}
     </update>
 
     <update id="edit">
-        UPDATE concern SET topic_content=#{topic_content},img_url=#{img_url} WHERE id=#{id}
+        UPDATE concern
+        <set>
+            <if test="topic_content != null and topic_content != ''">
+                topic_content=#{topic_content},
+            </if>
+            <if test="img_url != null and img_url != ''">
+                img_url=#{img_url},
+            </if>
+            <if test="video_url != null and video_url != ''">
+                video_url=#{video_url}
+            </if>
+        </set>
+
+         WHERE id=#{id}
     </update>
+
+
     <select id="search" resultMap="concernVoMap">
     SELECT
 	concern.id,

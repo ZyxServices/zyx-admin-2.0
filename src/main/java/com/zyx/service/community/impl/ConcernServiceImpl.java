@@ -114,15 +114,15 @@ public class ConcernServiceImpl extends BaseServiceImpl<Concern> implements Conc
         }
         Concern concernFind = concernMapper.selectByPrimaryKey(id);
         if (id != null) {
-            if (topicContent == null) {
-                return MapUtils.buildErrorMap(PgConstants.PG_ERROR_CODE_30022, PgConstants.PG_ERROR_CODE_30022_MSG);
-            }
-            Optional.ofNullable(topicContent).ifPresent(concernFind::setTopicContent);
+//            if (topicContent == null) {
+//                return MapUtils.buildErrorMap(PgConstants.PG_ERROR_CODE_30022, PgConstants.PG_ERROR_CODE_30022_MSG);
+//            }
+//            Optional.ofNullable(topicContent).ifPresent(concernFind::setTopicContent);
 //            if (imgUrl == null || Objects.equals(topicContent, "")) {
 //                return MapUtils.buildErrorMap(PgConstants.PG_ERROR_CODE_30013, PgConstants.PG_ERROR_CODE_30013_MSG);
 //            }
 //            Optional.ofNullable(imgUrl).ifPresent(concernFind::setImgUrl);
-            concernFind.setImgUrl(imgUrl);
+//            concernFind.setImgUrl(imgUrl);
             Integer result = concernMapper.edit(topicContent, imgUrl, videoUrl,id);
             if (result > 0) {
                 return MapUtils.buildSuccessMap(PgConstants.SUCCESS, PgConstants.PG_ERROR_CODE_36000_MSG, null);
