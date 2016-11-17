@@ -331,16 +331,23 @@
                         <td class="column2">
                             <label>左击获取经纬度：</label>
                         </td>
+                        <%--<td class="column2">--%>
+                            <%--<label>左击获取地址：</label>--%>
+                        <%--</td>--%>
                     </tr>
                     <tr>
                         <td>
                             <input type="text" placeholder="请输入关键字进行搜索" id="tipinput">
                         </td>
-                        <td class="column2">
+                        <td class="column3">
                             <input type="text" readonly="true" id="lnglat">
                         </td>
                     </tr>
+
                 </table>
+                <tr >
+                  <div style="max-width: 340px" id="realaddress"></div>
+                </tr>
             </div>
         </div>
     </div>
@@ -372,6 +379,7 @@
         document.getElementById("lnglat").value =''
         document.getElementById("v_longitude").value=''
         document.getElementById("v_latitude").value =''
+        document.getElementById("realaddress").innerHTML =''
     })
     var map = new AMap.Map("container", {
         resizeEnable: true,
@@ -382,10 +390,12 @@
             city: "010"//城市，默认：“全国”
         });
         map.on('click',function(e){
-
             geocoder.getAddress(e.lnglat,function(status,result){
-                document.getElementById("v_address").value=result.regeocode.formattedAddress
+                document.getElementById("v_address").value=result.regeocode.formattedAddress;
+                document.getElementById("realaddress").innerHTML='当前地址：'+result.regeocode.formattedAddress+''
+//                $('#realaddress').val('当前地址：'+result.regeocode.formattedAddress+'')
             })
+            document.getElementById("v_latitude").value =''
             document.getElementById("lnglat").value = e.lnglat.getLng() + ',' + e.lnglat.getLat()
             document.getElementById("v_longitude").value = e.lnglat.getLng() ;
             document.getElementById("v_latitude").value = e.lnglat.getLat() ;

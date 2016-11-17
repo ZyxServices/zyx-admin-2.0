@@ -176,3 +176,4 @@ $.Popup = function (options) {
     //调用弹窗
     $("#activity-shield" + globalID + "").modal('show');
 }
+
