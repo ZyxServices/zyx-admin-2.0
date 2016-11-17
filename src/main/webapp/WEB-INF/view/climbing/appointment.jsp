@@ -153,11 +153,12 @@
 
                         <div class="control-group form-group">
                             <label class="control-label">内容</label>
-                            <div class="controls summernote">
-                                <div class="span6 col-xs-5">
-                                    <div id="activity-summernote"></div>
-                                    <input id="desc" type="text" class="hideInput" name="descContent">
-                                </div>
+                            <div class="controls col-xs-5 summernote">
+                                <%--<div class="span6 col-xs-5">--%>
+                                    <%--<div id="activity-summernote"></div>--%>
+                                    <textarea name="descContent" class="span6" id="descContent" rows="10"></textarea>
+                                    <%--<input id="desc" type="text" class="hideInput" name="descContent">--%>
+                                <%--</div>--%>
                                 <span class="help-inline required">*</span>
                             </div>
                         </div>

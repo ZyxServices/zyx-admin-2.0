@@ -206,7 +206,6 @@ function createEditAppUser(url) {
 }
 
 function beginCreate() {
-    console.log(123456)
     if($("#listType").html() == "创建用户"){
         createEditAppUser('/v1/appUser/insert')
     }else{

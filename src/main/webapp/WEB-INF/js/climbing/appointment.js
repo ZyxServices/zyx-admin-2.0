@@ -94,7 +94,7 @@ $(function () {
     /*初始化表格*/
     initAppointmentTable();
 
-    $('#activity-summernote').on('summernote.change', function (content, $editable) {
+   /* $('#activity-summernote').on('summernote.change', function (content, $editable) {
         $("#desc").val($editable);
         $('#updateCreateFrom').data('bootstrapValidator')
             .updateStatus('descContent', 'NOT_VALIDATED', null)
@@ -127,7 +127,7 @@ $(function () {
         },
         lang: 'zh-CN',
         height: 200
-    });
+    });*/
 
     $('#activityStartTime').datetimepicker({
         language: 'zh-CN',
@@ -408,7 +408,8 @@ function updateCreateFrom(url) {
 function editPreview(row) {
     $("#title").val(row.title);
     $("#images").attr("src", "http://image.tiyujia.com/" + row._image);
-    $('#activity-summernote').summernote('code', row.descContent);
+    // $('#activity-summernote').summernote('code', row.descContent);
+    $("#descContent").val(row.descContent);
     $("#activityStartTime").val(new Date(row.startTime).format("yyyy-mm-dd HH:MM:ss"));
     $("#activityEndTime").val(new Date(row.endTime).format("yyyy-mm-dd HH:MM:ss"));
     $("#signEndTime").val(new Date(row.lastTime).format("yyyy-mm-dd HH:MM:ss"));
