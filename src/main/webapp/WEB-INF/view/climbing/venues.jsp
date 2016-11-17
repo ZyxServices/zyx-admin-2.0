@@ -133,9 +133,9 @@
                         </div>
 
                         <div class="control-group form-group">
-                            <label class="control-label">场馆介绍</label>
-                            <div class="controls summernote">
-                                <div class="span6 col-xs-5">
+                            <label class="control-label">岩厂概述</label>
+                            <div id="ven_des" class="controls summernote">
+                                <div  class="span6 col-xs-5">
                                     <div id="activity-summernote"></div>
                                     <input id="v_desc" type="text" class="hideInput" name="description" value="">
                                 </div>
@@ -166,7 +166,7 @@
                             <div class="controls">
                                 <input type="text" id="v_latitude" name="latitude" class="span6"  placeholder=""/>
 
-                                <a onclick="$('#mapModel').modal('show')" class="controls"
+                                <a id="openMap" onclick="$('#mapModel').modal('show')" class="controls"
                                    style="margin-left: 0;display: block;cursor:hand">打开地图</a>
                             </div>
                         </div>

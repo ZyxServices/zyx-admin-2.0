@@ -53,7 +53,7 @@ function initTable(city) {
             {field: '', checkbox: true, align: 'center', valign: 'middle'},
             {field: 'id', title: 'id', align: 'center', valign: 'middle'},
             {field: 'name', title: '场馆名称'},
-            {field: 'type', title: '类型', sortable: true},
+            {field: 'type', title: '类型', sortable: true,formatter: cityFormatter},
             {field: 'city', title: '所属城市'},
             {field: 'longitude', title: '经度'},
             {field: 'latitude', title: '纬度'},
@@ -166,12 +166,34 @@ function seeUrlFormatter(value, row, index) {
         '<a class="lineDelete p5"   href="javascript:void(0)" title="Like">删除</a>',
     ].join('');
 }
-
+//城市类型
+function cityFormatter(value, row, index){
+    return row.type==1?'室内':'室外';
+}
 //列表操作事件
 var operateEventssssss = {
+     'click .preview': function (e, value, row, index) {
+         typeInfo()
+         $("#createVenue")[0].reset();
+         $('#v_name').val(row.name).attr("disabled", "disabled")
+         $('#v_title').val(row.level).attr("disabled", "disabled")
+         $('#ven_des').html(row.description).attr("disabled", "disabled");
+         //$('#activity-summernote').val(row.description)
+         $('#v_address').val(row.address).attr("disabled", "disabled")
+         $('#v_longitude').val(row.longitude).attr("disabled", "disabled")
+         $('#v_latitude').val(row.latitude).attr("disabled", "disabled")
+         $('#v_phone').val(row.phone).attr("disabled", "disabled")
+         $('#v_city').val(row.city).attr("disabled", "disabled")
+         $('#v_type').val(row.type).attr("disabled", "disabled")
+         $('#pageTitle').html('查看场馆信息')
+         $("#czs").hide()
+         $("#openMap").hide()
+         $("#imgUrls").val(row.imgUrls).attr("disabled", "disabled")
+         $("#createVenue").append("<input name='id' class='hide' value='" + row.id + "'>")
+
+     },
     'click .edit': function (e, value, row, index) {
         typeInfo()
-        console.log(row)
         $("#createVenue")[0].reset();
         $('#v_name').val(row.name)
         $('#v_title').val(row.level)

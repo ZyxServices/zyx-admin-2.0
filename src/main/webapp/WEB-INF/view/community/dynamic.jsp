@@ -92,6 +92,7 @@
                 <h3 style="margin: 0;display: inline-block">动态内容</h3>
                 <HR style="border:1 dashed #987cb9;margin: 5px 0" width="20%" color=rgb(51, 51, 51) SIZE=1>
                 <div class="topicContent"></div>
+                <div id="container"></div>
                 <div class="dynamicPic">
                     <img style="max-width: 13%" src="" alt=""/>
                 </div>

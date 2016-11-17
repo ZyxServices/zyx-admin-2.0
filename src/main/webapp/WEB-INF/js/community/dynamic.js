@@ -205,8 +205,11 @@ var operateEventssssss = {
         $(".live_index").addClass('hide')
         $('.topicContent').html(row.topicContent)
         $('.username').html(row.userVo.nickName)
+        console.log(row)
         row.imgUrl!=null?strArry = row.imgUrl.split(','):'';
+        console.log(strArry)
         for (var i in strArry) {
+            console.log(strArry[i])
             $('#container').append(' <div class="box"><div class="boximg"><img src=' + 'http://image.tiyujia.com/' + strArry[i] + '></div></div>')
             //console.log(i,strArry.length)
             //parseInt(i)+1==strArry.length?waterFlow("container", "box"):'';
