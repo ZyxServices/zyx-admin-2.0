@@ -14,6 +14,7 @@
     <meta content="体育家-用户操作" name="description"/>
     <meta content="" name="author"/>
     <jsp:include page="../public/common-styles.jsp"/>
+    <link rel="stylesheet" href="../../css/datetimepicker.css" />
     <link rel="stylesheet" href="../../css/tiyujia/style.css" />
 </head>
 <body class="page-header-fixed">
@@ -40,7 +41,7 @@
             <div class="live_index">
                 <button class="create_live btn btn-default btn-lg margin-bottom-10">创建用户</button>
                 <div>
-                    <select class="form-control" onchange="changeBannerTable(this)">
+                    <select class="form-control" id="officialSelect" onchange="changeOfficialTable()">
                         <option value="1">官方用户</option>
                         <option value="2">普通用户</option>
                     </select>
@@ -51,19 +52,30 @@
                            data-show-refresh="true"
                            data-show-toggle="true"
                            data-showColumns="true"
-                           data-detail-view="true"
                            data-detail-formatter="detailFormatter">
                     </table>
                 </div>
             </div>
+            <%--创建用户--%>
             <div class="create_liveType row-fluid">
                 <form class="form-horizontal" role="form" id="createAppUserForm" enctype="multipart/form-data">
                     <div class="control-group form-group">
+
+                        <input type="hidden" name="id" id="userId">
                         <label class="control-label">昵称</label>
 
                         <div class="controls col-xs-5">
                             <input type="text" class="span6" name="nickname" id="nickname" placeholder="输入昵称"/>
                             <span class="help-inline required">*</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">性别</label>
+
+                        <div class="controls">
+                            <label class="radio"><input type="radio" name="sex" checked value="1">男</label>
+                            <label class="radio"><input type="radio" name="sex" value="0">女</label>
                         </div>
                     </div>
 
@@ -86,7 +98,30 @@
                     </div>
 
                     <div class="control-group form-group">
-                        <label class="control-label">地址</label>
+                        <label class="control-label">头像</label>
+
+                        <div class="controls col-xs-5">
+                            <input type="file" class="hideInput" name="avatar" id="avatar">
+                            <a class="btn btn-default" href="javascript:void (0)" id="photoCover" onclick="$('input[id=avatar]').click();">选择文件</a>
+                            <span class="help-inline required">*</span>
+                            <div style="margin-top: 10px" id="imagesWrap" class="showImg">
+                                <img id="avatarImg" src="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group form-group">
+                        <label class="control-label">生日</label>
+
+                        <div class="controls col-xs-5">
+                            <input type="hidden" name="birthday" id="birthday">
+                            <input type="text" class="span6" name="birthdayStr" id="birthdayStr" placeholder="输入生日"/>
+                            <span class="help-inline required">*</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group form-group">
+                        <label class="control-label">所在地</label>
 
                         <div class="controls col-xs-5">
                             <input type="text" class="span6" name="address" id="address" placeholder="输入地址"/>
@@ -94,40 +129,20 @@
                         </div>
                     </div>
 
-                    <div class="control-group">
-                        <label class="control-label">头像</label>
+                    <div class="control-group form-group">
+                        <label class="control-label">签名</label>
 
-                        <div class="controls">
-                            <input type="file" class="hideInput" name="avatar" id="avatar">
-                            <a class="btn btn-default" href="javascript:void (0)" id="photoCover" onclick="$('input[id=avatar]').click();">选择文件</a>
-                            <div style="margin-top: 10px" id="imagesWrap"class="showImg">
-                                <img id="avatarImg" src="">
-                            </div>
+                        <div class="controls col-xs-5">
+                            <input type="text" class="span6" name="signature" id="signature" placeholder="输入签名"/>
+                            <span class="help-inline required">*</span>
                         </div>
                     </div>
-
-                    <div class="control-group">
-                        <label class="control-label">性别</label>
-
-                        <div class="controls">
-                            <label class="radio"><input type="radio" name="sex" checked value="1">男</label>
-                            <label class="radio"><input type="radio" name="sex" value="0">女</label>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label">官方账号</label>
-                        <div class="controls">
-                            <label class="radio"><input type="radio" name="official" checked value="1">是</label>
-                            <label class="radio"><input type="radio" name="official" value="0">否</label>
-                        </div>
+                    <div class="margin-bottom-25">
+                        <button type="button" id="createButton" class="btn" onclick="beginCreate()">确认
+                        </button>
+                        <button type="button" class="btn" onclick="window.location.reload();">返回</button>
                     </div>
                 </form>
-                <div class="margin-bottom-25">
-                    <button type="button" id="createButton" class="btn" onclick="beginCreate()">确认创建
-                    </button>
-                    <button type="button" class="btn" onclick="window.location.reload();">返回</button>
-                </div>
             </div>
         </div>
     </div>
@@ -135,40 +150,8 @@
 
 <!-- 用户推荐开始 -->
 <!-- 模态框（Modal） -->
-
-<div class="modal fade hide" id="appUserRecommend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-header">
-        <button data-dismiss="modal" class="close" type="button"></button>
-        <h3>用户推荐</h3></div>
-    <div class="modal-body">
-        <form class="form-horizontal" id="devaForm">
-            <input  name="modelId" type="hidden" id="modelId">
-            <div class="control-group"><label class="control-label">用户昵称</label>
-                <div class="controls"><span class="help-inline" id="devaUserNickname"></span></div>
-            </div>
-            <div class="control-group"><label class="control-label">用户头像</label>
-                <div class="controls showImg"><img id="devaUserAvatar" src="" style="width:200px;height:200px;">
-                </div>
-            </div>
-            <div class="control-group"><label class="control-label">用户推荐banner号</label>
-                <div class="controls"><select id="sequence" name="sequence">
-                </select></div>
-            </div>
-            <div class="control-group"><label class="control-label">推荐状态</label>
-                <div class="controls">
-                    <label class="radio"><input type="radio" checked value="1" name="state">激活</label>
-                    <label class="radio"><input type="radio" value="0" name="state">未激活</label>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-default" id="devaButton" onclick="beginDeva()">确定</button>
-        <button class="btn btn-default" data-dismiss="modal">关闭</button>
-    </div>
-</div>
 <!-- 用户推荐结束 -->
 <jsp:include page="../public/common-footer.jsp"/>
 </body>
+<script src="../../js/app.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../js/appUser/allAppUser.js"></script>
