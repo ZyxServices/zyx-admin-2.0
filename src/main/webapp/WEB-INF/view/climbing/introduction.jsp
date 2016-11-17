@@ -107,6 +107,7 @@
                 <div class="row-fluid">
                     <form class="form-horizontal" role="form" id="courseCreateFrom"
                           enctype="multipart/form-data" method="post">
+                        <input type="hidden" name="id" id="courseId">
                         <div class="control-group form-group">
                             <label class="control-label">标题</label>
                             <div class="controls col-xs-6">
@@ -114,6 +115,25 @@
                                 <span class="help-inline">*</span>
                             </div>
                         </div>
+
+                        <div class="control-group form-group">
+                            <label class="control-label">封面</label>
+                            <div class="controls col-xs-5">
+                                <div id="imgWrap">
+                                    <%--图片的路径--%>
+                                    <input id="image" type="text" class="hideInput" name="imgUrl">
+                                    <%--文件类型--%>
+                                    <input id="lefile" type="file" class="hideInput" name="imageR">
+                                    <a class="btn btn-default" href="javascript:void (0)" id="photoCover"
+                                       onclick="$('input[id=lefile]').click();">选择文件</a>
+                                    <span class="help-inline required">*</span>
+                                </div>
+                                <div style="margin-top: 10px" id="imagesWrap" class="showImg">
+                                    <img id="images" src="">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="control-group form-group">
                             <label class="control-label">内容</label>
                             <div class="controls summernote">
@@ -138,8 +158,8 @@
                             <label class="control-label">类型</label>
                             <div class="controls">
                                 <select class="span6" id="examine" name="courseType"<%-- onchange="isReviewed()"--%>>
-                                    <option value="0">图文</option>
-                                    <option value="1">视频</option>
+                                    <option value="图文">图文</option>
+                                    <option value="视频">视频</option>
                                 </select>
                             </div>
                         </div>
@@ -174,42 +194,58 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
                 <h4 class="modal-title" id="gridSystemModalLabel">教程攻略推荐</h4>
             </div>
-            <form class="form-horizontal form_bottom" role="form" id="courseRecommend"
-                  enctype="multipart/form-data" method="post" style="margin-bottom:0px;">
-                <div class="modal-body" style="padding:10px 20px ;">
-                    <div class="container-fluid">
-                        <div class="control-group  form-group">
-                            <label class="col-xs-6 col-md-4 control-label">
-                                攀岩馆banner排序：
-                            </label>
-                        <span class="col-xs-6 col-md-4">
-                            <select id="courseSelect" name="sequence"></select>
-                        </span>
-                        </div>
-            <%--            <div class="control-group form-group">
-                            <label class="control-label">推荐状态：</label>
-                            <div class="controls">
-                                <label class="radio"><input type="radio" checked value="1" name="state">激活</label>
-                                <label class="radio"><input type="radio" value="0" name="state">未激活</label>
-                            </div>
-                        </div>--%>
-                        <input type="hidden" name="model" value="1">
-                        <input type="hidden" name="modelId">
-                        <input type="hidden" name="area" value="1">
-                        <input type="hidden" name="state" value="1">
+            <div class="modal-body" style="padding:10px 20px ;">
+                <form class="form-horizontal form_bottom" role="form" id="courseRecommend"
+                      enctype="multipart/form-data" method="post" style="margin-bottom:0px;">
 
+                    <div class="control-group">
+                        <label class="control-label">攀岩馆banner排序：</label>
+                        <div class="controls">
+                            <select id="courseSelect" name="sequence"></select>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <a class="btn btn-default" data-dismiss="modal">取消</a>
-                    <a class="btn btn-primary" id="RdSures">确认</a>
-                </div>
-            </form>
+
+                    <div class="control-group">
+                        <label class="control-label">推荐图片</label>
+                        <div class="controls showImg">
+                            <img id="devaImage" src="">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="controls">
+                            <input type="hidden" name="imageUrl" id="imageUrl">
+                            <input id="recommendFile" type="file" class="hideInput">
+                            <a class="btn btn-default" href="javascript:void (0)" id="recommendPhotoCover"
+                               onclick="$('input[id=recommendFile]').click();">选择图片</a>
+                            <div style="margin-top: 10px" id="recommendImgWrap" class="showImg">
+                                <img id="recommendImg" src="">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <input type="hidden" name="model" value="1">
+                    <input type="hidden" name="modelId" id="modelId">
+                    <input type="hidden" name="area" value="1">
+                    <input type="hidden" name="state" value="1">
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-default" data-dismiss="modal">取消</a>
+                <a class="btn btn-primary" id="RdSures">确认</a>
+            </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
+<div class="modal fade hide" id="upload" aria-hidden="true" data-backdrop="static">
+    <div class="modal-body">
+        <p id="uploadContent"></p>
+    </div>
+</div>
 <jsp:include page="../public/footer.jsp"/>
 <jsp:include page="../public/common-js.jsp"/>
 <script src="../../js/app.js" type="text/javascript"></script>

@@ -48,6 +48,7 @@
                 <div class="row-fluid margin-bottom-10">
                     <div class="span6">
                         <a class="btn btn-default" href="javascript:void(0)" onclick="createLabel()">创建标签</a>
+                        <a class="btn btn-default" href="javascript:history.go(-1)">返回</a>
                     </div>
                 </div>
                 <div class="row-fluid">

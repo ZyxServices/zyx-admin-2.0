@@ -11,6 +11,13 @@ $(function () {
                     }
                 }
             },
+            'imageR': {
+                validators: {
+                    notEmpty: {
+                        message: '请上传图片'
+                    }
+                }
+            },
             "content": {
                 validators: {
                     notEmpty: {
@@ -62,7 +69,6 @@ $(function () {
         queryParamsType: "undefined",
         dataField: "data",
         queryParams: function queryParams(params) {   //设置查询参数
-            console.log(params)
             var param = {
                 page: 1,
                 pageNumber: params.pageSize,
@@ -73,17 +79,17 @@ $(function () {
             return param;
         },
         onLoadSuccess: function (data) {  //加载成功时执行
-            console.log(data)
         },
         columns: [
             {field: '', checkbox: true, align: 'center', valign: 'middle'},
             {field: 'id', title: 'id', align: 'center', valign: 'middle'},
             {field: 'title', title: '标题'},
             {field: 'courseLabelName', title: '标签'},
-            {field: 'courseLabelName', title: '类型'},
-            {field: 'imgUrl', title: '图片'},
+            {field: 'courseType', title: '类型' ,formatter:transType},
+            {field: 'imgUrl', title: '图片', formatter:getImage},
             {field: 'createTime', title: '发布时间', formatter: getLocalTime},
             {field: 'commentCount', title: '评论数'},
+            {field: 'zanCount', title: '点赞数'},
             {field: 'operation', title: '操作', align: 'center', events: operateEvent, formatter: courseFormatter}
         ]
     })
@@ -91,11 +97,21 @@ $(function () {
     function getLocalTime(value) {
         return (new Date(value).format("yyyy-mm-dd HH:MM:ss"));
     }
+    /*table列表图片显示*/
+    function getImage(value) {
+        if(value){
+            var imgUrl = value.split(".");
+            value = '<a href="http://image.tiyujia.com/'+value+'" target="view_window"><img src="http://image.tiyujia.com/'+imgUrl[0]+'__30x30.'+imgUrl[1]+'"></a>';
+        }
+        return value;
+    }
+    function transType(value) {
+        return value == 0 ? "图文":"视频";
 
+    }
 });
 //分类操作
 function courseFormatter(value, row, index) {
-    console.log(row);
     var btnText;
     var Recommend;
     if (row.mask == 0) {
@@ -135,23 +151,29 @@ var operateEvent = {
     },
     //推荐
     'click .recommend': function (e, value, row, index) {
-        $("#CourseModal").modal("show");
-        $("input[name=modelId]").val(row.id);
         $("#courseSelect").empty();
-        $.post("/v2/deva/sequence", {model: "1", area: "1"}, function (result) {
-            console.log(result);
+        $.post("/v2/deva/sequence", {area: "1"}, function (result) {
             if (result.state == 200) {
                 if (result.data.length > 0) {
                     for (var i = 0; i < result.data.length; i++) {
                         $("#courseSelect").append("<option value='" + result.data[i] + "'>" + result.data[i] + "</option>");
                     }
-                }
-                else {
+                    $("#CourseModal").modal("show");
+                    $("#gridSystemModalLabel").html("教程攻略推荐");
+                    $("#gridSystemModalLabel").css("color",'#000');
+                    $("#recommendPhotoCover").html("选择文件");
+                    $("#recommendImg").attr("src", "");
+                    $("input[name=modelId]").val(row.id);
+                    $("#devaImage").attr("src",'http://image.tiyujia.com/'+row.imgUrl+'');
+                } else {
                     $("#courseSelect").html('<option value="">圈子序列号已满，请先删除</option>');
                     $("#RdSures").attr("disabled", true);
+                    $.Popup({
+                        confirm: false,
+                        template: "圈子序列号已满，请先删除"
+                    });
                 }
             }
-
         })
     },
     //编辑
@@ -161,11 +183,19 @@ var operateEvent = {
         $("#activityList").hide();
         $("#courseCreateFrom").attr("value", 2);
         $("input[name=title]").val(row.title);
+        $("#image").val(row.imgUrl);
+        $("#courseId").val(row.id);
+        /*在编辑的时候判断是否修改了图片*/
+        ISCHANGEIMG = row.imgUrl;
+        $("#images").attr("src",'http://image.tiyujia.com/'+row.imgUrl+'');
         $('#course-summernote').summernote('code', row.content);
         $("#labelId option[value='" + row.labelId + "']").attr("selected", true);
         $("#examine option[value='" + row.courseType + "']").attr("selected", true);
         $("#labelId").trigger("liszt:updated");
         $("#labelId").chosen();
+        $('#courseCreateFrom')
+            .bootstrapValidator('removeField', 'imageR')
+            .data('bootstrapValidator').validate();
     },
 
     //屏蔽
@@ -242,26 +272,58 @@ var operateEvent = {
 
     }
 };
-//圈子推荐
+//推荐
 $("#RdSures").click(function () {
     if ($("select[name=sequence]").val() != '') {
-        $("#courseRecommend").ajaxSubmit({
-            type: "post",
-            dateType: "json",
-            url: "/v2/deva/add",
-            async: false,
-            success: function (result) {
-                $.Popup({
-                    confirm: false,
-                    title: "推荐成功"
-                });
-                $("#CourseModal").modal("hide");
-                $('#courseCreateFrom').bootstrapTable('refresh');
-            }
-
-        })
+        $("#RdSures").attr("disabled", true);
+        $("#gridSystemModalLabel").html("推荐中，请稍后...");
+        if($("#recommendFile")[0].files[0] == undefined){/*未修改原先的图片*/
+            courseRecommend();
+        }else{/*修改了图片，先上传图片*/
+            var formData = new FormData();
+            formData.append('file', $("#recommendFile")[0].files[0]);
+            $.ajax({
+                url: '/v1/upload/file',
+                type: 'post',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success:function (result) {
+                    if(result.state == 200){
+                        $("#imageUrl").val(result.data.url);
+                        courseRecommend();
+                    }else{
+                        $("#RdSures").attr("disabled", false);
+                        $("#gridSystemModalLabel").html(result.errmsg);
+                        $("#gridSystemModalLabel").css("color",'#b94a48');
+                    }
+                }
+            })
+        }
     }
 })
+function courseRecommend() {
+    $("#courseRecommend").ajaxSubmit({
+        type: "post",
+        dateType: "json",
+        url: "/v2/deva/add",
+        async: false,
+        complete:function () {
+            $("#gridSystemModalLabel").html("教程攻略推荐");
+            $("#gridSystemModalLabel").css("color",'#000');
+            $("#RdSures").attr("disabled", false);
+        },
+        success: function (result) {
+            $.Popup({
+                confirm: false,
+                title: "推荐成功"
+            });
+            $("#CourseModal").modal("hide");
+            $('#courseCreateFrom').bootstrapTable('refresh');
+        }
+
+    })
+}
 /*查询标签*/
 var firstopction = "<option value=''></option>";
 var courseLable = $.ajax({
@@ -283,17 +345,59 @@ function courseLabel() {
 function createcourse() {
     $("#createModify").show();
     $("#activityList").hide();
+    $("#courseCreateFrom")[0].reset();
+    $('#courseCreateFrom').data('bootstrapValidator').resetForm(true);
     $("#courseCreateFrom").attr("value", 1);
     $("#labelId").chosen();
     courseLable;
+    ISCHANGEIMG = '';
 }
+var ISCHANGEIMG = '';
 $("#courseSure").click(function () {
+    var formData = new FormData();
+    formData.append('file', $("#lefile")[0].files[0]);
     var courseStatue = $("#courseCreateFrom").val();
     $('#post-summernote').summernote('code', "");
-    if (courseStatue == 1) {
-        Grade("/v1/course/add", "创建成功");
-    }
-    else if (courseStatue == 2) {
+    var isChange = $("#image").val();
+    if (courseStatue == 1 || ISCHANGEIMG !=isChange) {
+        $.ajax({
+            url: '/v1/upload/file',
+            type: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                /*传图片之前做验证*/
+                var _isValid = $("#courseCreateFrom").data('bootstrapValidator').isValid();
+                if(_isValid){
+                    $("#upload").modal('show');
+                    if(courseStatue == 1){
+                        $("#uploadContent").html('创建中，请稍后...');
+                    }else{
+                        $("#uploadContent").html('修改中，请稍后...');
+                    }
+                }else{
+                    return _isValid;
+                }
+            },
+            success:function (result) {
+                if(result.state == 200){
+                    $("#image").val(result.data.url);
+                    if(courseStatue == 1){
+                        Grade("/v1/course/add", "创建成功");
+                    }else{
+                        Grade("/v1/course/updateCourse", "编辑成功");
+                    }
+                }
+            },
+            error:function (result) {
+                $.Popup({
+                    confirm: false,
+                    template: result
+                });
+            }
+        })
+    } else if (courseStatue == 2 && ISCHANGEIMG ==isChange) {
         Grade("/v1/course/updateCourse", "编辑成功");
     }
 
@@ -353,6 +457,8 @@ function Grade(url, template, errmsg) {
                     confirm: false,
                     template: template
                 });
+                $("#createModify").hide();
+                $("#activityList").show();
                 $('#Course_table').bootstrapTable('refresh');
             } else {
                 $.Popup({
@@ -364,6 +470,41 @@ function Grade(url, template, errmsg) {
     })
 
 }
+
+
+/*创建中type=file的样式处理*/
+$('input[id=lefile]').change(function () {
+    $('#courseCreateFrom').bootstrapValidator('addField', 'imageR', {
+        validators: {
+            notEmpty: {
+                message: '请上传图片'
+            }
+        }
+    });
+    $("#image").val($(this).val());
+    if ($(this).val()) {
+        $('#photoCover').html($(this).val());
+        var objUrl = getImgURL(this.files[0]);
+        if (objUrl) {
+            $("#images").attr("src", objUrl);
+        }
+    }else {
+        $("#photoCover").html("选择文件");
+        $("#images").attr("src", "");
+    }
+});
+$('input[id=recommendFile]').change(function () {
+    if ($(this).val()) {
+        $('#recommendPhotoCover').html($(this).val());
+        var objUrl = getImgURL(this.files[0]);
+        if (objUrl) {
+            $("#recommendImg").attr("src", objUrl);
+        }
+    }else{
+        $("#recommendPhotoCover").html("选择文件");
+        $("#recommendImg").attr("src", "");
+    }
+});
 /*图片预览*/
 //建立一個可存取到該file的url
 function getImgURL(file) {

@@ -46,7 +46,7 @@
                         </li>
                     </shiro:hasPermission>
                     <shiro:hasPermission name="menu:climbing:introduction">
-                        <li class="introduction">
+                        <li class="introduction couserlabel">
                             <a href="<%=request.getContextPath()%>/menu/climbing/introduction">教程攻略</a>
                         </li>
                     </shiro:hasPermission>
