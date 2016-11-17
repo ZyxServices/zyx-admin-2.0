@@ -141,6 +141,7 @@ var operateEvent = {
         $("#activityList").hide();
         $("input[name=title]").val(row.title).attr("disabled", "disabled");
         $('#activity-summernote').summernote('destroy');
+        $("#images").attr("src",'http://image.tiyujia.com/'+row.imgUrl+'');
         $('#summernotContent').html(row.content);
         $("#labelId option[value='" + row.labelId + "']").attr("selected", true);
         $("#examine option[value='" + row.courseType + "']").attr("selected", true);

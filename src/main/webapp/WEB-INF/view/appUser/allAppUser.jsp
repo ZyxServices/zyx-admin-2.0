@@ -46,7 +46,7 @@
                     </select>
                 </div>
                 <div class="live_manage">
-                    <table id="app_user_table" class="table table-hover"
+                    <table id="allApp_user_table" class="table table-hover"
                            data-pagination="true"
                            data-show-refresh="true"
                            data-show-toggle="true"
@@ -171,5 +171,4 @@
 <!-- 用户推荐结束 -->
 <jsp:include page="../public/common-footer.jsp"/>
 </body>
-<script type="text/javascript" src="../../js/appUser/appUserCommon.js"></script>
 <script type="text/javascript" src="../../js/appUser/allAppUser.js"></script>
