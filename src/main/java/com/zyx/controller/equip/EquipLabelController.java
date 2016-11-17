@@ -1,6 +1,8 @@
 package com.zyx.controller.equip;
 
+import com.zyx.constants.Constants;
 import com.zyx.model.EquipLabel;
+import com.zyx.model.SysUser;
 import com.zyx.service.equip.EquipLabelService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -32,14 +35,14 @@ public class EquipLabelController {
 
     @RequestMapping(value="/add",method = RequestMethod.POST)
     @ApiOperation(value="添加标签",notes="添加标签")
-    public ModelAndView add(@ApiParam(name = "userId", required = true, value = "用户id")
-                             @RequestParam(name="userId",required = true)Integer userId,
+    public ModelAndView add(HttpServletRequest request,
                             @ApiParam(name = "labelName", required = true, value = "标签名字")
                             @RequestParam(name="labelName",required = true)String labelName){
 
         AbstractView jsonView = new MappingJackson2JsonView();
         EquipLabel equipLabel  =new EquipLabel();
-        equipLabel.setUserId(userId);
+        SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
+        equipLabel.setUserId(Integer.valueOf(sysUser.getUserId()));
         equipLabel.setLabelName(labelName);
 
         Map<String,Object> map = equipLabelService.insertEquipLabel(equipLabel);

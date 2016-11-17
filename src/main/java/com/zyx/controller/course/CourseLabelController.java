@@ -1,6 +1,8 @@
 package com.zyx.controller.course;
 
+import com.zyx.constants.Constants;
 import com.zyx.model.CourseLabel;
+import com.zyx.model.SysUser;
 import com.zyx.service.course.CourseLabelService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -31,13 +34,13 @@ public class CourseLabelController {
 
     @RequestMapping(value="/add",method = RequestMethod.POST)
     @ApiOperation(value="添加标签",notes="添加标签")
-    public ModelAndView add(@ApiParam(name = "userId", required = true, value = "用户id")@RequestParam(name="userId",required = true)Integer userId,
-                            @ApiParam(name = "labelName", required = true, value = "标签名字")@RequestParam(name="labelName",required = true)String labelName){
+    public ModelAndView add(HttpServletRequest request,@ApiParam(name = "labelName", required = true, value = "标签名字")@RequestParam(name="labelName",required = true)String labelName){
         AbstractView jsonView = new MappingJackson2JsonView();
         CourseLabel courseLabel = new CourseLabel();
         courseLabel.setLabelName(labelName);
-        courseLabel.setUserId(userId);
 
+        SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
+        courseLabel.setUserId(Integer.valueOf(sysUser.getUserId()));
         Map<String,Object> map = courseLabelService.insertCourseLabel(courseLabel);
         jsonView.setAttributesMap(map);
 
