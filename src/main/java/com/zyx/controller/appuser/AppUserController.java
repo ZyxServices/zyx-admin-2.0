@@ -47,12 +47,12 @@ public class AppUserController {
     @ApiOperation(value = "创建官方账号", notes = "创建官方账户")
     public ModelAndView insert(@ApiParam(name = "phone",required = true,value = "电话，即账号")@RequestParam String phone,
                                @ApiParam(name = "password",required = true,value = "密码")@RequestParam String password,
-                               @ApiParam(name = "avatar",required = true,value = "头像") @RequestPart(required = false) MultipartFile avatar,
+                               @ApiParam(name = "avatar",required = false,value = "头像") @RequestPart(required = false) MultipartFile avatar,
                                @ApiParam(name = "nickname",required = true,value = "昵称")@RequestParam String nickname,
                                @ApiParam(name = "sex",required = true,value = "性别:1男、0女")@RequestParam String sex,
-                               @ApiParam(name = "birthday",required = true,value = "生日")@RequestParam long birthday,
+                               @ApiParam(name = "birthday",required = false,value = "生日")@RequestParam long birthday,
                                @ApiParam(name = "address",required = true,value = "地址")@RequestParam String address,
-                               @ApiParam(name = "signature",required = true,value = "签名")@RequestParam String signature) {
+                               @ApiParam(name = "signature",required = false,value = "签名")@RequestParam(required = false) String signature) {
         AbstractView jsonView = new MappingJackson2JsonView();
         Map<String, Object> map;
         try {
@@ -65,10 +65,12 @@ public class AppUserController {
                 param.setSex(Integer.parseInt(sex));
                 param.setNickname(nickname);
                 param.setPassword(CipherUtil.generatePassword(password));
-                if (!avatar.isEmpty()) {
+                if (avatar!=null && "".equals(avatar)) {
                     String _avatar = FileUploadUtils.uploadFile(avatar);
                     param.setAvatar(_avatar);
                 }
+                param.setBirthday(birthday);
+                param.setSignature(signature);
                 map = appUserService.insertAppUser(param);
             }
         } catch (Exception e) {
@@ -88,6 +90,7 @@ public class AppUserController {
                                @ApiParam(name = "nickname",required = false,value = "昵称")@RequestParam(required = false) String nickname,
                                @ApiParam(name = "sex",required = false,value = "性别:1男、0女")@RequestParam(required = false) String sex,
                                @ApiParam(name = "address",required = false,value = "地址") @RequestParam(required = false) String address,
+                               @ApiParam(name = "birthday",required = false,value = "生日")@RequestParam long birthday,
                                @ApiParam(name = "signature",required = false,value = "签名")@RequestParam(required = false) String signature
                                ) {
         AbstractView jsonView = new MappingJackson2JsonView();
@@ -119,6 +122,8 @@ public class AppUserController {
                 param.setAvatar(_avatar);
             }
             param.setModifyTime(System.currentTimeMillis());
+        param.setBirthday(birthday);
+        param.setSignature(signature);
 //            param.setAuthInfo(authInfo);
 //            param.setAuthFile(authFile);
             map = appUserService.updateAppUser(param);

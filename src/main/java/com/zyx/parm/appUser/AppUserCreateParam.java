@@ -25,6 +25,8 @@ public class AppUserCreateParam implements Serializable {
     private String authFileWork;
     private String nickname;
     private Integer official;
+    private Long birthday;
+    private String signature;
 
     private Long modifyTime;
 
@@ -146,5 +148,21 @@ public class AppUserCreateParam implements Serializable {
 
     public void setAuthFileWork(String authFileWork) {
         this.authFileWork = authFileWork;
+    }
+
+    public Long getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Long birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 }

@@ -117,6 +117,12 @@
         <if test="avatar != null and avatar != ''">
             ,avatar = #{avatar}
         </if>
+        <if test="birthday != null and birthday != ''">
+            ,birthday = #{birthday}
+        </if>
+        <if test="signature != null and signature != ''">
+            ,signature = #{signature}
+        </if>
         <if test="official != null">
             ,official = #{official}
         </if>
