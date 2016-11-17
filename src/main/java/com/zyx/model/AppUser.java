@@ -2,6 +2,9 @@ package com.zyx.model;
 
 import javax.persistence.*;
 
+/**
+ * 用户管理实体类
+ */
 @Table(name = "user")
 public class AppUser {
     @Id
@@ -33,6 +36,9 @@ public class AppUser {
      */
     private String address;
 
+    /**
+     * 用户生日
+     */
     private Long birthday;
 
     /**
@@ -68,14 +74,14 @@ public class AppUser {
     private Integer authenticate;
 
     /**
-     * 是否屏蔽
+     * 屏蔽:0正常、1屏蔽
      */
-    private Boolean mask;
+    private int mask;
 
     /**
-     * 是否删除
+     * 是否删除:0正常、1删除
      */
-    private Boolean del;
+    private int del;
 
     /**
      * 签名档
@@ -86,6 +92,25 @@ public class AppUser {
      * 官方字段
      */
     private Integer official;
+
+    /**
+     * 用户等级id
+     */
+    @Column(name="level_id")
+    private int levelId;
+    /**
+     * 用户等级名称
+     */
+    @Transient
+    private String level;
+
+    /**
+     * 攀岩币
+     */
+    private Integer money;
+
+
+    /*******************************   get/set方法  ********************************************/
 
     /**
      * @return id
@@ -318,7 +343,7 @@ public class AppUser {
      *
      * @return mask - 是否屏蔽
      */
-    public Boolean getMask() {
+    public int getMask() {
         return mask;
     }
 
@@ -327,7 +352,7 @@ public class AppUser {
      *
      * @param mask 是否屏蔽
      */
-    public void setMask(Boolean mask) {
+    public void setMask(int mask) {
         this.mask = mask;
     }
 
@@ -336,7 +361,7 @@ public class AppUser {
      *
      * @return del - 是否删除
      */
-    public Boolean getDel() {
+    public int getDel() {
         return del;
     }
 
@@ -345,7 +370,7 @@ public class AppUser {
      *
      * @param del 是否删除
      */
-    public void setDel(Boolean del) {
+    public void setDel(int del) {
         this.del = del;
     }
 
@@ -368,5 +393,29 @@ public class AppUser {
 
     public void setOfficial(Integer official) {
         this.official = official;
+    }
+
+    public int getLevelId() {
+        return levelId;
+    }
+
+    public void setLevelId(int levelId) {
+        this.levelId = levelId;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public Integer getMoney() {
+        return money;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 }

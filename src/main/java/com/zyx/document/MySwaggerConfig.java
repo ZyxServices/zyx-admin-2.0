@@ -1,7 +1,6 @@
 package com.zyx.document;
 
 import com.google.common.base.Predicate;
-import com.zyx.jopo.BaseResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -12,9 +11,6 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import static com.google.common.base.Predicates.or;
 import static springfox.documentation.builders.PathSelectors.regex;
@@ -75,22 +71,22 @@ public class MySwaggerConfig {
                 .apiInfo(pgApiInfo());
     }*/
 
-    @Bean
-    public Docket userApi() {
-        Set<String> set = new HashSet<String>();
-
-        com.fasterxml.classmate.TypeResolver typeResolver = new com.fasterxml.classmate.TypeResolver();
-
-        Docket docket = new Docket(DocumentationType.SWAGGER_2)
-                .groupName("user-api")
-                .apiInfo(apiInfo())
-                .select()
-                .paths(userPaths())
-                .build().useDefaultResponseMessages(false)
-                .genericModelSubstitutes(BaseResponse.class)
-                .forCodeGeneration(true);
-        return docket;
-    }
+//    @Bean
+//    public Docket userApi() {
+//        Set<String> set = new HashSet<String>();
+//
+//        com.fasterxml.classmate.TypeResolver typeResolver = new com.fasterxml.classmate.TypeResolver();
+//
+//        Docket docket = new Docket(DocumentationType.SWAGGER_2)
+//                .groupName("user-api")
+//                .apiInfo(apiInfo())
+//                .select()
+//                .paths(userPaths())
+//                .build().useDefaultResponseMessages(false)
+//                .genericModelSubstitutes(BaseResponse.class)
+//                .forCodeGeneration(true);
+//        return docket;
+//    }
 
     @Bean
     public Docket devaApi() {
@@ -103,16 +99,16 @@ public class MySwaggerConfig {
                 .apiInfo(devaApiInfo());
     }
 
-    @Bean
-    public Docket appUserApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("appuser-api")
-                .select()  // 选择那些路径和api会生成document
-                .apis(RequestHandlerSelectors.basePackage("com.zyx.controller.appuser"))
-                .paths(PathSelectors.any()) // 对所有路径进行监控
-                .build()
-                .apiInfo(appuserApiInfo());
-    }
+//    @Bean
+//    public Docket appUserApi() {
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .groupName("appuser-api")
+//                .select()  // 选择那些路径和api会生成document
+//                .apis(RequestHandlerSelectors.basePackage("com.zyx.controller.appuser"))
+//                .paths(PathSelectors.any()) // 对所有路径进行监控
+//                .build()
+//                .apiInfo(appuserApiInfo());
+//    }
 
     @Bean
     public Docket venueApi() {
@@ -224,6 +220,18 @@ public class MySwaggerConfig {
                 .apiInfo(versionApiInfo());
     }
 
+    @Bean
+    public Docket userApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("user-api")
+                .select()  // 选择那些路径和api会生成document
+                .apis(RequestHandlerSelectors.basePackage("com.zyx.controller.appuser"))
+                .paths(PathSelectors.any()) // 对所有路径进行监控
+                .build()
+                .apiInfo(userApiInfo());
+
+    }
+
     private ApiInfo liveApiInfo() {
         ApiInfo apiInfo = new ApiInfo("直播接口API",//大标题
                 "图文直播，视频直播",//小标题
@@ -276,18 +284,18 @@ public class MySwaggerConfig {
         return apiInfo;
     }
 
-    private ApiInfo appuserApiInfo() {
-        ApiInfo apiInfo = new ApiInfo("APP用户接口API",//大标题
-                "用户操作",//小标题
-                "0.1",//版本
-                "成都term",
-                new Contact("魏民升", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
-                "智悠行",//链接显示文字
-                "http://112.74.112.143:8081/ui/Delta/index.html "//网站链接
-        );
-
-        return apiInfo;
-    }
+//    private ApiInfo appuserApiInfo() {
+//        ApiInfo apiInfo = new ApiInfo("APP用户接口API",//大标题
+//                "用户操作",//小标题
+//                "0.1",//版本
+//                "成都term",
+//                new Contact("魏民升", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
+//                "智悠行",//链接显示文字
+//                "http://112.74.112.143:8081/ui/Delta/index.html "//网站链接
+//        );
+//
+//        return apiInfo;
+//    }
     private ApiInfo venueApiInfo() {
         ApiInfo apiInfo = new ApiInfo("运营端场馆接口API",//大标题
                 "用户操作",//小标题
@@ -407,6 +415,19 @@ public class MySwaggerConfig {
                 "2.0",//版本
                 "成都term",
                 new Contact("胡林", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
+                "智悠行",//链接显示文字
+                "http://112.74.112.143:8081/ui/Delta/index.html "//网站链接
+        );
+
+        return apiInfo;
+    }
+
+    private ApiInfo userApiInfo() {
+        ApiInfo apiInfo = new ApiInfo("用户接口API",//大标题
+                "用户管理操作",//小标题
+                "2.0",//版本
+                "成都term",
+                new Contact("赵家兴", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
                 "智悠行",//链接显示文字
                 "http://112.74.112.143:8081/ui/Delta/index.html "//网站链接
         );

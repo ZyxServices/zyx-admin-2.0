@@ -40,7 +40,7 @@
     </select>
 
     <select id="userSelect" parameterType="int" resultType="com.zyx.model.vo.UserVo">
-        SELECT nickname,official,authenticate FROM `user` WHERE id=#{user_id}
+        SELECT * FROM `user` WHERE id=#{user_id}
     </select>
 
     <select id="authSelect" parameterType="int" resultType="com.zyx.dto.AppUserAuthDto">
@@ -69,6 +69,7 @@
         (SELECT COUNT(id) FROM comment WHERE comment_type = 3  AND comment_id =  concern.id) as commentCounts
     FROM
         concern
+        WHERE state!=-1
     ORDER BY
     create_time DESC
     LIMIT #{start},#{end}
@@ -119,6 +120,8 @@
     FROM
 	concern
     INNER JOIN `user` ON concern.user_id = `user`.id
-    WHERE (`user`.nickname LIKE CONCAT('%','${userName}','%' ) OR `concern`.`topic_content` LIKE CONCAT('%','${userName}','%')) ORDER BY create_time DESC  LIMIT #{start},#{end}
+    WHERE (`user`.nickname LIKE CONCAT('%','${userName}','%' ) OR `concern`.`topic_content` LIKE CONCAT('%','${userName}','%'))
+    AND concern.state!=-1
+    ORDER BY create_time DESC  LIMIT #{start},#{end}
     </select>
 </mapper>

@@ -49,6 +49,11 @@ public interface Constants {
      */
     String CONCERN_DEVA = "concernDeva";
 
+    /**
+     * 用户首推
+     */
+    String USER_DEVA = "userDeva";
+
     ////////////// 系统标识符 结束//////////////////
 
     ////////////// 系统状态码 开始//////////////////
@@ -281,9 +286,15 @@ public interface Constants {
      */
     int MODEL_CONCERN=9;
 
+    /**
+     * 用户模块
+     */
+    int MODEL_USER=10;
+
     Map<Integer, String> devaNames = new HashMap() {{
         put(2, "activityDevas");
         put(8,"courseDevas");
         put(9,"concernDevas");
+        put(10,"userDevas");
     }};
 }

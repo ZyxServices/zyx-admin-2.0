@@ -24,6 +24,9 @@ import java.util.Map;
  * @version V1.0
  *          Copyright (c)2016 tyj-版权所有
  * @title AppUserService.java
+ *
+ * modify by zjx on 2016/11/16
+ * 用户管理的持久层接口
  */
 @Service
 public class AppUserService extends BaseServiceImpl<AppUser> {
@@ -35,27 +38,43 @@ public class AppUserService extends BaseServiceImpl<AppUser> {
         super(AppUser.class);
     }
 
+    /**
+     * 按照联系方式查询
+     * @param phone
+     * @return
+     */
     public AppUser selectByPhone(String phone) {
         AppUser appUser = new AppUser();
         appUser.setPhone(phone);
         return appUserMapper.selectOne(appUser);
     }
 
+    /**
+     * 动态查询
+     * @param param
+     * @return
+     */
     public Map<String, Object> queryList(QueryAppUserParam param) {
-        Map<String, Object> map = new HashedMap();
 
-        try {
-            List<AppUserListDto> _list = appUserMapper.queryAppUserList(param);
+
+            List<AppUser> _list = appUserMapper.queryAppUserList(param);
             int count = appUserMapper.selectAppUserListCount(param);
-            map.put("rows", _list);
-            map.put("total", count);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            if(_list!=null && _list.size()>0){
+                Map<String, Object> map =MapUtils.buildSuccessMap(Constants.SUCCESS,"查询成功",_list);
+                map.put("total", count);
+                return map;
+            }else {
+                return MapUtils.buildErrorMap(Constants.NO_DATA, "查无数据");
+            }
 
-        return map;
+
+
     }
 
+    /**
+     * 查询账户列表
+     * @return
+     */
     public Map<String, Object> queryOfficialAccountList() {
         Map<String, Object> map = new HashedMap();
         try {
@@ -73,6 +92,11 @@ public class AppUserService extends BaseServiceImpl<AppUser> {
         return map;
     }
 
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
     public Map<String, Object> del(Integer id) {
         try {
             if (appUserMapper.delByPrimaryKey(id) > 0) {
@@ -86,19 +110,24 @@ public class AppUserService extends BaseServiceImpl<AppUser> {
 
     }
 
-    public Map<String, Object> unDel(Integer id) {
+//    public Map<String, Object> unDel(Integer id) {
+//
+//        try {
+//            if (appUserMapper.unDelByPrimaryKey(id) > 0) {
+//                return Constants.MAP_BASE_SUCCESS;
+//            } else {
+//                return Constants.MAP_UN_DEL_ERROR;
+//            }
+//        } catch (Exception e) {
+//            return Constants.MAP_500;
+//        }
+//    }
 
-        try {
-            if (appUserMapper.unDelByPrimaryKey(id) > 0) {
-                return Constants.MAP_BASE_SUCCESS;
-            } else {
-                return Constants.MAP_UN_DEL_ERROR;
-            }
-        } catch (Exception e) {
-            return Constants.MAP_500;
-        }
-    }
-
+    /**
+     * 屏蔽
+     * @param id
+     * @return
+     */
     public Map<String, Object> mask(Integer id) {
         try {
             if (appUserMapper.maskByPrimaryKey(id) > 0) {
@@ -113,6 +142,11 @@ public class AppUserService extends BaseServiceImpl<AppUser> {
     }
 
 
+    /**
+     * 取消屏蔽
+     * @param id
+     * @return
+     */
     public Map<String, Object> unMask(Integer id) {
         try {
             if (appUserMapper.unMaskByPrimaryKey(id) > 0) {
@@ -126,18 +160,23 @@ public class AppUserService extends BaseServiceImpl<AppUser> {
 
     }
 
-    public Map<String, Object> authAppUser(Integer id, int i) {
-        try {
-            if (appUserMapper.authAppUserByPrimaryKey(id, i) > 0) {
-                return Constants.MAP_BASE_SUCCESS;
-            } else {
-                return Constants.MAP_UN_MASK_ERROR;
-            }
-        } catch (Exception e) {
-            return Constants.MAP_500;
-        }
-    }
+//    public Map<String, Object> authAppUser(Integer id, int i) {
+//        try {
+//            if (appUserMapper.authAppUserByPrimaryKey(id, i) > 0) {
+//                return Constants.MAP_BASE_SUCCESS;
+//            } else {
+//                return Constants.MAP_UN_MASK_ERROR;
+//            }
+//        } catch (Exception e) {
+//            return Constants.MAP_500;
+//        }
+//    }
 
+    /**
+     * 添加用户
+     * @param param
+     * @return
+     */
     public Map<String, Object> insertAppUser(AppUserCreateParam param) {
         AppUser appUser = new AppUser();
         appUser.setPhone(param.getPhone());
@@ -147,9 +186,9 @@ public class AppUserService extends BaseServiceImpl<AppUser> {
         appUser.setNickname(param.getNickname());
         appUser.setAddress(param.getAddress());
         appUser.setSex(param.getSex());
-        appUser.setOfficial(param.getOfficial());
-        appUser.setMask(false);
-        appUser.setDel(false);
+        appUser.setOfficial(1);
+        appUser.setMask(0);
+        appUser.setDel(0);
         appUser.setAuthenticate(0);
         try {
             int result = appUserMapper.insert(appUser);
@@ -164,11 +203,16 @@ public class AppUserService extends BaseServiceImpl<AppUser> {
         }
     }
 
+    /**
+     * 编辑用户
+     * @param param
+     * @return
+     */
     public Map<String, Object> updateAppUser(AppUserCreateParam param) {
         try {
             int result = appUserMapper.updateAppUserByPrimaryKey(param);
             if (result >= 1) {
-                appUserMapper.updateAuthInfo(param);
+//                appUserMapper.updateAuthInfo(param);
                 return MapUtils.buildSuccessMap(AppUserConstants.SUCCESS, AppUserConstants.MSG_SUCCESS, null);
             } else {
                 return MapUtils.buildErrorMap(AppUserConstants.ERROR_APP_USER_5003, AppUserConstants.ERROR_APP_USER_5003_MSG);
@@ -182,40 +226,40 @@ public class AppUserService extends BaseServiceImpl<AppUser> {
     List<AppUserListDto> selectBaseInfo(List<Integer> ids) {
         return null;
     }
+//
+//    public Map<String, Object> submitAppUserAuthInfo(AppUserCreateParam param) {
+//        try {
+//            int result = appUserMapper.authAppUserByPrimaryKey(param.getAppUserId(), 1);
+//            if (result == 1) {
+//                result = appUserMapper.selectAuthCount(param.getAppUserId());
+//                if (result != 0) {
+//                    result = appUserMapper.updateAuthInfo(param);
+//                } else {
+//                    result = appUserMapper.insertAuthInfo(param);
+//                }
+//            }
+//            if (result >= 1) {
+//                return MapUtils.buildSuccessMap(AppUserConstants.SUCCESS, AppUserConstants.MSG_SUCCESS, null);
+//            } else {
+//                return MapUtils.buildErrorMap(AppUserConstants.ERROR_APP_USER_5003, AppUserConstants.ERROR_APP_USER_5003_MSG);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return AppUserConstants.MAP_500;
+//        }
+//    }
 
-    public Map<String, Object> submitAppUserAuthInfo(AppUserCreateParam param) {
-        try {
-            int result = appUserMapper.authAppUserByPrimaryKey(param.getAppUserId(), 1);
-            if (result == 1) {
-                result = appUserMapper.selectAuthCount(param.getAppUserId());
-                if (result != 0) {
-                    result = appUserMapper.updateAuthInfo(param);
-                } else {
-                    result = appUserMapper.insertAuthInfo(param);
-                }
-            }
-            if (result >= 1) {
-                return MapUtils.buildSuccessMap(AppUserConstants.SUCCESS, AppUserConstants.MSG_SUCCESS, null);
-            } else {
-                return MapUtils.buildErrorMap(AppUserConstants.ERROR_APP_USER_5003, AppUserConstants.ERROR_APP_USER_5003_MSG);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return AppUserConstants.MAP_500;
-        }
-    }
-
-    public Map<String,Object> resetAppUser(AppUserCreateParam param) {
-        try {
-            int result = appUserMapper.resetAppUser(param);
-            if (result >= 1) {
-                return MapUtils.buildSuccessMap(AppUserConstants.SUCCESS, AppUserConstants.MSG_SUCCESS, null);
-            } else {
-                return MapUtils.buildErrorMap(AppUserConstants.ERROR_APP_USER_5003, AppUserConstants.ERROR_APP_USER_5003_MSG);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return AppUserConstants.MAP_500;
-        }
-    }
+//    public Map<String,Object> resetAppUser(AppUserCreateParam param) {
+//        try {
+//            int result = appUserMapper.resetAppUser(param);
+//            if (result >= 1) {
+//                return MapUtils.buildSuccessMap(AppUserConstants.SUCCESS, AppUserConstants.MSG_SUCCESS, null);
+//            } else {
+//                return MapUtils.buildErrorMap(AppUserConstants.ERROR_APP_USER_5003, AppUserConstants.ERROR_APP_USER_5003_MSG);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return AppUserConstants.MAP_500;
+//        }
+//    }
 }
