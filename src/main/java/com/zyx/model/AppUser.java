@@ -103,11 +103,16 @@ public class AppUser {
      */
     @Transient
     private String level;
-
     /**
      * 攀岩币
      */
     private Integer money;
+
+    /**
+     * 动态数量
+     */
+    @Transient
+    private Integer concernCount;
 
 
     /*******************************   get/set方法  ********************************************/
@@ -417,5 +422,13 @@ public class AppUser {
 
     public void setMoney(Integer money) {
         this.money = money;
+    }
+
+    public Integer getConcernCount() {
+        return concernCount;
+    }
+
+    public void setConcernCount(Integer concernCount) {
+        this.concernCount = concernCount;
     }
 }

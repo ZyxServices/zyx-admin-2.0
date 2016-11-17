@@ -26,6 +26,7 @@
         <result column="level_id" jdbcType="INTEGER" property="levelId"/>
         <result column="money" jdbcType="INTEGER" property="money"/>
         <association property="level" column="level_id" select="levelSelect"/>
+        <association property="concernCount" column="id" select="countSelect"/>
 
     </resultMap>
 
@@ -54,6 +55,10 @@
 
     <select id="levelSelect" parameterType="int" resultType="java.lang.String">
         SELECT name FROM level  WHERE id=#{level_id}
+    </select>
+
+    <select id="countSelect" parameterType="int" resultType="int">
+        SELECT count(id) FROM concern  WHERE user_id=#{id}
     </select>
 
     <update id="delByPrimaryKey" parameterType="Integer">
