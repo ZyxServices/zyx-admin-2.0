@@ -102,15 +102,15 @@ public class SysUserService {
     }
 
     /**
-     * 根据用户名和密码查询管理员
+     * 根据用户名查询管理员
      * @param username
-     * @param password
+//     * @param password
      * @return
      */
-    public SysUser getUserByNamePass(String username, String password) {
+    public SysUser getUserByNamePass(String username) {
         SysUser sysUser = new SysUser();
         sysUser.setUsername(username);
-        sysUser.setPassword(password);
+//        sysUser.setPassword(password);
         return sysUserMapper.selectOne(sysUser);
     }
 

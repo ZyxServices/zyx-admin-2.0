@@ -30,8 +30,8 @@ public interface SysConstants extends Constants {
     /**
      * 已经存在的管理员
      */
-    int ERROR_9004 = 9005;
-    String ERROR_9004_MSG = "edit sys user failed";
+    int ERROR_9004 = 9004;
+    String ERROR_9004_MSG = "管理员已经存在";
 
     /**
      * 创建用户失败
