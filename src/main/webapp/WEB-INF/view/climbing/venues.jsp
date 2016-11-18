@@ -118,9 +118,9 @@
                         </div>
 
                         <div class="control-group form-group">
-                            <label class="control-label">上传场馆封面图</label>
+                            <label id="v_imgtitle" class="control-label">上传场馆封面图</label>
 
-                            <div class="controls col-xs-5">
+                            <div id="v_img" class="controls col-xs-5">
                                 <div id="imgWrap">
                                     <input id="lefile" type="file">
                                     <input id="imgUrls" type="text" class="hide" name="imgUrls">

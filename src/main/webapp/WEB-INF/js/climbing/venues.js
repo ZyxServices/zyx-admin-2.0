@@ -190,7 +190,9 @@ var operateEventssssss = {
          $("#openMap").hide()
          $("#imgUrls").val(row.imgUrls).attr("disabled", "disabled")
          $("#createVenue").append("<input name='id' class='hide' value='" + row.id + "'>")
-
+         $("#v_imgtitle").html("场馆封面图")
+         $("#v_img").empty()
+         $('#v_img').append('<img src=' + 'http://image.tiyujia.com/' +row.imgUrls + '>')
      },
     'click .edit': function (e, value, row, index) {
         typeInfo()
@@ -209,6 +211,7 @@ var operateEventssssss = {
         $("#czs").attr("onclick", "operateEventssssss.createVenue(this, 1)");
         $("#imgUrls").val(row.imgUrls)
         $("#createVenue").append("<input name='id' class='hide' value='" + row.id + "'>")
+         $("#v_imagesWrap").append('<img src=' + 'http://image.tiyujia.com/' +row.imgUrls + '>')
     },
     'click .addLine': function (e, value, row, index) {
         queryLine('/v2/sportInfo/querySportInfo?venueId=' + row.id + '');
@@ -345,31 +348,30 @@ $(function () {
             })
         }
     })
-    $(".create_live").click(function () {
-        $.ajax({
-            url: "/v1/appUser/list/official/all",
-            type: 'get',
-            dataType: 'json',
-            success: function (result) {
-                console.log(result)
-                if (result.rows.length == 0) {
-                    $.Popup({
-                        confirm: false,
-                        template: '官方账户为空，请添加官方账户再继续!!!'
-                    })
-                } else {
-                    $(".create_liveType").addClass('on')
-                    $(".live_index").addClass('hide')
-                    var user = '';
-                    result.rows.forEach(function (item, i) {
-                        user += '<option value=' + item.id + ' >' + item.nickname + '</option>'
-                    })
-                    $("#choiceUser").append(user)
-                }
-
-            }
-        });
-    })
+    //$("#lefile").change(function () {
+    //    $("#v_imagesWrap").remove()
+    //})
+    function getObjectURL(file) {
+        var url = null ;
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
+    }
+    $("#lefile").change(function(){
+        $("#v_imagesWrap").empty()
+        var objUrl;
+        if(navigator.userAgent.indexOf("MSIE")>0){
+            objUrl = this.value;
+        }else
+            objUrl = getObjectURL(this.files[0]);
+        $('#v_imagesWrap').append('<div style="max-width: 350px"><img src="'+objUrl+'"></div>')
+        console.log(objUrl) ;
+    }) ;
     $(window).resize(function () {
         $('#dynamic_table').bootstrapTable('resetView');
     });

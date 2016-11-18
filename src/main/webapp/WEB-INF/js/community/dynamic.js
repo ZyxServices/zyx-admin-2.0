@@ -440,7 +440,7 @@ $(function () {
     $(".create_live").click(function () {
            $(".create_liveType").addClass('on')
            $(".live_index").addClass('hide')
-        
+
     })
 
     $(window).resize(function () {

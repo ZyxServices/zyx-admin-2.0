@@ -40,7 +40,7 @@
                     <button class="create_live btn btn-default btn-lg ">发布动态</button>
                 </div>
                 <div class="live_manage">
-                    <h3 style="margin: 0;display: inline-block">直播管理 </h3>
+                    <h3 style="margin: 0;display: inline-block">动态管理 </h3>
                     <HR style="border:1 dashed #987cb9;margin: 5px 0" width="100%" color=rgb(51, 51, 51) SIZE=1>
                     <button class="fl btn btn-default " onclick="initTable()">自动/手动排序优先</button>
                     <button id="remove" class="btn btn-danger" style="margin-left: 10px" disabled>
