@@ -189,10 +189,10 @@
                 <ul class="sub-menu">
                     <shiro:hasPermission name="menu:appUser:allAppUser">
                         <li class="allAppUser">
-                            <a href="<%=request.getContextPath()%>/menu/appUser/allAppUser">普通用户列表</a>
+                            <a href="<%=request.getContextPath()%>/menu/appUser/allAppUser">用户列表</a>
                         </li>
                     </shiro:hasPermission>
-                    <shiro:hasPermission name="menu:appUser:yrzAppUser">
+                    <%--<shiro:hasPermission name="menu:appUser:yrzAppUser">
                         <li class="yrzAppUser">
                             <a href="<%=request.getContextPath()%>/menu/appUser/yrzAppUser">已认证用户列表</a>
                         </li>
@@ -206,7 +206,7 @@
                         <li class="officialAppUser">
                             <a href="<%=request.getContextPath()%>/menu/appUser/officialAppUser">官方用户列表</a>
                         </li>
-                    </shiro:hasPermission>
+                    </shiro:hasPermission>--%>
                 </ul>
             </li>
         </shiro:hasPermission>
@@ -281,7 +281,7 @@
                     </shiro:hasPermission>
                     <shiro:hasPermission name="menu:sys:roleList">
                         <li class="roleList">
-                            <a href="<%=request.getContextPath()%>/menu/sys/roleList">角色列表</a>
+                            <a href="<%=request.getContextPath()%>/menu/sys/roleList">权限等级管理</a>
                         </li>
                     </shiro:hasPermission>
                 </ul>

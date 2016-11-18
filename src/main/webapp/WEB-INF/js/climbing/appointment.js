@@ -584,9 +584,9 @@ function getBannerSequence(area) {
                 }else{
                     var warm = "";
                     if(area == 1){
-                        $("#sequence").html("首页banner序列号已满，请先删除其他序列号再推荐");
+                        $("#sequence").html('<option value="">首页banner序列号已满，请先删除其他序列号再推荐</option>');
                     }else{
-                        $("#sequence").html("求约banner序列号已满，请先删除其他序列号再推荐");
+                        $("#sequence").html('<option value="">求约banner序列号已满，请先删除其他序列号再推荐</option>');
                     }
                 }
             } else {

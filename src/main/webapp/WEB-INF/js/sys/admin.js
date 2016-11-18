@@ -63,7 +63,8 @@ $(function () {
         search: true,
         sidePagination: "server",
         method: "get",
-        url: "/v1/su/list",
+        url: "/v1/sysUser/list",
+        dataField: "data",
         queryParamsType: "undefined",
         queryParams: function queryParams(params) {   //设置查询参数
             var param = {
@@ -74,67 +75,15 @@ $(function () {
                 sortOrder: params.sortOrder
             };
             return param;
-        },
-        onLoadSuccess: function () {  //加载成功时执行
-            // alert("加载成功");
-            // layer.msg("加载成功");
-        },
-        onLoadError: function () {  //加载失败时执行
-            // alert("加载数据失败");
-            // layer.msg("加载数据失败", {time : 1500, icon : 2});
         }
     });
-
+/*创建管理员*/
     $("#sysUserCreateForm").ajaxForm({
-        url: '/v1/su/insert',
+        url: '/v1/sysUser/insert',
         type: 'post',
         dataType: 'json',
         beforeSubmit: function () {
             return $("#sysUserCreateForm").data('bootstrapValidator').isValid();
-            /*$("#createButton").attr("disabled", true);
-            var username = $("#sysUserCreateForm").find('#username').val();
-            var pass = $("#sysUserCreateForm").find('#pass').val();
-            var name = $("#sysUserCreateForm").find('#name').val();
-            var remark = $("#sysUserCreateForm").find('#remark').val();
-            var roleId = $("#role_select option:selected").val();
-
-            var checked = true;
-            if (name.replace(/\s+/g, "") == '') {
-                alert("请输入账号");
-                checked = false;
-                $("#createButton").attr("disabled", false);
-                return checked;
-            }
-
-            if (pass.replace(/\s+/g, "") == '') {
-                alert("请输入密码");
-                checked = false;
-                $("#createButton").attr("disabled", false);
-                return checked;
-            }
-
-            if (name.replace(/\s+/g, "") == '') {
-                alert("请输入名称");
-                checked = false;
-                $("#createButton").attr("disabled", false);
-                return checked;
-            }
-
-            if (remark.replace(/\s+/g, "") == '') {
-                alert("请输入描述");
-                checked = false;
-                $("#createButton").attr("disabled", false);
-                return checked;
-            }
-
-            if (roleId.replace(/\s+/g, "") == '') {
-                alert("请选择角色");
-                checked = false;
-                $("#createButton").attr("disabled", false);
-                return checked;
-            }
-
-            return checked;*/
         },
         success: function (result) {
             if (result.state == 200) {
@@ -158,30 +107,19 @@ $(function () {
             $("#createButton").attr("disabled", false);
         }
     });
-
+/*修改权限等级*/
     $("#sysUserEditForm").ajaxForm({
-        url: '/v1/su/editRole',
+        url: '/v1/sysUser/editRole',
         type: 'post',
         dataType: 'json',
-        beforeSubmit: function () {
-            return $("#sysUserEditForm").data('bootstrapValidator').isValid();
-           /* $("#editButton").attr("disabled", true);
-            var roleId = $("#edit_role_select option:selected").val();
-
-            var checked = true;
-
-            if (roleId.replace(/\s+/g, "") == '') {
-                alert("请选择角色");
-                checked = false;
-                $("#editButton").attr("disabled", false);
-                return checked;
-            }
-
-            return checked;*/
-        },
         success: function (result) {
             if (result.state == 200) {
-                backToSysUsers();
+                $("#roleModal").modal('hide');
+                $('#administrators-list-table').bootstrapTable('refresh');
+                $.Popup({
+                    confirm: false,
+                    template: '修改权限等级成功'
+                });
             } else {
                 $.Popup({
                     confirm: false,
@@ -214,12 +152,42 @@ function operateFormatter(value, row, index) {
 // 操作事件edit
 var operateEvent = {
     'click .look': function (e, value, row) {
-        alert('You click like action, row: ' + JSON.stringify(row));
+        $("#operateLogModal").modal("show");
+        $("#administrators-log-table").bootstrapTable({
+            toolbar: '#toolbar',        //工具按钮用哪个容器
+            striped: true,           //是否显示行间隔色
+            cache: true,            //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,          //是否显示分页（*）
+            paginationPreText: "上一页",
+            paginationNextText: "下一页",
+            pageNumber: 1,            //初始化加载第一页，默认第一页
+            pageSize: 10,            //每页的记录行数（*）
+            pageList: [10, 15, 20, 25],  //记录数可选列表
+            checkbox: true,
+            height: 500,
+            checkboxHeader: "true",
+            sortable: true,           //是否启用排序
+            sortOrder: "asc",          //排序方式
+            strictSearch: true,
+            sidePagination: "server",
+            method: "get",
+            url: "/v1/sysUser/list",
+            dataField: "data",
+            queryParamsType: "undefined",
+            queryParams: function queryParams(params) {   //设置查询参数
+                var param = {
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    searchText: params.searchText,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder
+                };
+                return param;
+            }
+        });
     },
     'click .setJurisdiction': function (e, value, row) {
-        $("#administratorsList").hide();
-        $("#administratorsCreate").hide();
-        $("#administratorsRoleEdit").show();
+        $("#roleModal").modal("show");
         $("#editUserId").val(row["id"]);
         $.ajax({
             url: "/v1/role/all",
@@ -227,20 +195,53 @@ var operateEvent = {
             dataType: 'json',
             success: function (data) {
                 var json = data["data"];
-                for (var i = json.length - 1; i >= 0; i--) {
-                    if (json[i].roleId == row["roleId"]) {
-                        $("#edit_role_select").prepend('<option value="' + json[i].roleId + '" selected>' + json[i].roleName + '</option>')
+                var option = '';
+                for (var i = 0; i < json.length; i++) {
+                    if (json[i].id == row["roleId"]) {
+                        option += '<option value="' + json[i].id + '" selected>' + json[i].role_name + '</option>'
                     } else {
-                        $("#edit_role_select").prepend('<option value="' + json[i].roleId + '">' + json[i].roleName + '</option>')
+                        option += '<option value="' + json[i].id + '">' + json[i].role_name + '</option>'
                     }
                 }
+                $("#edit_role_select").html(option);
             },
             error: function (er) {
             }
         });
     },
     'click .move': function (e, value, row) {
-        alert('You click like action, row: ' + JSON.stringify(row));
+        $.Popup({
+            title: '删除',
+            template: '确定删除该管理员',
+            saveEvent: function () {
+                $.ajax({
+                    url: "/v1/sysUser/delete?id="+row.id,
+                    async: false,
+                    type: "delete",
+                    dateType: "json",
+                    success: function (result) {
+                        if (result.state == 200) {
+                            $.Popup({
+                                confirm: false,
+                                template: '删除成功'
+                            })
+                            $('#administrators-list-table').bootstrapTable('refresh');
+                        } else {
+                            $.Popup({
+                                confirm: false,
+                                template: '删除失败'
+                            })
+                        }
+                    },
+                    error:function (res) {
+                        $.Popup({
+                            confirm: false,
+                            template: res
+                        })
+                    }
+                });
+            }
+        })
     }
 };
 
@@ -250,7 +251,7 @@ function backToSysUsers() {
     $("#administratorsRoleEdit").hide();
     $('#administrators-list-table').bootstrapTable("refresh");
 }
-
+/*点击创建管理员*/
 function createAdministrators() {
     $("#administratorsList").hide();
     $("#administratorsCreate").show();
@@ -261,10 +262,11 @@ function createAdministrators() {
         dataType: 'json',
         success: function (data) {
             var json = data["data"];
-            for (var i = json.length - 1; i >= 0; i--) {
-                $("#role_select").prepend('<option value="' + json[i].roleId + '">' + json[i].roleName + '</option>')
+            var option = '<option value="">请选择</option>';
+            for (var i = 0; i < json.length; i++) {
+                option += '<option value="' + json[i].id + '">' + json[i].role_name + '</option>';
             }
-            $("#role_select").prepend('<option value="">请选择</option>')
+            $("#role_select").html(option);
         },
         error: function (er) {
         }

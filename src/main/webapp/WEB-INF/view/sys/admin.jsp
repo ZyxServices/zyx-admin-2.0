@@ -47,6 +47,63 @@
                 <button class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
+        <%--操作日志--%>
+        <div id="operateLogModal" class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"></button>
+                <h3 id="logModalTitle">操作日志</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="span12 responsive">
+                        <table id="administrators-log-table">
+                            <thead>
+                            <tr>
+                                <th data-field="id">id</th>
+                                <th data-field="name">管理员</th>
+                                <th data-field="systemRoleListDto.role_name">权限</th>
+                                <th data-field="bz">操作</th>
+                                <th data-field="operateTime">操作时间</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+        <%--权限更改--%>
+        <div id="roleModal" class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"></button>
+                <h3 id="roleModalTitle">权限修改</h3>
+            </div>
+            <div class="modal-body">
+                <form action="/v1/sysuser/" id="sysUserEditForm" method="post" enctype="multipart/form-data"
+                      class="form-horizontal" novalidate="novalidate" role="form">
+                    <input type="hidden" id="editUserId" name="id">
+
+                    <div class="control-group form-group">
+                        <label class="control-label">权限等级</label>
+                        <div class="controls col-xs-5">
+                            <select id="edit_role_select" name="roleId">
+
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-default" id="editButton" onclick="beginEditSysUser()">确定</button>
+                        <button class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <%--管理员列表--%>
         <div class="container-fluid" id="administratorsList">
 
@@ -168,13 +225,13 @@
             <!-- BEGIN DASHBOARD STATS -->
             <div class="row-fluid">
 
-                <form action="/v1/sysuser/" id="sysUserCreateForm" method="post" enctype="multipart/form-data"
+                <form action="/v1/sysUser/insert" id="sysUserCreateForm" method="post" enctype="multipart/form-data"
                       class="form-horizontal" novalidate="novalidate" role="form">
 
                     <div class="control-group form-group">
                         <label class="control-label">账号</label>
                         <div class="controls col-xs-5">
-                            <input type="text" id="username" name="username" class="span6"/>
+                            <input type="text" id="username" name="userName" class="span6"/>
                             <span class="help-inline required">*</span>
                         </div>
                     </div>
@@ -208,14 +265,14 @@
                     <div class="control-group form-group">
                         <label class="control-label">备注</label>
                         <div class="controls col-xs-5">
-                            <input type="text" id="remark" name="remark" class="span6"/>
+                            <input type="text" id="remark" name="bz" class="span6"/>
                             <span class="help-inline required">*</span>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="button" class="btn btn-default" id="createButton" onclick="beginCreateSysUser()">确定</button>
+                            <button type="submit" class="btn btn-default" id="createButton" onclick="beginCreateSysUser()">确定</button>
                             <a href="javascript:void(0)" class="btn btn-default"
                                onclick="window.location.reload();">返回</a>
                         </div>
@@ -231,7 +288,7 @@
     </div>
 
         <%--权限更改--%>
-        <div class="container-fluid hide" id="administratorsRoleEdit">
+        <%--<div class="container-fluid hide" id="administratorsRoleEdit">
 
             <!-- BEGIN PAGE HEADER-->
 
@@ -280,13 +337,13 @@
                     <form action="/v1/sysuser/" id="sysUserEditForm" method="post" enctype="multipart/form-data"
                           class="form-horizontal" novalidate="novalidate" role="form">
                         <input type="hidden" id="editUserId" name="id">
+
                         <div class="control-group form-group">
                             <label class="control-label">权限等级</label>
                             <div class="controls col-xs-5">
                                 <select class="span6 form-control" id="edit_role_select" name="roleId">
 
                                 </select>
-                                <span class="help-inline required">*</span>
                             </div>
                         </div>
 
@@ -305,74 +362,7 @@
 
             </div>
 
-        </div>
-
-        <%--操作日志--%>
-        <div class="container-fluid hide" id="administratorsLog">
-
-            <!-- BEGIN PAGE HEADER-->
-
-            <div class="row-fluid">
-
-                <div class="span12">
-
-                    <h3 class="page-title">
-
-                        管理员管理
-                        <small>statistics and more</small>
-
-                    </h3>
-
-                    <ul class="breadcrumb">
-
-                        <li>
-
-                            <i class="icon-home"></i>
-
-                            <a href="javascript:void(0)">管理员</a>
-
-                            <i class="icon-angle-right"></i>
-
-                        </li>
-
-                        <li><a href="#">操作日志</a></li>
-
-                    </ul>
-
-                    <!-- END PAGE TITLE & BREADCRUMB-->
-
-                </div>
-
-            </div>
-
-            <!-- END PAGE HEADER-->
-
-            <div id="administrators-log">
-
-                <!-- BEGIN DASHBOARD STATS -->
-
-                <div class="row-fluid">
-                    <div class="span12 responsive">
-                        <table id="administrators-log-table">
-                            <thead>
-                            <tr>
-                                <th data-field="id">id</th>
-                                <th data-field="name">管理员</th>
-                                <th data-field="systemRoleListDto.role_name">权限</th>
-                                <th data-field="bz">操作</th>
-                                <th data-field="operateTime">操作时间</th>
-                            </tr>
-                            </thead>
-                        </table>
-                    </div>
-
-                </div>
-
-                <!-- END DASHBOARD STATS -->
-
-            </div>
-
-        </div>
+        </div>--%>
         <!-- END PAGE CONTAINER-->
 
     </div>
