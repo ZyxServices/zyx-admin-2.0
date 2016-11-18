@@ -438,29 +438,9 @@ var seeUrl = {
 }
 $(function () {
     $(".create_live").click(function () {
-        $.ajax({
-            url: "/v1/appUser/list/official/all",
-            type: 'get',
-            dataType: 'json',
-            success: function (result) {
-                console.log(result)
-                if (result.rows.length == 0) {
-                    $.Popup({
-                        confirm: false,
-                        template: '官方账户为空，请添加官方账户再继续!!!'
-                    })
-                } else {
-                    $(".create_liveType").addClass('on')
-                    $(".live_index").addClass('hide')
-                    var user = '';
-                    result.rows.forEach(function (item, i) {
-                        user += '<option value=' + item.id + ' >' + item.nickname + '</option>'
-                    })
-                    $("#choiceUser").append(user)
-                }
-
-            }
-        });
+           $(".create_liveType").addClass('on')
+           $(".live_index").addClass('hide')
+        
     })
 
     $(window).resize(function () {
