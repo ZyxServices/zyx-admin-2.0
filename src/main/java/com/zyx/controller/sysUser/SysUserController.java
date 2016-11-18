@@ -63,7 +63,7 @@ public class SysUserController {
                                        @ApiParam(name = "bz", required = true, value = "备注")@RequestParam(required = true) String bz) {
         AbstractView jsonView = new MappingJackson2JsonView();
         Map<String, Object> map;
-        SysUser sysUser = sysUserService.getUserByNamePass(userName);
+        SysUser sysUser = sysUserService.getUserByName(userName);
 
         if (sysUser != null) {
             map = MapUtils.buildErrorMap(SysConstants.ERROR_9004, SysConstants.ERROR_9004_MSG);
