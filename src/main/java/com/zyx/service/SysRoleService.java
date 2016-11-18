@@ -1,42 +1,46 @@
 package com.zyx.service;
 
 import com.zyx.constants.AppUserConstants;
+import com.zyx.constants.Constants;
 import com.zyx.constants.SysConstants;
 import com.zyx.dto.SystemRoleListDto;
-import com.zyx.dto.SystemUserListDto;
 import com.zyx.mapper.SysRoleMapper;
 import com.zyx.model.SysRole;
-import com.zyx.model.SysUser;
 import com.zyx.parm.sys.CreateSystemRoleParam;
 import com.zyx.parm.sys.QuerySystemRoleParam;
 import com.zyx.utils.MapUtils;
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 权限业务层方法
+ */
 @Service
 public class SysRoleService {
 
     @Autowired
     SysRoleMapper sysRoleMapper;
 
+    /**
+     * 分页查询
+     * @param param
+     * @return
+     */
     public Map<String, Object> queryList(QuerySystemRoleParam param) {
-        Map<String, Object> map = new HashedMap();
 
-        try {
             List<SysRole> _list = sysRoleMapper.querySystemRoleList(param);
             int count = sysRoleMapper.querySystemRoleListCount(param);
-            map.put("rows", _list);
+        if(_list!=null&& _list.size()>0){
+            Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS,"查询成功",_list);
             map.put("total", count);
-        } catch (Exception e) {
-            e.printStackTrace();
+            return map;
+        }else {
+            return MapUtils.buildErrorMap(Constants.NO_DATA,"没有数据");
         }
 
-        return map;
     }
 
     public SysRole selectByRoleName(String roleName) {
@@ -45,31 +49,38 @@ public class SysRoleService {
         return sysRoleMapper.selectOne(sysRole);
     }
 
-    public SysRole selectByRoleId(String roleId) {
-        SysRole sysRole = new SysRole();
-        sysRole.setRoleId(roleId);
-        return sysRoleMapper.selectOne(sysRole);
-    }
+//    public SysRole selectByRoleId(String roleId) {
+//        SysRole sysRole = new SysRole();
+//        sysRole.setRoleId(roleId);
+//        return sysRoleMapper.selectOne(sysRole);
+//    }
 
+    /**
+     * 添加权限
+     * @param param
+     * @return
+     */
     public Map<String, Object> insertSysRole(CreateSystemRoleParam param) {
         SysRole _role = new SysRole();
-        _role.setRoleId(param.getRoleId());
+//        _role.setRoleId(param.getRoleId());
         _role.setRoleName(param.getRoleName());
         _role.setRoleDesc(param.getRoleDesc());
         _role.setMenuPerm(param.getMenuPerm());
 
-        try {
             int result = sysRoleMapper.insert(_role);
             if (result >= 1) {
                 return MapUtils.buildSuccessMap(SysConstants.SUCCESS, SysConstants.MSG_SUCCESS, null);
             } else {
                 return MapUtils.buildErrorMap(SysConstants.ERROR_APP_USER_9002, SysConstants.ERROR_APP_USER_9002_MSG);
             }
-        } catch (Exception e) {
-            return AppUserConstants.MAP_500;
-        }
+
     }
 
+    /**
+     * 编辑权限
+     * @param param
+     * @return
+     */
     public Map<String, Object> editSysRole(CreateSystemRoleParam param) {
         try {
             SysRole sysRole = sysRoleMapper.selectByPrimaryKey(param.getId());
@@ -90,15 +101,18 @@ public class SysRoleService {
         }
     }
 
-    public List<SystemRoleListDto> queryAllList() {
-        List<SystemRoleListDto> _list;
+    /**
+     * 查询所有权限名称
+     * @return
+     */
+    public  Map<String, Object>  queryAllList() {
+        List<SystemRoleListDto> _list = sysRoleMapper.queryAllSystemRole();
 
-        try {
-            _list = sysRoleMapper.queryAllSystemRole();
-        } catch (Exception e) {
-            _list = new ArrayList<>();
+        if(_list!=null&& _list.size()>0){
+            Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS,"查询成功",_list);
+            return map;
+        }else {
+            return MapUtils.buildErrorMap(Constants.NO_DATA,"没有数据");
         }
-
-        return _list;
     }
 }

@@ -6,23 +6,23 @@
           WARNING - @mbggenerated
         -->
         <id column="ID" jdbcType="INTEGER" property="id"/>
-        <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId"/>
+        <!--<result column="ROLE_ID" jdbcType="VARCHAR" property="roleId"/>-->
         <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName"/>
-        <result column="RIGHTS" jdbcType="VARCHAR" property="rights"/>
-        <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId"/>
-        <result column="ADD_QX" jdbcType="VARCHAR" property="addQx"/>
-        <result column="DEL_QX" jdbcType="VARCHAR" property="delQx"/>
-        <result column="EDIT_QX" jdbcType="VARCHAR" property="editQx"/>
-        <result column="CHA_QX" jdbcType="VARCHAR" property="chaQx"/>
-        <result column="QX_ID" jdbcType="VARCHAR" property="qxId"/>
+        <!--<result column="RIGHTS" jdbcType="VARCHAR" property="rights"/>-->
+        <!--<result column="PARENT_ID" jdbcType="VARCHAR" property="parentId"/>-->
+        <!--<result column="ADD_QX" jdbcType="VARCHAR" property="addQx"/>-->
+        <!--<result column="DEL_QX" jdbcType="VARCHAR" property="delQx"/>-->
+        <!--<result column="EDIT_QX" jdbcType="VARCHAR" property="editQx"/>-->
+        <!--<result column="CHA_QX" jdbcType="VARCHAR" property="chaQx"/>-->
+        <!--<result column="QX_ID" jdbcType="VARCHAR" property="qxId"/>-->
         <result column="ROLE_DESC" jdbcType="VARCHAR" property="roleDesc"/>
         <result column="MENU_PERM" jdbcType="VARCHAR" property="menuPerm"/>
     </resultMap>
 
     <resultMap id="SystemRoleListDto" type="com.zyx.dto.SystemRoleListDto">
         <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName"/>
-        <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId"/>
+        <result column="ROLE_NAME" jdbcType="VARCHAR" property="role_name"/>
+        <!--<result column="ROLE_ID" jdbcType="VARCHAR" property="roleId"/>-->
     </resultMap>
 
     <select id="querySystemRoleList" parameterType="com.zyx.parm.sys.QuerySystemRoleParam"
@@ -44,6 +44,6 @@
     </select>
 
     <select id="queryAllSystemRole" resultMap="SystemRoleListDto">
-        SELECT id, ROLE_ID, ROLE_NAME FROM SYS_ROLE
+        SELECT id, ROLE_NAME FROM SYS_ROLE
     </select>
 </mapper>

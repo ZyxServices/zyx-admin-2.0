@@ -1,12 +1,13 @@
-package com.zyx.controller;
+package com.zyx.controller.sysUser;
 
 import com.zyx.constants.SysConstants;
-import com.zyx.dto.SystemRoleListDto;
 import com.zyx.model.SysRole;
 import com.zyx.parm.sys.CreateSystemRoleParam;
 import com.zyx.parm.sys.QuerySystemRoleParam;
 import com.zyx.service.SysRoleService;
 import com.zyx.utils.MapUtils;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
+/**
+ *
+ */
 @Controller
 @RequestMapping("/v1/role")
 public class SysRoleController {
@@ -28,31 +29,44 @@ public class SysRoleController {
     SysRoleService sysRoleService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ModelAndView sysRoleLists(@RequestParam Integer pageSize, @RequestParam Integer pageNumber, @RequestParam(required = false) String searchText, @RequestParam(required = false) String sortName, @RequestParam(required = false) String sortOrder) {
+    @ApiOperation(value="动态分页查询权限，可以按照权限名称或者权限描述查询",notes="动态分页查询权限，可以按照权限名称或者权限描述查询")
+    public ModelAndView sysRoleLists(@ApiParam(name="pageSize",required = true,value = "每页显示数量")@RequestParam Integer pageSize,
+                                     @ApiParam(name="pageNumber",required = true,value = "页码，从1开始")@RequestParam Integer pageNumber,
+                                     @ApiParam(name="searchText",required = false,value = "可以是权限名称或者描述，模糊查询")
+                                         @RequestParam(required = false) String searchText
+                                    ) {
         AbstractView jsonView = new MappingJackson2JsonView();
         QuerySystemRoleParam param = new QuerySystemRoleParam();
         param.setPageSize(pageSize);
         param.setPageNumber((pageNumber - 1) * pageSize);
         param.setSearchText(searchText);
-        param.setSortName(sortName);
-        param.setSortOrder(sortOrder);
+
         Map<String, Object> map = sysRoleService.queryList(param);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @ApiOperation(value="查询所有权限，用于下拉框列表",notes="查询所有权限，用于下拉框列表")
     public ModelAndView sysRoleAllLists() {
         AbstractView jsonView = new MappingJackson2JsonView();
-        Map<String, Object> map = new HashMap<>();
-        List<SystemRoleListDto> list = sysRoleService.queryAllList();
-        map.put("data", list);
+        Map<String, Object> map = sysRoleService.queryAllList();
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
 
+    /**
+     * 添加权限
+     * @param roleName
+     * @param roleDesc
+     * @param menuPerm
+     * @return
+     */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public ModelAndView sysRoleInsert(@RequestParam String roleName, @RequestParam String roleDesc, @RequestParam(required = false) String menuPerm) {
+    @ApiOperation(value="创建权限",notes = "创建权限")
+    public ModelAndView sysRoleInsert(@ApiParam(name="roleName",required = true,value = "权限名称")@RequestParam String roleName,
+                                      @ApiParam(name="roleDesc",required = true,value = "权限描述")@RequestParam String roleDesc,
+                                      @ApiParam(name="menuPerm",required = false,value = "权限菜单")@RequestParam(required = false) String menuPerm) {
         AbstractView jsonView = new MappingJackson2JsonView();
         Map<String, Object> map;
         SysRole sysRole = sysRoleService.selectByRoleName(roleName);
@@ -64,15 +78,25 @@ public class SysRoleController {
             param.setRoleName(roleName);
             param.setRoleDesc(roleDesc);
             param.setMenuPerm(menuPerm);
-            param.setRoleId(UUID.randomUUID().toString().replaceAll("-", ""));
+//            param.setRoleId(UUID.randomUUID().toString().replaceAll("-", ""));
             map = sysRoleService.insertSysRole(param);
         }
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
 
+    /**
+     * 编辑权限
+     * @param editRoleId
+     * @param roleDesc
+     * @param menuPerm
+     * @return
+     */
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public ModelAndView sysRoleEdit(@RequestParam Integer editRoleId, @RequestParam String roleDesc, @RequestParam(required = false) String menuPerm) {
+    @ApiOperation(value="编辑权限",notes = "编辑权限")
+    public ModelAndView sysRoleEdit(@ApiParam(name="editRoleId",required = true,value = "编辑的权限id")@RequestParam Integer editRoleId,
+                                    @ApiParam(name="roleDesc",required = true,value = "权限描述")@RequestParam String roleDesc,
+                                    @ApiParam(name="menuPerm",required = true,value = "权限菜单")@RequestParam(required = false) String menuPerm) {
         AbstractView jsonView = new MappingJackson2JsonView();
         Map<String, Object> map;
         CreateSystemRoleParam param = new CreateSystemRoleParam();

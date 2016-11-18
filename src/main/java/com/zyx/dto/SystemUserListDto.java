@@ -27,6 +27,8 @@ public class SystemUserListDto implements Serializable {
 
     private SystemRoleListDto systemRoleListDto;
 
+//    private SystemLogListDto systemLogListDto;
+
     public Integer getId() {
         return id;
     }
@@ -90,4 +92,12 @@ public class SystemUserListDto implements Serializable {
     public void setBz(String bz) {
         this.bz = bz;
     }
+
+//    public SystemLogListDto getSystemLogListDto() {
+//        return systemLogListDto;
+//    }
+//
+//    public void setSystemLogListDto(SystemLogListDto systemLogListDto) {
+//        this.systemLogListDto = systemLogListDto;
+//    }
 }
