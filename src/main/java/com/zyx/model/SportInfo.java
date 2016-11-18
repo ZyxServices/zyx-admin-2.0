@@ -8,7 +8,7 @@ import javax.persistence.Table;
  * Created by HL on 2016/11/7.
  */
 @Table(name = "t_sport_info")
-public class SportInfo extends  BaseModel{
+public class SportInfo{
     /**
      * 主键id
      */
@@ -61,6 +61,11 @@ public class SportInfo extends  BaseModel{
      */
     private  Integer pathLength;
 
+    /**
+     * 删除（0，正常  1，删除）
+     */
+    private Integer del;
+
     public Integer getId() { return id; }
 
     public void setId(Integer id) { this.id = id; }
@@ -108,4 +113,8 @@ public class SportInfo extends  BaseModel{
     public Integer getPathLength() { return pathLength; }
 
     public void setPathLength(Integer pathLength) { this.pathLength = pathLength; }
+
+    public Integer getDel() { return del; }
+
+    public void setDel(Integer del) { this.del = del; }
 }

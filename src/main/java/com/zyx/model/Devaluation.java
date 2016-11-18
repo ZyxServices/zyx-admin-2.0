@@ -3,7 +3,7 @@ package com.zyx.model;
 import javax.persistence.*;
 
 @Table(name = "devaluation")
-public class Devaluation extends BaseModel{
+public class Devaluation{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -165,4 +165,14 @@ public class Devaluation extends BaseModel{
     public void setArea(Integer area) {
         this.area = area;
     }
+    /**
+     * 删除（0，正常  1，删除）
+     */
+    private Integer del;
+
+    public Integer getDel() { return del; }
+
+    public void setDel(Integer del) { this.del = del; }
+
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 }

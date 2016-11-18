@@ -3,6 +3,7 @@ package com.zyx.service.version.impl;
 import com.zyx.constants.Constants;
 import com.zyx.mapper.VersionMapper;
 import com.zyx.model.Version;
+import com.zyx.parm.version.VersionParam;
 import com.zyx.service.BaseServiceImpl;
 import com.zyx.service.version.VersionService;
 import com.zyx.utils.MapUtils;
@@ -64,10 +65,10 @@ public class VersionServiceImpl extends BaseServiceImpl<Version> implements Vers
     }
 
     @Override
-    public Map<String, Object> queryVersion(Version version) {
-        version.setPage(version.getPage()*version.getPageNumber());
-        List<Version> venues = versionMapper.queryVersion(version);
-        int i = versionMapper.selectCountVersion(version);
+    public Map<String, Object> queryVersion(VersionParam versionParam) {
+        versionParam.setPageNumber(versionParam.getPageNumber()*versionParam.getPageSize());
+        List<Version> venues = versionMapper.queryVersion(versionParam);
+        int i = versionMapper.selectCountVersion(versionParam);
         Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", venues);
         map.put("total", i);
         return map;

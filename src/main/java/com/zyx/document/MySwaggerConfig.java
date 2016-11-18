@@ -210,6 +210,19 @@ public class MySwaggerConfig {
 
     }
 
+    @Bean
+    public Docket logApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("log-api")
+                .select()  // 选择那些路径和api会生成document
+                .apis(RequestHandlerSelectors.basePackage("com.zyx.controller.log"))
+                .paths(PathSelectors.any()) // 对所有路径进行监控
+                .build()
+                .apiInfo(logApiInfo());
+
+    }
+
+    @Bean
     public Docket versionApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("version")
@@ -440,6 +453,18 @@ public class MySwaggerConfig {
                 "2.0",//版本
                 "成都term",
                 new Contact("赵家兴", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
+                "智悠行",//链接显示文字
+                "http://112.74.112.143:8081/ui/Delta/index.html "//网站链接
+        );
+        return apiInfo;
+    }
+
+    private ApiInfo logApiInfo() {
+        ApiInfo apiInfo = new ApiInfo("日志接口API",//大标题
+                "用户操作",//小标题
+                "2.0",//版本
+                "成都term",
+                new Contact("胡林", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
                 "智悠行",//链接显示文字
                 "http://112.74.112.143:8081/ui/Delta/index.html "//网站链接
         );

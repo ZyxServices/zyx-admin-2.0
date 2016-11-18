@@ -2,6 +2,7 @@ package com.zyx.controller.version;
 
 import com.zyx.constants.Constants;
 import com.zyx.model.Version;
+import com.zyx.parm.version.VersionParam;
 import com.zyx.service.version.VersionService;
 import com.zyx.utils.GetTimeUtil;
 import io.swagger.annotations.ApiOperation;
@@ -89,11 +90,11 @@ public class VersionController {
                                      @ApiParam(name = "pageNumber",required = true,value = "每页数量")@RequestParam(name = "pageNumber",required = true)Integer pageNumber
                                     ){
         AbstractView jsonView = new MappingJackson2JsonView();
-        Version version = new Version();
-        version.setPage(page);
-        version.setPageNumber(pageNumber);
-        version.setSystemType(systemType);
-        Map<String,Object> map = versionService.queryVersion(version);
+        VersionParam versionParam = new VersionParam();
+        versionParam.setPageNumber(page);
+        versionParam.setPageSize(pageNumber);
+        versionParam.setSystemType(systemType);
+        Map<String,Object> map = versionService.queryVersion(versionParam);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }

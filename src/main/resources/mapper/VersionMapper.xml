@@ -12,18 +12,18 @@
     </resultMap>
 
 
-    <select id="queryVersion" parameterType="com.zyx.model.Version" resultMap="version">
+    <select id="queryVersion" parameterType="com.zyx.parm.version.VersionParam" resultMap="version">
         select id,number,publish_time,create_time,download_url,notes,system_type from version where del=0
         <if test="systemType!=null">
             and system_type=#{systemType}
         </if>
         ORDER BY create_time desc
-        <if test="pageNumber != null and page != null">
-            limit #{page}, #{pageNumber}
+        <if test="pageNumber != null and pageSize != null">
+            limit #{pageNumber}, #{pageSize}
         </if>
     </select>
 
-    <select id="selectCountVersion" resultType="java.lang.Integer" parameterType="com.zyx.model.Version">
+    <select id="selectCountVersion" resultType="java.lang.Integer" parameterType="com.zyx.parm.version.VersionParam">
         SELECT COUNT(id) FROM version WHERE del=0
     </select>
 

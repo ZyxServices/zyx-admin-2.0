@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Created by HL on 2016/11/7.
  */
 @Table(name="t_venue")
-public class Venue extends  BaseModel{
+public class Venue{
 
     /**
      * 主键id
@@ -67,6 +67,15 @@ public class Venue extends  BaseModel{
     @Column(name = "create_time")
     private  Long createTime;
 
+    /**
+     * 删除（0，正常  1，删除）
+     */
+    private Integer del;
+    /**
+     * 开发背景
+     */
+    private String background;
+
     public Integer getLevel() { return level; }
 
     public void setLevel(Integer level) { this.level = level; }
@@ -118,4 +127,12 @@ public class Venue extends  BaseModel{
     public Long getCreateTime() { return createTime; }
 
     public void setCreateTime(Long createTime) { this.createTime = createTime; }
+
+    public Integer getDel() { return del; }
+
+    public void setDel(Integer del) { this.del = del; }
+
+    public String getBackground() { return background; }
+
+    public void setBackground(String background) { this.background = background; }
 }

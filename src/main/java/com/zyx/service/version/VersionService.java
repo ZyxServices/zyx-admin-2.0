@@ -1,6 +1,7 @@
 package com.zyx.service.version;
 
 import com.zyx.model.Version;
+import com.zyx.parm.version.VersionParam;
 import com.zyx.service.BaseService;
 
 import java.util.Map;
@@ -32,8 +33,8 @@ public interface VersionService extends BaseService<Version>{
 
     /**
      * 多条件查询版本
-     * @param version
+     * @param versionParam
      * @return
      */
-    Map<String,Object> queryVersion(Version version);
+    Map<String,Object> queryVersion(VersionParam versionParam);
 }

@@ -2,6 +2,7 @@ package com.zyx.mapper;
 
 import com.zyx.dto.SportInfoDto;
 import com.zyx.model.SportInfo;
+import com.zyx.parm.sportinfo.SportInfoQueryParam;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -22,17 +23,17 @@ public interface SportInfoMapper extends Mapper<SportInfo>{
 
     /**
      * 根据多条件查询路线
-     * @param sportInfo
+     * @param sportInfoQueryParam
      * @return
      */
-    List<SportInfoDto> querySportInfo(SportInfo sportInfo);
+    List<SportInfoDto> querySportInfo(SportInfoQueryParam sportInfoQueryParam);
 
     /**
      * 根据多条件查询路线获取路线数量
-     * @param sportInfo
+     * @param sportInfoQueryParam
      * @return
      */
-    int selectCountSportInfo(SportInfo sportInfo);
+    int selectCountSportInfo(SportInfoQueryParam sportInfoQueryParam);
 
     /**
      * 根据主键逻辑删除

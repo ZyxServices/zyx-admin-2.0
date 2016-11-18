@@ -4,6 +4,7 @@ import com.zyx.constants.Constants;
 import com.zyx.dto.SportInfoDto;
 import com.zyx.mapper.SportInfoMapper;
 import com.zyx.model.SportInfo;
+import com.zyx.parm.sportinfo.SportInfoQueryParam;
 import com.zyx.service.BaseServiceImpl;
 import com.zyx.service.sportinfo.SportInfoService;
 import com.zyx.utils.MapUtils;
@@ -68,10 +69,10 @@ public class SportInfoServiceImpl extends BaseServiceImpl<SportInfo> implements 
     }
 
     @Override
-    public Map<String, Object> querySportInfo(SportInfo pathLevel) {
-        pathLevel.setPage(pathLevel.getPage()*pathLevel.getPageNumber());
-        List<SportInfoDto> sportInfoDtos = sportInfoMapper.querySportInfo(pathLevel);
-        int i = sportInfoMapper.selectCountSportInfo(pathLevel);
+    public Map<String, Object> querySportInfo(SportInfoQueryParam sportInfoQueryParam) {
+        sportInfoQueryParam.setPageNumber(sportInfoQueryParam.getPageNumber()*sportInfoQueryParam.getPageSize());
+        List<SportInfoDto> sportInfoDtos = sportInfoMapper.querySportInfo(sportInfoQueryParam);
+        int i = sportInfoMapper.selectCountSportInfo(sportInfoQueryParam);
         Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", sportInfoDtos);
         map.put("total", i);
         return map;

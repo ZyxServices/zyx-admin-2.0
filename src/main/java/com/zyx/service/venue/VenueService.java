@@ -1,6 +1,7 @@
 package com.zyx.service.venue;
 
 import com.zyx.model.Venue;
+import com.zyx.parm.venue.VenueParam;
 import com.zyx.service.BaseService;
 
 import java.util.Map;
@@ -33,8 +34,8 @@ public interface VenueService extends BaseService<Venue>{
 
     /**
      * 多条件查询场馆
-     * @param venue
+     * @param venueParam
      * @return
      */
-    Map<String,Object> queryVenue(Venue venue);
+    Map<String,Object> queryVenue(VenueParam venueParam);
 }

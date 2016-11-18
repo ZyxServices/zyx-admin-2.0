@@ -16,18 +16,18 @@
         <result column="comment_num" jdbcType="INTEGER" property="commentNum"/>
     </resultMap>
 
-    <select id="querySportInfo" parameterType="com.zyx.model.SportInfo" resultMap="sportInfodto">
+    <select id="querySportInfo" parameterType="com.zyx.parm.sportinfo.SportInfoQueryParam" resultMap="sportInfodto">
         select id,venue_id,path,url,level,score,path_type,developer,develop_time,path_length from t_sport_info where del=0
         <if test="venueId != null and venueId != ''">
             and venue_id =#{venueId}
         </if>
         ORDER BY create_time desc
-        <if test="pageNumber != null and page != null">
-            limit #{page}, #{pageNumber}
+        <if test="pageNumber != null and pageSize != null">
+            limit #{pageNumber}, #{pageSize}
         </if>
     </select>
 
-    <select id="selectCountSportInfo" resultType="java.lang.Integer" parameterType="com.zyx.model.SportInfo">
+    <select id="selectCountSportInfo" resultType="java.lang.Integer" parameterType="com.zyx.parm.sportinfo.SportInfoQueryParam">
         SELECT COUNT(id) FROM t_sport_info WHERE del=0
         <if test="venueId != null and venueId != ''">
             and venue_id =#{venueId}

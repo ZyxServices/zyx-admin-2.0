@@ -2,6 +2,7 @@ package com.zyx.service.activity;
 
 
 import com.zyx.model.Activity;
+import com.zyx.parm.activity.QueryActivityParm;
 import com.zyx.service.BaseService;
 
 import java.util.Map;
@@ -26,11 +27,11 @@ public interface ActivityService extends BaseService<Activity>{
     /**
      * 多条条件查询活动
      *
-     * @param activity
+     * @param queryActivityParm
      * @param
      * @return
      */
-    Map<String, Object> queryActivity(Activity activity);
+    Map<String, Object> queryActivity(QueryActivityParm queryActivityParm);
 
     /**
      * 通过ID查询活动

@@ -1,6 +1,7 @@
 package com.zyx.service.sportinfo;
 
 import com.zyx.model.SportInfo;
+import com.zyx.parm.sportinfo.SportInfoQueryParam;
 import com.zyx.service.BaseService;
 
 import java.util.Map;
@@ -33,8 +34,8 @@ public interface SportInfoService extends BaseService<SportInfo> {
 
     /**
      * 多条件联合查询路线
-     * @param sportInfo
+     * @param sportInfoQueryParam
      * @return
      */
-    Map<String,Object> querySportInfo(SportInfo sportInfo);
+    Map<String,Object> querySportInfo(SportInfoQueryParam sportInfoQueryParam);
 }

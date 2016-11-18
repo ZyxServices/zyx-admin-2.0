@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.mapper.LogMapper">
+  <resultMap id="" type="com.zyx.model.Log">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="operation_desc" jdbcType="VARCHAR" property="operationDesc" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="del" jdbcType="INTEGER" property="del" />
+    <result column="result" jdbcType="INTEGER" property="result" />
+
+  </resultMap>
+  <resultMap id="logdto" type="com.zyx.dto.LogDto">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="operation_desc" jdbcType="VARCHAR" property="operationDesc" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="result" jdbcType="INTEGER" property="result" />
+  </resultMap>
+
+  <insert id="insertLog" parameterType="com.zyx.model.Log">
+    INSERT INTO  SYS_OPERATION_LOG(operation_desc,create_time,user_id,del)
+    VALUES (#{operationDesc},#{createTime},#{userId},#{del})
+  </insert>
+
+  <select id="queryLog" parameterType="com.zyx.parm.log.LogParam" resultMap="logdto">
+    SELECT  l.id,l.operation_desc,l.result,l.create_time,su.name as user_name from SYS_OPERATION_LOG l left join SYS_USER su ON l.user_id = su.name
+    ORDER by l.create_time desc
+    <if test="pageNumber != null and pageSize != null">
+      limit #{pageNumber}, #{pageSize}
+    </if>
+  </select>
+
+  <select id="selectCountLog" resultType="java.lang.Integer">
+    SELECT count(id) from SYS_OPERATION_LOG
+  </select>
+
+</mapper>

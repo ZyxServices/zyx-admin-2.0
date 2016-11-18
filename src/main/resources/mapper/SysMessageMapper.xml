@@ -18,18 +18,18 @@
         </selectKey>
     </insert>
 
-    <select id="querySysMessage" parameterType="com.zyx.model.SysMessage" resultMap="sysMessagedto">
+    <select id="querySysMessage" parameterType="com.zyx.parm.sysmessage.SysMessageParam" resultMap="sysMessagedto">
         select id,content,push_time,type,done,mask from SYS_MSG where del=0
         <if test="done!=null">
             and done=#{done}
         </if>
         ORDER BY create_time desc
-        <if test="pageNumber != null and page != null">
-            limit #{page}, #{pageNumber}
+        <if test="pageNumber != null and pageSize != null">
+            limit #{pageNumber}, #{pageSize}
         </if>
     </select>
 
-    <select id="selectCountSysMessage" resultType="java.lang.Integer" parameterType="com.zyx.model.SysMessage">
+    <select id="selectCountSysMessage" resultType="java.lang.Integer" parameterType="com.zyx.parm.sysmessage.SysMessageParam">
         SELECT COUNT(id) FROM SYS_MSG WHERE del=0
     </select>
 

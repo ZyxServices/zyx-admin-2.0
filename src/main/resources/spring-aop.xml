@@ -2,7 +2,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
         http://www.springframework.org/schema/aop
@@ -11,7 +10,7 @@
     <bean id="logHandler" class="com.zyx.aop.LogHandler" />
     <aop:config>
         <aop:aspect id="log" ref="logHandler">
-            <aop:pointcut id="testMethod" expression="execution(* com.zyx.service.city.*.*(..))" />
+            <aop:pointcut id="testMethod" expression="execution(* com.zyx.service.*.*.*(..))" />
             <aop:before method="before" pointcut-ref="testMethod" />
             <aop:around method="around" pointcut-ref="testMethod" />
             <aop:after-returning method="after" pointcut-ref="testMethod" />

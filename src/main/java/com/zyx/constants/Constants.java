@@ -1,5 +1,7 @@
 package com.zyx.constants;
 
+import org.apache.commons.collections.map.HashedMap;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -296,5 +298,38 @@ public interface Constants {
         put(8,"courseDevas");
         put(9,"concernDevas");
         put(10,"userDevas");
+    }};
+
+
+    Map<String,String> logMap = new HashedMap(){{
+     put("insertActivity","活动发布");
+     put("updateActivity","活动修改");
+     put("maskActivity","活动屏蔽、显示");
+     put("delActivity","活动删除");
+
+     put("delDeval","删除首推");
+     put("cancel","显示、撤销首推");
+
+     put("insertLevel","新增等级");
+     put("delLevel","删除等级");
+     put("updateLevel","更新等级");
+
+     put("insertSportInfo","新增场馆路线");
+     put("delSportInfo","删除场馆路线");
+     put("updateSportInfo","修改场馆路线");
+
+     put("insertSysMessage","新增消息");
+     put("maskSysMessage","撤销、显示消息");
+     put("delSysMessage","删除消息");
+
+     put("insertVenue","新增场馆");
+     put("delVenue","删除场馆");
+     put("updateVenue","更新场馆");
+
+     put("insertVersion","新增版本记录");
+     put("updateVersion","更新版本信息");
+     put("delVersion","删除版本信息");
+
+
     }};
 }

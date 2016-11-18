@@ -3,6 +3,7 @@ package com.zyx.listener;
 import com.zyx.dto.SysMessageDto;
 import com.zyx.mapper.SysMessageMapper;
 import com.zyx.model.SysMessage;
+import com.zyx.parm.sysmessage.SysMessageParam;
 import com.zyx.utils.MyTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,9 +26,9 @@ public class MyTaskListener implements ServletContextListener{
     public void contextInitialized(ServletContextEvent sce) {
         logger.info("开始执行未完成的定时发送任务");
         SysMessageMapper sysMessageMapper= WebApplicationContextUtils.getRequiredWebApplicationContext(sce.getServletContext()).getBean(SysMessageMapper.class);
-        SysMessage sysMessage = new SysMessage();
-        sysMessage.setDone(1);
-        List<SysMessageDto> sysMessageDtos = sysMessageMapper.querySysMessage(sysMessage);
+        SysMessageParam sysMessageParam = new SysMessageParam();
+        sysMessageParam.setDone(1);
+        List<SysMessageDto> sysMessageDtos = sysMessageMapper.querySysMessage(sysMessageParam);
         for (SysMessageDto temp:sysMessageDtos){
             if (temp.getPushTime()<new Date().getTime()){
                 SysMessage change = new SysMessage();

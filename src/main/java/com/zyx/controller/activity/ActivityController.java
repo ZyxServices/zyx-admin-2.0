@@ -3,10 +3,9 @@ package com.zyx.controller.activity;
 import com.zyx.constants.Constants;
 import com.zyx.model.Activity;
 import com.zyx.model.SysUser;
-import com.zyx.service.UserService;
+import com.zyx.parm.activity.QueryActivityParm;
 import com.zyx.service.activity.ActivityService;
 import com.zyx.service.deva.DevaService;
-import com.zyx.utils.MapUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +19,9 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Map;
-import java.util.Objects;
 
 import static com.zyx.utils.GetTimeUtil.getDateTime;
-import static javafx.scene.input.KeyCode.H;
-import static org.bouncycastle.asn1.x500.style.RFC4519Style.title;
 
 /**
  * Created by SubDong on 16-7-12.
@@ -67,7 +61,6 @@ public class ActivityController {
                                 @ApiParam(name = "targetUrl",required = false,value = "活动跳转地址")@RequestParam(name = "targetUrl", required = false) String targetUrl,
                                 @ApiParam(name = "type",required = false,value = "0官方 1用户")@RequestParam(name = "type", required = true) Integer type,
                                 @ApiParam(name = "paymentType",required = false,value = "付费类型 0-奖励 1-免费 2-AA")@RequestParam(name = "paymentType", required = false) Integer paymentType) {
-
         AbstractView jsonView = new MappingJackson2JsonView();
         SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
         Activity activity = new Activity();
@@ -103,7 +96,6 @@ public class ActivityController {
                                @ApiParam(name = "activityType",required = true,value = "活动类型 1-求约 2-求带")@RequestParam(name = "activityType", required = true) Integer activityType,
                                @ApiParam(name = "price",required = false,value = "活动金额")@RequestParam(name = "price", required = false) Double price,
                                @ApiParam(name = "paymentType",required = false,value = "付费类型 0-奖励 1-免费 2-AA")@RequestParam(name = "paymentType", required = false) Integer paymentType) {
-
         AbstractView jsonView = new MappingJackson2JsonView();
         Activity activity = new Activity();
         activity.setId(id);
@@ -129,16 +121,16 @@ public class ActivityController {
                                       @ApiParam(name = "status",required = false,value = "活动状态 0-正在报名 1-结束")@RequestParam(name = "status", required = false) Integer status) {
 
         AbstractView jsonView = new MappingJackson2JsonView();
-        Activity activity = new Activity();
-        activity.setPage(page);
-        activity.setPageNumber(pageNumber);
-        activity.setType(type);
-        activity.setTitle(title);
-        activity.setActivityType(activityType);
-        activity.setPaymentType(paymentType);
-        activity.setStatus(status);
+        QueryActivityParm queryActivityParm = new QueryActivityParm();
+        queryActivityParm.setPage(page);
+        queryActivityParm.setPageNumber(pageNumber);
+        queryActivityParm.setType(type);
+        queryActivityParm.setTitle(title);
+        queryActivityParm.setActivityType(activityType);
+        queryActivityParm.setPaymentType(paymentType);
+        queryActivityParm.setStatus(status);
 
-        Map<String, Object> map = activityService.queryActivity(activity);
+        Map<String, Object> map = activityService.queryActivity(queryActivityParm);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
@@ -157,8 +149,7 @@ public class ActivityController {
     @RequestMapping(value = "/maskActivity", method = RequestMethod.POST)
     @ApiOperation(value = "活动屏蔽", notes = "活动屏蔽")
     public ModelAndView maskActivity(@ApiParam(name = "id",required =true,value = "活动主键id")@RequestParam(name = "id", required = true) Integer id,
-                                     @ApiParam(name = "maskType",required = true,value = "0-撤销 1-屏蔽")@RequestParam(name = "maskType", required = true) Integer maskType) {
-
+                                     @ApiParam(name = "maskType",required = true,value = "0-撤销 1-屏蔽")@RequestParam(name = "maskType", required = true) Integer maskType){
         AbstractView jsonView = new MappingJackson2JsonView();
 
         Map<String, Object> map = activityService.maskActivity(id, maskType);
@@ -169,7 +160,6 @@ public class ActivityController {
     @RequestMapping(value = "/delActivity", method = RequestMethod.POST)
     @ApiOperation(value = "删除活动", notes = "删除活动")
     public ModelAndView delActivity(@ApiParam(name = "id",required = true,value = "活动主键id")@RequestParam(name = "id", required = true) String id) {
-
         AbstractView jsonView = new MappingJackson2JsonView();
 
         Map<String, Object> map = activityService.delActivity(id);

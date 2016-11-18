@@ -3,6 +3,7 @@ package com.zyx.controller.sysmessage;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.zyx.model.Devaluation;
 import com.zyx.model.SysMessage;
+import com.zyx.parm.sysmessage.SysMessageParam;
 import com.zyx.service.sysmessage.SysMessageService;
 import com.zyx.utils.GetTimeUtil;
 import io.swagger.annotations.ApiOperation;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import java.util.Date;
 import java.util.Map;
 
 import static org.bouncycastle.asn1.x500.style.RFC4519Style.c;
@@ -88,10 +90,10 @@ public class SysMessageController {
                                         @ApiParam(name = "pageNumber",required =true,value = "每页数量")@RequestParam(name = "pageNumber",required = true)Integer pageNumber
                                         ){
         AbstractView jsonView = new MappingJackson2JsonView();
-        SysMessage sysMessage = new SysMessage();
-        sysMessage.setPage(page);
-        sysMessage.setPageNumber(pageNumber);
-        Map<String, Object> map =sysMessageService.querySysMessage(sysMessage);
+        SysMessageParam param = new SysMessageParam();
+        param.setPageNumber(page);
+        param.setPageSize(pageNumber);
+        Map<String, Object> map =sysMessageService.querySysMessage(param);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }

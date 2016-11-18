@@ -1,6 +1,7 @@
 package com.zyx.service.sysmessage;
 
 import com.zyx.model.SysMessage;
+import com.zyx.parm.sysmessage.SysMessageParam;
 import com.zyx.service.BaseService;
 
 import java.util.Map;
@@ -16,6 +17,6 @@ public interface SysMessageService extends BaseService<SysMessage>{
 
     Map<String,Object> delSysMessage(String ids);
 
-    Map<String,Object> querySysMessage(SysMessage sysMessage);
+    Map<String,Object> querySysMessage(SysMessageParam sysMessageParam);
 
 }

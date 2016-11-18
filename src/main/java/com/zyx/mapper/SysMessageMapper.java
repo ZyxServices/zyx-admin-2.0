@@ -4,6 +4,7 @@ import com.zyx.dto.ActivityDto;
 import com.zyx.dto.SysMessageDto;
 import com.zyx.model.Activity;
 import com.zyx.model.SysMessage;
+import com.zyx.parm.sysmessage.SysMessageParam;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -17,10 +18,10 @@ public interface SysMessageMapper extends Mapper<SysMessage> {
     /**
      * 多条条件查询活动
      *
-     * @param sysMessage
+     * @param sysMessageParam
      * @return
      */
-    List<SysMessageDto> querySysMessage(SysMessage sysMessage);
+    List<SysMessageDto> querySysMessage(SysMessageParam sysMessageParam);
 
     /**
      * 修改活动
@@ -33,7 +34,7 @@ public interface SysMessageMapper extends Mapper<SysMessage> {
     /**
      *
      */
-    int selectCountSysMessage(SysMessage sysMessage);
+    int selectCountSysMessage(SysMessageParam sysMessageParam);
 
     /**
      *

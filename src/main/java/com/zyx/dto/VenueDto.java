@@ -29,6 +29,8 @@ public class VenueDto {
 
     private Double latitude;
 
+    private String background;
+
     /**
      * 评论数
      */
@@ -94,4 +96,8 @@ public class VenueDto {
     public Double getLatitude() { return latitude; }
 
     public void setLatitude(Double latitude) { this.latitude = latitude; }
+
+    public String getBackground() { return background; }
+
+    public void setBackground(String background) { this.background = background; }
 }

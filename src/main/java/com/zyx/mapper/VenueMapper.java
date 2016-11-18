@@ -2,6 +2,7 @@ package com.zyx.mapper;
 
 import com.zyx.dto.VenueDto;
 import com.zyx.model.Venue;
+import com.zyx.parm.venue.VenueParam;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -16,10 +17,10 @@ public interface VenueMapper extends Mapper<Venue>{
 
     /**
      * 多条件查询场馆
-     * @param param 场馆对象
+     * @param venueParam 场馆对象
      * @return
      */
-    List<VenueDto> queryVenue(Venue param);
+    List<VenueDto> queryVenue(VenueParam venueParam);
 
     /**
      * 更新场馆数据
@@ -32,7 +33,7 @@ public interface VenueMapper extends Mapper<Venue>{
      * 根据多条件查询对应数量
      * @return
      */
-    int selectCountVenue(Venue venue);
+    int selectCountVenue(VenueParam venueParam);
 
     /**
      * 新增场馆 返回主键id

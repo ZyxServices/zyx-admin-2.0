@@ -1,7 +1,5 @@
 package com.zyx.model;
 
-import io.swagger.models.auth.In;
-
 import javax.persistence.*;
 
 /**
@@ -9,7 +7,7 @@ import javax.persistence.*;
  * Created by HL on 2016/11/11.
  */
 @Table(name = "level")
-public class Level extends  BaseModel{
+public class Level{
     /**
      *主键id
      */
@@ -52,6 +50,11 @@ public class Level extends  BaseModel{
     @Column(name = "app_type")
     private Integer appType;
 
+    /**
+     * 删除（0，正常  1，删除）
+     */
+    private Integer del;
+
     public Integer getAppType() { return appType; }
 
     public void setAppType(Integer appType) { this.appType = appType; }
@@ -83,4 +86,8 @@ public class Level extends  BaseModel{
     public Integer getMaxScore() { return maxScore; }
 
     public void setMaxScore(Integer maxScore) { this.maxScore = maxScore; }
+
+    public Integer getDel() { return del; }
+
+    public void setDel(Integer del) { this.del = del; }
 }

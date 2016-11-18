@@ -1,6 +1,7 @@
 package com.zyx.controller.sportinfo;
 
 import com.zyx.model.SportInfo;
+import com.zyx.parm.sportinfo.SportInfoQueryParam;
 import com.zyx.service.sportinfo.SportInfoService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -125,11 +126,11 @@ public class SportInfoController {
                                        @RequestParam(name = "venueId", required = true) Integer venueId
     ) {
         AbstractView jsonView = new MappingJackson2JsonView();
-        SportInfo sportInfo = new SportInfo();
-        sportInfo.setVenueId(venueId);
-        sportInfo.setPage(page);
-        sportInfo.setPageNumber(pageNumber);
-        Map<String, Object> map = sportInfoService.querySportInfo(sportInfo);
+        SportInfoQueryParam sportInfoQueryParam = new SportInfoQueryParam();
+        sportInfoQueryParam.setVenueId(venueId);
+        sportInfoQueryParam.setPageNumber(page);
+        sportInfoQueryParam.setPageSize(pageNumber);
+        Map<String, Object> map = sportInfoService.querySportInfo(sportInfoQueryParam);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }

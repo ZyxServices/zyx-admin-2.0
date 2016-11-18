@@ -4,11 +4,12 @@
     <resultMap id="venuedto" type="com.zyx.dto.VenueDto">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="description" jdbcType="LONGVARCHAR" property="description"/>
         <result column="type" jdbcType="INTEGER" property="type"/>
         <result column="mark" jdbcType="VARCHAR" property="mark"/>
         <result column="city" jdbcType="VARCHAR" property="city"/>
         <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="background" jdbcType="LONGVARCHAR" property="background"/>
         <result column="phone" jdbcType="VARCHAR" property="phone"/>
         <result column="level" jdbcType="INTEGER" property="level"/>
         <result column="img_urls" jdbcType="VARCHAR" property="imgUrls"/>
@@ -34,8 +35,8 @@
         SELECT count(id) from comment where comment_type=6 and comment_id=#{id}
     </select>
 
-    <select id="queryVenue" parameterType="com.zyx.model.Venue" resultMap="venuedto">
-        select id,name,description,type,city,mark,level,address,phone,img_urls,longitude,latitude from t_venue where del=0
+    <select id="queryVenue" parameterType="com.zyx.parm.venue.VenueParam" resultMap="venuedto">
+        select id,name,description,type,city,mark,level,address,phone,img_urls,longitude,latitude,background from t_venue where del=0
         <if test="type != null and type != ''">
             and TYPE =#{type}
         </if>
@@ -49,12 +50,12 @@
             and name LIKE CONCAT('%',#{name},'%' )
         </if>
         ORDER BY create_time desc
-        <if test="pageNumber != null and page != null">
-            limit #{page}, #{pageNumber}
+        <if test="pageNumber != null and pageSize != null">
+            limit #{pageNumber}, #{pageSize}
         </if>
     </select>
 
-    <select id="selectCountVenue" resultType="java.lang.Integer" parameterType="com.zyx.model.Venue">
+    <select id="selectCountVenue" resultType="java.lang.Integer" parameterType="com.zyx.parm.venue.VenueParam">
         SELECT COUNT(id) FROM t_venue WHERE del=0
         <if test="type != null and type != ''">
             and TYPE =#{type}
@@ -107,6 +108,9 @@
             </if>
             <if test="phone != null and phone != ''">
                 phone = #{phone},
+            </if>
+            <if test="background != null and background != ''">
+                background = #{background},
             </if>
             <if test="level != null and level != ''">
                 level = #{level},

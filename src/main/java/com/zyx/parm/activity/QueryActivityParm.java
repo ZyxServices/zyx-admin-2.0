@@ -1,6 +1,9 @@
 package com.zyx.parm.activity;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
+
+import static org.bouncycastle.asn1.x500.style.RFC4519Style.title;
 
 /**
  * Created by Rainbow on 16-6-13.
@@ -19,6 +22,12 @@ public class QueryActivityParm {
     private Long endTime;
     private Integer pageNumber;
     private Integer page;
+    private Integer type;
+    private  String title;
+    private Integer activityType;
+    private Integer paymentType;
+    private Integer status;
+
 
     public Integer getCreateId() {
         return createId;
@@ -75,4 +84,24 @@ public class QueryActivityParm {
     public void setEndTime(Long endTime) {
         this.endTime = endTime;
     }
+
+    public Integer getType() { return type; }
+
+    public void setType(Integer type) { this.type = type; }
+
+    public String getTitle() { return title; }
+
+    public void setTitle(String title) { this.title = title; }
+
+    public Integer getActivityType() { return activityType; }
+
+    public void setActivityType(Integer activityType) { this.activityType = activityType; }
+
+    public Integer getPaymentType() { return paymentType; }
+
+    public void setPaymentType(Integer paymentType) { this.paymentType = paymentType; }
+
+    public Integer getStatus() { return status; }
+
+    public void setStatus(Integer status) { this.status = status; }
 }

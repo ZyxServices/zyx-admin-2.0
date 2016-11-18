@@ -4,6 +4,7 @@ import com.zyx.constants.Constants;
 import com.zyx.dto.SysMessageDto;
 import com.zyx.mapper.SysMessageMapper;
 import com.zyx.model.SysMessage;
+import com.zyx.parm.sysmessage.SysMessageParam;
 import com.zyx.service.AppUserService;
 import com.zyx.service.BaseServiceImpl;
 import com.zyx.service.sysmessage.SysMessageService;
@@ -34,10 +35,9 @@ public class SysMessageServiceImpl extends BaseServiceImpl<SysMessage> implement
     public Map<String, Object> insertSysMessage(SysMessage sysMessage) {
         sysMessage.setCreateTime(new Date().getTime());
         if(sysMessage.getPushType()==1){
-            sysMessage.setDel(0);
             sysMessage.setDone(1);
         }else {
-            sysMessage.setDel(0);
+            sysMessage.setPushTime(new Date().getTime());
             sysMessage.setDone(0);
         }
         int rst=sysMessageMapper.insertSysMessage(sysMessage);
@@ -90,11 +90,10 @@ public class SysMessageServiceImpl extends BaseServiceImpl<SysMessage> implement
     }
 
     @Override
-    public Map<String, Object> querySysMessage(SysMessage sysMessage) {
-        sysMessage.setPage(sysMessage.getPage()*sysMessage.getPageNumber());
-        sysMessage.setDel(0);
-        List<SysMessageDto> sysMessages = sysMessageMapper.querySysMessage(sysMessage);
-        int i = sysMessageMapper.selectCountSysMessage(sysMessage);
+    public Map<String, Object> querySysMessage(SysMessageParam sysMessageParam) {
+        sysMessageParam.setPageNumber(sysMessageParam.getPageNumber()*sysMessageParam.getPageSize());
+        List<SysMessageDto> sysMessages = sysMessageMapper.querySysMessage(sysMessageParam);
+        int i = sysMessageMapper.selectCountSysMessage(sysMessageParam);
         Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", sysMessages);
         map.put("total", i);
         return map;

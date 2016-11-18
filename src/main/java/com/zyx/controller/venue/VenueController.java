@@ -1,6 +1,7 @@
 package com.zyx.controller.venue;
 
 import com.zyx.model.Venue;
+import com.zyx.parm.venue.VenueParam;
 import com.zyx.service.venue.VenueService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -33,6 +34,8 @@ public class VenueController {
                                 @RequestParam(name = "type",required =true)Integer type,
                                 @ApiParam(name = "name",required = true, value = "场馆名称")
                                 @RequestParam(name = "name",required = true)String name,
+                                @ApiParam(name = "background",required = false, value = "开发背景")
+                                @RequestParam(name = "background",required = false)String background,
                                 @ApiParam(name = "level",required = true, value = "难度系数")
                                 @RequestParam(name = "level",required = true)Integer level,
                                 @ApiParam(name = "address",required = true, value = "场馆地址")
@@ -59,6 +62,7 @@ public class VenueController {
         venue.setLatitude(latitude);
         venue.setLongitude(longitude);
         venue.setMark(mark);
+        venue.setBackground(background);
         venue.setCity(city);
         venue.setAddress(address);
         venue.setPhone(phone);
@@ -86,6 +90,8 @@ public class VenueController {
                                @RequestParam(name ="id",required =true)Integer id,
                                @ApiParam(name = "name",required = true, value = "场馆名称")
                                @RequestParam(name = "name",required = true)String name,
+                               @ApiParam(name = "background",required = false, value = "开发背景")
+                               @RequestParam(name = "background",required = false)String background,
                                @ApiParam(name = "level",required = true, value = "难度系数、正整数")
                                @RequestParam(name = "level",required = true)Integer level,
                                @ApiParam(name = "address",required = true, value = "场馆地址")
@@ -116,6 +122,7 @@ public class VenueController {
         venue.setLongitude(longitude);
         venue.setMark(mark);
         venue.setCity(city);
+        venue.setBackground(background);
         venue.setAddress(address);
         venue.setPhone(phone);
         venue.setLevel(level);
@@ -140,14 +147,14 @@ public class VenueController {
                                    @ApiParam(name = "name", value = "场馆名称")
                                    @RequestParam(name="name",required =false)String name){
         AbstractView jsonView = new MappingJackson2JsonView();
-        Venue venue = new Venue();
-        venue.setPage(page);
-        venue.setPageNumber(pageNumber);
-        venue.setType(type);
-        venue.setCity(city);
-        venue.setMark(mark);
-        venue.setName(name);
-        Map<String,Object> map = venueService.queryVenue(venue);
+        VenueParam venueParam = new VenueParam();
+        venueParam.setPageSize(pageNumber);
+        venueParam.setPageNumber(page);
+        venueParam.setType(type);
+        venueParam.setCity(city);
+        venueParam.setMark(mark);
+        venueParam.setName(name);
+        Map<String,Object> map = venueService.queryVenue(venueParam);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }

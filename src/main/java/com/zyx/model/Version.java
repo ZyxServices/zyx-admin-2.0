@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * 版本控制
  */
 @Table(name = "version")
-public class Version extends BaseModel{
+public class Version{
     private  Integer id;
     /**
      * 版本号
@@ -45,6 +45,11 @@ public class Version extends BaseModel{
     @Column(name = "system_type")
     private Integer systemType;
 
+    /**
+     * 删除（0，正常  1，删除）
+     */
+    private Integer del;
+
     public Integer getId() { return id; }
 
     public void setId(Integer id) { this.id = id; }
@@ -72,4 +77,8 @@ public class Version extends BaseModel{
     public Integer getSystemType() { return systemType; }
 
     public void setSystemType(Integer systemType) { this.systemType = systemType; }
+
+    public Integer getDel() { return del; }
+
+    public void setDel(Integer del) { this.del = del; }
 }

@@ -35,7 +35,7 @@
     </resultMap>
 
 
-    <select id="queryActivity" parameterType="com.zyx.model.Activity" resultMap="activitydto">
+    <select id="queryActivity" parameterType="com.zyx.parm.activity.QueryActivityParm" resultMap="activitydto">
         select * from activity where 1=1
         <if test="title != null and title != ''">
             and title LIKE CONCAT('%',${title},'%' )
@@ -84,7 +84,7 @@
     </select>
 
 
-    <select id="selectCountActivity" resultType="java.lang.Integer" parameterType="com.zyx.model.Activity">
+    <select id="selectCountActivity" resultType="java.lang.Integer" parameterType="com.zyx.parm.QueryAppUserParam">
         SELECT COUNT(id) FROM activity WHERE  del = 0
         <if test="title != null and title != ''">
             and title LIKE CONCAT('%',${title},'%' )

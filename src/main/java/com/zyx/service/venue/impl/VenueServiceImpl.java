@@ -4,6 +4,8 @@ import com.zyx.constants.Constants;
 import com.zyx.dto.VenueDto;
 import com.zyx.mapper.VenueMapper;
 import com.zyx.model.Venue;
+import com.zyx.parm.venue.VenueParam;
+import com.zyx.parm.version.VersionParam;
 import com.zyx.service.BaseServiceImpl;
 import com.zyx.service.venue.VenueService;
 import com.zyx.utils.MapUtils;
@@ -71,10 +73,10 @@ public class VenueServiceImpl extends BaseServiceImpl<Venue> implements VenueSer
     }
 
     @Override
-    public Map<String, Object> queryVenue(Venue venue) {
-        venue.setPage(venue.getPage()*venue.getPageNumber());
-        List<VenueDto> venues = venueMapper.queryVenue(venue);
-        int i = venueMapper.selectCountVenue(venue);
+    public Map<String, Object> queryVenue(VenueParam venueParam) {
+        venueParam.setPageNumber(venueParam.getPageNumber()*venueParam.getPageSize());
+        List<VenueDto> venues = venueMapper.queryVenue(venueParam);
+        int i = venueMapper.selectCountVenue(venueParam);
         Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", venues);
         map.put("total", i);
         return map;
