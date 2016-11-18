@@ -84,7 +84,7 @@ var operateEvent = {
                 $.ajax({
                     url: "/v1/CourseLabel/delCourseLabel?id=" + row.id,
                     async: false,
-                    type: "delete",
+                    type: "DELETE",
                     success: function (result) {
                         if (result.state && result.state == 200) {
                             $('#Course_table').bootstrapTable('remove', {
@@ -131,7 +131,8 @@ $("#confirmCmd").click(function () {
                     confirm: false,
                     template: "创建成功"
                 });
-                $('#labelcreate').bootstrapTable('refresh');
+                $("#addGradesModal").modal('hide');
+                $('#Course_table').bootstrapTable('refresh');
             } else {
                 $.Popup({
                     confirm: false,

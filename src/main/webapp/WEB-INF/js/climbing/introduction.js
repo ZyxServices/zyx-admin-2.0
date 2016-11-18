@@ -246,8 +246,8 @@ var operateEvent = {
                 $.ajax({
                     url: "/v1/course/delCourse?id=" + row.id,
                     async: false,
-                    type: "delete",
-                    success: function (data) {
+                    type: "POST",
+                    success: function (result) {
                         if (result.state && result.state == 200) {
                             $('#Course_table').bootstrapTable('remove', {
                                 field: 'id',

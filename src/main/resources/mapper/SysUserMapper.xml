@@ -10,15 +10,15 @@
         <result column="USERNAME" jdbcType="VARCHAR" property="username"/>
         <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
         <result column="NAME" jdbcType="VARCHAR" property="name"/>
-        <result column="RIGHTS" jdbcType="VARCHAR" property="rights"/>
+        <!--<result column="RIGHTS" jdbcType="VARCHAR" property="rights"/>-->
         <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId"/>
         <result column="LAST_LOGIN" jdbcType="VARCHAR" property="lastLogin"/>
         <result column="IP" jdbcType="VARCHAR" property="ip"/>
         <result column="STATUS" jdbcType="VARCHAR" property="status"/>
         <result column="BZ" jdbcType="VARCHAR" property="bz"/>
-        <result column="SKIN" jdbcType="VARCHAR" property="skin"/>
+        <!--<result column="SKIN" jdbcType="VARCHAR" property="skin"/>-->
         <result column="EMAIL" jdbcType="VARCHAR" property="email"/>
-        <result column="NUMBER" jdbcType="VARCHAR" property="number"/>
+        <!--<result column="NUMBER" jdbcType="VARCHAR" property="number"/>-->
         <result column="PHONE" jdbcType="VARCHAR" property="phone"/>
     </resultMap>
 
@@ -34,8 +34,12 @@
 
     <select id="querySystemUserList" parameterType="com.zyx.parm.sys.QuerySystemUserParam"
             resultMap="SystemUserListResultMap">
-        SELECT * FROM SYS_USER where (NAME LIKE CONCAT('%','${searchText}','%' ) or USERNAME LIKE
-        CONCAT('%','${searchText}','%' ))
+        SELECT * FROM SYS_USER where 1=1
+        <if test="searchText !=null and searchText !=''">
+            AND (NAME LIKE CONCAT('%','${searchText}','%' ) or USERNAME LIKE
+            CONCAT('%','${searchText}','%' ))
+        </if>
+
         <if test="sortName != null and sortName != ''">
             ORDER BY #{sortName} #{sortOrder}
         </if>
@@ -46,16 +50,20 @@
 
     <select id="querySystemUserListCount" parameterType="com.zyx.parm.sys.QuerySystemUserParam"
             resultType="int">
-        SELECT count(*) FROM SYS_USER where (NAME LIKE CONCAT('%','${searchText}','%' ) or USERNAME LIKE
-        CONCAT('%','${searchText}','%' ))
+        SELECT count(*) FROM SYS_USER where 1=1
+        <if test="searchText !=null and searchText !=''">
+            AND (NAME LIKE CONCAT('%','${searchText}','%' ) or USERNAME LIKE
+            CONCAT('%','${searchText}','%' ))
+        </if>
     </select>
 
     <select id="selectRoleBySysUser" parameterType="String" resultType="com.zyx.dto.SystemRoleListDto">
-        SELECT * FROM SYS_ROLE where ROLE_ID = #{id}
+        SELECT * FROM SYS_ROLE where id = #{id}
     </select>
 
+
     <update id="editSysRole" parameterType="com.zyx.parm.sys.CreateSystemUserParam">
-        update SYS_USER set ROLE_ID = #{id} where id = #{id}
+        update SYS_USER set ROLE_ID = #{roleId} where id = #{id}
     </update>
 
 </mapper>
