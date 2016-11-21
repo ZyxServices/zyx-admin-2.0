@@ -126,7 +126,7 @@
                                     <input id="imgUrls" type="text" class="hide" name="imgUrls">
                                     <span class="help-inline required">*</span>
                                 </div>
-                                <div style="margin-top: 10px" id="v_imagesWrap" class="showImg">
+                                <div style="margin-top: 10px;"  id="v_imagesWrap" class="showImg">
                                     <img id="images" src="">
                                 </div>
                             </div>

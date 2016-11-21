@@ -37,7 +37,7 @@ function initTable(city) {
                 pageNumber: params.pageSize,
                 searchText: params.searchText,
                 sortName: params.sortName,
-                city:city
+                city: city
                 //sortOrder: params.sortOrder
             };
             return param;
@@ -53,7 +53,7 @@ function initTable(city) {
             {field: '', checkbox: true, align: 'center', valign: 'middle'},
             {field: 'id', title: 'id', align: 'center', valign: 'middle'},
             {field: 'name', title: '场馆名称'},
-            {field: 'type', title: '类型', sortable: true,formatter: cityFormatter},
+            {field: 'type', title: '类型', sortable: true, formatter: cityFormatter},
             {field: 'city', title: '所属城市'},
             {field: 'longitude', title: '经度'},
             {field: 'latitude', title: '纬度'},
@@ -167,33 +167,35 @@ function seeUrlFormatter(value, row, index) {
     ].join('');
 }
 //城市类型
-function cityFormatter(value, row, index){
-    return row.type==1?'室内':'室外';
+function cityFormatter(value, row, index) {
+    return row.type == 1 ? '室内' : '室外';
 }
 //列表操作事件
 var operateEventssssss = {
-     'click .preview': function (e, value, row, index) {
-         typeInfo()
-         $("#createVenue")[0].reset();
-         $('#v_name').val(row.name).attr("disabled", "disabled")
-         $('#v_title').val(row.level).attr("disabled", "disabled")
-         $('#ven_des').html(row.description).attr("disabled", "disabled");
-         //$('#activity-summernote').val(row.description)
-         $('#v_address').val(row.address).attr("disabled", "disabled")
-         $('#v_longitude').val(row.longitude).attr("disabled", "disabled")
-         $('#v_latitude').val(row.latitude).attr("disabled", "disabled")
-         $('#v_phone').val(row.phone).attr("disabled", "disabled")
-         $('#v_city').val(row.city).attr("disabled", "disabled")
-         $('#v_type').val(row.type).attr("disabled", "disabled")
-         $('#pageTitle').html('查看场馆信息')
-         $("#czs").hide()
-         $("#openMap").hide()
-         $("#imgUrls").val(row.imgUrls).attr("disabled", "disabled")
-         $("#createVenue").append("<input name='id' class='hide' value='" + row.id + "'>")
-         $("#v_imgtitle").html("场馆封面图")
-         $("#v_img").empty()
-         $('#v_img').append('<img src=' + 'http://image.tiyujia.com/' +row.imgUrls + '>')
-     },
+    'click .preview': function (e, value, row, index) {
+        typeInfo()
+        $("#createVenue")[0].reset();
+        $('#v_name').val(row.name).attr("disabled", "disabled")
+        $('#v_title').val(row.level).attr("disabled", "disabled")
+        $('#ven_des').html(row.description).attr("disabled", "disabled");
+        //$('#activity-summernote').val(row.description)
+        $('#v_address').val(row.address).attr("disabled", "disabled")
+        $('#v_longitude').val(row.longitude).attr("disabled", "disabled")
+        $('#v_latitude').val(row.latitude).attr("disabled", "disabled")
+        $('#v_phone').val(row.phone).attr("disabled", "disabled")
+        $('#v_city').val(row.city).attr("disabled", "disabled")
+        $('#v_type').val(row.type).attr("disabled", "disabled")
+        $('#pageTitle').html('查看场馆信息')
+        $("#czs").hide()
+        $("#openMap").hide()
+        $("#imgUrls").val(row.imgUrls).attr("disabled", "disabled")
+        $("#createVenue").append("<input name='id' class='hide' value='" + row.id + "'>")
+        $("#v_imgtitle").html("场馆封面图")
+        $("#v_img").empty()
+        if (row.imgUrls != '') {
+            $('#v_img').append('<img style="max-width: 333px" src=' + 'http://image.tiyujia.com/' + row.imgUrls + '>')
+        }
+    },
     'click .edit': function (e, value, row, index) {
         typeInfo()
         $("#createVenue")[0].reset();
@@ -211,11 +213,13 @@ var operateEventssssss = {
         $("#czs").attr("onclick", "operateEventssssss.createVenue(this, 1)");
         $("#imgUrls").val(row.imgUrls)
         $("#createVenue").append("<input name='id' class='hide' value='" + row.id + "'>")
-         $("#v_imagesWrap").append('<img src=' + 'http://image.tiyujia.com/' +row.imgUrls + '>')
+        if (row.imgUrls != '') {
+            $("#v_imagesWrap").append('<img src=' + 'http://image.tiyujia.com/' + row.imgUrls + '>')
+        }
     },
     'click .addLine': function (e, value, row, index) {
         queryLine('/v2/sportInfo/querySportInfo?venueId=' + row.id + '');
-        $("#lineForm").append('<input type="text" class="hide" id="venueId" name="venueId" value="'+row.id+'">')
+        $("#lineForm").append('<input type="text" class="hide" id="venueId" name="venueId" value="' + row.id + '">')
         $("#addLine").hide();
         $("#venuesList").hide();
         $("#lineList").show();
@@ -229,7 +233,7 @@ var operateEventssssss = {
         var delUrl = '/v2/sportInfo/del?id=' + row.id;
         ajaxPlugins.remove(delUrl, 'lineTabel', 'post')
     },
-    'click .lineEdit':function(e, value, row, index) {
+    'click .lineEdit': function (e, value, row, index) {
         $('#addLineModal').modal('show')
         $('#addLineModal h3').html('编辑线路')
         $("#lineForm input[name='path']").val(row.path)
@@ -242,24 +246,24 @@ var operateEventssssss = {
         $("#lineForm input[name='id']").remove()
         $("#lineForm").append("<input name='id' type='hidden' value='" + row.id + "'>")
         $("#lineUrl").val(row.url)
-        $('#sureLine').attr('onclick','operateEventssssss.submitLineForm(this, 1)')
+        $('#sureLine').attr('onclick', 'operateEventssssss.submitLineForm(this, 1)')
     },
     createVenue: function (obj, eidt) {
         var url;
         eidt == true ? url = '/v2/venue/update' : url = '/v2/venue/insert'
-        if ($("#imgUrls").val() == '') {
-            uploadImg('lefile','imgUrls',function(){
+        if ($("#lefile").val() != '') {
+            uploadImg('lefile', 'imgUrls', function () {
                 operateEventssssss.submitVenuesForm(url)
             })
         } else {
             operateEventssssss.submitVenuesForm(url)
         }
     },
-    submitLineForm:function(obj, eidt){
+    submitLineForm: function (obj, eidt) {
         var url;
         eidt == true ? url = '/v2/sportInfo/update' : url = '/v2/sportInfo/insert'
         if ($("#lineUrl").val() == '') {
-            uploadImg('lineImage','lineUrl',function(){
+            uploadImg('lineImage', 'lineUrl', function () {
                 operateEventssssss.lineForm(url)
             })
         } else {
@@ -291,7 +295,7 @@ var operateEventssssss = {
             }
         });
     },
-    lineForm:function(url){
+    lineForm: function (url) {
         $.ajax({
             url: url,//提交地址
             data: $("#lineForm").serialize(),//将表单数据序列化
@@ -320,10 +324,10 @@ var operateEventssssss = {
             }
         });
     },
-    addLineModal:function(){
-        $('#sureLine').attr('onclick','operateEventssssss.submitLineForm()')
+    addLineModal: function () {
+        $('#sureLine').attr('onclick', 'operateEventssssss.submitLineForm()')
         $('#addLineModal').modal('show')
-        var venueId=$('#venueId').val();
+        var venueId = $('#venueId').val();
         $('#lineForm')[0].reset()
         $('#venueId').val(venueId);
     }
@@ -342,9 +346,9 @@ $(function () {
         type: 'get',
         dataType: 'json',
         success: function (result) {
-            result.data.forEach(function(e){
-                $('#v_city').append('<option value="'+ e.cityName+'">'+ e.cityName+'</option>')
-                $('#city').append('<option value="'+ e.cityName+'">'+ e.cityName+'</option>')
+            result.data.forEach(function (e) {
+                $('#v_city').append('<option value="' + e.cityName + '">' + e.cityName + '</option>')
+                $('#city').append('<option value="' + e.cityName + '">' + e.cityName + '</option>')
             })
         }
     })
@@ -352,26 +356,27 @@ $(function () {
     //    $("#v_imagesWrap").remove()
     //})
     function getObjectURL(file) {
-        var url = null ;
-        if (window.createObjectURL!=undefined) { // basic
-            url = window.createObjectURL(file) ;
-        } else if (window.URL!=undefined) { // mozilla(firefox)
-            url = window.URL.createObjectURL(file) ;
-        } else if (window.webkitURL!=undefined) { // webkit or chrome
-            url = window.webkitURL.createObjectURL(file) ;
+        var url = null;
+        if (window.createObjectURL != undefined) { // basic
+            url = window.createObjectURL(file);
+        } else if (window.URL != undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
         }
-        return url ;
+        return url;
     }
-    $("#lefile").change(function(){
+
+    $("#lefile").change(function () {
         $("#v_imagesWrap").empty()
         var objUrl;
-        if(navigator.userAgent.indexOf("MSIE")>0){
+        if (navigator.userAgent.indexOf("MSIE") > 0) {
             objUrl = this.value;
-        }else
+        } else
             objUrl = getObjectURL(this.files[0]);
-        $('#v_imagesWrap').append('<div style="max-width: 350px"><img src="'+objUrl+'"></div>')
-        console.log(objUrl) ;
-    }) ;
+        $('#v_imagesWrap').append('<div style="max-width: 350px"><img src="' + objUrl + '"></div>')
+        console.log(objUrl);
+    });
     $(window).resize(function () {
         $('#dynamic_table').bootstrapTable('resetView');
     });
@@ -411,7 +416,7 @@ $(function () {
     });
     initTable();
 })
-function typeInfo(){
+function typeInfo() {
     $("#addLine").hide();
     $("#venuesList").hide();
     $("#createModify").show();
