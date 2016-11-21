@@ -309,6 +309,8 @@ public interface Constants {
 
      put("delDeval","删除首推");
      put("cancel","显示、撤销首推");
+     put("updateNotNull","更新首推");
+
 
      put("insertLevel","新增等级");
      put("delLevel","删除等级");
