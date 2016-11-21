@@ -1,23 +1,20 @@
-package com.zyx.model;
+package com.zyx.dto;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
- * Created by zjx on 2016/11/9.
+ * Created by zjx on 2016/11/18.
  *
  * @author zhaojiaxing
  * @version V2.0
  *          Copyright (c)2016 tyj-版权所有
- *
- *          教程攻略实体类
  */
-@Table(name = "t_course")
-public class Course{
+public class CourseDto implements Serializable{
+
     /**
      * 表id
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /**
@@ -58,7 +55,7 @@ public class Course{
     /**
      * 是否删除：0正常；1删除
      */
-    private int del;
+    private Integer del;
 
     /**
      * 是否屏蔽：0正常；1屏蔽
@@ -71,33 +68,26 @@ public class Course{
     @Column(name="user_id")
     private Integer userId;
 
-
     /**
      * 评论数
      */
-//    @Transient
-//    private int commentCount;
+    private int commentCount;
 
     /**
      * 点赞数
      */
-//    @Transient
-//    private int zanCount;
+    private int zanCount;
 
     /**
      * 标签名字
      */
-//    @Transient
-//    private String courseLabelName;
+    private String courseLabelName;
 
     /**
      * 推荐状态：0未推荐、1推荐
      */
     @Column(name="recommend_type")
     private int recommendType;
-
-
-    /***********************   get/set方法  **********************************************/
 
     public Integer getId() {
         return id;
@@ -155,6 +145,14 @@ public class Course{
         this.createTime = createTime;
     }
 
+    public Integer getDel() {
+        return del;
+    }
+
+    public void setDel(Integer del) {
+        this.del = del;
+    }
+
     public Integer getMask() {
         return mask;
     }
@@ -171,37 +169,29 @@ public class Course{
         this.userId = userId;
     }
 
-    public int getDel() {
-        return del;
+    public int getCommentCount() {
+        return commentCount;
     }
 
-    public void setDel(int del) {
-        this.del = del;
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
     }
 
-    //    public int getCommentCount() {
-//        return commentCount;
-//    }
-//
-//    public void setCommentCount(int commentCount) {
-//        this.commentCount = commentCount;
-//    }
-//
-//    public int getZanCount() {
-//        return zanCount;
-//    }
-//
-//    public void setZanCount(int zanCount) {
-//        this.zanCount = zanCount;
-//    }
-//
-//    public String getCourseLabelName() {
-//        return courseLabelName;
-//    }
-//
-//    public void setCourseLabelName(String courseLabelName) {
-//        this.courseLabelName = courseLabelName;
-//    }
+    public int getZanCount() {
+        return zanCount;
+    }
+
+    public void setZanCount(int zanCount) {
+        this.zanCount = zanCount;
+    }
+
+    public String getCourseLabelName() {
+        return courseLabelName;
+    }
+
+    public void setCourseLabelName(String courseLabelName) {
+        this.courseLabelName = courseLabelName;
+    }
 
     public int getRecommendType() {
         return recommendType;
@@ -210,8 +200,4 @@ public class Course{
     public void setRecommendType(int recommendType) {
         this.recommendType = recommendType;
     }
-
-    /**********************   toString  ***********************/
-
-
 }

@@ -1,6 +1,7 @@
 package com.zyx.mapper;
 
 import com.zyx.model.Course;
+import com.zyx.parm.course.QueryCourseParam;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -23,14 +24,14 @@ public interface CourseMapper extends Mapper<Course> {
      * @param course
      * @return 教程攻略集合
      */
-    List<Course> queryCourse(Course course);
+    List<Course> queryCourse(QueryCourseParam course);
 
     /**
      * 根据标题进行模糊查询
      * @param course 教程对象
      * @return 教程集合
      */
-    List<Course> queryByTitle(Course course);
+    List<Course> queryByTitle(QueryCourseParam course);
 
     /**
      * 编辑教程攻略
@@ -43,14 +44,14 @@ public interface CourseMapper extends Mapper<Course> {
      * 记录查询数量
      * @return
      */
-    int selectCountCourse(Course course);
+    int selectCountCourse(QueryCourseParam course);
 
     /**
      * 记录按照标题搜素的查询数量
      * @param course
      * @return
      */
-    int selectCountTitle(Course course);
+    int selectCountTitle(QueryCourseParam course);
 
 
 }

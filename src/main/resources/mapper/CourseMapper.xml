@@ -13,10 +13,13 @@
         <result column="label_id" jdbcType="VARCHAR" property="labelId"/>
         <result column="create_time" jdbcType="BIGINT" property="createTime"/>
 
+    </resultMap>
+    
+    <resultMap id="courseDto" type="com.zyx.dto.CourseDto" extends="course">
+
         <association property="zanCount" column="id" select="zanCountsSelect"/>
         <association property="commentCount" column="id" select="commentCountsSelect"/>
         <association property="courseLabelName" column="label_id" select="courseLabelSelect"/>
-
     </resultMap>
 
     <select id="zanCountsSelect" parameterType="int" resultType="int">
@@ -32,7 +35,8 @@
     </select>
 
 
-    <select id="queryCourse" parameterType="com.zyx.model.Course" resultMap="course">
+
+    <select id="queryCourse" parameterType="com.zyx.parm.course.QueryCourseParam" resultMap="courseDto">
         select * from t_course where 1=1
         <if test="labelId != null and labelId != ''">
             and label_id=#{labelId}
@@ -42,13 +46,13 @@
         </if>
         AND del = 0
         ORDER BY create_time desc
-        <if test="pageNumber != null and page != null">
-            limit #{page}, #{pageNumber}
+        <if test="pageNumber != null and pageSize != null">
+            limit #{pageNumber}, #{pageSize}
         </if>
     </select>
 
 
-    <select id="queryByTitle" parameterType="com.zyx.model.Course" resultMap="course">
+    <select id="queryByTitle" parameterType="com.zyx.parm.course.QueryCourseParam" resultMap="courseDto">
         SELECT * FROM  t_course where 1=1
         <if test="title !=null and title !=''">
             AND title like '%${title}%'
@@ -56,13 +60,13 @@
 
         AND del = 0
         ORDER BY create_time desc
-        <if test="pageNumber != null and page != null">
-            limit #{page}, #{pageNumber}
+        <if test="pageNumber != null and pageSize != null">
+            limit #{pageNumber}, #{pageSize}
         </if>
 
     </select>
 
-    <select id="selectCountTitle" resultType="java.lang.Integer" parameterType="com.zyx.model.Course">
+    <select id="selectCountTitle" resultType="java.lang.Integer" parameterType="com.zyx.parm.course.QueryCourseParam">
         SELECT COUNT(id) from t_course where 1=1
         <if test="title !=null and title !=''">
             AND title like '%${title}%'
@@ -116,7 +120,7 @@
         SELECT NOT ISNULL(id) as isDeva FROM devaluation WHERE model = 8 AND model_id = #{id}
     </select>
 
-    <select id="selectCountCourse" resultType="java.lang.Integer" parameterType="com.zyx.model.Course">
+    <select id="selectCountCourse" resultType="java.lang.Integer" parameterType="com.zyx.parm.course.QueryCourseParam">
         SELECT COUNT(id) from t_course where 1=1
         <if test="labelId != null and labelId != ''">
             and label_id=#{labelId}

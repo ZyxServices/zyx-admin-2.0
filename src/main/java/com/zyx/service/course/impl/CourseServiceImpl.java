@@ -1,8 +1,10 @@
 package com.zyx.service.course.impl;
 
 import com.zyx.constants.Constants;
+import com.zyx.mapper.CourseLabelMapper;
 import com.zyx.mapper.CourseMapper;
 import com.zyx.model.Course;
+import com.zyx.parm.course.QueryCourseParam;
 import com.zyx.service.BaseServiceImpl;
 import com.zyx.service.course.CourseService;
 import com.zyx.utils.MapUtils;
@@ -28,6 +30,9 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
     @Resource
     private CourseMapper courseMapper;
 
+    @Resource
+    private CourseLabelMapper courseLabelMapper;
+
     public CourseServiceImpl( ) {
         super(Course.class);
     }
@@ -41,10 +46,14 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
     public Map<String, Object> insertCourse(Course course) {
         if(course.getUserId()!=null && course.getContent()!=null && course.getCourseType()!=null
                 && course.getImgUrl()!=null && course.getTitle()!=null){
+            if(courseLabelMapper.selectByPrimaryKey(course.getLabelId())==null){
+                return MapUtils.buildErrorMap(Constants.PARAM_ILIGAL, "该标签不存在");
+            }
             course.setDel(0);
             course.setMask(0);
             course.setCreateTime(new Date().getTime());
             course.setRecommendType(0);
+
 
             int insert = courseMapper.insert(course);
             if (insert > 0) {
@@ -67,21 +76,21 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
      */
     @Override
     public Map<String, Object> queryCourse(Integer label, String courseType,int page, int pageNumber) {
-        Course course = new Course();
-        course.setLabelId(label);
+        QueryCourseParam param = new QueryCourseParam();
+        param.setLabelId(label);
         if(courseType!=null && courseType!=""){
             if(courseType.equals("图文")){
-                course.setCourseType(0);
+                param.setCourseType("0");
             }else if(courseType.equals("视频")){
-                course.setCourseType(1);
+                param.setCourseType("1");
             }else {
-                MapUtils.buildErrorMap(Constants.PARAM_MISS, "参数缺失");
+                MapUtils.buildErrorMap(Constants.PARAM_MISS, "参数错误");
             }
         }
-        course.setPage((page-1)*pageNumber);
-        course.setPageNumber(pageNumber);
-        List<Course> courses = courseMapper.queryCourse(course);
-        int i = courseMapper.selectCountCourse(course);
+        param.setPageSize(pageNumber);
+        param.setPageNumber((page-1)*pageNumber);
+        List<Course> courses = courseMapper.queryCourse(param);
+        int i = courseMapper.selectCountCourse(param);
         if(courses !=null && courses.size() > 0){
             Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", courses);
             map.put("total", i);
@@ -99,10 +108,10 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
     @Override
     public Map<String, Object> queryByTitle(String title) {
         if(title!=null) {
-            Course course = new Course();
-            course.setTitle(title);
-            List<Course> courses = courseMapper.queryByTitle(course);
-            int i = courseMapper.selectCountTitle(course);
+            QueryCourseParam param = new QueryCourseParam();
+            param.setTitle(title);
+            List<Course> courses = courseMapper.queryByTitle(param);
+            int i = courseMapper.selectCountTitle(param);
             if (courses != null && courses.size() > 0) {
                 Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", courses);
                 map.put("total", i);
@@ -123,6 +132,9 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
     @Override
     public Map<String, Object> updateCourse(Course course) {
         if(course!=null){
+            if(courseLabelMapper.selectByPrimaryKey(course.getLabelId())==null){
+                return MapUtils.buildErrorMap(Constants.PARAM_ILIGAL, "该标签不存在");
+            }
             int i = courseMapper.updateCourse(course);
             if (i > 0) {
                 return MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", "");
@@ -191,6 +203,12 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
         }
     }
 
+    /**
+     * 教程推荐
+     * @param id
+     * @param recommendType
+     * @return
+     */
     @Override
     public Map<String, Object> recommendCourse(int id, int recommendType) {
         if (recommendType > -1 && recommendType < 2 && id > 0) {
@@ -201,7 +219,7 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
             if (i > 0) {
                 return MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", "");
             } else {
-                return MapUtils.buildErrorMap(Constants.DATA_UPDATE_FAILED, "数据屏蔽失败");
+                return MapUtils.buildErrorMap(Constants.DATA_UPDATE_FAILED, "教程推荐失败");
             }
         } else {
             return MapUtils.buildErrorMap(Constants.PARAM_MISS, "参数有误");

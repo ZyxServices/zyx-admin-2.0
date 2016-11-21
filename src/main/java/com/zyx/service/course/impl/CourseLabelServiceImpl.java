@@ -5,6 +5,7 @@ import com.zyx.mapper.CourseLabelMapper;
 import com.zyx.mapper.CourseMapper;
 import com.zyx.model.Course;
 import com.zyx.model.CourseLabel;
+import com.zyx.parm.course.QueryCourseParam;
 import com.zyx.service.BaseServiceImpl;
 import com.zyx.service.course.CourseLabelService;
 import com.zyx.utils.MapUtils;
@@ -65,9 +66,9 @@ public class CourseLabelServiceImpl extends BaseServiceImpl<CourseLabel> impleme
     @Override
     public Map<String, Object> delCourseLabel(Integer courseLabelId) {
         if(courseLabelId!=null){
-            Course course = new Course();
-            course.setLabelId(courseLabelId);
-            List<Course> list =  courseMapper.queryCourse(course);
+            QueryCourseParam param = new QueryCourseParam();
+            param.setLabelId(courseLabelId);
+            List<Course> list =  courseMapper.queryCourse(param);
             if(list.size()==0){
                 int i = courseLabelMapper.deleteByPrimaryKey(courseLabelId);
                 if(i>0){

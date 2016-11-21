@@ -1,6 +1,7 @@
 package com.zyx.secure.realm;
 
 import com.zyx.jopo.UserPrincipal;
+import com.zyx.model.SysRole;
 import com.zyx.model.SysUser;
 import com.zyx.service.SysRoleService;
 import com.zyx.service.SysUserService;
@@ -48,13 +49,13 @@ public class StatelessRealm extends AuthorizingRealm {
             throw new AccountException();
         }
 
-//        SysRole role = sysRoleService.selectByRoleId(user.getRoleId());
+        SysRole role = sysRoleService.selectByRoleId(user.getRoleId());
 
-//        if (role == null) {
-//            throw new AccountException();
-//        }
+        if (role == null) {
+            throw new AccountException();
+        }
 
-//        userPrincipal.setMenuPerm(role.getMenuPerm());
+        userPrincipal.setMenuPerm(role.getMenuPerm());
 
         if (user.getUsername().equals("admin")) {
             userPrincipal.setPrincipType(ADMIN);

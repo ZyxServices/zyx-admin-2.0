@@ -49,11 +49,11 @@ public class SysRoleService {
         return sysRoleMapper.selectOne(sysRole);
     }
 
-//    public SysRole selectByRoleId(String roleId) {
-//        SysRole sysRole = new SysRole();
-//        sysRole.setRoleId(roleId);
-//        return sysRoleMapper.selectOne(sysRole);
-//    }
+    public SysRole selectByRoleId(String roleId) {
+        SysRole sysRole = new SysRole();
+        sysRole.setId(Integer.valueOf(roleId));
+        return sysRoleMapper.selectOne(sysRole);
+    }
 
     /**
      * 添加权限
