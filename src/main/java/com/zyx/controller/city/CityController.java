@@ -74,7 +74,7 @@ public class CityController {
         City city = new City();
        city.setId(id);
         city.setState(state);
-        Map<String,Object> map = cityService.updateState(city);
+        Map<String,Object> map = cityService.updateCity(city);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }

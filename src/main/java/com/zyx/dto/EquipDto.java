@@ -1,24 +1,22 @@
-package com.zyx.model;
+package com.zyx.dto;
 
-import javax.persistence.*;
+import com.zyx.model.vo.UserVo;
+
+import javax.persistence.Column;
+import java.io.Serializable;
 
 /**
- * Created by zjx on 2016/11/11.
+ * Created by zjx on 2016/11/21.
  *
  * @author zhaojiaxing
  * @version V2.0
  *          Copyright (c)2016 tyj-版权所有
- *
- *          装备贴实体类
  */
-@Table(name="equip")
-public class Equip{
+public class EquipDto implements Serializable{
 
     /**
      * 装备控id
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /**
@@ -43,11 +41,10 @@ public class Equip{
     @Column(name="account_id")
     private Integer accountId;
 
-//    /**
-//     * 发布人
-//     */
-//    @Transient
-//    private UserVo account;
+    /**
+     * 发布人
+     */
+    private UserVo account;
 
     /**
      * 标签id
@@ -55,11 +52,10 @@ public class Equip{
     @Column(name="label_id")
     private Integer labelId;
 
-//    /**
-//     * 标签名字
-//     */
-//    @Transient
-//    private String equipLabelName;
+    /**
+     * 标签名字
+     */
+    private String equipLabelName;
 
     /**
      * 是否屏蔽：0正常 1屏蔽
@@ -71,39 +67,26 @@ public class Equip{
      */
     private int del;
 
-//    /**
-//     * 评论数
-//     */
-//    @Transient
-//    private int commentCount;
+    /**
+     * 评论数
+     */
+    private int commentCount;
 
-//    /**
-//     * 点赞数
-//     */
-//    @Transient
-//    private int zanCount;
+    /**
+     * 点赞数
+     */
+    private int zanCount;
 
     /**
      * 帖子类型。0用户帖子；1官方帖子
      */
     private int equipType;
-//    /**
-//     * 评论对象集合
-//     */
-//    @Transient
-//    private List<Comment> commentList;
+    /**
+     * 评论对象集合
+     */
+    private CommentListDto commentList;
 
 
-
-    /***********************  get/set方法   *********************************/
-
-    public int getMask() {
-        return mask;
-    }
-
-    public void setMask(int mask) {
-        this.mask = mask;
-    }
 
     public Integer getId() {
         return id;
@@ -145,6 +128,14 @@ public class Equip{
         this.accountId = accountId;
     }
 
+    public UserVo getAccount() {
+        return account;
+    }
+
+    public void setAccount(UserVo account) {
+        this.account = account;
+    }
+
     public Integer getLabelId() {
         return labelId;
     }
@@ -153,21 +144,37 @@ public class Equip{
         this.labelId = labelId;
     }
 
-//    public int getCommentCount() {
-//        return commentCount;
-//    }
-//
-//    public void setCommentCount(int commentCount) {
-//        this.commentCount = commentCount;
-//    }
-//
-//    public int getZanCount() {
-//        return zanCount;
-//    }
-//
-//    public void setZanCount(int zanCount) {
-//        this.zanCount = zanCount;
-//    }
+    public String getEquipLabelName() {
+        return equipLabelName;
+    }
+
+    public void setEquipLabelName(String equipLabelName) {
+        this.equipLabelName = equipLabelName;
+    }
+
+    public int getMask() {
+        return mask;
+    }
+
+    public void setMask(int mask) {
+        this.mask = mask;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public int getZanCount() {
+        return zanCount;
+    }
+
+    public void setZanCount(int zanCount) {
+        this.zanCount = zanCount;
+    }
 
     public int getEquipType() {
         return equipType;
@@ -177,6 +184,14 @@ public class Equip{
         this.equipType = equipType;
     }
 
+    public CommentListDto getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(CommentListDto commentList) {
+        this.commentList = commentList;
+    }
+
     public int getDel() {
         return del;
     }
@@ -184,29 +199,4 @@ public class Equip{
     public void setDel(int del) {
         this.del = del;
     }
-
-    //
-//    public List<Comment> getCommentList() {
-//        return commentList;
-//    }
-//
-//    public void setCommentList(List<Comment> commentList) {
-//        this.commentList = commentList;
-//    }
-//
-//    public UserVo getAccount() {
-//        return account;
-//    }
-//
-//    public void setAccount(UserVo account) {
-//        this.account = account;
-//    }
-//
-//    public String getEquipLabelName() {
-//        return equipLabelName;
-//    }
-//
-//    public void setEquipLabelName(String equipLabelName) {
-//        this.equipLabelName = equipLabelName;
-//    }
 }

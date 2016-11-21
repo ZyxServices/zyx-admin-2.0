@@ -3,6 +3,7 @@ package com.zyx.service.equip.impl;
 import com.zyx.constants.Constants;
 import com.zyx.mapper.EquipMapper;
 import com.zyx.model.Equip;
+import com.zyx.parm.Equip.QueryEquipParam;
 import com.zyx.service.BaseServiceImpl;
 import com.zyx.service.equip.EquipService;
 import com.zyx.utils.MapUtils;
@@ -56,13 +57,13 @@ public class EquipServiceImpl extends BaseServiceImpl<Equip> implements EquipSer
 
     /**
      * 查询装备帖
-     * @param equip
+     * @param equipParam
      * @return
      */
     @Override
-    public Map<String, Object> queryEquip(Equip equip) {
-        List<Equip> equipList = equipMapper.queryEquip(equip);
-        int i = equipMapper.selectCountEquip(equip);
+    public Map<String, Object> queryEquip(QueryEquipParam equipParam) {
+        List<Equip> equipList = equipMapper.queryEquip(equipParam);
+        int i = equipMapper.selectCountEquip(equipParam);
         if(equipList!=null && equipList.size()>0){
             Map<String, Object> map =MapUtils.buildSuccessMap(Constants.SUCCESS,"查询成功",equipList);
             map.put("total",i);

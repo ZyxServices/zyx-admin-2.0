@@ -3,6 +3,7 @@ package com.zyx.controller.equip;
 import com.zyx.constants.Constants;
 import com.zyx.model.Equip;
 import com.zyx.model.SysUser;
+import com.zyx.parm.Equip.QueryEquipParam;
 import com.zyx.service.equip.EquipService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -69,13 +70,13 @@ public class EquipController {
                                     @RequestParam(name="pageNumber",required = true)Integer pageNumber){
 
         AbstractView jsonView = new MappingJackson2JsonView();
-        Equip equip = new Equip();
-        equip.setTitle(title);
-        equip.setEquipType(equipType);
-        equip.setPage((page-1)*pageNumber);
-        equip.setPageNumber(pageNumber);
+        QueryEquipParam param = new QueryEquipParam();
+        param.setTitle(title);
+        param.setEquipType(equipType);
+        param.setPageSize(pageNumber);
+        param.setPageNumber((page-1)*pageNumber);
 
-        Map<String,Object> map = equipService.queryEquip(equip);
+        Map<String,Object> map = equipService.queryEquip(param);
         jsonView.setAttributesMap(map);
 
         return new ModelAndView(jsonView);

@@ -3,9 +3,11 @@ package com.zyx.controller.sysUser;
 import com.zyx.constants.SysConstants;
 import com.zyx.jopo.ErrorResponseEntity;
 import com.zyx.model.SysUser;
+import com.zyx.parm.log.LogParam;
 import com.zyx.parm.sys.CreateSystemUserParam;
 import com.zyx.parm.sys.QuerySystemUserParam;
 import com.zyx.service.SysUserService;
+import com.zyx.service.log.LogService;
 import com.zyx.utils.CipherUtil;
 import com.zyx.utils.MapUtils;
 import io.swagger.annotations.ApiOperation;
@@ -14,7 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
@@ -32,6 +37,8 @@ public class SysUserController {
 
     @Autowired
     SysUserService sysUserService;
+    @Autowired
+    LogService logService;
 
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -98,14 +105,18 @@ public class SysUserController {
 
     @RequestMapping(value = "/queryOperation", method = RequestMethod.GET)
     @ApiOperation(value = "查询操作日志", notes = "查询操作日志")
-    public ModelAndView queryOperation(@RequestParam Integer id, @ApiParam(name="userId",required = true,value = "管理员的用户id")
-    @RequestParam String userId) {
+    public ModelAndView queryOperation(@ApiParam(name = "page",required = true,value = "页码 从1开始")@RequestParam(name = "page",required = true)Integer page,
+                                       @ApiParam(name = "pageNumber",required = true,value = "每页数量")@RequestParam(name = "pageNumber",required = true)Integer pageNumber,
+                                       @ApiParam(name="userId",required = true,value = "管理员的用户id")@RequestParam Integer userId) {
 
         AbstractView jsonView = new MappingJackson2JsonView();
-        Map<String, Object> map;
-
+        LogParam log = new LogParam();
+        log.setPageSize(pageNumber);
+        log.setPageNumber((page-1)*pageNumber);
+        log.setUserId(userId);
+        Map<String, Object> map = logService.queryLog(log);
 //        map = sysUserService.editSysRole(param);
-//        jsonView.setAttributesMap(map);
+        jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
 

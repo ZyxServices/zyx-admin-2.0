@@ -8,9 +8,18 @@ import com.zyx.parm.QueryParam;
 public class LogParam extends QueryParam{
     private Integer systemType;
 
+    private Integer userId;
+
 
     public Integer getSystemType() { return systemType; }
 
     public void setSystemType(Integer systemType) { this.systemType = systemType; }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 }

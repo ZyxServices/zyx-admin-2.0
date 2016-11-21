@@ -332,6 +332,49 @@ public interface Constants {
      put("updateVersion","更新版本信息");
      put("delVersion","删除版本信息");
 
+     put("insertCourse","发布教程");
+     put("updateCourse","编辑教程");
+     put("delCourse","删除教程");
+     put("maskCourse","屏蔽教程");
+     put("recommendCourse","推荐教程");
+
+     put("insertEquip","添加装备帖");
+     put("updateEquip","编辑装备帖");
+     put("delEquip","删除装备帖");
+     put("maskEquip","屏蔽装备帖");
+
+     put("setVisible","修改社区动态的状态");
+     put("edit","编辑社区动态");
+     put("createConcern","新增动态");
+
+     put("del","删除用户");
+     put("mask","屏蔽用户");
+     put("unMask","取消屏蔽用户");
+     put("insertAppUser","添加用户");
+     put("updateAppUser","修改用户");
+
+
+     put("deleteWithAdminRoleById","删除管理员");
+     put("insertSysUser","创建管理员");
+     put("editSysRole","编辑权限");
+
+     put("insertCourseLabel","添加教程标签");
+     put("delCourseLabel","删除教程标签");
+     put("updateState","设置教程标签启用或者禁用");
+
+     put("insertEquipLabel","添加装备控标签");
+     put("delEquipLabel","删除装备控标签");
+     put("updateEquipLabel","设置装备控标签启用或者禁用");
+
+     put("add","添加城市");
+     put("delCity","删除城市");
+     put("updateCity","设置城市标签启用或者禁用");
+
+
+
+
+
+
 
     }};
 }

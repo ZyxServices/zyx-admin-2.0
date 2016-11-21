@@ -25,6 +25,7 @@
 
   <select id="queryLog" parameterType="com.zyx.parm.log.LogParam" resultMap="logdto">
     SELECT  l.id,l.operation_desc,l.result,l.create_time,su.name as user_name from SYS_OPERATION_LOG l left join SYS_USER su ON l.user_id = su.id
+    WHERE l.user_id=#{userId}
     ORDER by l.create_time desc
     <if test="pageNumber != null and pageSize != null">
       limit #{pageNumber}, #{pageSize}

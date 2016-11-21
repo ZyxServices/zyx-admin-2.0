@@ -5,6 +5,7 @@ import com.zyx.mapper.EquipLabelMapper;
 import com.zyx.mapper.EquipMapper;
 import com.zyx.model.Equip;
 import com.zyx.model.EquipLabel;
+import com.zyx.parm.Equip.QueryEquipParam;
 import com.zyx.service.BaseServiceImpl;
 import com.zyx.service.equip.EquipLabelService;
 import com.zyx.utils.MapUtils;
@@ -61,7 +62,7 @@ public class EquipLabelServiceImpl extends BaseServiceImpl<EquipLabel> implement
     @Override
     public Map<String, Object> delEquipLabel(Integer equipLabelId) {
         if(equipLabelId!=null){
-            Equip equip = new Equip();
+            QueryEquipParam equip = new QueryEquipParam();
             equip.setLabelId(equipLabelId);
             List<Equip> equipList = equipMapper.queryEquip(equip);
             if(equipList.size()==0){
@@ -100,7 +101,7 @@ public class EquipLabelServiceImpl extends BaseServiceImpl<EquipLabel> implement
      * @return
      */
     @Override
-    public Map<String, Object> updateState(EquipLabel equipLabel) {
+    public Map<String, Object> updateEquipLabel(EquipLabel equipLabel) {
         if(equipLabel!=null){
             if(equipLabelMapper.selectByPrimaryKey(equipLabel.getId())==null){
                 return MapUtils.buildErrorMap(Constants.NO_DATA,"该标签不存在");

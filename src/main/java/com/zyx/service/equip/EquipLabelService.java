@@ -39,7 +39,7 @@ public interface EquipLabelService extends BaseService<EquipLabel>{
      * @param equipLabel
      * @return
      */
-    Map<String,Object> updateState(EquipLabel equipLabel);
+    Map<String,Object> updateEquipLabel(EquipLabel equipLabel);
 
     /**
      * 根据状态查询标签集合

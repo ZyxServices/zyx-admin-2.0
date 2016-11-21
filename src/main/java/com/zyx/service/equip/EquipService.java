@@ -1,6 +1,7 @@
 package com.zyx.service.equip;
 
 import com.zyx.model.Equip;
+import com.zyx.parm.Equip.QueryEquipParam;
 import com.zyx.service.BaseService;
 import java.util.Map;
 
@@ -22,10 +23,10 @@ public interface EquipService extends BaseService<Equip>{
 
     /**
      * 动态分页查询装备帖
-     * @param equip
+     * @param equipParam
      * @return
      */
-    Map<String,Object> queryEquip(Equip equip);
+    Map<String,Object> queryEquip(QueryEquipParam equipParam);
 
     /**
      * 编辑装备帖

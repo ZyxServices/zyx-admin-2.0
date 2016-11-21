@@ -108,7 +108,7 @@ public class CityServiceImpl  extends BaseServiceImpl<City> implements CityServi
      * @return
      */
     @Override
-    public Map<String, Object> updateState(City city) {
+    public Map<String, Object> updateCity(City city) {
         if(cityMapper.selectByPrimaryKey(city.getId())!=null){
             int i = cityMapper.updateState(city);
             if(i>0){

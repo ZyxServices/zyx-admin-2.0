@@ -47,5 +47,5 @@ public interface CityService extends BaseService<City> {
      * @param city
      * @return
      */
-    Map<String,Object> updateState(City city);
+    Map<String,Object> updateCity(City city);
 }

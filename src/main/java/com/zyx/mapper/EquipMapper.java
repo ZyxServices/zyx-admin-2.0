@@ -1,6 +1,7 @@
 package com.zyx.mapper;
 
 import com.zyx.model.Equip;
+import com.zyx.parm.Equip.QueryEquipParam;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -20,10 +21,10 @@ public interface EquipMapper extends Mapper<Equip> {
 
     /**
      * 动态分页查询装备贴
-     * @param equip 装备贴
+     * @param equipParam 装备贴
      * @return
      */
-    List<Equip> queryEquip(Equip equip);
+    List<Equip> queryEquip(QueryEquipParam equipParam);
 
 //    /**
 //     * 根据帖子类型查询帖子
@@ -43,7 +44,7 @@ public interface EquipMapper extends Mapper<Equip> {
      * 记录查询数量
      * @return
      */
-    int selectCountEquip( Equip equip);
+    int selectCountEquip( QueryEquipParam equipParam);
 
     /**
      * 添加装备控

@@ -83,7 +83,7 @@ public class EquipLabelController {
         EquipLabel equipLabel = new EquipLabel();
         equipLabel.setId(id);
         equipLabel.setState(state);
-        Map<String,Object> map = equipLabelService.updateState(equipLabel);
+        Map<String,Object> map = equipLabelService.updateEquipLabel(equipLabel);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
