@@ -81,6 +81,7 @@ $(function () {
         sidePagination: "server",
         method: "get",
         url: "/v1/role/list",
+        dataField: "data",
         queryParamsType: "undefined",
         queryParams: function queryParams(params) {   //设置查询参数
             var param = {
@@ -179,28 +180,13 @@ function beginCreate() {
         dataType: 'json',
         beforeSubmit: function () {
             return $("#roleCreateForm").data('bootstrapValidator').isValid();
-            /*$("#createButton").attr("disabled", true);
-             var phone = $("#roleCreateForm").find('#roleCreateName').val();
-             var password = $("#roleCreateForm").find('#roleCreateDesc').val();
-             var checked = true;
-             if (phone.replace(/\s+/g, "") == '') {
-             alert("请输入名称");
-             checked = false;
-             $("#createButton").attr("disabled", false);
-             return checked;
-             }
-
-             if (password.replace(/\s+/g, "") == '') {
-             alert("请输入描述");
-             checked = false;
-             $("#createButton").attr("disabled", false);
-             return checked;
-             }
-
-             return checked;*/
         },
         success: function (result) {
             if (result.state == 200) {
+                $.Popup({
+                    confirm: false,
+                    template: '创建成功'
+                });
                 backToRoles();
             } else {
                 if (result.state == 9001) {
@@ -225,29 +211,14 @@ function beginEdit() {
         dataType: 'json',
         beforeSubmit: function () {
             return $("#roleEditForm").data('bootstrapValidator').isValid();
-            /*$("#editButton").attr("disabled", true);
-             var phone = $("#roleEditForm").find('#roleEditName').val();
-             var password = $("#roleEditForm").find('#roleEditDesc').val();
-             var checked = true;
-             if (phone.replace(/\s+/g, "") == '') {
-             alert("请输入名称");
-             checked = false;
-             $("#editButton").attr("disabled", false);
-             return checked;
-             }
-
-             if (password.replace(/\s+/g, "") == '') {
-             alert("请输入描述");
-             checked = false;
-             $("#editButton").attr("disabled", false);
-             return checked;
-             }
-
-             return checked;*/
         },
         success: function (result) {
             $("#editButton").attr("disabled", false);
             if (result.state == 200) {
+                $.Popup({
+                    confirm: false,
+                    template: '修改成功'
+                });
                 backToRoles();
             } else {
                 if (result.state == 9001) {
