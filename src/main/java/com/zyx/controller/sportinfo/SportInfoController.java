@@ -35,8 +35,8 @@ public class SportInfoController {
                                @RequestParam(name = "score", required = true) Integer score,
                                @ApiParam(name = "path", required = true, value = "路线名称")
                                @RequestParam(name = "path", required = true) String path,
-                               @ApiParam(name = "url", required = true, value = "路线图")
-                               @RequestParam(name = "url", required = true) String url,
+                               @ApiParam(name = "url", required = false, value = "路线图")
+                               @RequestParam(name = "url", required = false) String url,
                                @ApiParam(name = "level", required = true, value = "难度等级")
                                @RequestParam(name = "level", required = true) String level,
                                @ApiParam(name = "pathType", required = true, value = "路线类型")
@@ -85,8 +85,8 @@ public class SportInfoController {
                                @RequestParam(name = "score", required = true) Integer score,
                                @ApiParam(name = "path", required = true, value = "路线名称")
                                @RequestParam(name = "path", required = true) String path,
-                               @ApiParam(name = "url", required = true, value = "路线图")
-                               @RequestParam(name = "url", required = true) String url,
+                               @ApiParam(name = "url", required = false, value = "路线图")
+                               @RequestParam(name = "url", required = false) String url,
                                @ApiParam(name = "level", required = true, value = "难度等级")
                                @RequestParam(name = "level", required = true) String level,
                                @ApiParam(name = "pathType", required = true, value = "路线类型")
