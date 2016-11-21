@@ -30,6 +30,7 @@ public class SportInfoServiceImpl extends BaseServiceImpl<SportInfo> implements 
     public Map<String, Object> insertSportInfo(SportInfo sportInfo) {
         if (sportInfo.getVenueId()!=null){
             sportInfo.setCreateTime(new Date().getTime());
+            sportInfo.setDel(0);
             int rst=sportInfoMapper.insert(sportInfo);
             if (rst>0){
                 return MapUtils.buildSuccessMap(Constants.SUCCESS, "数据插入成功",null);

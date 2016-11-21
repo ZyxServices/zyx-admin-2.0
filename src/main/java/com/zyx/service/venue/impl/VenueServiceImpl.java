@@ -32,6 +32,7 @@ public class VenueServiceImpl extends BaseServiceImpl<Venue> implements VenueSer
     @Override
     public Map<String, Object> insertVenue(Venue venue) {
         if (venue.getLatitude()!=null&&venue.getLongitude()!=null){
+            venue.setDel(0);
             venue.setCreateTime(new Date().getTime());
             int rst=venueMapper.insert(venue);
             if (rst>0){

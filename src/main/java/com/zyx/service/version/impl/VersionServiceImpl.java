@@ -29,6 +29,7 @@ public class VersionServiceImpl extends BaseServiceImpl<Version> implements Vers
     @Override
     public Map<String, Object> insertVersion(Version version) {
         version.setCreateTime(new Date().getTime());
+        version.setDel(0);
         int rst=versionMapper.insert(version);
         if (rst>0){
             return MapUtils.buildSuccessMap(Constants.SUCCESS, "发布成功", null);
