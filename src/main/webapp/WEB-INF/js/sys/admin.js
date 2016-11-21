@@ -148,11 +148,17 @@ function operateFormatter(value, row, index) {
     _html.push('<a class="p5 move" href="javascript:void(0)" title="删除">删除</a>');
     return _html.join('');
 }
-
+function timeFormat(data) {
+    return new Date(data).format("yyyy-mm-dd HH:MM:ss")
+}
+function stateFormat(data) {
+    return data == 0?"操作成功":"操作失败"
+}
 // 操作事件edit
 var operateEvent = {
     'click .look': function (e, value, row) {
         $("#operateLogModal").modal("show");
+        $("#administrators-log-table").bootstrapTable('destroy');
         $("#administrators-log-table").bootstrapTable({
             toolbar: '#toolbar',        //工具按钮用哪个容器
             striped: true,           //是否显示行间隔色
@@ -164,23 +170,22 @@ var operateEvent = {
             pageSize: 10,            //每页的记录行数（*）
             pageList: [10, 15, 20, 25],  //记录数可选列表
             checkbox: true,
-            height: 500,
+            height: 300,
             checkboxHeader: "true",
             sortable: true,           //是否启用排序
             sortOrder: "asc",          //排序方式
             strictSearch: true,
             sidePagination: "server",
             method: "get",
-            url: "/v1/sysUser/list",
+            url: "/v1/sysUser/queryOperation",
             dataField: "data",
             queryParamsType: "undefined",
             queryParams: function queryParams(params) {   //设置查询参数
                 var param = {
-                    pageNumber: params.pageNumber,
-                    pageSize: params.pageSize,
+                    pageNumber: params.pageSize,
+                    page: params.pageNumber,
                     searchText: params.searchText,
-                    sortName: params.sortName,
-                    sortOrder: params.sortOrder
+                    userId: row.id
                 };
                 return param;
             }

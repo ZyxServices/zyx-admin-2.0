@@ -48,7 +48,7 @@
             </div>
         </div>
         <%--操作日志--%>
-        <div id="operateLogModal" class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel">
+        <div id="operateLogModal" class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel" style="width: 700px">
             <div class="modal-header">
                 <button data-dismiss="modal" class="close" type="button"></button>
                 <h3 id="logModalTitle">操作日志</h3>
@@ -60,10 +60,11 @@
                             <thead>
                             <tr>
                                 <th data-field="id">id</th>
-                                <th data-field="name">管理员</th>
-                                <th data-field="systemRoleListDto.role_name">权限</th>
-                                <th data-field="bz">操作</th>
-                                <th data-field="operateTime">操作时间</th>
+                                <th data-field="userName">管理员</th>
+                                <th data-field="authLevel">权限</th>
+                                <th data-field="createTime" data-formatter="timeFormat">操作时间</th>
+                                <th data-field="result" data-formatter="stateFormat">操作时间</th>
+                                <th data-field="operateDesc">操作内容</th>
                             </tr>
                             </thead>
                         </table>
