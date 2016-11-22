@@ -111,7 +111,7 @@ $(function () {
                 var formData = new FormData();
                 formData.append('imgFile', files[0]);
                 $.ajax({
-                    url: '/v1/upload/file',//后台文件上传接口
+                    url: 'http://api.tiyujia.com/v1/upload/file',//后台文件上传接口
                     type: 'POST',
                     data: formData,
                     processData: false,
@@ -269,7 +269,7 @@ $("#confirmCmd").click(function () {
         var formData = new FormData();
         formData.append('imgFile', $("#recommendFile")[0].files[0]);
         $.ajax({
-            url: '/v1/upload/file',
+            url: 'http://api.tiyujia.com/v1/upload/file',
             type: 'post',
             data: formData,
             processData: false,
@@ -315,7 +315,7 @@ $("#czS").click(function () {
     if ($("#listType").html() == "创建") {
         /*创建*/
         $.ajax({
-            url: '/v1/upload/file',
+            url: 'http://api.tiyujia.com/v1/upload/file',
             type: 'post',
             data: formData,
             processData: false,
@@ -359,7 +359,7 @@ $("#czS").click(function () {
         var isChange = $("#image").val();
         if(ISCHANGEIMG != isChange){/*不相等代表换了图片*/
             $.ajax({
-                url: '/v1/upload/file',
+                url: 'http://api.tiyujia.com/v1/upload/file',
                 type: 'post',
                 data: formData,
                 processData: false,

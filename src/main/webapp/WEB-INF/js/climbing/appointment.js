@@ -311,7 +311,7 @@ $("#czS").click(function () {
     if ($("#listType").html() == "创建") {
         /*创建*/
         $.ajax({
-            url: '/v1/upload/file',
+            url: 'http://api.tiyujia.com/v1/upload/file',
             type: 'post',
             data: formData,
             processData: false,
@@ -346,7 +346,7 @@ $("#czS").click(function () {
         var isChange = $("#image").val();
         if(ISCHANGEIMG != isChange){/*不相等代表换了图片*/
             $.ajax({
-                url: '/v1/upload/file',
+                url: 'http://api.tiyujia.com/v1/upload/file',
                 type: 'post',
                 data: formData,
                 processData: false,

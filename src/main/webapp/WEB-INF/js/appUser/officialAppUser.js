@@ -241,7 +241,7 @@ $("#authButton").click(function () {
     var formData = new FormData();
     formData.append('imgFile', $("#authFile")[0].files[0]);/*获取图片对象*/
     $.ajax({
-        url: '/v1/upload/file',
+        url: 'http://api.tiyujia.com/v1/upload/file',
         type: 'post',
         data: formData,
         processData: false,
@@ -259,7 +259,7 @@ $("#authButton").click(function () {
                     var formWorkData = new FormData();
                     formWorkData.append('imgFile', $("#workFile")[0].files[0]);/*获取图片对象*/
                     $.ajax({
-                        url: '/v1/upload/file',
+                        url: 'http://api.tiyujia.com/v1/upload/file',
                         type: 'post',
                         data: formWorkData,
                         processData: false,
@@ -337,7 +337,7 @@ function imgUpload(id,image) {
     var formData = new FormData();
     formData.append('imgFile', $("#"+id)[0].files[0]);/*获取图片对象*/
     $.ajax({
-        url: '/v1/upload/file',
+        url: 'http://api.tiyujia.com/v1/upload/file',
         type: 'post',
         data: formData,
         processData: false,

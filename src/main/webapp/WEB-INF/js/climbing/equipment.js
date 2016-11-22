@@ -408,7 +408,7 @@ $(function () {
                 var formData = new FormData();
                 formData.append('file', files[0]);
                 $.ajax({
-                    url: '/v1/upload/file',//后台文件上传接口
+                    url: 'http://api.tiyujia.com/v1/upload/file',//后台文件上传接口
                     type: 'POST',
                     data: formData,
                     processData: false,

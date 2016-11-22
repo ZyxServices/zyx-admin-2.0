@@ -425,7 +425,7 @@ $("#createModify").click(function () {
     formData.append('imgFile', $("#lefile")[0].files[0]);
     if($("#combinationId").val() ==  ""){/*创建*/
         $.ajax({
-            url: '/v1/upload/file',
+            url: 'http://api.tiyujia.com/v1/upload/file',
             type: 'post',
             data: formData,
             processData: false,
@@ -443,7 +443,7 @@ $("#createModify").click(function () {
     }else{/*编辑*/
         if(ISCHANGEIMG != $("#imgUrl").val()){/*图片发生了改变*/
             $.ajax({
-                url: '/v1/upload/file',
+                url: 'http://api.tiyujia.com/v1/upload/file',
                 type: 'post',
                 data: formData,
                 processData: false,

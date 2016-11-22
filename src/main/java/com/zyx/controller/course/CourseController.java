@@ -48,10 +48,10 @@ public class CourseController {
                              @ApiParam(name = "imgUrl", required = false, value = "图片路径")@RequestParam(name = "imgUrl", required = false) String imgUrl){
         AbstractView jsonView = new MappingJackson2JsonView();
 
-        if (imgUrl == null || imgUrl.equals("")) {
-            jsonView.setAttributesMap(MapUtils.buildErrorMap(Constants.PARAM_MISS, "参数缺失"));
-            return new ModelAndView(jsonView);
-        }
+//        if (imgUrl == null || imgUrl.equals("")) {
+//            jsonView.setAttributesMap(MapUtils.buildErrorMap(Constants.PARAM_MISS, "参数缺失"));
+//            return new ModelAndView(jsonView);
+//        }
 
         Course course = new Course();
         SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
@@ -67,7 +67,12 @@ public class CourseController {
         course.setContent(content);
         course.setImgUrl(imgUrl);
         course.setTitle(title);
-        course.setUserId(Integer.valueOf(sysUser.getUserId()));
+        try {
+            course.setUserId(Integer.valueOf(sysUser.getUserId()));
+        }catch (Exception e){
+            course.setUserId(Integer.parseInt(sysUser.getUserId()));
+        }
+
 
         Map<String,Object> map = courseService.insertCourse(course);
         jsonView.setAttributesMap(map);

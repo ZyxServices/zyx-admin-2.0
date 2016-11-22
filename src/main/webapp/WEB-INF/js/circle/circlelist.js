@@ -304,7 +304,7 @@ var operateEvent = {
                 var formData = new FormData();
                 formData.append('imgFile', $("#lefile")[0].files[0]);
                 $.ajax({
-                    url: "/v1/upload/file",
+                    url: "http://api.tiyujia.com/v1/upload/file",
                     type: 'post',
                     data: formData,
                     processData: false,
@@ -427,7 +427,7 @@ $("#circleBtnSure").click(function (e) {
         var formData = new FormData();
         formData.append('imgFile', $("#lefile")[0].files[0]);
         $.ajax({
-            url: "/v1/upload/file",
+            url: "http://api.tiyujia.com/v1/upload/file",
             type: 'post',
             data: formData,
             processData: false,
