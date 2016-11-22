@@ -142,6 +142,7 @@ function queryLine(url) {
             {field: 'developTime', title: '开线时间', align: 'center', valign: 'middle'},
             {field: 'pathType', title: '线路类型', align: 'center', valign: 'middle'},
             {field: 'level', title: '线路难度', align: 'center', valign: 'middle'},
+            {field: 'location', title: '线路位置', align: 'center', valign: 'middle'},
             {field: 'visitNum', title: '多少人去过', align: 'center', valign: 'middle'},
             {field: 'commentNum', title: '评论数', align: 'center', valign: 'middle'},
             {field: 'operation', title: '操作', align: 'center', events: operateEventssssss, formatter: seeUrlFormatter}]
@@ -223,7 +224,6 @@ var operateEventssssss = {
         $("#addLine").hide();
         $("#venuesList").hide();
         $("#lineList").show();
-
     },
     'click .remove': function (e, value, row, index) {
         var delUrl = '/v2/venue/del?id=' + row.id;
@@ -247,6 +247,10 @@ var operateEventssssss = {
         $("#lineForm").append("<input name='id' type='hidden' value='" + row.id + "'>")
         $("#lineUrl").val(row.url)
         $('#sureLine').attr('onclick', 'operateEventssssss.submitLineForm(this, 1)')
+        $("#lingImgdiv").empty()
+        if (row.url != '') {
+            $('#lingImgdiv').append('<div style="max-width: 350px"><img src=' + 'http://image.tiyujia.com/' + row.url + '>')
+        }
     },
     createVenue: function (obj, eidt) {
         var url;
@@ -262,7 +266,7 @@ var operateEventssssss = {
     submitLineForm: function (obj, eidt) {
         var url;
         eidt == true ? url = '/v2/sportInfo/update' : url = '/v2/sportInfo/insert'
-        if ($("#lineUrl").val() == '') {
+        if ($("#lineImage").val() != '') {
             uploadImg('lineImage', 'lineUrl', function () {
                 operateEventssssss.lineForm(url)
             })
@@ -328,6 +332,8 @@ var operateEventssssss = {
         $('#sureLine').attr('onclick', 'operateEventssssss.submitLineForm()')
         $('#addLineModal').modal('show')
         var venueId = $('#venueId').val();
+        $("#lingImgdiv").empty()
+        $('#lineUrl').val('');
         $('#lineForm')[0].reset()
         $('#venueId').val(venueId);
     }
@@ -366,16 +372,27 @@ $(function () {
         }
         return url;
     }
-
+    $("#lingImgdiv").click(function(){
+        $("#lingImgdiv").empty();
+        $("#lineUrl").val('')
+    })
     $("#lefile").change(function () {
         $("#v_imagesWrap").empty()
+        var objUrl;
+        if (navigator.userAgent.indexOf("MSIE") > 0) {
+            objUrl = this.value;c
+        } else
+            objUrl = getObjectURL(this.files[0]);
+        $('#v_imagesWrap').append('<div style="max-width: 350px"><img src="' + objUrl + '"></div>')
+    });
+    $("#lineImage").change(function () {
+        $("#lingImgdiv").empty()
         var objUrl;
         if (navigator.userAgent.indexOf("MSIE") > 0) {
             objUrl = this.value;
         } else
             objUrl = getObjectURL(this.files[0]);
-        $('#v_imagesWrap').append('<div style="max-width: 350px"><img src="' + objUrl + '"></div>')
-        console.log(objUrl);
+        $('#lingImgdiv').append('<div style="max-width: 350px"><img src="' + objUrl + '"></div>')
     });
     $(window).resize(function () {
         $('#dynamic_table').bootstrapTable('resetView');

@@ -21,7 +21,8 @@
     <link rel="stylesheet" href="../../css/summernote.css"/>
     <link rel="stylesheet" href="../../css/tiyujia/style.css"/>
     <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
-    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=bc83b9475a5b54ab35e22bbaf1b0ab06&plugin=AMap.Autocomplete"></script>
+    <script type="text/javascript"
+            src="http://webapi.amap.com/maps?v=1.3&key=bc83b9475a5b54ab35e22bbaf1b0ab06&plugin=AMap.Autocomplete"></script>
     <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
 
 </head>
@@ -126,7 +127,7 @@
                                     <input id="imgUrls" type="text" class="hide" name="imgUrls">
                                     <span class="help-inline required">*</span>
                                 </div>
-                                <div style="margin-top: 10px;"  id="v_imagesWrap" class="showImg">
+                                <div style="margin-top: 10px;" id="v_imagesWrap" class="showImg">
                                     <img id="images" src="">
                                 </div>
                             </div>
@@ -134,8 +135,9 @@
 
                         <div class="control-group form-group">
                             <label class="control-label">岩厂概述</label>
+
                             <div id="ven_des" class="controls summernote">
-                                <div  class="span6 col-xs-5">
+                                <div class="span6 col-xs-5">
                                     <div id="activity-summernote"></div>
                                     <input id="v_desc" type="text" class="hideInput" name="description" value="">
                                 </div>
@@ -164,7 +166,7 @@
                             <label class="control-label">纬度</label>
 
                             <div class="controls">
-                                <input type="text" id="v_latitude" name="latitude" class="span6"  placeholder=""/>
+                                <input type="text" id="v_latitude" name="latitude" class="span6" placeholder=""/>
 
                                 <a id="openMap" onclick="$('#mapModel').modal('show')" class="controls"
                                    style="margin-left: 0;display: block;cursor:hand">打开地图</a>
@@ -300,6 +302,17 @@
                 <div class="controls">
                     <input id="lineUrl" type="hidden" name="url"/>
                     <input type="file" id="lineImage"/>
+
+                    <div id="lingImgdiv"></div>
+
+                </div>
+
+            </div>
+            <div class="control-group">
+                <label class="control-label">线路位置</label>
+
+                <div class="controls">
+                    <input name="location" type="text"/>
                 </div>
             </div>
         </form>
@@ -332,7 +345,7 @@
                             <label>左击获取经纬度：</label>
                         </td>
                         <%--<td class="column2">--%>
-                            <%--<label>左击获取地址：</label>--%>
+                        <%--<label>左击获取地址：</label>--%>
                         <%--</td>--%>
                     </tr>
                     <tr>
@@ -345,8 +358,8 @@
                     </tr>
 
                 </table>
-                <tr >
-                  <div style="max-width: 340px" id="realaddress"></div>
+                <tr>
+                    <div style="max-width: 340px" id="realaddress"></div>
                 </tr>
             </div>
         </div>
@@ -354,7 +367,7 @@
     <div class="modal-footer">
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <a href="javascript:void(0)" class="btn btn-default"  data-dismiss='modal'>确定</a>
+                <a href="javascript:void(0)" class="btn btn-default" data-dismiss='modal'>确定</a>
                 <a href="javascript:void(0)" class="btn btn-default" data-dismiss='modal'>取消</a>
             </div>
         </div>
@@ -374,31 +387,31 @@
         App.init(); // initlayout and core plugins
 
     });
-    $('#tipinput').on('input',function(){
-        document.getElementById("v_address").value=''
-        document.getElementById("lnglat").value =''
-        document.getElementById("v_longitude").value=''
-        document.getElementById("v_latitude").value =''
-        document.getElementById("realaddress").innerHTML =''
+    $('#tipinput').on('input', function () {
+        document.getElementById("v_address").value = ''
+        document.getElementById("lnglat").value = ''
+        document.getElementById("v_longitude").value = ''
+        document.getElementById("v_latitude").value = ''
+        document.getElementById("realaddress").innerHTML = ''
     })
     var map = new AMap.Map("container", {
         resizeEnable: true,
-        zoom:17
+        zoom: 17
     });
-    AMap.plugin(['AMap.Autocomplete','AMap.PlaceSearch','AMap.Geocoder'],function(){
+    AMap.plugin(['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Geocoder'], function () {
         var geocoder = new AMap.Geocoder({
             city: "010"//城市，默认：“全国”
         });
-        map.on('click',function(e){
-            geocoder.getAddress(e.lnglat,function(status,result){
-                document.getElementById("v_address").value=result.regeocode.formattedAddress;
-                document.getElementById("realaddress").innerHTML='当前地址：'+result.regeocode.formattedAddress+''
+        map.on('click', function (e) {
+            geocoder.getAddress(e.lnglat, function (status, result) {
+                document.getElementById("v_address").value = result.regeocode.formattedAddress;
+                document.getElementById("realaddress").innerHTML = '当前地址：' + result.regeocode.formattedAddress + ''
 //                $('#realaddress').val('当前地址：'+result.regeocode.formattedAddress+'')
             })
-            document.getElementById("v_latitude").value =''
+            document.getElementById("v_latitude").value = ''
             document.getElementById("lnglat").value = e.lnglat.getLng() + ',' + e.lnglat.getLat()
-            document.getElementById("v_longitude").value = e.lnglat.getLng() ;
-            document.getElementById("v_latitude").value = e.lnglat.getLat() ;
+            document.getElementById("v_longitude").value = e.lnglat.getLng();
+            document.getElementById("v_latitude").value = e.lnglat.getLat();
         })
     })
     var auto = new AMap.Autocomplete({
