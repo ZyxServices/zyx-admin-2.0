@@ -6,18 +6,19 @@
         <id column="venue_id" jdbcType="INTEGER" property="venueId"/>
         <result column="path" jdbcType="VARCHAR" property="path"/>
         <result column="url" jdbcType="VARCHAR" property="url"/>
-        <result column="level" jdbcType="VARCHAR" property="level"/>
+        <result column="level" jdbcType="INTEGER" property="level"/>
         <result column="score" jdbcType="INTEGER" property="score"/>
         <result column="path_type" jdbcType="VARCHAR" property="pathType"/>
         <result column="developer" jdbcType="VARCHAR" property="developer"/>
-        <result column="develop_time" jdbcType="VARCHAR" property="developTime"/>
+        <result column="develop_time" jdbcType="BIGINT" property="developTime"/>
         <result column="path_length" jdbcType="INTEGER" property="pathLength"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
         <result column="visit_num" jdbcType="INTEGER" property="visitNum"/>
         <result column="comment_num" jdbcType="INTEGER" property="commentNum"/>
     </resultMap>
 
     <select id="querySportInfo" parameterType="com.zyx.parm.sportinfo.SportInfoQueryParam" resultMap="sportInfodto">
-        select id,venue_id,path,url,level,score,path_type,developer,develop_time,path_length from t_sport_info where del=0
+        select id,venue_id,path,url,level,score,path_type,developer,develop_time,path_length,location from t_sport_info where del=0
         <if test="venueId != null and venueId != ''">
             and venue_id =#{venueId}
         </if>
@@ -49,9 +50,7 @@
             <if test="venueId != null and venueId != ''">
                 venue_id = #{venueId},
             </if>
-            <if test="url != null and url != ''">
-                url = #{url},
-            </if>
+
             <if test="level != null and level != ''">
                 level = #{level},
             </if>
@@ -72,6 +71,12 @@
             </if>
             <if test="pathLength != null and pathLength != ''">
                 path_length = #{pathLength},
+            </if>
+            <if test="location != null and location != ''">
+                location = #{location},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
             </if>
         </set>
         WHERE id=#{id}

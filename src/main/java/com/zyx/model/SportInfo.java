@@ -65,6 +65,11 @@ public class SportInfo{
      * 删除（0，正常  1，删除）
      */
     private Integer del;
+    /**
+     * 线路位置
+     */
+    private String location;
+
 
     public Integer getId() { return id; }
 
@@ -117,4 +122,8 @@ public class SportInfo{
     public Integer getDel() { return del; }
 
     public void setDel(Integer del) { this.del = del; }
+
+    public String getLocation() { return location; }
+
+    public void setLocation(String location) { this.location = location; }
 }

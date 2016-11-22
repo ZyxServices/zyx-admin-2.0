@@ -5,6 +5,7 @@ import com.zyx.parm.sportinfo.SportInfoQueryParam;
 import com.zyx.service.sportinfo.SportInfoService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import java.util.Map;
 
 import static com.zyx.utils.GetTimeUtil.getDateTime;
+import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
+import static org.bouncycastle.asn1.x500.style.RFC4519Style.name;
 
 /**
  * Created by HL on 2016/11/9.
@@ -39,14 +42,16 @@ public class SportInfoController {
                                @RequestParam(name = "url", required = false) String url,
                                @ApiParam(name = "level", required = true, value = "难度等级")
                                @RequestParam(name = "level", required = true) String level,
-                               @ApiParam(name = "pathType", required = true, value = "路线类型")
-                               @RequestParam(name = "pathType", required = true) String pathType,
-                               @ApiParam(name = "pathLength", required = true, value = "路线长度")
-                               @RequestParam(name = "pathLength", required = true) Integer pathLength,
-                               @ApiParam(name = "developer", required = true, value = "开线者")
-                               @RequestParam(name = "developer", required = true) String developer,
-                               @ApiParam(name = "developTime", required = true, value = "开线时间 时间格式yyyy-MM-dd HH:mm:ss")
-                               @RequestParam(name = "developTime", required = true) String developTime
+                               @ApiParam(name = "pathType", required = false, value = "路线类型")
+                               @RequestParam(name = "pathType", required = false) String pathType,
+                               @ApiParam(name = "pathLength", required = false, value = "路线长度")
+                               @RequestParam(name = "pathLength", required = false) Integer pathLength,
+                               @ApiParam(name = "developer", required = false, value = "开线者")
+                               @RequestParam(name = "developer", required = false) String developer,
+                               @ApiParam(name = "developTime", required = false, value = "开线时间 时间格式yyyy-MM-dd HH:mm:ss")
+                               @RequestParam(name = "developTime", required = false) String developTime,
+                               @ApiParam(name="location",required = false,value = "线路位置")
+                               @RequestParam(name = "location",required = false)String location
     ) {
         AbstractView jsonView = new MappingJackson2JsonView();
         SportInfo sportInfo = new SportInfo();
@@ -55,11 +60,14 @@ public class SportInfoController {
         sportInfo.setScore(score);
         sportInfo.setPath(path);
         sportInfo.setUrl(url);
+        sportInfo.setLocation(location);
         sportInfo.setLevel(level);
         sportInfo.setPathType(pathType);
         sportInfo.setPathLength(pathLength);
         sportInfo.setDeveloper(developer);
-        sportInfo.setDevelopTime(getDateTime(developTime));
+        if (StringUtils.isNotEmpty(developTime)){
+            sportInfo.setDevelopTime(getDateTime(developTime));
+        }
         Map<String, Object> map = sportInfoService.insertSportInfo(sportInfo);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
@@ -89,14 +97,16 @@ public class SportInfoController {
                                @RequestParam(name = "url", required = false) String url,
                                @ApiParam(name = "level", required = true, value = "难度等级")
                                @RequestParam(name = "level", required = true) String level,
-                               @ApiParam(name = "pathType", required = true, value = "路线类型")
-                               @RequestParam(name = "pathType", required = true) String pathType,
-                               @ApiParam(name = "pathLength", required = true, value = "路线长度")
-                               @RequestParam(name = "pathLength", required = true) Integer pathLength,
-                               @ApiParam(name = "developer", required = true, value = "开线者")
-                               @RequestParam(name = "developer", required = true) String developer,
-                               @ApiParam(name = "developTime", required = true, value = "开线时间 时间格式yyyy-MM-dd HH:mm:ss")
-                               @RequestParam(name = "developTime", required = true) String developTime
+                               @ApiParam(name = "pathType", required = false, value = "路线类型")
+                               @RequestParam(name = "pathType", required = false) String pathType,
+                               @ApiParam(name = "pathLength", required = false, value = "路线长度")
+                               @RequestParam(name = "pathLength", required = false) Integer pathLength,
+                               @ApiParam(name = "developer", required = false, value = "开线者")
+                               @RequestParam(name = "developer", required = false) String developer,
+                               @ApiParam(name = "developTime", required = false, value = "开线时间 时间格式yyyy-MM-dd HH:mm:ss")
+                               @RequestParam(name = "developTime", required = false) String developTime,
+                               @ApiParam(name="location",required = false,value = "线路位置")
+                               @RequestParam(name = "location",required = false)String location
     ) {
         AbstractView jsonView = new MappingJackson2JsonView();
         SportInfo sportInfo = new SportInfo();
@@ -106,6 +116,7 @@ public class SportInfoController {
         sportInfo.setPath(path);
         sportInfo.setUrl(url);
         sportInfo.setLevel(level);
+        sportInfo.setLocation(location);
         sportInfo.setPathType(pathType);
         sportInfo.setPathLength(pathLength);
         sportInfo.setDeveloper(developer);

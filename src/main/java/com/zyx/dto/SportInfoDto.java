@@ -25,6 +25,8 @@ public class SportInfoDto {
     private  Long developTime;
 
     private  Integer pathLength;
+
+    private String location;
     /**
      * 多少人去过
      */
@@ -81,4 +83,8 @@ public class SportInfoDto {
     public Integer getPathLength() { return pathLength; }
 
     public void setPathLength(Integer pathLength) { this.pathLength = pathLength; }
+
+    public String getLocation() { return location; }
+
+    public void setLocation(String location) { this.location = location; }
 }
