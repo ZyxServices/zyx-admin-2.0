@@ -117,7 +117,7 @@
         <if test="avatar != null and avatar != ''">
             ,avatar = #{avatar}
         </if>
-        <if test="birthday != null and birthday != ''">
+        <if test="birthday != null and birthday != 0">
             ,birthday = #{birthday}
         </if>
         <if test="signature != null and signature != ''">
@@ -215,8 +215,8 @@
         </if>
     </select>
 
-    <!--<update id="resetAppUser" parameterType="com.zyx.parm.appUser.AppUserCreateParam">-->
-        <!--UPDATE `user` SET modify_time = #{modifyTime}, password = #{password} WHERE phone = #{phone}-->
-    <!--</update>-->
+    <update id="resetAppUser" parameterType="com.zyx.parm.appUser.AppUserCreateParam">
+        UPDATE `user` SET modify_time = #{modifyTime}, password = #{password} WHERE phone = #{phone}
+    </update>
 
 </mapper>

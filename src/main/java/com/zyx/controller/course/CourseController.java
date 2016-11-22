@@ -45,7 +45,7 @@ public class CourseController {
                              @ApiParam(name = "title", required = true, value = "标题") @RequestParam(name = "title", required = true) String title,
                              @ApiParam(name = "courseType", required = true, value = "教程类型：图文、视频")@RequestParam(name = "courseType", required = true) String courseType,
                              @ApiParam(name = "labelId", required = true, value = "标签id")@RequestParam(name = "labelId", required = true) Integer labelId,
-                             @ApiParam(name = "imgUrl", required = true, value = "图片路径")@RequestParam(name = "imgUrl", required = true) String imgUrl){
+                             @ApiParam(name = "imgUrl", required = false, value = "图片路径")@RequestParam(name = "imgUrl", required = false) String imgUrl){
         AbstractView jsonView = new MappingJackson2JsonView();
 
         if (imgUrl == null || imgUrl.equals("")) {

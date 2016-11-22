@@ -74,5 +74,5 @@ public interface AppUserMapper extends Mapper<AppUser> {
 //
 //    int authAppUserByPrimaryKey(Integer id, int i);
 //
-//    int resetAppUser(AppUserCreateParam param);
+    int resetAppUser(AppUserCreateParam param);
 }

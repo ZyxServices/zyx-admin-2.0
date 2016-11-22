@@ -84,13 +84,13 @@ public class AppUserController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiOperation(value = "APP用户接口-编辑官方用户", notes = "APP用户接口-编辑官方用户")
     public ModelAndView update(@RequestParam Integer id,
-                               @ApiParam(name = "phone",required = true,value = "电话，即账号")@RequestParam String phone,
+                               @ApiParam(name = "phone",required = false,value = "电话，即账号")@RequestParam(required = false) String phone,
                                @ApiParam(name = "password",required = false,value = "密码")@RequestParam(required = false) String password,
                                @ApiParam(name = "avatar",required = false,value = "头像")@RequestPart(required = false) MultipartFile avatar,
                                @ApiParam(name = "nickname",required = false,value = "昵称")@RequestParam(required = false) String nickname,
                                @ApiParam(name = "sex",required = false,value = "性别:1男、0女")@RequestParam(required = false) String sex,
                                @ApiParam(name = "address",required = false,value = "地址") @RequestParam(required = false) String address,
-                               @ApiParam(name = "birthday",required = false,value = "生日")@RequestParam long birthday,
+                               @ApiParam(name = "birthday",required = false,value = "生日")@RequestParam(required = false) Long birthday,
                                @ApiParam(name = "signature",required = false,value = "签名")@RequestParam(required = false) String signature
                                ) {
         AbstractView jsonView = new MappingJackson2JsonView();
@@ -101,12 +101,12 @@ public class AppUserController {
             AppUser appUser = appUserService.selectByPhone(phone);
             if (appUser != null && !appUser.getId().equals(id)) {
                 map = MapUtils.buildErrorMap(AppUserConstants.ERROR_APP_USER_5001, AppUserConstants.ERROR_APP_USER_5001_MSG);
+                jsonView.setAttributesMap(map);
+                return new ModelAndView(jsonView);
             }else {
                 param.setPhone(phone);
             }
         }
-
-
 
             param.setAppUserId(id);
             param.setAddress(address);
@@ -122,7 +122,11 @@ public class AppUserController {
                 param.setAvatar(_avatar);
             }
             param.setModifyTime(System.currentTimeMillis());
-        param.setBirthday(birthday);
+
+        if((birthday+"")!=null && !(birthday+"").equals("")){
+            param.setBirthday(birthday);
+        }
+
         param.setSignature(signature);
 //            param.setAuthInfo(authInfo);
 //            param.setAuthFile(authFile);
@@ -183,6 +187,24 @@ public class AppUserController {
             map = appUserService.unMask(id);
         }
 
+        jsonView.setAttributesMap(map);
+        return new ModelAndView(jsonView);
+    }
+
+        @RequestMapping(value = "/resetPwd", method = RequestMethod.POST)
+    @ApiOperation(value = "APP用户接口-重置密码", notes = "APP用户接口-重置密码")
+    public ModelAndView resetPwd(@RequestParam String phone) {
+        AbstractView jsonView = new MappingJackson2JsonView();
+        Map<String, Object> map;
+        try {
+            AppUserCreateParam param = new AppUserCreateParam();
+            param.setPhone(phone);
+            param.setPassword(CipherUtil.generatePassword("123456!"));
+            map = appUserService.resetAppUser(param);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map = Constants.MAP_500;
+        }
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
