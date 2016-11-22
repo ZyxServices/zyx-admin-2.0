@@ -59,7 +59,7 @@ $('#post-summernote').on('summernote.change', function (content, $editable) {
             var formData = new FormData();
             formData.append('imgFile', files[0]);
             $.ajax({
-                url: '/v1/upload/file',//后台文件上传接口
+                url: 'http://api.tiyujia.com/v1/upload/file',//后台文件上传接口
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -435,7 +435,7 @@ $("#circleSure").click(function (e) {
             $("input[name=model]").val("4");
             formData.append('imgFile', $("#lefile")[0].files[0]);
             $.ajax({
-                url: "/v1/upload/file",
+                url: "http://api.tiyujia.com/v1/upload/file",
                 type: 'post',
                 data: formData,
                 processData: false,

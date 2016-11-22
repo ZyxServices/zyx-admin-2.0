@@ -279,7 +279,7 @@ var operateEventssssss = {
                             formData.append('imgFile', $('#Cover')[0].files[0]);
                             if ($('#Cover')[0].files.length > 0) {
                                 $.ajax({
-                                    url: '/v1/upload/file',//后台文件上传接口
+                                    url: 'http://api.tiyujia.com/v1/upload/file',//后台文件上传接口
                                     type: 'POST',
                                     data: formData,
                                     processData: false,
@@ -456,7 +456,7 @@ $(function () {
         height: "200px",                 // 宽度
         itemWidth: "100px",                 // 文件项的宽度
         itemHeight: "100px",                 // 文件项的高度
-        url: "/v1/upload/file",  // 上传文件的路径
+        url: "http://api.tiyujia.com/v1/upload/file",  // 上传文件的路径
         fileType: ["jpg", "png", "jpeg", "bmp", "gif"],// 上传文件的类型
         fileSize: 51200000,                // 上传文件的大小
         tailor: false,                    // 是否可以裁剪图片

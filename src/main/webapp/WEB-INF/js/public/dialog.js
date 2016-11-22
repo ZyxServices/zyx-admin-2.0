@@ -122,7 +122,7 @@ function uploadImg(imgFileId,imgFileIdUrl,successEvent){
     var formData = new FormData();
     formData.append('file', $("#"+imgFileId+"")[0].files[0]);
         $.ajax({
-            url: "/v1/upload/file",
+            url: "http://api.tiyujia.com/v1/upload/file",
             type: 'post',
             dataType: 'json',
             data: formData,

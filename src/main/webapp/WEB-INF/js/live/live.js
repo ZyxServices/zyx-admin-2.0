@@ -248,7 +248,7 @@ var operateEventssssss = {
                 formData.append('imgFile', $('#Cover')[0].files[0]);
                 if ($('#Cover')[0].files.length > 0) {
                     $.ajax({
-                        url: '/v1/upload/file',//后台文件上传接口
+                        url: 'http://api.tiyujia.com/v1/upload/file',//后台文件上传接口
                         type: 'POST',
                         data: formData,
                         processData: false,

@@ -284,7 +284,7 @@ $("#RdSures").click(function () {
             var formData = new FormData();
             formData.append('file', $("#recommendFile")[0].files[0]);
             $.ajax({
-                url: '/v1/upload/file',
+                url: 'http://api.tiyujia.com/v1/upload/file',
                 type: 'post',
                 data: formData,
                 processData: false,
@@ -362,7 +362,7 @@ $("#courseSure").click(function () {
     var isChange = $("#image").val();
     if (courseStatue == 1 || ISCHANGEIMG !=isChange) {
         $.ajax({
-            url: '/v1/upload/file',
+            url: 'http://api.tiyujia.com/v1/upload/file',
             type: 'post',
             data: formData,
             processData: false,
@@ -418,7 +418,7 @@ $('#course-summernote').on('summernote.change', function (content, $editable) {
             formData.append('file', files[0]);
             console.log(formData);
             $.ajax({
-                url: '/v1/upload/file',//后台文件上传接口
+                url: 'http://api.tiyujia.com/v1/upload/file',//后台文件上传接口
                 type: 'POST',
                 data: formData,
                 processData: false,
