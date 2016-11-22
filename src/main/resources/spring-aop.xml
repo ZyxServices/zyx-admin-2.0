@@ -14,7 +14,7 @@
             <aop:before method="before" pointcut-ref="testMethod" />
             <aop:around method="around" pointcut-ref="testMethod" />
             <aop:after-returning method="after" pointcut-ref="testMethod" />
-            <aop:after-throwing method="exception" pointcut-ref="testMethod" />
+            <aop:after-throwing method="exception" throwing="e" pointcut-ref="testMethod" />
         </aop:aspect>
     </aop:config>
 </beans>
