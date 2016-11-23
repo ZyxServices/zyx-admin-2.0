@@ -1,13 +1,9 @@
 package com.zyx.controller.menu;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.websocket.server.PathParam;
 
 /**
  * Created by MrDeng on 2016/7/19.
@@ -157,26 +153,18 @@ public class MenuController {
     public ModelAndView redirectClimbingVenues() {
         return new ModelAndView("/climbing/venues");
     }
-    @RequestMapping(value = "/climbing/couserlabel", method = RequestMethod.GET)
-    public ModelAndView redirectClimbingcouserlabel() {
-        return new ModelAndView("/climbing/couserlabel");
-    }
     /*社区*/
     @RequestMapping(value = "/community/dynamic", method = RequestMethod.GET)
-    public ModelAndView redirectCommunityDynamic(@RequestParam String id) {
-        System.out.println("========================================" + id);
+    public ModelAndView redirectCommunityDynamic() {
         return new ModelAndView("/community/dynamic");
     }
     @RequestMapping(value = "/community/grades", method = RequestMethod.GET)
     public ModelAndView redirectCommunityGrades() {
         return new ModelAndView("/community/grades");
     }
-
     /*城市*/
     @RequestMapping(value = "/city/city", method = RequestMethod.GET)
     public ModelAndView redirectCityCity() {
         return new ModelAndView("/city/city");
     }
-
-
 }
