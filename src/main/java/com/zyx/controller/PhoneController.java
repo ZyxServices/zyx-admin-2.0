@@ -14,12 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class PhoneController {
     /*分享*/
     @RequestMapping(value = "/share/venues", method = RequestMethod.GET)
-    public ModelAndView redirectVenues(@RequestParam String id) {
+    public ModelAndView redirectVenues(@RequestParam String listID,@RequestParam String id ) {
         return new ModelAndView("/phone/share/venues");
     }
 
     @RequestMapping(value = "/share/article", method = RequestMethod.GET)
-    public ModelAndView redirectArticle(@RequestParam String id) {
+    public ModelAndView redirectArticle(@RequestParam String id ) {
         return new ModelAndView("/phone/share/article");
     }
 
@@ -42,6 +42,9 @@ public class PhoneController {
     public ModelAndView redirectRankingList(@RequestParam String id) {
         return new ModelAndView("/phone/share/rankingList");
     }
-
+    @RequestMapping(value = "/agreement", method = RequestMethod.GET)
+    public ModelAndView redirectAgreement() {
+        return new ModelAndView("/phone/agreement/agreement");
+    }
 }
 
