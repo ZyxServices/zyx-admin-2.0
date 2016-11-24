@@ -67,12 +67,7 @@ public class CourseController {
         course.setContent(content);
         course.setImgUrl(imgUrl);
         course.setTitle(title);
-        try {
-            course.setUserId(Integer.valueOf(sysUser.getUserId()));
-        }catch (Exception e){
-            course.setUserId(Integer.parseInt(sysUser.getUserId()));
-        }
-
+        course.setUserId(sysUser.getId());
 
         Map<String,Object> map = courseService.insertCourse(course);
         jsonView.setAttributesMap(map);

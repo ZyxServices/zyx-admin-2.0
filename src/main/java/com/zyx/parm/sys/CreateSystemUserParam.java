@@ -25,6 +25,8 @@ public class CreateSystemUserParam implements Serializable {
 
     private String bz;
 
+    private String officialId;
+
     public Integer getId() {
         return id;
     }
@@ -79,5 +81,13 @@ public class CreateSystemUserParam implements Serializable {
 
     public void setBz(String bz) {
         this.bz = bz;
+    }
+
+    public String getOfficialId() {
+        return officialId;
+    }
+
+    public void setOfficialId(String officialId) {
+        this.officialId = officialId;
     }
 }

@@ -1,15 +1,10 @@
 package com.zyx.filter;
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 public abstract class AbstractFilter implements Filter {
 
@@ -24,7 +19,6 @@ public abstract class AbstractFilter implements Filter {
 		String requestUri = request.getRequestURI();
 		String contextPath = request.getContextPath();
 		String url = requestUri.substring(contextPath.length());
-		
 		
 /*		System.out.println("requestUri: " + requestUri);
 		System.out.println("contextPath: " + contextPath);

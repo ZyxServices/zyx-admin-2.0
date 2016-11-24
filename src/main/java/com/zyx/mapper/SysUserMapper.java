@@ -1,5 +1,6 @@
 package com.zyx.mapper;
 
+import com.zyx.dto.SystemUserListDto;
 import com.zyx.model.SysUser;
 import com.zyx.parm.sys.CreateSystemUserParam;
 import com.zyx.parm.sys.QuerySystemUserParam;
@@ -15,7 +16,7 @@ public interface SysUserMapper extends Mapper<SysUser> {
      * @param param
      * @return
      */
-    List<SysUser> querySystemUserList(QuerySystemUserParam param);
+    List<SystemUserListDto> querySystemUserList(QuerySystemUserParam param);
 
     /**
      *
@@ -30,6 +31,13 @@ public interface SysUserMapper extends Mapper<SysUser> {
      * @return
      */
     int editSysRole(CreateSystemUserParam param);
+
+    /**
+     * 给管理员绑定官方账号
+     * @param param
+     * @return
+     */
+    int addAccount(CreateSystemUserParam param);
 
 
 }
