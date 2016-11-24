@@ -262,6 +262,43 @@ public class SysUserService {
 
     }
 
+    /**
+     * 选择官方列表
+     * @param idStr
+     * @return
+     */
+    public Map<String, Object> choiceAccount(String idStr) {
+        List<AppUser> list = new ArrayList<>();
+        try {
+            if (idStr != null && !idStr.isEmpty()) {
+                String[] ids = idStr.split(",");
+                int result = 0;
+                for (String userId : ids) {
+                    if (userId != null && Integer.valueOf(userId) > 0) {
+
+                        AppUser user  = appUserMapper.selectByPrimaryKey(Integer.valueOf(userId));
+                        list.add(user);
+                        result++;
+                    }
+
+                }
+                if (result >= 1) {
+                    return MapUtils.buildSuccessMap(SysConstants.SUCCESS, SysConstants.MSG_SUCCESS, list);
+                } else {
+                    return MapUtils.buildErrorMap(SysConstants.ERROR_9007, SysConstants.ERROR_9007_MSG);
+                }
+
+            }else {
+                return MapUtils.buildErrorMap(Constants.PARAM_MISS, "参数有误");
+            }
+
+
+        } catch (Exception e) {
+            return AppUserConstants.MAP_500;
+        }
+
+    }
+
 
 
 }
