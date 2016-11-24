@@ -285,7 +285,7 @@ $("#RdSures").click(function () {
             var formData = new FormData();
             formData.append('avatar', $("#recommendFile")[0].files[0]);
             $.ajax({
-                url: 'http://api.tiyujia.com/v1/upload/file',
+                url: 'http://119.61.66.55:18100/v2/upload  ',
                 type: 'post',
                 data: formData,
                 processData: false,
@@ -418,7 +418,7 @@ $('#course-summernote').on('summernote.change', function (content, $editable) {
             var formData = new FormData();
             formData.append('avatar', files[0]);
             $.ajax({
-                url: 'http://119.61.66.55:18100/v2/upload',//后台文件上传接口
+                url: 'http://119.61.66.55:18100/v2/upload  ',//后台文件上传接口
                 type: 'POST',
                 data: formData,
                 processData: false,
