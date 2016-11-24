@@ -1,5 +1,6 @@
 package com.zyx.controller.sysUser;
 
+import com.zyx.constants.Constants;
 import com.zyx.constants.SysConstants;
 import com.zyx.jopo.ErrorResponseEntity;
 import com.zyx.model.SysUser;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -99,6 +101,24 @@ public class SysUserController {
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
+
+    @RequestMapping(value = "/choice", method = RequestMethod.POST)
+    @ApiOperation(value = "选择官方账户", notes = "选择官方账户")
+    public ModelAndView choice(HttpServletRequest request) {
+
+        AbstractView jsonView = new MappingJackson2JsonView();
+
+        SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
+        Map<String, Object> map;
+
+
+
+        map = sysUserService.choiceAccount(sysUser.getOfficialId());
+        jsonView.setAttributesMap(map);
+        return new ModelAndView(jsonView);
+    }
+
+
 
     @RequestMapping(value = "/editRole", method = RequestMethod.POST)
     @ApiOperation(value = "权限变更", notes = "权限变更")
