@@ -40,7 +40,7 @@ public class CourseLabelController {
         courseLabel.setLabelName(labelName);
 
         SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
-        courseLabel.setUserId(Integer.valueOf(sysUser.getUserId()));
+        courseLabel.setUserId(sysUser.getId());
         Map<String,Object> map = courseLabelService.insertCourseLabel(courseLabel);
         jsonView.setAttributesMap(map);
 

@@ -44,4 +44,10 @@ public interface SysConstants extends Constants {
      */
     int ERROR_9006 = 9006;
     String ERROR_9006_MSG = "edit sys user failed";
+
+    /**
+     * 绑定账户失败
+     */
+    int ERROR_9007 = 9007;
+    String ERROR_9007_MSG = "绑定账户失败";
 }

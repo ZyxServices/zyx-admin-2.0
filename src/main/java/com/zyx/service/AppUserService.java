@@ -26,7 +26,7 @@ import java.util.Map;
  * @title AppUserService.java
  *
  * modify by zjx on 2016/11/16
- * 用户管理的持久层接口
+ * 用户管理的业务层实现类
  */
 @Service
 public class AppUserService extends BaseServiceImpl<AppUser> {

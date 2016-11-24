@@ -53,6 +53,10 @@
         <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
     </resultMap>
 
+    <!--<select id="selectUserBySysUser" parameterType="java.lang.String" resultMap="OfficialUserListDto">-->
+        <!--SELECT id,nickname FROM user where id IN <![CDATA[(#{OFFICIAL_ID})]]>-->
+    <!--</select>-->
+
     <select id="levelSelect" parameterType="int" resultType="java.lang.String">
         SELECT name FROM level  WHERE id=#{level_id}
     </select>

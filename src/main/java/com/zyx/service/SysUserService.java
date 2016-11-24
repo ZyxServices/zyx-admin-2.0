@@ -3,7 +3,11 @@ package com.zyx.service;
 import com.zyx.constants.AppUserConstants;
 import com.zyx.constants.Constants;
 import com.zyx.constants.SysConstants;
+import com.zyx.dto.OfficialUserListDto;
+import com.zyx.dto.SystemUserListDto;
+import com.zyx.mapper.AppUserMapper;
 import com.zyx.mapper.SysUserMapper;
+import com.zyx.model.AppUser;
 import com.zyx.model.SysUser;
 import com.zyx.parm.sys.CreateSystemUserParam;
 import com.zyx.parm.sys.QuerySystemUserParam;
@@ -12,6 +16,7 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -24,6 +29,8 @@ public class SysUserService {
 
     @Autowired
     SysUserMapper sysUserMapper;
+    @Autowired
+    AppUserMapper appUserMapper;
 
 
     /**
@@ -134,9 +141,35 @@ public class SysUserService {
      */
     public Map<String, Object> queryList(QuerySystemUserParam param) {
 
-        List<SysUser> _list = sysUserMapper.querySystemUserList(param);
+        List<SystemUserListDto> _list = sysUserMapper.querySystemUserList(param);
         int count = sysUserMapper.querySystemUserListCount(param);
         if(_list!=null && _list.size()>0){
+            for(SystemUserListDto user : _list){
+                String temp = user.getOfficialId();
+                if(temp!=null && !temp.isEmpty()){
+                    String[] str = user.getOfficialId().split(",");
+
+                    if(str!=null && str.length>0){
+                        List<OfficialUserListDto> userListDtos = new ArrayList<OfficialUserListDto>();
+                        for(String userId : str){
+                            if(userId!=null && Integer.valueOf(userId)>0){
+                                AppUser appUser = appUserMapper.selectByPrimaryKey(Integer.parseInt(userId));
+                                OfficialUserListDto dto = new OfficialUserListDto();
+                                dto.setId(appUser.getId());
+                                dto.setNickname(appUser.getNickname());
+                                userListDtos.add(dto);
+                            }
+
+                        }
+
+                        user.setOfficialUserListDto(userListDtos);
+                    }
+
+                }
+
+
+
+            }
             Map<String, Object> map =MapUtils.buildSuccessMap(Constants.SUCCESS,"查询成功",_list);
             map.put("total", count);
             return map;
@@ -190,4 +223,45 @@ public class SysUserService {
             return AppUserConstants.MAP_500;
         }
     }
+
+
+    /**
+     * 绑定官方账户
+     * @param
+     * @return
+     */
+    public Map<String, Object> addAccount(Integer id,String idStr) {
+        try {
+            if (idStr != null && !idStr.isEmpty()) {
+//                String[] ids = idStr.split(",");
+//                int result = 0;
+//                for (String userId : ids) {
+//                    if (userId != null && Integer.valueOf(userId) > 0) {
+                        CreateSystemUserParam param = new CreateSystemUserParam();
+                        param.setId(id);
+                        param.setOfficialId(idStr);
+                int result = sysUserMapper.addAccount(param);
+//                        result++;
+//                    }
+
+//                }
+                if (result >= 1) {
+                    return MapUtils.buildSuccessMap(SysConstants.SUCCESS, SysConstants.MSG_SUCCESS, null);
+                } else {
+                    return MapUtils.buildErrorMap(SysConstants.ERROR_9007, SysConstants.ERROR_9007_MSG);
+                }
+
+            }else {
+                return MapUtils.buildErrorMap(Constants.PARAM_MISS, "参数有误");
+            }
+
+
+        } catch (Exception e) {
+            return AppUserConstants.MAP_500;
+        }
+
+    }
+
+
+
 }

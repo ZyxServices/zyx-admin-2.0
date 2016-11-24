@@ -90,6 +90,12 @@ public class SysUser {
     private String phone;
 
     /**
+     * 绑定的官方账号id，可以是多个，以逗号隔开
+     */
+    @Column(name="OFFICIAL_ID")
+    private String officialId;
+
+    /**
      * @return ID
      */
     public Integer getId() {
@@ -297,5 +303,13 @@ public class SysUser {
      */
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getOfficialId() {
+        return officialId;
+    }
+
+    public void setOfficialId(String officialId) {
+        this.officialId = officialId;
     }
 }

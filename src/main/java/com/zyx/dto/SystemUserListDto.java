@@ -1,6 +1,7 @@
 package com.zyx.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by wms on 2016/7/27.
@@ -25,7 +26,11 @@ public class SystemUserListDto implements Serializable {
 
     private String bz;
 
+    private String officialId;
+
     private SystemRoleListDto systemRoleListDto;
+
+    private List<OfficialUserListDto> officialUserListDto;
 
 //    private SystemLogListDto systemLogListDto;
 
@@ -93,7 +98,23 @@ public class SystemUserListDto implements Serializable {
         this.bz = bz;
     }
 
-//    public SystemLogListDto getSystemLogListDto() {
+    public List<OfficialUserListDto> getOfficialUserListDto() {
+        return officialUserListDto;
+    }
+
+    public void setOfficialUserListDto(List<OfficialUserListDto> officialUserListDto) {
+        this.officialUserListDto = officialUserListDto;
+    }
+
+    public String getOfficialId() {
+        return officialId;
+    }
+
+    public void setOfficialId(String officialId) {
+        this.officialId = officialId;
+    }
+
+    //    public SystemLogListDto getSystemLogListDto() {
 //        return systemLogListDto;
 //    }
 //

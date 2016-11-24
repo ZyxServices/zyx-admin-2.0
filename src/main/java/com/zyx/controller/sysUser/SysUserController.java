@@ -87,6 +87,18 @@ public class SysUserController {
         return new ModelAndView(jsonView);
     }
 
+    @RequestMapping(value = "/addOfficial", method = RequestMethod.POST)
+    @ApiOperation(value = "绑定官方账户", notes = "绑定官方账户")
+    public ModelAndView addOfficial( @ApiParam(name = "userId", required = true, value = "官方账号id字符串，以,隔开")@RequestParam String userId,
+                                       @ApiParam(name = "id", required = true, value = "管理员id")@RequestParam Integer id) {
+
+        AbstractView jsonView = new MappingJackson2JsonView();
+        Map<String, Object> map;
+
+        map = sysUserService.addAccount(id,userId);
+        jsonView.setAttributesMap(map);
+        return new ModelAndView(jsonView);
+    }
 
     @RequestMapping(value = "/editRole", method = RequestMethod.POST)
     @ApiOperation(value = "权限变更", notes = "权限变更")

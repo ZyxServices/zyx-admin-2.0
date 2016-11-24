@@ -40,6 +40,8 @@ public class EquipController {
     public ModelAndView add( HttpServletRequest request,
                             @ApiParam(name = "title", required = true, value = "标题")
                             @RequestParam(name="title",required = true)String title,
+                             @ApiParam(name = "officialId", required = true, value = "官方账户id")
+                             @RequestParam(name="officialId",required = true)Integer officialId,
                             @ApiParam(name = "content", required = true, value = "内容")
                             @RequestParam(name="content",required = true)String content,
                             @ApiParam(name = "labelId", required = true, value = "标签id")
@@ -48,7 +50,7 @@ public class EquipController {
         AbstractView jsonView = new MappingJackson2JsonView();
         SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
         Equip equip = new Equip();
-        equip.setAccountId(Integer.valueOf(sysUser.getUserId()));
+        equip.setAccountId(officialId);
         equip.setContent(content);
         equip.setTitle(title);
         equip.setLabelId(labelId);

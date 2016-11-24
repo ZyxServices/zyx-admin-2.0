@@ -20,6 +20,7 @@
         <result column="EMAIL" jdbcType="VARCHAR" property="email"/>
         <!--<result column="NUMBER" jdbcType="VARCHAR" property="number"/>-->
         <result column="PHONE" jdbcType="VARCHAR" property="phone"/>
+        <result column="OFFICIAL_ID" jdbcType="VARCHAR" property="officialId"/>
     </resultMap>
 
     <resultMap id="SystemUserListResultMap" type="com.zyx.dto.SystemUserListDto">
@@ -29,7 +30,9 @@
         <result column="NAME" jdbcType="VARCHAR" property="name"/>
         <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId"/>
         <result column="BZ" jdbcType="VARCHAR" property="bz"/>
+        <result column="OFFICIAL_ID" jdbcType="VARCHAR" property="officialId"/>
         <association property="systemRoleListDto" column="ROLE_ID" select="selectRoleBySysUser"></association>
+        <!--<association property="officialUserListDto" column="OFFICIAL_ID" select="com.zyx.mapper.AppUserMapper.selectUserBySysUser"></association>-->
     </resultMap>
 
     <select id="querySystemUserList" parameterType="com.zyx.parm.sys.QuerySystemUserParam"
@@ -62,8 +65,14 @@
     </select>
 
 
+
+
     <update id="editSysRole" parameterType="com.zyx.parm.sys.CreateSystemUserParam">
         update SYS_USER set ROLE_ID = #{roleId} where id = #{id}
+    </update>
+
+    <update id="addAccount" parameterType="com.zyx.parm.sys.CreateSystemUserParam">
+        update SYS_USER set OFFICIAL_ID = #{officialId} where id = #{id}
     </update>
 
 </mapper>

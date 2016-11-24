@@ -44,15 +44,15 @@ public class ConcernController {
             @RequestParam(value = "content") String content,
             @ApiParam(name = "visible", required = true, value = "可见范围：0所有人可见、1好友可见")
             @RequestParam(value = "visible") Integer visible,
-//            @ApiParam(name = "createId", required = true, value = "创建人id")
-//            @RequestParam(value = "createId") Integer createId,
+            @ApiParam(name = "createId", required = true, value = "创建人id")
+            @RequestParam(value = "createId") Integer createId,
             @ApiParam(name = "imgFileUrl", required = false, value = "图片路径")
             @RequestParam(value = "imgFileUrl", required = false) String imgFileUrl,
             @ApiParam(name = "videoUrl", required = false, value = "视频路径")
             @RequestParam(value = "videoUrl", required = false) String videoUrl) {
         AbstractView jsonView = new MappingJackson2JsonView();
         SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
-        Map<String, Object> map = concernService.createConcern(content, Integer.valueOf(sysUser.getUserId()), visible, imgFileUrl,videoUrl);
+        Map<String, Object> map = concernService.createConcern(content, createId, visible, imgFileUrl,videoUrl);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }

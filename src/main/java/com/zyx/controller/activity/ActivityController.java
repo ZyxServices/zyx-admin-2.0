@@ -64,7 +64,7 @@ public class ActivityController {
         AbstractView jsonView = new MappingJackson2JsonView();
         SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
         Activity activity = new Activity();
-        activity.setUserId(Integer.valueOf(sysUser.getUserId()));
+        activity.setUserId(sysUser.getId());
         activity.setTitle(title);
         activity.setDescContent(descContent);
         activity.setImgUrls(imageUrls);

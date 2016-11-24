@@ -42,7 +42,7 @@ public class EquipLabelController {
         AbstractView jsonView = new MappingJackson2JsonView();
         EquipLabel equipLabel  =new EquipLabel();
         SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
-        equipLabel.setUserId(Integer.valueOf(sysUser.getUserId()));
+        equipLabel.setUserId(sysUser.getId());
         equipLabel.setLabelName(labelName);
 
         Map<String,Object> map = equipLabelService.insertEquipLabel(equipLabel);
