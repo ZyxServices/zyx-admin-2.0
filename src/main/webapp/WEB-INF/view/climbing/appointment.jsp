@@ -125,6 +125,14 @@
                         <%--代表官方发布类型--%>
                         <input type="hidden" name="type" value="0">
 
+                        <div class="control-group">
+                            <label class="control-label">选择官方用户</label>
+                            <div class="controls">
+                                <select id="choiceOfficial" name="officialId" class="span6">
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="control-group form-group">
                             <label class="control-label">活动名称</label>
                             <div class="controls col-xs-5">

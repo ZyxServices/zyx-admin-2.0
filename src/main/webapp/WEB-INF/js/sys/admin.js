@@ -132,6 +132,7 @@ $(function () {
             $("#editButton").attr("disabled", false);
         }
     });
+    getAllOfficial();
 })
 
 // 日志列操作
@@ -146,6 +147,7 @@ function operateFormatter(value, row, index) {
     var _html = [];
     _html.push('<a class="p5 setJurisdiction" href="javascript:void(0)" title="权限设置">权限设置</a>');
     _html.push('<a class="p5 move" href="javascript:void(0)" title="删除">删除</a>');
+    _html.push('<a class="p5 distribution" href="javascript:void(0)" title="分配官方账号">分配官方账号</a>');
     return _html.join('');
 }
 function timeFormat(data) {
@@ -153,6 +155,22 @@ function timeFormat(data) {
 }
 function stateFormat(data) {
     return data == 0?"操作成功":"操作失败"
+}
+function getAllOfficial() {
+    $.ajax({
+        url:'/v1/appUser/queryUser',
+        type:'GET',
+        data:{page:1 ,pageNumber:50, official:1},
+        async: false,
+        success:function (res) {
+            var data = res.data;
+            var option = '';
+            for(var i = 0;i < data.length; i++){
+                option += '<option value='+data[i].id+'>'+data[i].nickname+'</option>'
+            }
+            $("#userId").html(option);
+        }
+    });
 }
 // 操作事件edit
 var operateEvent = {
@@ -247,6 +265,21 @@ var operateEvent = {
                 });
             }
         })
+    },
+    'click .distribution':function (e, value, row) {
+        $("#distributionModal").modal('show');
+        $("#userId").val('');
+        $("#officialId").val(row.id);
+        $("#userId").chosen("destroy");
+        if(row.officialUserListDto){
+            for(var j = 0;j < row.officialUserListDto.length;j++){
+                $("#userId option[value='"+row.officialUserListDto[j].id+"']").attr("selected","selected");
+            }
+        }else{
+            $("#userId").val('');
+        }
+        $("#userId").trigger("liszt:updated");
+        $("#userId").chosen();
     }
 };
 
@@ -284,4 +317,36 @@ function beginCreateSysUser() {
 
 function beginEditSysUser() {
     $("#sysUserEditForm").submit();
+}
+function distributionOfficial() {
+    /*分配官方账号*/
+    $.ajax({
+        url: '/v1/sysUser/addOfficial',
+        type: 'post',
+        dataType: 'json',
+        data:{id:$("#officialId").val(),userId:$("#userId").val().join()},
+        success: function (result) {
+            if (result.state == 200) {
+                $("#distributionModal").modal('hide');
+                $('#administrators-list-table').bootstrapTable('refresh');
+                $.Popup({
+                    confirm: false,
+                    template: '账号分配成功'
+                });
+            } else {
+                $.Popup({
+                    confirm: false,
+                    template: '账号分配失败，请刷新'
+                });
+                $("#distributionButton").attr("disabled", false);
+            }
+        },
+        error: function (res) {
+            $.Popup({
+                confirm: false,
+                template: res
+            });
+            $("#distributionButton").attr("disabled", false);
+        }
+    });
 }

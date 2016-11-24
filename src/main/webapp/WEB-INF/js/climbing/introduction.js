@@ -179,11 +179,12 @@ var operateEvent = {
     },
     //编辑
     'click .edit': function (e, value, row, index) {
-        console.log(row);
         $("#createModify").show();
         $("#activityList").hide();
+        queryOfficial("choiceOfficial");
         $("#courseCreateFrom").attr("value", 2);
         $("input[name=title]").val(row.title);
+        $("#choiceOfficial").val(row.officialId);
         $("#image").val(row.imgUrl);
         $("#courseId").val(row.id);
         /*在编辑的时候判断是否修改了图片*/
@@ -282,7 +283,7 @@ $("#RdSures").click(function () {
             courseRecommend();
         }else{/*修改了图片，先上传图片*/
             var formData = new FormData();
-            formData.append('file', $("#recommendFile")[0].files[0]);
+            formData.append('avatar', $("#recommendFile")[0].files[0]);
             $.ajax({
                 url: 'http://api.tiyujia.com/v1/upload/file',
                 type: 'post',
@@ -333,7 +334,6 @@ var courseLable = $.ajax({
     dataType: 'json',
     success: function (data) {
         var html = "";
-        html = html
         for (var i = 0; i < data.data.length; i++) {
             html = html + "<option value='" + data.data[i].id + "'>" + data.data[i].labelName + "</option>"
         }
@@ -346,8 +346,9 @@ function courseLabel() {
 function createcourse() {
     $("#createModify").show();
     $("#activityList").hide();
-    $("#courseCreateFrom")[0].reset();
+    queryOfficial("choiceOfficial");
     $('#courseCreateFrom').data('bootstrapValidator').resetForm(true);
+    $("#courseCreateFrom")[0].reset();
     $("#courseCreateFrom").attr("value", 1);
     $("#labelId").chosen();
     courseLable;
@@ -356,13 +357,13 @@ function createcourse() {
 var ISCHANGEIMG = '';
 $("#courseSure").click(function () {
     var formData = new FormData();
-    formData.append('file', $("#lefile")[0].files[0]);
+    formData.append('avatar', $("#lefile")[0].files[0]);
     var courseStatue = $("#courseCreateFrom").val();
     $('#post-summernote').summernote('code', "");
     var isChange = $("#image").val();
     if (courseStatue == 1 || ISCHANGEIMG !=isChange) {
         $.ajax({
-            url: 'http://api.tiyujia.com/v1/upload/file',
+            url: 'http://119.61.66.55:18100/v2/upload ',
             type: 'post',
             data: formData,
             processData: false,
@@ -415,10 +416,9 @@ $('#course-summernote').on('summernote.change', function (content, $editable) {
             console.log(files);
             //上传图片到服务器，使用了formData对象，至于兼容性...据说对低版本IE不太友好
             var formData = new FormData();
-            formData.append('file', files[0]);
-            console.log(formData);
+            formData.append('avatar', files[0]);
             $.ajax({
-                url: 'http://api.tiyujia.com/v1/upload/file',//后台文件上传接口
+                url: 'http://119.61.66.55:18100/v2/upload',//后台文件上传接口
                 type: 'POST',
                 data: formData,
                 processData: false,

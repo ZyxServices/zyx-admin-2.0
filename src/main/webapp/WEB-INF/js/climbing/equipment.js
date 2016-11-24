@@ -406,7 +406,7 @@ $(function () {
             onImageUpload: function (files) {
                 //上传图片到服务器，使用了formData对象，至于兼容性...据说对低版本IE不太友好
                 var formData = new FormData();
-                formData.append('file', files[0]);
+                formData.append('avatar', files[0]);
                 $.ajax({
                     url: 'http://api.tiyujia.com/v1/upload/file',//后台文件上传接口
                     type: 'POST',

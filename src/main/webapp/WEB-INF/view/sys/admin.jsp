@@ -105,6 +105,36 @@
                 </div>
             </div>
         </div>
+        <%--分配官方账号--%>
+        <div id="distributionModal" class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"></button>
+                <h3 id="distributionModalTitle">分配官方账号</h3>
+            </div>
+            <div class="modal-body" style="height: 300px;">
+                <form id="distributionEditForm"
+                      class="form-horizontal" novalidate="novalidate" role="form">
+                    <input type="hidden" id="officialId" name="id">
+
+                    <div class="control-group form-group">
+                        <label class="control-label">所有官方账号</label>
+                        <div class="controls">
+                            <select name="userId" data-placeholder="请选择官方账号哦" style="width: 300px;height: 34px" id="userId" multiple class="chzn-select" tabindex="7">
+
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-default" id="distributionButton" onclick="distributionOfficial()">确定</button>
+                        <button class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <%--管理员列表--%>
         <div class="container-fluid" id="administratorsList">
 
@@ -370,6 +400,11 @@
 
     <!-- END PAGE -->
 
+</div>
+<div class="modal fade hide" id="upload" aria-hidden="true" data-backdrop="static">
+    <div class="modal-body">
+        <p id="uploadContent"></p>
+    </div>
 </div>
 
 <!-- END CONTAINER -->

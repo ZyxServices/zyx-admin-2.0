@@ -63,4 +63,21 @@
         }
     })
 
+    /*请求的officialId*/
+    function queryOfficial(id) {
+        $.ajax({
+            url:'/v1/sysUser/choice',
+            type:'post',
+            async: false,
+            success:function (res) {
+                var data = res.data;
+                var option = '';
+                for(var i = 0;i < data.length; i++){
+                    option += '<option value='+data[i].id+'>'+data[i].nickname+'</option>'
+                }
+                $("#"+id).html(option);
+            }
+        })
+    }
+
 </script>

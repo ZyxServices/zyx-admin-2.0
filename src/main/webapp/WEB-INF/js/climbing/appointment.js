@@ -307,7 +307,7 @@ function activityRecommend() {
 /*点击修改和添加的确认按钮时先上传图片*/
 $("#czS").click(function () {
     var formData = new FormData();
-    formData.append('file', $("#lefile")[0].files[0]);
+    formData.append('avatar', $("#lefile")[0].files[0]);
     if ($("#listType").html() == "创建") {
         /*创建*/
         $.ajax({
@@ -444,6 +444,7 @@ var operateEvents = {
     'click .edit': function (e, value, row, index) {
         $("#activityEndTime").attr({'disabled': false});
         $("#signEndTime").attr({'disabled': false});
+        queryOfficial("choiceOfficial");
         $("#listType").html("编辑");
         $("#image").val(row._image);
         ISCHANGEIMG = row._image;/*保留编辑之前的图片地址*/
@@ -604,6 +605,7 @@ function createActivity() {
     $("#photoCover").html("选择文件");
     $("#createModify").show();
     $("#activityList").hide();
+    queryOfficial("choiceOfficial");
     $("#images").attr({'src': ''});
     $("#avtivityId").val('');
     $('#activity-summernote').summernote('reset');

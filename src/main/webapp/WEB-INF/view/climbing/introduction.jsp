@@ -108,6 +108,15 @@
                     <form class="form-horizontal" role="form" id="courseCreateFrom"
                           enctype="multipart/form-data" method="post">
                         <input type="hidden" name="id" id="courseId">
+
+                        <div class="control-group">
+                            <label class="control-label">选择官方用户</label>
+                            <div class="controls">
+                                <select id="choiceOfficial" name="officialId" class="span6">
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="control-group form-group">
                             <label class="control-label">标题</label>
                             <div class="controls col-xs-6">
@@ -149,7 +158,6 @@
                             <div class="controls  col-xs-6">
                                 <select name="labelId" data-placeholder="请选择标签哦" id="labelId" data-rel="chosen"
                                         style="width:350px;" class="chzn-select" tabindex="7">
-
                                 </select>
                                 <span class="help-inline">*</span>
                             </div>
