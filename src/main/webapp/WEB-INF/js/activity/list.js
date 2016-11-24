@@ -109,9 +109,9 @@ $(function () {
                 console.log(files)
                 //上传图片到服务器，使用了formData对象，至于兼容性...据说对低版本IE不太友好
                 var formData = new FormData();
-                formData.append('imgFile', files[0]);
+                formData.append('avatar',  files[0]);
                 $.ajax({
-                    url: 'http://api.tiyujia.com/v1/upload/file',//后台文件上传接口
+                    url: 'http://119.61.66.55:18100/v2/upload',//后台文件上传接口
                     type: 'POST',
                     data: formData,
                     processData: false,
@@ -267,9 +267,9 @@ $("#confirmCmd").click(function () {
         activityRecommend();
     }else{
         var formData = new FormData();
-        formData.append('imgFile', $("#recommendFile")[0].files[0]);
+        formData.append('avatar',  $("#recommendFile")[0].files[0]);
         $.ajax({
-            url: 'http://api.tiyujia.com/v1/upload/file',
+            url: 'http://119.61.66.55:18100/v2/upload',
             type: 'post',
             data: formData,
             processData: false,
@@ -311,11 +311,11 @@ function activityRecommend() {
 
 $("#czS").click(function () {
     var formData = new FormData();
-    formData.append('imgFile', $("#lefile")[0].files[0]);
+    formData.append('avatar',  $("#lefile")[0].files[0]);
     if ($("#listType").html() == "创建") {
         /*创建*/
         $.ajax({
-            url: 'http://api.tiyujia.com/v1/upload/file',
+            url: 'http://119.61.66.55:18100/v2/upload',
             type: 'post',
             data: formData,
             processData: false,
@@ -359,7 +359,7 @@ $("#czS").click(function () {
         var isChange = $("#image").val();
         if(ISCHANGEIMG != isChange){/*不相等代表换了图片*/
             $.ajax({
-                url: 'http://api.tiyujia.com/v1/upload/file',
+                url: 'http://119.61.66.55:18100/v2/upload',
                 type: 'post',
                 data: formData,
                 processData: false,

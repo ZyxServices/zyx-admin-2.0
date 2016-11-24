@@ -1236,7 +1236,7 @@ var ZYFILE = {
     funUploadFile: function (file) {
         var self = this;
         var formdata = new FormData();
-        formdata.append("file", file);
+        formdata.append("avatar", file);
         //if ($("#uploadTailor_" + file.index).length > 0) {
         //    formdata.append("imgFile", $("#uploadTailor_" + file.index).attr("tailor"))
         //}

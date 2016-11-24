@@ -120,9 +120,9 @@ var ajaxPlugins = {
 //图片上传
 function uploadImg(imgFileId,imgFileIdUrl,successEvent){
     var formData = new FormData();
-    formData.append('file', $("#"+imgFileId+"")[0].files[0]);
+    formData.append('avatar', $("#"+imgFileId+"")[0].files[0]);
         $.ajax({
-            url: "http://api.tiyujia.com/v1/upload/file",
+            url: "http://119.61.66.55:18100/v2/upload",
             type: 'post',
             dataType: 'json',
             data: formData,
@@ -159,7 +159,22 @@ function getIdSelections() {
     });
 }
 
-
+function queryOfficial(id) {
+    $.ajax({
+        url:'/v1/sysUser/choice',
+        type:'post',
+        async: false,
+        success:function (res) {
+            var data = res.data;
+            var option = '';
+            for(var i = 0;i < data.length; i++){
+                option += '<option value='+data[i].id+'>'+data[i].nickname+'</option>'
+            }
+            console.log(res)
+            $("#"+id).html(option);
+        }
+    })
+}
 function removeEvent(id) {
     var sav = this
     var globalIDd = globalID;

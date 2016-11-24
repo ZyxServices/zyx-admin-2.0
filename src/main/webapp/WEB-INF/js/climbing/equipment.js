@@ -130,18 +130,8 @@ function initTable(num) {
         $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
         selections = getIdSelections();
     });
-    /*查询创建活动时需要选择的用户*/
-    $.ajax({
-        url: '/v1/equipLabel/queryByState',
-        type: 'get',
-        dataType: 'json',
-        success: function (result) {
-            result.data.forEach(function(e){
-                $('#v_label').append('<option value="'+ e.id+'">'+ e.labelName+'</option>')
-            })
-        }
-    })
-
+    /*查询创建时需要选择的用户*/
+    queryOfficial('choiceUser')
 }
 //操作
 function operateFormatter(value, row, index) {

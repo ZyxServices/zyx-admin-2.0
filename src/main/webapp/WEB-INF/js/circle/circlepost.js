@@ -57,9 +57,9 @@ $('#post-summernote').on('summernote.change', function (content, $editable) {
         onImageUpload: function (files) {
             //上传图片到服务器，使用了formData对象，至于兼容性...据说对低版本IE不太友好
             var formData = new FormData();
-            formData.append('imgFile', files[0]);
+            formData.append('avatar',  files[0]);
             $.ajax({
-                url: 'http://api.tiyujia.com/v1/upload/file',//后台文件上传接口
+                url: 'http://119.61.66.55:18100/v2/upload',//后台文件上传接口
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -433,9 +433,9 @@ $("#circleSure").click(function (e) {
             $("input[name=imageUrl]").val();
             $("input[name=sequence]").val(SecendSequence);
             $("input[name=model]").val("4");
-            formData.append('imgFile', $("#lefile")[0].files[0]);
+            formData.append('avatar',  $("#lefile")[0].files[0]);
             $.ajax({
-                url: "http://api.tiyujia.com/v1/upload/file",
+                url: "http://119.61.66.55:18100/v2/upload",
                 type: 'post',
                 data: formData,
                 processData: false,
