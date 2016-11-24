@@ -369,6 +369,8 @@ public interface Constants {
      put("add","添加城市");
      put("delCity","删除城市");
      put("updateCity","设置城市标签启用或者禁用");
+     put("choiceAccount","给选择官方账户");
+     put("addOfficial","绑定官方账户");
 
 
 
