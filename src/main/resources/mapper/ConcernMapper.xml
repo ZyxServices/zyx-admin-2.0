@@ -32,11 +32,11 @@
     </insert>
 
     <select id="zanCountsSelect" parameterType="int" resultType="int">
-        SELECT COUNT(id) FROM zan WHERE zan.body_type = 2 AND body_id = #{concernId}
+        SELECT COUNT(id) FROM zan WHERE zan.body_type = 1 AND body_id = #{concernId}
     </select>
 
     <select id="commentCountsSelect" parameterType="int" resultType="int">
-       SELECT COUNT(id) FROM comment WHERE comment_type = 3  AND comment_id = #{concernId}
+       SELECT COUNT(id) FROM comment WHERE comment_type = 1  AND comment_id = #{concernId}
     </select>
 
     <select id="userSelect" parameterType="int" resultType="com.zyx.model.vo.UserVo">
