@@ -43,7 +43,7 @@
                 <div>
                     <select class="form-control" id="officialSelect" onchange="changeOfficialTable()">
                         <option value="1">官方用户</option>
-                        <option value="2">普通用户</option>
+                        <option value="0">普通用户</option>
                     </select>
                 </div>
                 <div class="live_manage">
@@ -101,8 +101,9 @@
                         <label class="control-label">头像</label>
 
                         <div class="controls col-xs-5">
-                            <input type="file" class="hideInput" name="avatar" id="avatar">
-                            <a class="btn btn-default" href="javascript:void (0)" id="photoCover" onclick="$('input[id=avatar]').click();">选择文件</a>
+                            <input type="hidden" name="avatar" id="avatar">
+                            <input type="file" class="hideInput" name="avatarR" id="avatarR">
+                            <a class="btn btn-default" href="javascript:void (0)" id="photoCover" onclick="$('input[id=avatarR]').click();">选择文件</a>
                             <span class="help-inline required">*</span>
                             <div style="margin-top: 10px" id="imagesWrap" class="showImg">
                                 <img id="avatarImg" src="">
@@ -110,13 +111,12 @@
                         </div>
                     </div>
 
-                    <div class="control-group form-group">
+                    <div class="control-group">
                         <label class="control-label">生日</label>
 
-                        <div class="controls col-xs-5">
+                        <div class="controls">
                             <input type="hidden" name="birthday" id="birthday">
                             <input type="text" class="span6" name="birthdayStr" id="birthdayStr" placeholder="输入生日"/>
-                            <span class="help-inline required">*</span>
                         </div>
                     </div>
 
@@ -129,12 +129,11 @@
                         </div>
                     </div>
 
-                    <div class="control-group form-group">
+                    <div class="control-group">
                         <label class="control-label">签名</label>
 
-                        <div class="controls col-xs-5">
+                        <div class="controls">
                             <input type="text" class="span6" name="signature" id="signature" placeholder="输入签名"/>
-                            <span class="help-inline required">*</span>
                         </div>
                     </div>
                     <div class="margin-bottom-25">
@@ -148,6 +147,11 @@
     </div>
 </div>
 
+<div class="modal fade hide" id="upload" aria-hidden="true" data-backdrop="static">
+    <div class="modal-body">
+        <p id="uploadContent"></p>
+    </div>
+</div>
 <!-- 用户推荐开始 -->
 <!-- 模态框（Modal） -->
 <!-- 用户推荐结束 -->
