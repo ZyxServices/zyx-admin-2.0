@@ -57,6 +57,13 @@
                 <%--</button>--%>
                 <div id="demo" class="demo">
                     <form class="form-horizontal" role="form" id="createDynamicForm" enctype="multipart/form-data">
+                        <div class="control-group form-group officeUser">
+                            <label class="control-label " style="width: 100px;margin-right: 10px;text-align: left">选择官方账户户</label>
+                            <div class="">
+                                <select id="choiceUser" name="createId" class="span3">
+                                </select>
+                            </div>
+                        </div>
                         <div style="font-size: 13px;height: 25px">文字内容</div>
                         <textarea id="dynamicContent"
                                   style="resize: none; width: 400px;height: 150px;max-width: 400px;max-height: 150px;margin-bottom: 10px"

@@ -90,9 +90,16 @@
                 <div class="row-fluid">
 
                     <form id="updateCreateFrom" enctype="multipart/form-data" class="form-horizontal" role="form">
-                        <div class="control-group form-group">
-                            <label class="control-label">标题</label>
-                            <div class="controls col-xs-5">
+                        <div class="control-group form-group officeUser">
+                            <label class="control-label labelControl " >选择官方账户户</label>
+                            <div class="">
+                                <select id="choiceUser" name="officialId" class="span3">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group form-group officeUser">
+                            <label class="control-label labelControl"  style="width: 100px;margin-right: 10px;text-align: left">标题</label>
+                            <div class=" col-xs-5">
                                 <input type="text" id="title" name="title" class="span3" placeholder="请输入活动标题"/>
                                 <span class="help-inline required">*</span>
                             </div>
@@ -100,8 +107,8 @@
 
 
                         <div class="control-group form-group">
-                            <label class="control-label">内容</label>
-                            <div class="controls summernote">
+                            <label class="control-label labelControl">内容</label>
+                            <div class=" summernote">
                                 <div class="span6 col-xs-5">
                                     <div id="equipment-summernote"></div>
                                     <input id="desc" type="text" class="hideInput" name="content" value="">
@@ -110,9 +117,9 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">标签</label>
+                            <label class="control-label labelControl">标签</label>
 
-                            <div class="controls">
+                            <div class="">
                                 <select id="v_label" name="labelId">
                                 </select>
                             </div>

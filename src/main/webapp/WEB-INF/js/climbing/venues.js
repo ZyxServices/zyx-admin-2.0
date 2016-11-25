@@ -409,7 +409,7 @@ $(function () {
                 var formData = new FormData();
                 formData.append('avatar', files[0]);
                 $.ajax({
-                    url: 'http://api.tiyujia.com/v1/upload/file',//后台文件上传接口
+                    url: 'http://119.61.66.55:18100/v2/upload',//后台文件上传接口
                     type: 'POST',
                     data: formData,
                     processData: false,

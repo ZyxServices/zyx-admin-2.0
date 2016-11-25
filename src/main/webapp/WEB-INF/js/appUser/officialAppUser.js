@@ -239,9 +239,9 @@ function getImgURL(file) {
 /*提交审核*/
 $("#authButton").click(function () {
     var formData = new FormData();
-    formData.append('imgFile', $("#authFile")[0].files[0]);/*获取图片对象*/
+    formData.append('avatar',  $("#authFile")[0].files[0]);/*获取图片对象*/
     $.ajax({
-        url: 'http://api.tiyujia.com/v1/upload/file',
+        url: 'http://119.61.66.55:18100/v2/upload',
         type: 'post',
         data: formData,
         processData: false,
@@ -259,7 +259,7 @@ $("#authButton").click(function () {
                     var formWorkData = new FormData();
                     formWorkData.append('imgFile', $("#workFile")[0].files[0]);/*获取图片对象*/
                     $.ajax({
-                        url: 'http://api.tiyujia.com/v1/upload/file',
+                        url: 'http://119.61.66.55:18100/v2/upload',
                         type: 'post',
                         data: formWorkData,
                         processData: false,
@@ -335,9 +335,9 @@ function authFormSubmit() {
 /*上传图片*/
 function imgUpload(id,image) {
     var formData = new FormData();
-    formData.append('imgFile', $("#"+id)[0].files[0]);/*获取图片对象*/
+    formData.append('avatar',  $("#"+id)[0].files[0]);/*获取图片对象*/
     $.ajax({
-        url: 'http://api.tiyujia.com/v1/upload/file',
+        url: 'http://119.61.66.55:18100/v2/upload',
         type: 'post',
         data: formData,
         processData: false,

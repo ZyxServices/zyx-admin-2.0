@@ -1,37 +1,51 @@
 @charset "UTF-8";
-.fl{
+.fl {
     float: left;
 }
-.fr{
+
+.fr {
     float: right;
 }
-.p5{
+
+.p5 {
     padding: 5px;
 }
-.hide{
+
+.hide {
     display: none;
 }
 
-.live_manage{
+.live_manage {
     margin-top: 20px;
 }
-.dynamicEdit, .create_liveType , .dynamicPreview , .liveEditClass , .createLiveClass{
+
+.dynamicEdit, .create_liveType, .dynamicPreview, .liveEditClass, .createLiveClass {
     display: none;
 }
-.create_liveType.on ,.dynamicPreview.on,.create_liveType.on,.liveEditClass.on,.createLiveClass.on{
-    display: block ;
+
+.create_liveType.on, .dynamicPreview.on, .create_liveType.on, .liveEditClass.on, .createLiveClass.on {
+    display: block;
 }
+
 .dynamicEdit.on {
     display: inline-block;
 }
 
-.dynamicPic{
+.dynamicPic {
     margin-bottom: 15px;
 }
-.dynamicPic img{
+
+.dynamicPic img {
     padding: 5px;
 }
+
 /*bootstraptable中btn样式*/
-.bootstrap-table button.btn, input[name="refresh"].btn{
+.bootstrap-table button.btn, input[name="refresh"].btn {
     padding: 10px 14px;
+}
+
+.form-horizontal .labelControl {
+    width: 100px;
+    margin-right: 10px;
+    text-align: left
 }

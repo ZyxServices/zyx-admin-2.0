@@ -124,7 +124,7 @@
   <div class="title">服务协议</div>
 </div>
 <div class="shop content Software_agreement">
-  <div class="title">体育家软件许可协议</div>
+  <div class="title">趣攀岩软件许可协议</div>
   <div class="agreemnet">
     <ul>
       <li>1、本软件所有知识产权归成都智悠行科技有限公司(以下简称智悠行公司)所有。</li>

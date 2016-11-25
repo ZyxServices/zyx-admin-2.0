@@ -30,9 +30,9 @@ $("#confirmDeva").click(function () {
         }
     }else{
         var formData = new FormData();
-        formData.append('imgFile', $("#lefile")[0].files[0]);
+        formData.append('avatar',  $("#lefile")[0].files[0]);
         $.ajax({
-            url: 'http://api.tiyujia.com/v1/upload/file',
+            url: 'http://119.61.66.55:18100/v2/upload',
             type: 'post',
             data: formData,
             processData: false,

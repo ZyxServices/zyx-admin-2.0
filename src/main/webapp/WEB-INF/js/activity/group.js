@@ -422,10 +422,10 @@ function createGroupActivity() {
 var ISCHANGEIMG = '';
 $("#createModify").click(function () {
     var formData = new FormData();
-    formData.append('imgFile', $("#lefile")[0].files[0]);
+    formData.append('avatar',  $("#lefile")[0].files[0]);
     if($("#combinationId").val() ==  ""){/*创建*/
         $.ajax({
-            url: 'http://api.tiyujia.com/v1/upload/file',
+            url: 'http://119.61.66.55:18100/v2/upload',
             type: 'post',
             data: formData,
             processData: false,
@@ -443,7 +443,7 @@ $("#createModify").click(function () {
     }else{/*编辑*/
         if(ISCHANGEIMG != $("#imgUrl").val()){/*图片发生了改变*/
             $.ajax({
-                url: 'http://api.tiyujia.com/v1/upload/file',
+                url: 'http://119.61.66.55:18100/v2/upload',
                 type: 'post',
                 data: formData,
                 processData: false,

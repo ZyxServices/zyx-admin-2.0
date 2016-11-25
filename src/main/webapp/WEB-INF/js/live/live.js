@@ -245,10 +245,10 @@ var operateEventssssss = {
             saveEvent: function () {
                 $("#upload").modal({backdrop: 'static', keyboard: false});
                 var formData = new FormData();
-                formData.append('imgFile', $('#Cover')[0].files[0]);
+                formData.append('avatar',  $('#Cover')[0].files[0]);
                 if ($('#Cover')[0].files.length > 0) {
                     $.ajax({
-                        url: 'http://api.tiyujia.com/v1/upload/file',//后台文件上传接口
+                        url: 'http://119.61.66.55:18100/v2/upload',//后台文件上传接口
                         type: 'POST',
                         data: formData,
                         processData: false,
