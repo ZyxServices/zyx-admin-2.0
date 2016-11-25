@@ -80,12 +80,14 @@ function operateFormatter(value, row, index) {
     _html.push('<a class="remove p5" href="javascript:void(0)">删除</a>')
     return _html.join('');
 }
+var ISCHANGEIMG = '';/*判断是否修改了图片*/
 var operateEvent = {
     'click .edit': function (e, value, row, index) {
-        console.log(row);
         $(".live_index").hide();
         $(".create_liveType").show();
         $("#listType").html("编辑用户");
+        $("#avatar").val(row.avatar);
+        ISCHANGEIMG = row.avatar;
         $("#nickname").val(row.nickname);
         $("#userId").val(row.id);
         $("#phone").val(row.phone);
@@ -95,9 +97,10 @@ var operateEvent = {
             $("#avatarImg").attr("src","http://image.tiyujia.com/" + row.avatar);
         }
         $("#address").val(row.address);
+        $("#birthdayStr").val(new Date(row.birthday).format("yyyy-mm-dd HH:MM:ss"));
         $("#birthday").val(row.birthday);
         $("#signature").val(row.signature);
-        $('#createAppUserForm').bootstrapValidator('removeField', 'avatar');
+        $('#createAppUserForm').bootstrapValidator('removeField', 'avatarR');
         $('#createAppUserForm').data('bootstrapValidator').validate();
     },
     'click .isMask':function (e, value, row, index) {
@@ -178,13 +181,14 @@ $(".create_live").click(function () {
     $('#createAppUserForm').data('bootstrapValidator').resetForm(true);
 });
 
+
 function createEditAppUser(url) {
     $("#createAppUserForm").ajaxSubmit({
         url: url,
         type: 'post',
         dataType: 'json',
-        beforeSubmit: function () {
-            return $('#createAppUserForm').data('bootstrapValidator').isValid();
+        complete:function () {
+            $("#upload").modal('hide');
         },
         success: function (result) {
             if (result.state == 200) {
@@ -211,10 +215,58 @@ function createEditAppUser(url) {
 }
 
 function beginCreate() {
-    if($("#listType").html() == "创建用户"){
-        createEditAppUser('/v1/appUser/insert')
-    }else{
-        createEditAppUser('/v1/appUser/update')
+    var formData = new FormData();
+    formData.append('avatar', $("#avatarR")[0].files[0]);
+    if($("#listType").html() == "创建用户" || ISCHANGEIMG != $("#avatar").val()){/*创建用户或者修改了图片的时候都需要先上传图片*/
+        $.ajax({
+            url: 'http://119.61.66.55:18100/v2/upload ',
+            type: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                /*传图片之前做验证*/
+                var _isValid = $('#createAppUserForm').data('bootstrapValidator').isValid();
+                if(_isValid){
+                    $("#upload").modal('show');
+                    if($("#listType").html() == "创建用户"){
+                        $("#uploadContent").html('创建中，请稍后...');
+                    }else{
+                        $("#uploadContent").html('修改中，请稍后...');
+                    }
+                }else{
+                    return _isValid;
+                }
+            },
+            success:function (result) {
+                if(result.state == 200){
+                    $("#avatar").val(result.data.url);
+                    if($("#listType").html() == "创建用户"){
+                        createEditAppUser('/v1/appUser/insert')
+                    }else{
+                        createEditAppUser('/v1/appUser/update')
+                    }
+                }else{
+                    $.Popup({
+                        confirm: false,
+                        template: JSON.stringify(result)
+                    });
+                    $("#upload").modal('hide');
+                }
+            },
+            error:function (result) {
+                $.Popup({
+                    confirm: false,
+                    template: result
+                });
+                $("#upload").modal('hide');
+            }
+        })
+        
+    }else{/*未改变图片的上传*/
+        if($('#createAppUserForm').data('bootstrapValidator').isValid()){
+            createEditAppUser('/v1/appUser/update')
+        }
     }
 }
 
@@ -223,21 +275,25 @@ function backToUsers() {
     $(".live_index").show();
 }
 /*图片上传*/
-$('input[id=avatar]').change(function () {
-    $('#createAppUserForm').bootstrapValidator('addField', 'avatar', {
+$('input[id=avatarR]').change(function () {
+    $('#createAppUserForm').bootstrapValidator('addField', 'avatarR', {
         validators: {
             notEmpty: {
                 message: '头像必须上传'
             }
         }
     });
+    $("#avatar").val($(this).val());
     if ($(this).val()) {
         $('#photoCover').html($(this).val());
-        $("#avatar").html($(this).val());
+        $("#avatarR").html($(this).val());
         var objUrl = getImgURL(this.files[0]);
         if (objUrl) {
             $("#avatarImg").attr("src", objUrl);
         }
+    }else {
+        $("#photoCover").html("选择文件");
+        $("#avatarImg").attr("src", "");
     }
 });
 //图片预览
@@ -284,7 +340,7 @@ $(function () {
                         message: '密码必填'
                     }
                 }
-            }, 'avatar': {
+            }, 'avatarR': {
                 validators: {
                     notEmpty: {
                         message: '头像必须上传'
@@ -296,19 +352,13 @@ $(function () {
                         message: '所在地必填'
                     }
                 }
-            }, 'signature': {
+            }/*, 'signature': {
                 validators: {
                     notEmpty: {
                         message: '签名必填'
                     }
                 }
-            }, 'birthdayStr': {
-                validators: {
-                    notEmpty: {
-                        message: '生日必填'
-                    }
-                }
-            }
+            }*/
         }
     });
     $('#birthdayStr').datetimepicker({
@@ -324,9 +374,6 @@ $(function () {
         showMeridian: false
     }).on('hide', function (e) {
         $("#birthday").val(e.timeStamp);
-        $('#createAppUserForm').data('bootstrapValidator')
-            .updateStatus('birthdayStr', 'NOT_VALIDATED', null)
-            .validateField('birthdayStr');
     });
 });
 $("#birthdayStr").focus(function () {
