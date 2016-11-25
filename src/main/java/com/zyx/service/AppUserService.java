@@ -190,7 +190,10 @@ public class AppUserService extends BaseServiceImpl<AppUser> {
         appUser.setMask(0);
         appUser.setDel(0);
         appUser.setAuthenticate(0);
-        appUser.setBirthday(param.getBirthday());
+        if((param.getBirthday()+"")!=null && !(param.getBirthday()+"").equals("")){
+            appUser.setBirthday(param.getBirthday());
+        }
+
         appUser.setSignature(param.getSignature());
         try {
             int result = appUserMapper.insert(appUser);

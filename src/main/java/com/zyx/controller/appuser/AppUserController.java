@@ -47,7 +47,7 @@ public class AppUserController {
                                @ApiParam(name = "avatar",required = false,value = "头像") @RequestParam(required = false) String avatar,
                                @ApiParam(name = "nickname",required = true,value = "昵称")@RequestParam String nickname,
                                @ApiParam(name = "sex",required = true,value = "性别:1男、0女")@RequestParam String sex,
-                               @ApiParam(name = "birthday",required = false,value = "生日")@RequestParam long birthday,
+                               @ApiParam(name = "birthday",required = false,value = "生日")@RequestParam(required = false) Long birthday,
                                @ApiParam(name = "address",required = true,value = "地址")@RequestParam String address,
                                @ApiParam(name = "signature",required = false,value = "签名")@RequestParam(required = false) String signature) {
         AbstractView jsonView = new MappingJackson2JsonView();
@@ -65,7 +65,9 @@ public class AppUserController {
 //                if (avatar!=null && "".equals(avatar)) {
                     param.setAvatar(avatar);
 //                }
-                param.setBirthday(birthday);
+                if((birthday+"")!=null && !(birthday+"").equals("")){
+                    param.setBirthday(birthday);
+                }
                 param.setSignature(signature);
                 map = appUserService.insertAppUser(param);
             }
