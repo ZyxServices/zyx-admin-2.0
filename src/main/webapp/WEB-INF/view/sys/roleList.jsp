@@ -191,33 +191,20 @@
                             <div class="controls col-xs-5">
                                 <div class="span6">
                                     <select id="menu-create-select" multiple="multiple">
-                                        <option value="menu:climbing:banner" data-section="活动">banner管理</option>
-                                        <option value="menu:activity:group" data-section="活动">组合活动</option>
+                                        <option value="menu:climbing:banner" data-section="攀岩管理">banner管理</option>
+                                        <option value="menu:climbing:introduction" data-section="攀岩管理">教程攻略</option>
+                                        <option value="menu:climbing:equipment" data-section="攀岩管理">装备控</option>
+                                        <option value="menu:climbing:appointment" data-section="攀岩管理">求约</option>
+                                        <option value="menu:climbing:venues" data-section="攀岩管理">场馆</option>
 
-                                        <option value="menu:live:living" data-section="直播">直播</option>
+                                        <option value="menu:community:dynamic" data-section="社区管理">动态管理</option>
+                                        <option value="menu:community:grades" data-section="社区管理">等级管理</option>
 
-                                        <option value="menu:dynamic:dynamicIndex" data-section="动态">动态</option>
+                                        <option value="menu:city:city" data-section="城市">城市</option>
 
-                                        <option value="menu:circle:circleclassify" data-section="圈子">圈子类别</option>
-                                        <option value="menu:circle:circlelist" data-section="圈子">圈子列表</option>
-                                        <option value="menu:circle:circlepost" data-section="圈子">帖子列表</option>
-
-                                        <option value="menu:shop:goods" data-section="商城">商品</option>
-                                        <option value="menu:shop:order" data-section="商城">订单</option>
-
-                                        <option value="menu:appUser:allAppUser" data-section="用户管理">普通用户列表</option>
-                                        <option value="menu:appUser:yrzAppUser" data-section="用户管理">已认证用户列表</option>
-                                        <option value="menu:appUser:dshAppUser" data-section="用户管理">待审核用户列表</option>
-                                        <option value="menu:appUser:officialAppUser" data-section="用户管理">官方用户列表</option>
+                                        <option value="menu:appUser:allAppUser" data-section="用户列表">用户列表</option>
 
                                         <option value="menu:message:messageIndex" data-section="消息">消息</option>
-
-                                        <option value="menu:banner:activitybanner" data-section="banner推荐">活动banner推荐</option>
-                                        <option value="menu:banner:livebanner" data-section="banner推荐">直播banner推荐</option>
-                                        <option value="menu:banner:circlebanner" data-section="banner推荐">圈子banner推荐</option>
-                                        <option value="menu:banner:packagebanner" data-section="banner推荐">背包banner推荐</option>
-                                        <option value="menu:banner:dynamicbanner" data-section="banner推荐">动态banner推荐</option>
-
                                     </select>
                                 </div>
                                 <span class="help-inline required">*</span>
@@ -315,43 +302,20 @@
                             <div class="controls col-xs-5">
                                 <div class="span6">
                                     <select id="menu-edit-select" multiple="multiple">
-                                        <option value="menu:climbing:banner" data-section="攀岩管理" data-index="1">banner管理</option>
-                                        <option value="menu:climbing:introduction" data-section="攀岩管理" data-index="2">教程攻略</option>
-                                        <option value="menu:climbing:equipment" data-section="攀岩管理" data-index="3">装备控</option>
-                                        <option value="menu:climbing:talentshow" data-section="攀岩管理" data-index="4">达人秀</option>
-                                        <option value="menu:climbing:appointment" data-section="攀岩管理" data-index="5">求约</option>
-                                        <option value="menu:climbing:venues" data-section="攀岩管理" data-index="6">场馆</option>
-                                        <option value="menu:climbing:couserlabel" data-section="装备标签" data-index="10">装备标签</option>
+                                        <option value="menu:climbing:banner" data-section="攀岩管理">banner管理</option>
+                                        <option value="menu:climbing:introduction" data-section="攀岩管理">教程攻略</option>
+                                        <option value="menu:climbing:equipment" data-section="攀岩管理">装备控</option>
+                                        <option value="menu:climbing:appointment" data-section="攀岩管理">求约</option>
+                                        <option value="menu:climbing:venues" data-section="攀岩管理">场馆</option>
 
-                                        <option value="menu:community:dynamic" data-section="社区" data-index="7">动态管理</option>
-                                        <option value="menu:community:grades" data-section="社区" data-index="8">等级管理</option>
+                                        <option value="menu:community:dynamic" data-section="社区管理">动态管理</option>
+                                        <option value="menu:community:grades" data-section="社区管理">等级管理</option>
 
-                                        <option value="menu:city:city" data-section="城市" data-index="9">城市</option>
+                                        <option value="menu:city:city" data-section="城市">城市</option>
 
-                                        <option value="menu:live:living" data-section="直播" data-index="23">直播</option>
-
-                                        <option value="menu:dynamic:dynamicIndex" data-section="动态" data-index="24">动态</option>
-
-                                        <option value="menu:circle:circleclassify" data-section="圈子">圈子类别</option>
-                                        <option value="menu:circle:circlelist" data-section="圈子" data-index="25">圈子列表</option>
-                                        <option value="menu:circle:circlepost" data-section="圈子" data-index="26">帖子列表</option>
-
-                                        <option value="menu:shop:goods" data-section="商城" data-index="27">商品</option>
-                                        <option value="menu:shop:order" data-section="商城" data-index="28">订单</option>
-
-                                        <option value="menu:appUser:allAppUser" data-section="用户管理">普通用户列表</option>
-                                        <option value="menu:appUser:yrzAppUser" data-section="用户管理">已认证用户列表</option>
-                                        <option value="menu:appUser:dshAppUser" data-section="用户管理">待审核用户列表</option>
-                                        <option value="menu:appUser:officialAppUser" data-section="用户管理">官方用户列表</option>
+                                        <option value="menu:appUser:allAppUser" data-section="用户列表">用户列表</option>
 
                                         <option value="menu:message:messageIndex" data-section="消息">消息</option>
-
-                                        <option value="menu:banner:activitybanner" data-section="banner推荐">活动banner推荐</option>
-                                        <option value="menu:banner:livebanner" data-section="banner推荐">直播banner推荐</option>
-                                        <option value="menu:banner:circlebanner" data-section="banner推荐">圈子banner推荐</option>
-                                        <option value="menu:banner:packagebanner" data-section="banner推荐">背包banner推荐</option>
-                                        <option value="menu:banner:dynamicbanner" data-section="banner推荐">动态banner推荐</option>
-                                        <option value="menu:banner:userbanner" data-section="banner推荐">用户banner推荐</option>
                                     </select>
                                 </div>
                                 <span class="help-inline required">*</span>

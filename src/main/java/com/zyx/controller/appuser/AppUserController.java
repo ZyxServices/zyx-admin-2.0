@@ -8,7 +8,6 @@ import com.zyx.parm.appUser.AppUserCreateParam;
 import com.zyx.service.AppUserService;
 import com.zyx.service.deva.DevaService;
 import com.zyx.utils.CipherUtil;
-import com.zyx.utils.FileUploadUtils;
 import com.zyx.utils.MapUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -18,8 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
@@ -47,7 +44,7 @@ public class AppUserController {
     @ApiOperation(value = "创建官方账号", notes = "创建官方账户")
     public ModelAndView insert(@ApiParam(name = "phone",required = true,value = "电话，即账号")@RequestParam String phone,
                                @ApiParam(name = "password",required = true,value = "密码")@RequestParam String password,
-                               @ApiParam(name = "avatar",required = false,value = "头像") @RequestPart(required = false) MultipartFile avatar,
+                               @ApiParam(name = "avatar",required = false,value = "头像") @RequestParam(required = false) String avatar,
                                @ApiParam(name = "nickname",required = true,value = "昵称")@RequestParam String nickname,
                                @ApiParam(name = "sex",required = true,value = "性别:1男、0女")@RequestParam String sex,
                                @ApiParam(name = "birthday",required = false,value = "生日")@RequestParam long birthday,
@@ -65,10 +62,9 @@ public class AppUserController {
                 param.setSex(Integer.parseInt(sex));
                 param.setNickname(nickname);
                 param.setPassword(CipherUtil.generatePassword(password));
-                if (avatar!=null && "".equals(avatar)) {
-                    String _avatar = FileUploadUtils.uploadFile(avatar);
-                    param.setAvatar(_avatar);
-                }
+//                if (avatar!=null && "".equals(avatar)) {
+                    param.setAvatar(avatar);
+//                }
                 param.setBirthday(birthday);
                 param.setSignature(signature);
                 map = appUserService.insertAppUser(param);
@@ -86,7 +82,7 @@ public class AppUserController {
     public ModelAndView update(@RequestParam Integer id,
                                @ApiParam(name = "phone",required = false,value = "电话，即账号")@RequestParam(required = false) String phone,
                                @ApiParam(name = "password",required = false,value = "密码")@RequestParam(required = false) String password,
-                               @ApiParam(name = "avatar",required = false,value = "头像")@RequestPart(required = false) MultipartFile avatar,
+                               @ApiParam(name = "avatar",required = false,value = "头像")@RequestParam(required = false) String avatar,
                                @ApiParam(name = "nickname",required = false,value = "昵称")@RequestParam(required = false) String nickname,
                                @ApiParam(name = "sex",required = false,value = "性别:1男、0女")@RequestParam(required = false) String sex,
                                @ApiParam(name = "address",required = false,value = "地址") @RequestParam(required = false) String address,
@@ -117,10 +113,10 @@ public class AppUserController {
             if (password != null) {
                 param.setPassword(CipherUtil.generatePassword(password));
             }
-            if (avatar != null && !avatar.isEmpty()) {
-                String _avatar = FileUploadUtils.uploadFile(avatar);
-                param.setAvatar(_avatar);
-            }
+//            if (avatar != null && !avatar.isEmpty()) {
+//                String _avatar = FileUploadUtils.uploadFile(avatar);
+                param.setAvatar(avatar);
+//            }
             param.setModifyTime(System.currentTimeMillis());
 
         if((birthday+"")!=null && !(birthday+"").equals("")){

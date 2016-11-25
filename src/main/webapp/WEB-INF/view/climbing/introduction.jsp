@@ -195,7 +195,7 @@
     <!-- END PAGE -->
 </div>
 <!-- 推荐弹窗-->
-<div class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel" id="CourseModal">
+<div class="modal fade hide" role="dialog" aria-labelledby="gridSystemModalLabel" id="CourseModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
