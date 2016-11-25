@@ -196,6 +196,11 @@ function createEditAppUser(url) {
                         confirm: false,
                         template: '账号已存在'
                     });
+                }else{
+                    $.Popup({
+                        confirm: false,
+                        template: '创建异常，请刷新后再创建'
+                    });
                 }
             }
         },

@@ -138,7 +138,7 @@
                         </div>
                     </div>
                     <div class="margin-bottom-25">
-                        <button type="button" id="createButton" class="btn" onclick="beginCreate()">确认
+                        <button id="createButton" type="submit" class="btn" onclick="beginCreate()">确认
                         </button>
                         <button type="button" class="btn" onclick="window.location.reload();">返回</button>
                     </div>
