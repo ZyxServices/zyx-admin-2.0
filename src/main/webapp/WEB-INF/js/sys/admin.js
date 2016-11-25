@@ -9,10 +9,10 @@ $(function () {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-            'username': {
+            'userName': {
                 validators: {
                     notEmpty: {
-                        message: '用户名称不能为空'
+                        message: '账号不能为空'
                     }
                 }
             }, 'pass': {
@@ -33,7 +33,7 @@ $(function () {
                         message: '请选择权限等级'
                     }
                 }
-            }, 'remark': {
+            }, 'bz': {
                 validators: {
                     notEmpty: {
                         message: '请输入备注'
@@ -78,60 +78,13 @@ $(function () {
         }
     });
 /*创建管理员*/
-    $("#sysUserCreateForm").ajaxForm({
-        url: '/v1/sysUser/insert',
-        type: 'post',
-        dataType: 'json',
-        beforeSubmit: function () {
-            return $("#sysUserCreateForm").data('bootstrapValidator').isValid();
-        },
-        success: function (result) {
-            if (result.state == 200) {
-                backToSysUsers();
-            } else {
-                if (result.state == 9004) {
-                    $.Popup({
-                        confirm: false,
-                        template: '用户已存在'
-                    });
-                } else {
-                    $.Popup({
-                        confirm: false,
-                        template: '用户新建失败'
-                    });
-                }
-                $("#createButton").attr("disabled", false);
-            }
-        },
-        error: function () {
-            $("#createButton").attr("disabled", false);
-        }
-    });
+    /*$("#sysUserCreateForm").ajaxForm({
+
+    });*/
 /*修改权限等级*/
-    $("#sysUserEditForm").ajaxForm({
-        url: '/v1/sysUser/editRole',
-        type: 'post',
-        dataType: 'json',
-        success: function (result) {
-            if (result.state == 200) {
-                $("#roleModal").modal('hide');
-                $('#administrators-list-table').bootstrapTable('refresh');
-                $.Popup({
-                    confirm: false,
-                    template: '修改权限等级成功'
-                });
-            } else {
-                $.Popup({
-                    confirm: false,
-                    template: '修改权限等级失败'
-                });
-                $("#editButton").attr("disabled", false);
-            }
-        },
-        error: function () {
-            $("#editButton").attr("disabled", false);
-        }
-    });
+   /* $("#sysUserEditForm").ajaxForm({
+
+    });*/
     getAllOfficial();
 })
 
@@ -286,14 +239,12 @@ var operateEvent = {
 function backToSysUsers() {
     $("#administratorsList").show();
     $("#administratorsCreate").hide();
-    $("#administratorsRoleEdit").hide();
     $('#administrators-list-table').bootstrapTable("refresh");
 }
 /*点击创建管理员*/
 function createAdministrators() {
     $("#administratorsList").hide();
     $("#administratorsCreate").show();
-    $("#administratorsRoleEdit").hide();
     $.ajax({
         url: "/v1/role/all",
         type: "GET",
@@ -309,14 +260,67 @@ function createAdministrators() {
         error: function (er) {
         }
     });
+    $("#sysUserCreateForm")[0].reset();
+    $('#sysUserCreateForm').data('bootstrapValidator').resetForm(true);
 }
 
 function beginCreateSysUser() {
-    $("#sysUserCreateForm").submit();
+    $("#sysUserCreateForm").ajaxSubmit({
+        url: '/v1/sysUser/insert',
+        type: 'post',
+        dataType: 'json',
+        beforeSubmit: function () {
+            return $("#sysUserCreateForm").data('bootstrapValidator').isValid();
+        },
+        success: function (result) {
+            if (result.state == 200) {
+                backToSysUsers();
+            } else {
+                if (result.state == 9004) {
+                    $.Popup({
+                        confirm: false,
+                        template: '用户已存在'
+                    });
+                } else {
+                    $.Popup({
+                        confirm: false,
+                        template: '用户新建失败'
+                    });
+                }
+                $("#createButton").attr("disabled", false);
+            }
+        },
+        error: function () {
+            $("#createButton").attr("disabled", false);
+        }
+    });
 }
 
 function beginEditSysUser() {
-    $("#sysUserEditForm").submit();
+    $("#sysUserEditForm").ajaxSubmit({
+        url: '/v1/sysUser/editRole',
+        type: 'post',
+        dataType: 'json',
+        success: function (result) {
+            if (result.state == 200) {
+                $("#roleModal").modal('hide');
+                $('#administrators-list-table').bootstrapTable('refresh');
+                $.Popup({
+                    confirm: false,
+                    template: '修改权限等级成功'
+                });
+            } else {
+                $.Popup({
+                    confirm: false,
+                    template: '修改权限等级失败'
+                });
+                $("#editButton").attr("disabled", false);
+            }
+        },
+        error: function () {
+            $("#editButton").attr("disabled", false);
+        }
+    });
 }
 function distributionOfficial() {
     /*分配官方账号*/

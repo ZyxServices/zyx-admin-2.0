@@ -221,7 +221,6 @@ function beginCreate() {
 function backToUsers() {
     $(".create_liveType").hide();
     $(".live_index").show();
-    $('#app_user_table').bootstrapTable('refresh');
 }
 /*图片上传*/
 $('input[id=avatar]').change(function () {
