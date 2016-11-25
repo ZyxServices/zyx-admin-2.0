@@ -4,6 +4,7 @@ import com.zyx.model.vo.UserVo;
 
 import javax.persistence.Column;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by zjx on 2016/11/21.
@@ -84,7 +85,7 @@ public class EquipDto implements Serializable{
     /**
      * 评论对象集合
      */
-    private CommentListDto commentList;
+    private List<CommentListDto> commentList;
 
 
 
@@ -184,11 +185,11 @@ public class EquipDto implements Serializable{
         this.equipType = equipType;
     }
 
-    public CommentListDto getCommentList() {
+    public List<CommentListDto> getCommentList() {
         return commentList;
     }
 
-    public void setCommentList(CommentListDto commentList) {
+    public void setCommentList(List<CommentListDto> commentList) {
         this.commentList = commentList;
     }
 

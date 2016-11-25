@@ -68,7 +68,7 @@
     </select>
 
     <select id="queryIsDeva" parameterType="java.lang.Integer" resultType="boolean">
-        SELECT NOT ISNULL(id) as isDeva FROM devaluation WHERE model = 2 AND model_id = #{id}
+        SELECT NOT ISNULL(id) as isDeva FROM devaluation WHERE model = 4 AND model_id = #{id}
     </select>
 
     <select id="queryJoinNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
@@ -76,11 +76,11 @@
     </select>
 
     <select id="queryZanNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-        SELECT count(id) from zan where body_type=2 and body_id = #{id}
+        SELECT count(id) from zan where body_type=3 and body_id = #{id}
     </select>
 
     <select id="queryViewNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-        SELECT count(id) from comment where comment_type=2 and comment_id=#{id}
+        SELECT count(id) from comment where comment_type=3 and comment_id=#{id}
     </select>
 
 

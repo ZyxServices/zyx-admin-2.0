@@ -164,7 +164,7 @@ public class ActivityController {
         if (map.get("state").equals("200")) {
             String[] ids = id.split(",");
             for (String s : ids) {
-                devaService.cascadeDelete(Constants.MODEL_ACTIVITY, Integer.valueOf(s));
+                devaService.cascadeDelete(Constants.MODULE_ACTIVITY, Integer.valueOf(s));
             }
         }
         jsonView.setAttributesMap(map);

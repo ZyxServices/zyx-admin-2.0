@@ -272,26 +272,37 @@ public interface Constants {
 
     //////////////////Model 模块定义//////////////////
     //子模块 当前数字后加两位如1子模块为101 11子模块为1101
-    /**
-     * 活动模块（求约）
-     */
-    int MODEL_ACTIVITY = 2;
-
 
     /**
-     * 教程模块
+     * 文章/教程模块标识
      */
-    int MODEL_COURSE=8;
+    public static final int MODULE_ARTICLE = 0;
 
     /**
-     * 社区动态模块
+     * 动态模块标识
      */
-    int MODEL_CONCERN=9;
+    public static final int MODULE_CONCERN = 1;
+
+    /**
+     * 装备控模块标识
+     */
+    public static final int MODULE_EQUIP = 2;
+
+    /**
+     * 记录模块标识
+     */
+    public static final int MODULE_SPORT_RECORD= 3;
+
+    /**
+     * 活动模块标识
+     */
+    public static final int MODULE_ACTIVITY= 4;
+
 
     /**
      * 用户模块
      */
-    int MODEL_USER=10;
+    public static int MODEL_USER=5;
 
     Map<Integer, String> devaNames = new HashMap() {{
         put(2, "activityDevas");

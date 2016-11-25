@@ -23,11 +23,11 @@
     </resultMap>
 
     <select id="zanCountsSelect" parameterType="int" resultType="int">
-        SELECT COUNT(id) FROM zan WHERE zan.body_type = 6 AND body_id = #{id}
+        SELECT COUNT(id) FROM zan WHERE zan.body_type = 0 AND body_id = #{id}
     </select>
 
     <select id="commentCountsSelect" parameterType="int" resultType="int">
-        SELECT COUNT(id) FROM comment WHERE comment_type = 7  AND comment_id = #{id}
+        SELECT COUNT(id) FROM comment WHERE comment_type = 0  AND comment_id = #{id}
     </select>
 
     <select id="courseLabelSelect" parameterType="int" resultType="java.lang.String">

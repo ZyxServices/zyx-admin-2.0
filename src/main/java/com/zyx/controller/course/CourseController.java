@@ -149,7 +149,7 @@ public class CourseController {
         if (map.get("state").equals("200")) {
             String[] ids = id.split(",");
             for (String s : ids) {
-                devaService.cascadeDelete(Constants.MODEL_COURSE, Integer.valueOf(s));
+                devaService.cascadeDelete(Constants.MODULE_ARTICLE, Integer.valueOf(s));
             }
         }
         jsonView.setAttributesMap(map);

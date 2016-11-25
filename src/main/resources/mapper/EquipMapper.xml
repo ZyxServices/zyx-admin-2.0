@@ -24,11 +24,11 @@
     </resultMap>
 
     <select id="zanCountsSelect" parameterType="int" resultType="int">
-        SELECT COUNT(id) FROM zan WHERE zan.body_type = 5 AND body_id = #{id}
+        SELECT COUNT(id) FROM zan WHERE zan.body_type = 2 AND body_id = #{id}
     </select>
 
     <select id="commentCountsSelect" parameterType="int" resultType="int">
-        SELECT COUNT(id) FROM comment WHERE comment_type = 5  AND comment_id = #{id}
+        SELECT COUNT(id) FROM comment WHERE comment_type = 2  AND comment_id = #{id}
     </select>
 
     <select id="userSelect" parameterType="int" resultType="com.zyx.model.vo.UserVo">
@@ -36,8 +36,8 @@
     </select>
 
 
-    <select id="commentSelect" parameterType="int" resultType="com.zyx.dto.CommentListDto">
-        SELECT * FROM comment where comment_type = 5  AND comment_id = #{id}
+    <select id="commentSelect" parameterType="int" resultMap="com.zyx.mapper.CommentMapper.BaseResultMap">
+        SELECT * FROM comment where comment_type = 2  AND comment_id = #{id}
     </select>
 
     <select id="equipLabelSelect" parameterType="int" resultType="java.lang.String">

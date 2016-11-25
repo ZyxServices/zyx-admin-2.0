@@ -1,6 +1,5 @@
 package com.zyx.controller.deva;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.zyx.constants.Constants;
 import com.zyx.constants.DevaContants;
 import com.zyx.constants.LiveConstants;
@@ -12,7 +11,6 @@ import com.zyx.vo.deva.DevaVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -211,10 +209,10 @@ public class DevaController {
         if (null != ids && !ids.isEmpty()) {
             //2.0版本为区域数量限定
             switch (area) {
-                case Constants.MODEL_ACTIVITY:
+                case Constants.MODULE_ACTIVITY:
                     list = activityService.selectByIds(ids);
                     break;
-                case Constants.MODEL_COURSE:
+                case Constants.MODULE_ARTICLE:
                     //TODO 换成教程攻略的service
                     list = courseService.selectByIds(ids);
                     break;
