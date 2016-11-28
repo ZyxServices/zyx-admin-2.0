@@ -43,7 +43,8 @@ public interface VenueService extends BaseService<Venue>{
      * 分享 获取场馆和评论数据
      * @param id 场馆id
      * @param type 评论类型
+     * @param userId 用户id
      * @return
      */
-    Map<String,Object> getVenueDataById(Integer type,Integer id);
+    Map<String,Object> getVenueDataById(Integer type,Integer id,Integer userId);
 }

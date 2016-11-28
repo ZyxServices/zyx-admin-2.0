@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface CommentMapper extends BaseMapper<Comment> {
 
-    List<CommentDto> queryByVenueId(Integer id,Integer type);
+    List<CommentDto> queryByTypeAndId(Integer id,Integer type);
 }

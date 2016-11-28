@@ -50,4 +50,10 @@ public interface SportInfoMapper extends Mapper<SportInfo>{
      */
     List<SportRecordDto> querySportRecordByUserId(Integer id);
 
+
+    /**
+     * 分享 用户去过每个场馆的记录数量
+     */
+    int queryCountByUserIdAndVenueId(Integer userId,Integer venueId);
+
 }
