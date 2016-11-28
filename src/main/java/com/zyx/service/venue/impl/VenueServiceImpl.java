@@ -3,11 +3,15 @@ package com.zyx.service.venue.impl;
 import com.zyx.constants.Constants;
 import com.zyx.dto.CommentDto;
 import com.zyx.dto.CommentListDto;
+import com.zyx.dto.SportInfoDto;
 import com.zyx.dto.VenueDto;
 import com.zyx.mapper.CommentMapper;
+import com.zyx.mapper.SportInfoMapper;
 import com.zyx.mapper.VenueMapper;
 import com.zyx.model.Comment;
+import com.zyx.model.SportInfo;
 import com.zyx.model.Venue;
+import com.zyx.parm.sportinfo.SportInfoQueryParam;
 import com.zyx.parm.venue.VenueParam;
 import com.zyx.parm.version.VersionParam;
 import com.zyx.service.BaseServiceImpl;
@@ -33,6 +37,8 @@ public class VenueServiceImpl extends BaseServiceImpl<Venue> implements VenueSer
     private VenueMapper venueMapper;
     @Resource
     private CommentMapper commentMapper;
+    @Resource
+    private SportInfoMapper sportInfoMapper;
 
     public VenueServiceImpl() {
         super(Venue.class);
@@ -93,13 +99,26 @@ public class VenueServiceImpl extends BaseServiceImpl<Venue> implements VenueSer
     }
 
     @Override
-    public Map<String, Object> getVenueDataById(Integer type,Integer id) {
+    public Map<String, Object> getVenueDataById(Integer type,Integer id,Integer userId) {
         try {
+            //场馆数据
             Venue venue = venueMapper.selectByPrimaryKey(id);
-            List<CommentDto> comments = commentMapper.queryByVenueId(type,id);
+            //评论数据
+            List<CommentDto> comments = commentMapper.queryByTypeAndId(type,id);
+            SportInfoQueryParam sportInfoQueryParam = new SportInfoQueryParam();
+            sportInfoQueryParam.setPageSize(10);
+            sportInfoQueryParam.setPageNumber(0);
+            sportInfoQueryParam.setVenueId(id);
+            //路线数据
+            List<SportInfoDto> paths = sportInfoMapper.querySportInfo(sportInfoQueryParam);
+            //是否去过
+            int count = sportInfoMapper.queryCountByUserIdAndVenueId(userId,id);
+
             Map<String,Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS,"查询成功","");
             map.put("venue",venue);
             map.put("comments",comments);
+            map.put("paths",paths);
+            map.put("hasGone",count>0?"是":"否");
             return map;
         }catch (Exception e){
             return MapUtils.buildErrorMap(Constants.ERROR,"查询失败");

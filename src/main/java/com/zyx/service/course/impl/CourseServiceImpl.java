@@ -1,9 +1,12 @@
 package com.zyx.service.course.impl;
 
 import com.zyx.constants.Constants;
+import com.zyx.dto.CommentDto;
+import com.zyx.mapper.CommentMapper;
 import com.zyx.mapper.CourseLabelMapper;
 import com.zyx.mapper.CourseMapper;
 import com.zyx.model.Course;
+import com.zyx.model.Venue;
 import com.zyx.parm.course.QueryCourseParam;
 import com.zyx.service.BaseServiceImpl;
 import com.zyx.service.course.CourseService;
@@ -32,6 +35,9 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
 
     @Resource
     private CourseLabelMapper courseLabelMapper;
+
+    @Resource
+    private CommentMapper commentMapper;
 
     public CourseServiceImpl( ) {
         super(Course.class);
@@ -223,6 +229,20 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
             }
         } else {
             return MapUtils.buildErrorMap(Constants.PARAM_MISS, "参数有误");
+        }
+    }
+
+    @Override
+    public Map<String, Object> getCourseDataById(Integer type, Integer id) {
+        try {
+            Course course = courseMapper.selectByPrimaryKey(id);
+            List<CommentDto> comments = commentMapper.queryByTypeAndId(type,id);
+            Map<String,Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS,"查询成功","");
+            map.put("course",course);
+            map.put("comments",comments);
+            return map;
+        }catch (Exception e){
+            return MapUtils.buildErrorMap(Constants.ERROR,"查询失败");
         }
     }
 }

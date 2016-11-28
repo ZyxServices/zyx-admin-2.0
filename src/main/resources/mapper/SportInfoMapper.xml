@@ -97,4 +97,8 @@
         order BY sr.create_time desc
         limit 0,10
     </select>
+
+    <select id="queryCountByUserIdAndVenueId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        SELECT count(id) from t_sport_record where user_id=#{param1} and venue_id=#{param2}
+    </select>
 </mapper>

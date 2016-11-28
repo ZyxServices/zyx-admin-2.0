@@ -33,11 +33,14 @@ public class ShareDataController {
     private SportInfoService sportInfoService;
     @Autowired
     private AppUserService appUserService;
+    @Autowired
+    private CourseService courseService;
 
     @ApiOperation(value = "分享查看页面数据获取",notes = "分享查看页面数据获取")
     @RequestMapping(name = "/getData",method = RequestMethod.POST)
-    public ModelAndView getData(@ApiParam(name = "id",required = true,value = "主键id(对应数据为用户id、用户id、活动id、场馆id)")@RequestParam(name = "id",required = true)Integer id,
-                                @ApiParam(name = "type",required = true,value = "1历史记录、2排行榜、3求约、4场馆")@RequestParam(name = "type",required = true)Integer type){
+    public ModelAndView getData(@ApiParam(name = "id",required = true,value = "主键id(对应数据为用户id、用户id、活动id、场馆id、教程id)")@RequestParam(name = "id",required = true)Integer id,
+                                @ApiParam(name = "type",required = true,value = "1历史记录、2排行榜、3求约、4场馆、0教程")@RequestParam(name = "type",required = true)Integer type,
+                                @ApiParam(name = "userId",required = false,value = "用户id，此为场馆必填参数，其他的不填")@RequestParam(name = "userId",required = false)Integer userId){
         AbstractView jsonView = new MappingJackson2JsonView();
         Map<String, Object> map=null;
         switch (type){
@@ -55,7 +58,11 @@ public class ShareDataController {
                 break;
             case 4:
                 //场馆
-                map=venueService.getVenueDataById(type,id);
+                map=venueService.getVenueDataById(type,id,userId);
+                break;
+            case 0:
+                //教程
+                map=courseService.getCourseDataById(type,id);
                 break;
         }
 

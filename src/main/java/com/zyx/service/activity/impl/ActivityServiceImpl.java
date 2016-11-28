@@ -147,7 +147,7 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements Ac
     public Map<String, Object> getActivityDataById(Integer type,Integer id) {
         try {
             Activity activity = activityMapper.selectByPrimaryKey(id);
-            List<CommentDto> comments = commentMapper.queryByVenueId(type,id);
+            List<CommentDto> comments = commentMapper.queryByTypeAndId(type,id);
             Map<String,Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", "");
             map.put("activity",activity);
             map.put("comments",comments);
