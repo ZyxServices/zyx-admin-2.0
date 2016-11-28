@@ -136,6 +136,7 @@ function initTable(num) {
         type: 'get',
         dataType: 'json',
         success: function (result) {
+            $('#v_label').empty()
             result.data.forEach(function(e){
                 $('#v_label').append('<option value="'+ e.id+'">'+ e.labelName+'</option>')
             })

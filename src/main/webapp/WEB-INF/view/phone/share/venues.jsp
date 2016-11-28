@@ -1,147 +1,153 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
-    <title>攀岩场详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/tiyujia/index.css"/>
+    <title>攀岩馆详情</title>
 </head>
 <style>
-    ul, li {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-    body {
-        -webkit-touch-callout: none;
-        -webkit-font-smoothing: antialiased;
-        font-smoothing: antialiased;
-        -webkit-text-size-adjust: none;
-        -moz-text-size-adjust: none;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        margin: 0;
-        padding: 0;
-        color: #000;
-        word-wrap: break-word;
-        font-size: 14px;
-        font-family: "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
-        line-height: 20px;
-        text-rendering: optimizeLegibility;
-        -webkit-backface-visibility: hidden;
-        -webkit-user-drag: none;
-        -ms-content-zooming: none;
-        background-color: #f7f7f7;
-        /*overflow-y: scroll;*/
-    }
-
-    .header {
+    .venues .banner {
+        background: url(<%=request.getContextPath()%>/images/venues-banner.png) no-repeat;
+        padding-top: 10px;
+        margin: 0px 10px 0 10px;
+        max-width: 100%;
         width: 100%;
-        position: fixed;
-        z-index: 2000   ;
-        top: 0;
-        left: 0;
-        height: 45px;
-        /*padding: 0 12px;*/
-        line-height: 45px;
-    }
-    .header-Cd80204 {
-        background-color: #d80204;
-        color: #FFFFFF;
-    }
-
-    .header .title {
-        width: 100%;
-        text-align: center;
-    }
-
-    .header .title::after {
-        float: left;
-    }
-
-    .header .back-button {
-        float: left;
-    }
-    .shop-car .title{
-        border-top: rgb(229, 229, 229) solid 1px;
-        border-bottom: rgb(229, 229, 229) solid 1px;
-        padding-left: 43px;
-        height: 30px;
-        line-height: 30px;
-        font-weight: 500;
-    }
-    .shop-car button{
-        background: none;
-        float: right;
-        /* margin: 6px; */
-        height: 30px;
-        border: none;
-        padding-right: 13px;
-    }
-    .shop-car ul {
-        padding: 50px 0 10px 0;
-    }
-    .shop_content.shop-car ul li{
-        height: 20px;
-    }
-    /*服务协议*/
-    .Software_agreement  .title{
-        font-size: 16px;
-        font-weight: 700;
-        width: 100%;
-        text-align: center;
-    }
-    .Software_agreement .agreemnet ul{
-        padding: 10px 0px;
-    }
-    .Software_agreement .agreemnet ul li{
-        text-indent: 2em;
-        padding: 8px 0;
-        margin: 0 15px;
-    }
-    .Software_agreement .agreemnet ul li:first-child{
-        padding:8px 14px ;
-    }
-    .content {
-        margin-top: 60px;
-        /*overflow-y: scroll;*/
-        /*border-bottom:#333333 1px solid ;*/
-    }
-    .shop {
-        margin: 60px 0 55px 0;
+        height: 35%;
+        max-height: 35%;
+        background-size: 95% 100%;
     }
 </style>
 <body>
-<div class="header header-Cd80204">
-    <!--<div class="back-button"><</div>-->
-    <!--<div class="header-function-button">编辑</div>-->
-    <div class="title">服务协议</div>
-</div>
-<div class="shop content Software_agreement">
-    <div class="title">体育家软件许可协议</div>
-    <div class="agreemnet">
-        <ul>
-            <li>1、本软件所有知识产权归成都智悠行科技有限公司(以下简称智悠行公司)所有。</li>
-            <li>2、本软件产品(包括但不限于本软件产品中所含的任何图象、照片、动画、录像、录音、音乐、文字和附加程序(dll、exe等))、随附的帮助材料、及本软件产品的任何副本的一切所有权和知识产权，均由智悠行公司拥有。用户不得单独复制和修改这些材料。</li>
-            <li>3、用户不得对本软件产品进行反向工程(reverse engineer)、反向编译(decompile)或反汇编(disassemble)，违者属于侵权行为，并自行承担由此产生的不利后果。</li>
-            <li>4、本软件产品为免费软件，您可以非商业性地下载、安装本软件产品，但不能以以任何方式授予第三者任何关于本软件的权利。如果您需要进行商业性的销售、复制和散发，必须获得智悠行公司的授权和许可。</li>
-            <li>5、如果您在安装本软件后因任何原因欲放弃使用，可从系统的卸载功能卸载本软件。</li>
-            <li>6、智悠行公司保证本软件不含有任何旨在破坏用户计算机数据和获取用户隐私信息的恶意代码，不含有任何跟踪、监视用户计算机和或操作行为的功能代码，不会监控用户网上、网下的行为或泄漏用户隐私。</li>
-            <li>7、您可使用本软件发表属于您原创或您有权发表的观点看法、数据、文字、信息、用户名、图片、照片、个人信息、音频、视频文件、链接等信息内容。您必须保证，您拥有您所上传信息内容的知识产权或已获得合法授权，您使用本软件的任何行为未侵犯任何第三方之合法权益。</li>
-            <li>8、您在使用本软件时不得利用软件从事以下行为，包括但不限于：发布、传送、传播、储存违反国家法律、危害国家安全统一、社会稳定、公序良俗、社会公德以及侮辱、诽谤、淫秽、暴力的内容；发布、传送、传播、储存侵害他人名誉权、肖像权、知识产权、商业秘密等合法权利的内容；虚构事实、隐瞒真相以误导、欺骗他人；发表、传送、传播广告信息及垃圾信息；从事其他违反法律法规、政策及公序良俗、社会公德等的行为。</li>
-            <li>9、任何网友所发布内容均系网友个人行为，并不反映任何本软件之意见，本软件不为其承担任何法律责任。</li>
-            <li>10、虽然本软件致力于给用户更好的使用体验，但访问者有义务在使用本软件时自行承担风险，本软件不做任何形式的保证,不保证本软件满足用户的要求，不保证本网站服务不中断。因网络状况、通讯线路等任何技术原因而导致用户不能正常访问本网站，本软件不承担任何法律责任。</li>
-            <li>11、本软件尊重并保护所有用户的个人隐私权，用户注册的用户名、电子邮件地址等个人资料，非经用户亲自许可或根据相关法律的强制性规定，本软件不会主动地泄露给第三方。</li>
-            <li>12、任何单位或个人认为本软件的内容可能涉嫌侵犯其合法权益，应该及时向本软件书面反馈，并提供身份证明、权属证明及详细侵权情况证明，本软件在收到上述法律文件后，将会尽快移除被控侵权内容。</li>
-            <li>13、如果用户选择注册，即表明用户信任智悠行公司，自愿选择安装本软件，并接受本协议所有条款。如果用户不接受本协议，不愿安装本软件，请取消注册。</li>
-        </ul>
+<div class="container-fluid content venues">
+    <div class="row">
+        <div class="col-xs-12 banner">
+            <button type="button" class="v-label-default">室内</button>
+        </div>
+        <div class="col-xs-12 ptb10 pb">
+            成都理工大学攀岩基地
+            <button type="button" class="v-label">室内</button>
+        </div>
+        <div class="col-xs-12 pb10" style="position: relative">
+            <div style="bottom: 8px;position: absolute;color:#999999">难度系数</div>
+            <div style="margin-left: 65px;">
+                <img src="<%=request.getContextPath()%>/images/solid.png" alt="" width="15px" height="15px"/>
+                <img src="<%=request.getContextPath()%>/images/solid.png" alt="" width="15px" height="15px"/>
+                <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px" height="15px"/>
+                <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px" height="15px"/>
+                <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px" height="15px"/>
+            </div>
+        </div>
+    </div>
+    <div class="row p10" style="margin-top: 10px">
+        <div class="col-xs-12">
+            成都市体育馆二号馆三楼篮球中心场地【我去过】
+        </div>
+        <div class="col-xs-12">
+            13681929137
+        </div>
+    </div>
+    <div class="row pb20" style="margin-top: 10px">
+        <div class="col-xs-12"><h4>岩场概况</h4></div>
+        <div class="col-xs-12">
+            方日报讯 （记者/金朱玺 通讯员/陈建族
+            钟雯）4日，记者从2016国际攀联中国广州世界青年攀岩锦标赛组委会获悉：由国际攀岩联合会主办、广州市体育局承办的2016国际攀联中国广州世界青年攀岩锦标赛将于11月7日至13日在广州大学城体育中心攀岩场举行。
+            本次比赛设速度攀岩、难度攀岩、攀石比赛，分男女少年A组、少年B组、青年组，共18个单项。据官方统计，本届比赛共吸引了来自41个国家和地区近500名运动员报名参赛，参赛队伍和参赛运动员数量均创国内举办的各类攀岩赛事之最。
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px">
+        <div class="col-xs-12"><h4>岩场路线</h4></div>
+        <div class="col-xs-12 pr0 meg v-line">
+            <div class="col-xs-5 .col-md-5  p0 ">
+                <img src="<%=request.getContextPath()%>/images/venues-banner.png" alt="" width="150px"/>
+            </div>
+            <div class="col-xs-7 .col-md-7 ">
+                <div class="v-title">牛背上-攀岩路线1</div>
+                <div class="lineDeveloper ">开线者：<span>Carry_Teng</span></div>
+                <br>
+
+                <div class="col-xs-12 p0" style="position: relative">
+                    <div style="bottom: -2px;position: absolute;color:#999999">难度系数</div>
+                    <div style="margin-left: 65px;">
+                        <img src="<%=request.getContextPath()%>/images/solid.png" alt="" width="15px"
+                             height="15px"/>
+                        <img src="<%=request.getContextPath()%>/images/solid.png" alt="" width="15px"
+                             height="15px"/>
+                        <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px"
+                             height="15px"/>
+                        <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px"
+                             height="15px"/>
+                        <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px"
+                             height="15px"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 pr0 meg v-line">
+            <div class="col-xs-5 .col-md-5  p0 ">
+                <img src="<%=request.getContextPath()%>/images/venues-banner.png" alt="" width="150px"/>
+            </div>
+            <div class="col-xs-7 .col-md-7  ">
+                <div class="v-title">牛背上-攀岩路线1</div>
+                <div class="lineDeveloper ">开线者：<span>Carry_Teng</span></div>
+                <br>
+
+                <div class="col-xs-12 p0" style="position: relative">
+                    <div style="bottom: -2px;position: absolute;color:#999999">难度系数</div>
+                    <div style="margin-left: 65px;">
+                        <img src="<%=request.getContextPath()%>/images/solid.png" alt="" width="15px" height="15px"/>
+                        <img src="<%=request.getContextPath()%>/images/solid.png" alt="" width="15px" height="15px"/>
+                        <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px" height="15px"/>
+                        <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px" height="15px"/>
+                        <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px" height="15px"/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row pb20" style="margin-top: 20px">
+        <div class="col-xs-12"><h4>开发背景</h4></div>
+        <div class="col-xs-12">
+            本次比赛设速度攀岩、难度攀岩、攀石比赛，分男女少年A组、少年B组、青年组，共18个单项。据官方统计，本届比赛共吸引了来自41个国家和地区近500名运动员报名参赛，
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px">
+        <div class="col-xs-12"><h4>他们都在说</h4></div>
+        <div class="col-xs-12 pr0 meg">
+            <div class="col-xs-2 .col-md-1  p0 phone1">
+                <img class="avatar" src="<%=request.getContextPath()%>/images/avatar.jpg">
+            </div>
+            <div class="col-xs-10 .col-md-11  p0 phone9">
+                小美爱吃肉
+                <div class="grade">初窥门径</div>
+                <br>
+                <span class="time">40分钟前</span>
+            </div>
+            <div class="col-xs-10 col-xs-offset-1 mes-content p0 phone-offset-1">
+                如果你无法用简介的语言表达它，说明你真的还不够了解它，热爱它就多多关注吧！
+            </div>
+        </div>
+        <div class="col-xs-12 pr0 meg">
+            <div class="col-xs-2 p0 phone1">
+                <img class="avatar" src="<%=request.getContextPath()%>/images/avatar.jpg">
+            </div>
+            <div class="col-xs-10 p0 phone9">
+                小美爱吃肉
+                <div class="grade">初窥门径</div>
+                <br>
+                <span class="time">40分钟前</span>
+            </div>
+            <div class="col-xs-10 col-xs-offset-1 mes-content p0 phone-offset-1">
+                如果你无法用简介的语言表达它，说明你真的还不够了解它，热爱它就多多关注吧！
+            </div>
+        </div>
+        <button type="button" class=" footer-btn">查看更多精彩内容，使劲搓这里</button>
     </div>
 </div>
+
 </body>
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 </html>
