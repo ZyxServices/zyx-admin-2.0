@@ -65,4 +65,11 @@ public interface ActivityService extends BaseService<Activity>{
      */
     Map<String, Object> delActivity(String id);
 
+    /**
+     * 分享  获取活动和评论
+     * @param id
+     * @return
+     */
+    Map<String, Object> getActivityDataById(Integer type,Integer id);
+
 }

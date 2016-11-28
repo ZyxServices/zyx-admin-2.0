@@ -13,4 +13,22 @@
     <result column="comment_state" property="commentState" jdbcType="INTEGER" />
     <result column="comment_content" property="commentContent" jdbcType="LONGVARCHAR" />
   </resultMap>
+
+  <resultMap id="commentDto" type="com.zyx.dto.CommentDto">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="comment_content" property="commentContent" jdbcType="VARCHAR" />
+    <result column="comment_img_path" property="commentImgPath" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+  </resultMap>
+
+  <select id="queryByVenueId" resultMap="commentDto" parameterType="java.lang.Integer">
+    SELECT c.id,c.comment_content,c.comment_img_path,c.create_time,u.nickname,u.avatar,l.name as level
+    from comment c left join user u on c.comment_account=u.id LEFT join level l ON
+    u.level_id=l.id where c.comment_type=#{param1} and comment_id=#{param2}
+    order by c.create_time desc
+    limit 0,5
+  </select>
 </mapper>

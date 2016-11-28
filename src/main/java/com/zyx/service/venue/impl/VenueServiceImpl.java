@@ -1,8 +1,12 @@
 package com.zyx.service.venue.impl;
 
 import com.zyx.constants.Constants;
+import com.zyx.dto.CommentDto;
+import com.zyx.dto.CommentListDto;
 import com.zyx.dto.VenueDto;
+import com.zyx.mapper.CommentMapper;
 import com.zyx.mapper.VenueMapper;
+import com.zyx.model.Comment;
 import com.zyx.model.Venue;
 import com.zyx.parm.venue.VenueParam;
 import com.zyx.parm.version.VersionParam;
@@ -13,8 +17,11 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.bouncycastle.asn1.x509.X509ObjectIdentifiers.id;
 
 /**
  * Created by HL on 2016/11/7.
@@ -24,6 +31,8 @@ public class VenueServiceImpl extends BaseServiceImpl<Venue> implements VenueSer
 
     @Resource
     private VenueMapper venueMapper;
+    @Resource
+    private CommentMapper commentMapper;
 
     public VenueServiceImpl() {
         super(Venue.class);
@@ -81,5 +90,20 @@ public class VenueServiceImpl extends BaseServiceImpl<Venue> implements VenueSer
         Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", venues);
         map.put("total", i);
         return map;
+    }
+
+    @Override
+    public Map<String, Object> getVenueDataById(Integer type,Integer id) {
+        try {
+            Venue venue = venueMapper.selectByPrimaryKey(id);
+            List<CommentDto> comments = commentMapper.queryByVenueId(type,id);
+            Map<String,Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS,"查询成功","");
+            map.put("venue",venue);
+            map.put("comments",comments);
+            return map;
+        }catch (Exception e){
+            return MapUtils.buildErrorMap(Constants.ERROR,"查询失败");
+        }
+
     }
 }

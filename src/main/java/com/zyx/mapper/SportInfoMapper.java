@@ -1,6 +1,7 @@
 package com.zyx.mapper;
 
 import com.zyx.dto.SportInfoDto;
+import com.zyx.dto.SportRecordDto;
 import com.zyx.model.SportInfo;
 import com.zyx.parm.sportinfo.SportInfoQueryParam;
 import org.springframework.stereotype.Repository;
@@ -41,5 +42,12 @@ public interface SportInfoMapper extends Mapper<SportInfo>{
      * @return
      */
     int delSportInfo(Integer id);
+
+    /**
+     * 分享 查询用户的记录
+     * @param id
+     * @return
+     */
+    List<SportRecordDto> querySportRecordByUserId(Integer id);
 
 }

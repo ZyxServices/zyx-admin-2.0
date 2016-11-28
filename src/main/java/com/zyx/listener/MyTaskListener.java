@@ -28,17 +28,24 @@ public class MyTaskListener implements ServletContextListener{
         SysMessageParam sysMessageParam = new SysMessageParam();
         sysMessageParam.setDone(1);
         List<SysMessageDto> sysMessageDtos = sysMessageMapper.querySysMessage(sysMessageParam);
-        for (SysMessageDto temp:sysMessageDtos){
-            if (temp.getPushTime()<new Date().getTime()){
-                SysMessage change = new SysMessage();
-                change.setId(temp.getId());
-                change.setDone(0);
-                sysMessageMapper.updateSysMessage(change);
-            }else {
-                long time =temp.getPushTime()-new Date().getTime();
-                MyTask myTimer  = new MyTask(time,temp.getId(),sysMessageMapper);
-                Timer timer = new Timer();
-                timer.schedule(myTimer,time);
+        if(sysMessageDtos!=null&&sysMessageDtos.size()>0){
+            for (SysMessageDto temp:sysMessageDtos){
+                try {
+                    if (temp.getPushTime()<new Date().getTime()){
+                        SysMessage change = new SysMessage();
+                        change.setId(temp.getId());
+                        change.setDone(0);
+                        sysMessageMapper.updateSysMessage(change);
+                    }else {
+                        long time =temp.getPushTime()-new Date().getTime();
+                        MyTask myTimer  = new MyTask(time,temp.getId(),sysMessageMapper);
+                        Timer timer = new Timer();
+                        timer.schedule(myTimer,time);
+                    }
+                }catch (Exception e){
+                    logger.info("处理未完成的定时任务异常");
+                }
+
             }
         }
         logger.info("处理未完成的定时任务结束");

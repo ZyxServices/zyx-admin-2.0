@@ -4,6 +4,7 @@ import com.zyx.constants.AppUserConstants;
 import com.zyx.constants.Constants;
 import com.zyx.dto.AppUserListDto;
 import com.zyx.dto.OfficialUserListDto;
+import com.zyx.dto.RankDto;
 import com.zyx.mapper.AppUserMapper;
 import com.zyx.model.AppUser;
 import com.zyx.parm.QueryAppUserParam;
@@ -16,6 +17,8 @@ import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 import java.util.Map;
+
+import static org.bouncycastle.asn1.x509.X509ObjectIdentifiers.id;
 
 /**
  * Created by wms on 2016/7/15.
@@ -272,4 +275,26 @@ public class AppUserService extends BaseServiceImpl<AppUser> {
             return AppUserConstants.MAP_500;
         }
     }
+
+    /**
+     * 分享 排行榜
+     * @param userId
+     * @return
+     */
+    public Map<String,Object> getRank(Integer userId){
+        try {
+            Map<String,Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "查询成功", null);
+            RankDto own = appUserMapper.getOwnRank(userId);
+            List<RankDto> tops = appUserMapper.getTopRank();
+            int beat = appUserMapper.selectCount(null);
+            map.put("own",own);
+            map.put("tops",tops);
+            map.put("beat",beat);
+            return map;
+        }catch (Exception e){
+            e.printStackTrace();
+            return  MapUtils.buildErrorMap(Constants.ERROR, "查询异常");
+        }
+    }
+
 }

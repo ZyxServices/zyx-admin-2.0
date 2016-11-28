@@ -3,8 +3,11 @@ package com.zyx.service.activity.impl;
 import com.zyx.constants.ActivityConstants;
 import com.zyx.constants.Constants;
 import com.zyx.dto.ActivityDto;
+import com.zyx.dto.CommentDto;
 import com.zyx.mapper.ActivityMapper;
+import com.zyx.mapper.CommentMapper;
 import com.zyx.model.Activity;
+import com.zyx.model.Venue;
 import com.zyx.parm.activity.QueryActivityParm;
 import com.zyx.service.BaseServiceImpl;
 import com.zyx.service.activity.ActivityService;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +35,8 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements Ac
 
     @Resource
     private ActivityMapper activityMapper;
+    @Resource
+    private CommentMapper commentMapper;
 
     public ActivityServiceImpl() {
         super(Activity.class);
@@ -137,4 +143,17 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements Ac
         }
     }
 
+    @Override
+    public Map<String, Object> getActivityDataById(Integer type,Integer id) {
+        try {
+            Activity activity = activityMapper.selectByPrimaryKey(id);
+            List<CommentDto> comments = commentMapper.queryByVenueId(type,id);
+            Map<String,Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", "");
+            map.put("activity",activity);
+            map.put("comments",comments);
+            return map;
+        }catch (Exception e){
+            return MapUtils.buildErrorMap(Constants.ERROR, "查询失败");
+        }
+    }
 }
