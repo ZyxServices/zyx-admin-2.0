@@ -270,6 +270,19 @@ public class MySwaggerConfig {
 
     }
 
+
+    @Bean
+    public Docket uploadVodApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("uploadVod-api")
+                .select()  // 选择那些路径和api会生成document
+                .apis(RequestHandlerSelectors.basePackage("com.zyx.controller.qcloud"))
+                .paths(PathSelectors.any()) // 对所有路径进行监控
+                .build()
+                .apiInfo(uploadVodApiInfo());
+
+    }
+
     private ApiInfo liveApiInfo() {
         ApiInfo apiInfo = new ApiInfo("直播接口API",//大标题
                 "图文直播，视频直播",//小标题
@@ -507,7 +520,18 @@ public class MySwaggerConfig {
                 "智悠行",//链接显示文字
                 "http://112.74.112.143:8081/ui/Delta/index.html "//网站链接
         );
+        return apiInfo;
+    }
 
+    private ApiInfo uploadVodApiInfo() {
+        ApiInfo apiInfo = new ApiInfo("上传视频接口API",//大标题
+                "上传视频接口",//小标题
+                "2.0",//版本
+                "成都term",
+                new Contact("胡林", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
+                "智悠行",//链接显示文字
+                "http://112.74.112.143:8081/ui/Delta/index.html "//网站链接
+        );
         return apiInfo;
     }
 }
