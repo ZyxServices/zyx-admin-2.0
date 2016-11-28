@@ -1,6 +1,7 @@
 package com.zyx.mapper;
 
 import com.zyx.dto.OfficialUserListDto;
+import com.zyx.dto.RankDto;
 import com.zyx.model.AppUser;
 import com.zyx.parm.QueryAppUserParam;
 import com.zyx.parm.appUser.AppUserCreateParam;
@@ -75,4 +76,19 @@ public interface AppUserMapper extends Mapper<AppUser> {
 //    int authAppUserByPrimaryKey(Integer id, int i);
 //
     int resetAppUser(AppUserCreateParam param);
+
+    /**
+     * 查询用户排名
+     * @param id
+     * @return
+     */
+    RankDto getOwnRank(Integer id);
+
+
+    /**
+     * 查询排名前5
+     * @return
+     */
+    List<RankDto> getTopRank();
+
 }

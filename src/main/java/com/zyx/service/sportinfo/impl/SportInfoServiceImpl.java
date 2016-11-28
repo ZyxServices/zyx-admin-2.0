@@ -1,9 +1,14 @@
 package com.zyx.service.sportinfo.impl;
 
 import com.zyx.constants.Constants;
+import com.zyx.dto.AppUserListDto;
 import com.zyx.dto.SportInfoDto;
+import com.zyx.dto.SportRecordDto;
+import com.zyx.mapper.AppUserMapper;
 import com.zyx.mapper.SportInfoMapper;
+import com.zyx.model.AppUser;
 import com.zyx.model.SportInfo;
+import com.zyx.model.vo.UserVo;
 import com.zyx.parm.sportinfo.SportInfoQueryParam;
 import com.zyx.service.BaseServiceImpl;
 import com.zyx.service.sportinfo.SportInfoService;
@@ -22,6 +27,9 @@ import java.util.Map;
 public class SportInfoServiceImpl extends BaseServiceImpl<SportInfo> implements SportInfoService {
     @Autowired
     private SportInfoMapper sportInfoMapper;
+    @Autowired
+    private AppUserMapper appUserMapper;
+
     public SportInfoServiceImpl() {
         super(SportInfo.class);
     }
@@ -77,6 +85,21 @@ public class SportInfoServiceImpl extends BaseServiceImpl<SportInfo> implements 
         Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", sportInfoDtos);
         map.put("total", i);
         return map;
+
+    }
+
+    @Override
+    public Map<String, Object> getSportRecordData(Integer userId) {
+        try {
+            AppUser user = appUserMapper.selectByPrimaryKey(userId);
+            List<SportRecordDto> records=sportInfoMapper.querySportRecordByUserId(userId);
+            Map<String,Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", "");
+            map.put("user",user);
+            map.put("records",records);
+            return map;
+        }catch (Exception e){
+            return MapUtils.buildErrorMap(Constants.ERROR, "查询失败");
+        }
 
     }
 }

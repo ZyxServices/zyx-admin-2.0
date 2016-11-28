@@ -33,20 +33,23 @@ public class LogHandler {
     }
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
         SysUser user = (SysUser) SecurityUtils.getSubject().getSession().getAttribute(Constants.CURRENT_USER);
+
         //拦截的方法名称
         String methodName = pjp.getSignature().getName();
         Object object = pjp.proceed(); //获取被切函数的 返回值
         String rst = object.toString();
-        if (Constants.logMap.containsKey(methodName)){
-            Log log = new Log();
-            log.setOperationDesc(Constants.logMap.get(methodName));
-            log.setUserId(user.getId());
-            log.setCreateTime(new Date().getTime());
-            log.setDel(0);
-            log.setResult(0);
-            logMapper.insert(log);
+        if (user!=null){
+            if (Constants.logMap.containsKey(methodName)){
+                Log log = new Log();
+                log.setOperationDesc(Constants.logMap.get(methodName));
+                log.setUserId(user.getId());
+                log.setCreateTime(new Date().getTime());
+                log.setDel(0);
+                log.setResult(0);
+                logMapper.insert(log);
+            }
+            logger.info("用户操作记录:………方法名："+methodName+"………用户id"+user==null?"":user.getId()+"…………操作描述："+Constants.logMap.get(methodName)+"………返回值："+rst);
         }
-        logger.info("用户操作记录:………方法名："+methodName+"………用户id"+user.getId()+"…………操作描述："+Constants.logMap.get(methodName)+"………返回值："+rst);
         return object;
     }
 
@@ -55,18 +58,19 @@ public class LogHandler {
 
     public void exception(JoinPoint point,Throwable e){
         SysUser user = (SysUser) SecurityUtils.getSubject().getSession().getAttribute(Constants.CURRENT_USER);
-        String methodName = point.getSignature().getName();
-        if (Constants.logMap.containsKey(methodName)){
-            Log log = new Log();
-            log.setOperationDesc(Constants.logMap.get(methodName));
-            log.setUserId(user.getId());
-            log.setCreateTime(new Date().getTime());
-            log.setDel(0);
-            log.setResult(1);
-            logMapper.insert(log);
+        if(user!=null){
+            String methodName = point.getSignature().getName();
+            if (Constants.logMap.containsKey(methodName)){
+                Log log = new Log();
+                log.setOperationDesc(Constants.logMap.get(methodName));
+                log.setUserId(user.getId());
+                log.setCreateTime(new Date().getTime());
+                log.setDel(0);
+                log.setResult(1);
+                logMapper.insert(log);
+            }
+            logger.info("用户操作记录:………方法名："+methodName+"………用户id"+user==null?"":user.getId()+"…………操作描述："+Constants.logMap.get(methodName)+"…………Exception:"+e);
         }
-        logger.info("用户操作记录:………方法名："+methodName+"………用户id"+user.getId()+"…………操作描述："+Constants.logMap.get(methodName)+"…………Exception:"+e);
-
     }
 
 }

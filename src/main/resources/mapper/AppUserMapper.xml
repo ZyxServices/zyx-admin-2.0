@@ -53,6 +53,15 @@
         <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
     </resultMap>
 
+    <resultMap id="rankDto" type="com.zyx.dto.RankDto">
+        <result column="row_num" jdbcType="INTEGER" property="number"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="total_score" jdbcType="INTEGER" property="totalScore"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="name" jdbcType="VARCHAR" property="levelName"/>
+    </resultMap>
+
     <!--<select id="selectUserBySysUser" parameterType="java.lang.String" resultMap="OfficialUserListDto">-->
         <!--SELECT id,nickname FROM user where id IN <![CDATA[(#{OFFICIAL_ID})]]>-->
     <!--</select>-->
@@ -222,5 +231,29 @@
     <update id="resetAppUser" parameterType="com.zyx.parm.appUser.AppUserCreateParam">
         UPDATE `user` SET modify_time = #{modifyTime}, password = #{password} WHERE phone = #{phone}
     </update>
+
+
+    <select id="getOwnRank" parameterType="java.lang.Integer" resultMap="rankDto">
+        SELECT nn.id AS user_id,nn.avatar,nn.nickname,nn.row_num,nn.total_score,l.name FROM
+        (SELECT u.id,u.level_id,u.avatar,u.nickname,mm.* FROM user u LEFT JOIN(
+		SELECT @row := @row + 1 AS row_num,sr.user_id,SUM(si.score) AS total_score
+		FROM
+		t_sport_record sr LEFT JOIN t_sport_info si ON sr.sport_info_id=si.id
+		,(SELECT @row := 0) r
+		GROUP BY sr.user_id
+        ) AS mm ON u.id=mm.user_id )AS nn LEFT JOIN level l ON nn.level_id = l.id
+
+        WHERE nn.id=#{id}
+    </select>
+
+    <select id="getTopRank" resultMap="rankDto">
+        SELECT @row := @row + 1 AS row_num,sr.user_id,SUM(si.score) AS total_score ,u.nickname,u.avatar,l.name
+        FROM
+        t_sport_record sr LEFT JOIN t_sport_info si ON sr.sport_info_id=si.id LEFT JOIN user u ON sr.user_id = u.id LEFT JOIN level l ON u.level_id =l.id
+        ,(SELECT @row := 0) r
+        GROUP BY sr.user_id
+        ORDER BY total_score DESC
+        LIMIT 0,5
+    </select>
 
 </mapper>

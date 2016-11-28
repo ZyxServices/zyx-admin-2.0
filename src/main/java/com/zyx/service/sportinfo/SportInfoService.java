@@ -38,4 +38,10 @@ public interface SportInfoService extends BaseService<SportInfo> {
      * @return
      */
     Map<String,Object> querySportInfo(SportInfoQueryParam sportInfoQueryParam);
+
+
+    /**
+     * 分享 获取用户记录
+     */
+    Map<String,Object> getSportRecordData(Integer userId);
 }

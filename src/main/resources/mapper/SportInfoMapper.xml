@@ -17,6 +17,14 @@
         <result column="comment_num" jdbcType="INTEGER" property="commentNum"/>
     </resultMap>
 
+    <resultMap id="sportRecordDto" type="com.zyx.dto.SportRecordDto">
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="spend_time" jdbcType="INTEGER" property="spendTime"/>
+        <result column="level" jdbcType="VARCHAR" property="level"/>
+        <result column="name" jdbcType="VARCHAR" property="venueName"/>
+        <result column="img_urls" jdbcType="VARCHAR" property="imgUrls"/>
+    </resultMap>
+
     <select id="querySportInfo" parameterType="com.zyx.parm.sportinfo.SportInfoQueryParam" resultMap="sportInfodto">
         select id,venue_id,path,url,level,score,path_type,developer,develop_time,path_length,location from t_sport_info where del=0
         <if test="venueId != null and venueId != ''">
@@ -82,4 +90,11 @@
         WHERE id=#{id}
     </update>
 
+    <select id="querySportRecordByUserId" resultMap="sportRecordDto" parameterType="java.lang.Integer">
+        SELECT sr.create_time,sr.spend_time,tsi.level,v.name,v.img_urls from t_sport_record sr left JOIN
+        t_venue v on sr.venue_id=v.id LEFT join t_sport_info tsi on sr.sport_info_id=tsi.id
+        where sr.user_id = #{id}
+        order BY sr.create_time desc
+        limit 0,10
+    </select>
 </mapper>
