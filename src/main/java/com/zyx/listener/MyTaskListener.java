@@ -11,7 +11,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
@@ -19,7 +18,7 @@ import java.util.Timer;
 /**
  * Created by HL on 2016/11/15.
  */
-@WebListener
+//@WebListener
 public class MyTaskListener implements ServletContextListener{
     private static Logger logger= LoggerFactory.getLogger(MyTaskListener.class);
     @Override
