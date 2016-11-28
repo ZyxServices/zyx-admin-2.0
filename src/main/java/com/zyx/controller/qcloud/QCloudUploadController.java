@@ -29,25 +29,34 @@ public class QCloudUploadController {
     @RequestMapping(value = "/upload",method = RequestMethod.POST)
     public ModelAndView upload(@RequestPart(name = "file") MultipartFile file){
         AbstractView jsonView = new MappingJackson2JsonView();
-        String fileName = file.getOriginalFilename();
-        CommonsMultipartFile cf= (CommonsMultipartFile)file;
-        DiskFileItem fi = (DiskFileItem)cf.getFileItem();
-        File f = fi.getStoreLocation();
-        VodDemo vodDemo = new VodDemo();
-        String fileId = vodDemo.upload(f.getAbsolutePath(),fileName);
-        Map<String,Object> map = new HashMap<String,Object>();
-        if (StringUtils.isNotEmpty(fileId)){
-            map.put(Constants.STATE, Constants.SUCCESS);
-            map.put(Constants.SUCCESS_MSG, "视频上传成功");
-            Map<String, Object> map2 = new HashMap<>();
-            map2.put("url", fileId);
-            map.put(Constants.DATA, map2);
-            jsonView.setAttributesMap(map);
-        }else {
-            map.put(Constants.STATE, Constants.ERROR);
-            map.put(Constants.ERROR_MSG, "视频上传失败");
+        try {
+            if (file == null) {
+                jsonView.setAttributesMap(Constants.MAP_PARAM_MISS);
+            }else{
+                String fileName = file.getOriginalFilename();
+                CommonsMultipartFile cf= (CommonsMultipartFile)file;
+                DiskFileItem fi = (DiskFileItem)cf.getFileItem();
+                File f = fi.getStoreLocation();
+                VodDemo vodDemo = new VodDemo();
+                String fileId = vodDemo.upload(f.getAbsolutePath(),fileName);
+                Map<String,Object> map = new HashMap<String,Object>();
+                if (StringUtils.isNotEmpty(fileId)){
+                    map.put(Constants.STATE, Constants.SUCCESS);
+                    map.put(Constants.SUCCESS_MSG, "视频上传成功");
+                    Map<String, Object> map2 = new HashMap<>();
+                    map2.put("url", fileId);
+                    map.put(Constants.DATA, map2);
+                    jsonView.setAttributesMap(map);
+                }else {
+                    map.put(Constants.STATE, Constants.ERROR);
+                    map.put(Constants.ERROR_MSG, "视频上传失败");
+                }
+                jsonView.setAttributesMap(map);
+            }
+
+        }catch (Exception e){
+            jsonView.setAttributesMap(Constants.MAP_500);
         }
-        jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
 }
