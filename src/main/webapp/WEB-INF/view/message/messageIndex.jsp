@@ -110,8 +110,8 @@
             <div class="control-group">
               <label class="control-label">推送时间</label>
               <div class="controls">
-                <label class="radio"><input type="radio" checked value="1" name="pushType" onchange="isSetPushTime(this)">立刻</label>
-                <label class="radio"><input type="radio" value="0" name="pushType" onchange="isSetPushTime(this)">设定</label>
+                <label class="radio"><input type="radio" checked value="0" name="pushType" onchange="isSetPushTime(this)">立刻</label>
+                <label class="radio"><input type="radio" value="1" name="pushType" onchange="isSetPushTime(this)">设定</label>
                 <input type="text" id="pushTime" name="pushTime" disabled placeholder="选择设定时间">
               </div>
             </div>

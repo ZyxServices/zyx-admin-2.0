@@ -131,7 +131,7 @@ $("#pushTime").focus(function () {
 });
 function isSetPushTime(obj) {
     var _val = $(obj).val();
-    if(_val == 0){
+    if(_val == 1){
         $("#pushTime").attr("disabled",false);
     }else{
         $("#pushTime").attr("disabled",true);
