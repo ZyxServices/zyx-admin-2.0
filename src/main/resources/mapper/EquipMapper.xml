@@ -14,6 +14,16 @@
 
     </resultMap>
 
+    <resultMap id="equipShareDto" type="com.zyx.dto.EquipShareDto">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+        <result column="equip_type" jdbcType="INTEGER" property="equipType"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+    </resultMap>
+
     <resultMap id="equipDtoMap" type="com.zyx.dto.EquipDto" extends="equipMap">
 
         <association property="zanCount" column="id" select="zanCountsSelect"/>
@@ -110,5 +120,9 @@
         AND e.del = 0 AND el.state=0
     </select>
 
-
+    <select id="selectById" resultMap="equipShareDto" parameterType="java.lang.Integer">
+        SELECT e.id,e.title,e.content,e.create_time,e.equip_type,u.nickname,u.avatar
+        from equip e left join user u on e.account_id =u.id
+        where e.id=#{id}
+    </select>
 </mapper>

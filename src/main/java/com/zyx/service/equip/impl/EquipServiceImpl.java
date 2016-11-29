@@ -1,6 +1,9 @@
 package com.zyx.service.equip.impl;
 
 import com.zyx.constants.Constants;
+import com.zyx.dto.CommentDto;
+import com.zyx.dto.EquipShareDto;
+import com.zyx.mapper.CommentMapper;
 import com.zyx.mapper.EquipMapper;
 import com.zyx.model.Equip;
 import com.zyx.parm.Equip.QueryEquipParam;
@@ -26,6 +29,8 @@ public class EquipServiceImpl extends BaseServiceImpl<Equip> implements EquipSer
 
     @Resource
     private EquipMapper equipMapper;
+    @Resource
+    private CommentMapper commentMapper;
     public EquipServiceImpl() {
         super(Equip.class);
     }
@@ -153,5 +158,19 @@ public class EquipServiceImpl extends BaseServiceImpl<Equip> implements EquipSer
             return MapUtils.buildErrorMap(Constants.PARAM_MISS,"参数有误");
         }
 
+    }
+
+    @Override
+    public Map<String, Object> getEquipDataById(Integer type, Integer id) {
+        try {
+            EquipShareDto equip = equipMapper.selectById(id);
+            List<CommentDto> comments = commentMapper.queryByTypeAndId(type,id);
+            Map<String,Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS,"查询成功","");
+            map.put("equip",equip);
+            map.put("comments",comments);
+            return map;
+        }catch (Exception e){
+            return MapUtils.buildErrorMap(Constants.ERROR,"查询失败");
+        }
     }
 }

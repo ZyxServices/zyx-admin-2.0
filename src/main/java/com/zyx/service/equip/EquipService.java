@@ -3,6 +3,8 @@ package com.zyx.service.equip;
 import com.zyx.model.Equip;
 import com.zyx.parm.Equip.QueryEquipParam;
 import com.zyx.service.BaseService;
+import io.swagger.models.auth.In;
+
 import java.util.Map;
 
 /**
@@ -50,4 +52,12 @@ public interface EquipService extends BaseService<Equip>{
      * @return
      */
     Map<String ,Object> maskEquip(int id,int maskType);
+
+    /**
+     *
+     * @param type
+     * @param id
+     * @return
+     */
+    Map<String ,Object> getEquipDataById(Integer type, Integer id);
 }

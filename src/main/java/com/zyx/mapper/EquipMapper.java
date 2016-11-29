@@ -1,5 +1,7 @@
 package com.zyx.mapper;
 
+import com.zyx.dto.EquipDto;
+import com.zyx.dto.EquipShareDto;
 import com.zyx.model.Equip;
 import com.zyx.parm.Equip.QueryEquipParam;
 import org.springframework.stereotype.Repository;
@@ -53,6 +55,11 @@ public interface EquipMapper extends Mapper<Equip> {
      */
     int insertEquip(Equip equip);
 
-
+    /**
+     * 分享 根据id查询帖子及用户信息
+     * @param id
+     * @return
+     */
+    EquipShareDto selectById(Integer id);
 
 }
