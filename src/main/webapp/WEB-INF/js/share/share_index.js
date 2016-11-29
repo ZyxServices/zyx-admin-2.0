@@ -2,7 +2,7 @@
  * Created by 文楷 on 2016/11/29.
  */
 //获取url参数
-function share(success) {
+function share(listID,success) {
     function GetRequest() {
         var url = location.search; //获取url中"?"符后的字串
         var theRequest = new Object();
@@ -17,7 +17,7 @@ function share(success) {
     }
 //获取页面数据
     $.ajax({
-        url: '/share?id=' + GetRequest().id + '&type=' + GetRequest().listID + '',
+        url: '/share?id=' + GetRequest().id + '&type=' + listID + '',
         type: 'post',
         success: function (res) {
             success(res)

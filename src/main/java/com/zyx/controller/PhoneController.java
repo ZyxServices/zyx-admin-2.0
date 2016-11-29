@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class PhoneController {
     /*分享*/
     @RequestMapping(value = "/share/venues", method = RequestMethod.GET)
-    public ModelAndView redirectVenues(@RequestParam String listID,@RequestParam String id ) {
+    public ModelAndView redirectVenues(@RequestParam String id ) {
         return new ModelAndView("/phone/share/s_venues");
     }
 
