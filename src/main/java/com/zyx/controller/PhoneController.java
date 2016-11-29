@@ -15,41 +15,41 @@ public class PhoneController {
     /*分享*/
     @RequestMapping(value = "/share/venues", method = RequestMethod.GET)
     public ModelAndView redirectVenues(@RequestParam String listID,@RequestParam String id ) {
-        return new ModelAndView("/phone/share/venues");
+        return new ModelAndView("/phone/share/s_venues");
     }
 
     @RequestMapping(value = "/share/article", method = RequestMethod.GET)
     public ModelAndView redirectArticle(@RequestParam String id ) {
-        return new ModelAndView("/phone/share/article");
+        return new ModelAndView("/phone/share/s_article");
     }
 
     @RequestMapping(value = "/share/activity", method = RequestMethod.GET)
     public ModelAndView redirectActivity(@RequestParam String id) {
-        return new ModelAndView("/phone/share/activity");
+        return new ModelAndView("/phone/share/s_activity");
     }
 
     @RequestMapping(value = "/share/course", method = RequestMethod.GET)
     public ModelAndView redirectCourse(@RequestParam String id) {
-        return new ModelAndView("/phone/share/course");
+        return new ModelAndView("/phone/share/s_course");
     }
 
     @RequestMapping(value = "/share/dynamic", method = RequestMethod.GET)
     public ModelAndView redirectDynamic(@RequestParam String id) {
-        return new ModelAndView("/phone/share/dynamic");
+        return new ModelAndView("/phone/share/s_dynamic");
     }
 
     @RequestMapping(value = "/share/rankingList", method = RequestMethod.GET)
     public ModelAndView redirectRankingList(@RequestParam String id) {
-        return new ModelAndView("/phone/share/rankingList");
+        return new ModelAndView("/phone/share/s_rankingList");
     }
     @RequestMapping(value = "/share/history", method = RequestMethod.GET)
     public ModelAndView redirectHistory(@RequestParam String id) {
-        return new ModelAndView("/phone/share/history");
+        return new ModelAndView("/phone/share/s_history");
     }
 
     @RequestMapping(value = "/agreement", method = RequestMethod.GET)
     public ModelAndView redirectAgreement() {
-        return new ModelAndView("/phone/agreement/agreement");
+        return new ModelAndView("/phone/agreement/s_agreement");
     }
 }
 

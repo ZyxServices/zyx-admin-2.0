@@ -4,29 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/tiyujia/index.css"/>
     <title>攀岩馆详情</title>
 </head>
 <style>
     .venues .banner {
-        background: url(<%=request.getContextPath()%>/images/venues-banner.png) no-repeat;
-        padding-top: 10px;
-        margin: 0px 10px 0 10px;
+        background-image: url(<%=request.getContextPath()%>/images/venues-banner.png);
+        background-repeat: no-repeat;
+        padding-top: 5px;
+        padding-left: 25px;
+        /*margin: 0px 0px 0 10px;*/
         max-width: 100%;
         width: 100%;
         height: 35%;
         max-height: 35%;
         background-size: 95% 100%;
+        background-position: 8px;
     }
 </style>
 <body>
 <div class="container-fluid content venues">
     <div class="row">
-        <div class="col-xs-12 banner">
+        <div class="col-xs-12 banner" style="">
             <button type="button" class="v-label-default">室内</button>
         </div>
         <div class="col-xs-12 ptb10 pb">
-            成都理工大学攀岩基地
+            <span style="font-size: 16px;color: #000000;font-weight: 500">成都理工大学攀岩基地</span>
             <button type="button" class="v-label">室内</button>
         </div>
         <div class="col-xs-12 pb10" style="position: relative">
@@ -58,53 +62,63 @@
     </div>
     <div class="row" style="margin-top: 20px">
         <div class="col-xs-12"><h4>岩场路线</h4></div>
-        <div class="col-xs-12 pr0 meg v-line">
-            <div class="col-xs-5 .col-md-5  p0 ">
-                <img src="<%=request.getContextPath()%>/images/venues-banner.png" alt="" width="150px"/>
-            </div>
-            <div class="col-xs-7 .col-md-7 ">
-                <div class="v-title">牛背上-攀岩路线1</div>
-                <div class="lineDeveloper ">开线者：<span>Carry_Teng</span></div>
-                <br>
+        <div class="col-xs-12  meg v-line ">
+            <div class="col-xs-12 p0 " style=" border-bottom: #e5e5e5 1px solid;padding-bottom: 10px">
+                <div class="col-xs-5 col-md-3  col-sm-1 p0 line-details1 ">
+                    <img src="<%=request.getContextPath()%>/images/venues-banner.png" alt="" width="120px"
+                         height="80px"/>
+                </div>
+                <div class="col-xs-7 col-md-9  col-sm-11 p0 line-details2">
+                    <div class="v-title">牛背上-攀岩路线1</div>
+                    <div class="lineDeveloper ">开线者：<span>Carry_Teng</span></div>
+                    <br>
 
-                <div class="col-xs-12 p0" style="position: relative">
-                    <div style="bottom: -2px;position: absolute;color:#999999">难度系数</div>
-                    <div style="margin-left: 65px;">
-                        <img src="<%=request.getContextPath()%>/images/solid.png" alt="" width="15px"
-                             height="15px"/>
-                        <img src="<%=request.getContextPath()%>/images/solid.png" alt="" width="15px"
-                             height="15px"/>
-                        <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px"
-                             height="15px"/>
-                        <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px"
-                             height="15px"/>
-                        <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px"
-                             height="15px"/>
+                    <div class="col-xs-12 p0" style="position: relative">
+                        <div style="bottom: -2px;position: absolute;color:#999999">难度系数</div>
+                        <div style="margin-left: 65px;">
+                            <img src="<%=request.getContextPath()%>/images/solid.png" alt="" width="15px"
+                                 height="15px"/>
+                            <img src="<%=request.getContextPath()%>/images/solid.png" alt="" width="15px"
+                                 height="15px"/>
+                            <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px"
+                                 height="15px"/>
+                            <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px"
+                                 height="15px"/>
+                            <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px"
+                                 height="15px"/>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 pr0 meg v-line">
-            <div class="col-xs-5 .col-md-5  p0 ">
-                <img src="<%=request.getContextPath()%>/images/venues-banner.png" alt="" width="150px"/>
-            </div>
-            <div class="col-xs-7 .col-md-7  ">
-                <div class="v-title">牛背上-攀岩路线1</div>
-                <div class="lineDeveloper ">开线者：<span>Carry_Teng</span></div>
-                <br>
+        <div class="col-xs-12  meg v-line ">
+            <div class="col-xs-12 p0 " style=" border-bottom: #e5e5e5 1px solid;padding-bottom: 10px">
+                <div class="col-xs-5 col-md-3  col-sm-1 p0 line-details1 ">
+                    <img src="<%=request.getContextPath()%>/images/venues-banner.png" alt="" width="120px"
+                         height="80px"/>
+                </div>
+                <div class="col-xs-7 col-md-9  col-sm-11 p0 line-details2">
+                    <div class="v-title">牛背上-攀岩路线1</div>
+                    <div class="lineDeveloper ">开线者：<span>Carry_Teng</span></div>
+                    <br>
 
-                <div class="col-xs-12 p0" style="position: relative">
-                    <div style="bottom: -2px;position: absolute;color:#999999">难度系数</div>
-                    <div style="margin-left: 65px;">
-                        <img src="<%=request.getContextPath()%>/images/solid.png" alt="" width="15px" height="15px"/>
-                        <img src="<%=request.getContextPath()%>/images/solid.png" alt="" width="15px" height="15px"/>
-                        <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px" height="15px"/>
-                        <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px" height="15px"/>
-                        <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px" height="15px"/>
+                    <div class="col-xs-12 p0" style="position: relative">
+                        <div style="bottom: -2px;position: absolute;color:#999999">难度系数</div>
+                        <div style="margin-left: 65px;">
+                            <img src="<%=request.getContextPath()%>/images/solid.png" alt="" width="15px"
+                                 height="15px"/>
+                            <img src="<%=request.getContextPath()%>/images/solid.png" alt="" width="15px"
+                                 height="15px"/>
+                            <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px"
+                                 height="15px"/>
+                            <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px"
+                                 height="15px"/>
+                            <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px"
+                                 height="15px"/>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     <div class="row pb20" style="margin-top: 20px">
@@ -146,8 +160,8 @@
         <button type="button" class=" footer-btn">查看更多精彩内容，使劲搓这里</button>
     </div>
 </div>
-
 </body>
 <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../js/share/venues.js"></script>
 </html>

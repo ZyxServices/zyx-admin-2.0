@@ -133,9 +133,9 @@
     border-radius: 4px;
 }
 .v-line{
-    padding: 0 0 10px 0;
-    margin: 10px 20px;
-    border-bottom: #e5e5e5 1px solid;
+    /*padding: 20px 0 10px 20px;*/
+    /*margin: 10px 0 10px 20px ;*/
+
 }
 
 /* 4寸以下 */
@@ -149,6 +149,12 @@
     .col-xs-12 .phone9 {
         width: 83%;
     }
+    .v-line .line-details1{
+        width: 45%;
+    }
+    .v-line .line-details2{
+        width: 55%;
+    }
 }
 /* 5寸以下 */
 @media (min-width: 350px) {
@@ -160,6 +166,12 @@
     }
     .col-xs-12 .phone9 {
         width: 86%;
+    }
+    .v-line .line-details1{
+        width: 40%;
+    }
+    .v-line .line-details2{
+        width: 60%;
     }
 }
 
@@ -174,6 +186,12 @@
     .col-xs-12 .phone9 {
         width: 88%;
     }
+    .v-line .line-details1{
+        width: 33%;
+    }
+    .v-line .line-details2{
+        width: 67%;
+    }
 }
 /* 6.5寸以下 */
 @media (min-width: 550px) {
@@ -185,6 +203,12 @@
     }
     .col-xs-12 .phone9 {
         width: 92%;
+    }
+    .v-line .line-details1{
+        width: 23%;
+    }
+    .v-line .line-details2{
+        width: 77%;
     }
 }
 
@@ -199,6 +223,12 @@
     .col-xs-12 .phone9 {
         width: 94%;
     }
+    .v-line .line-details1{
+        width: 17%;
+    }
+    .v-line .line-details2{
+        width: 83%;
+    }
 }
 
 /*电脑以下*/
@@ -211,5 +241,11 @@
     }
     .col-xs-12 .phone9 {
         width: 97%;
+    }
+    .v-line .line-details1{
+        width: 7%;
+    }
+    .v-line .line-details2{
+        width: 93%;
     }
 }
