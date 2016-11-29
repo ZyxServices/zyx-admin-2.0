@@ -142,4 +142,11 @@
     </div>
 </div>
 </body>
+<script type="text/javascript" src="../../js/share/s_venues.js"></script>
+<script>
+    //接口调用遍历
+    share(function(res){
+        console.log(res,1)
+    })
+</script>
 </html>
