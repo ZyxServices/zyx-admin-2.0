@@ -27,7 +27,7 @@
 <div class="container-fluid content venues">
     <div class="row">
         <div class="col-xs-12 banner" style="">
-            <button type="button" class="v-label-default">室内</button>
+            <button type="button" id="v-label" class="v-label-default">室内</button>
         </div>
         <div class="col-xs-12 ptb10 pb">
             <span style="font-size: 16px;color: #000000;font-weight: 500">成都理工大学攀岩基地</span>
@@ -70,36 +70,7 @@
                 </div>
                 <div class="col-xs-7 col-md-9  col-sm-11 p0 line-details2">
                     <div class="v-title">牛背上-攀岩路线1</div>
-                    <div class="lineDeveloper ">开线者：<span>Carry_Teng</span></div>
-                    <br>
-
-                    <div class="col-xs-12 p0" style="position: relative">
-                        <div style="bottom: -2px;position: absolute;color:#999999">难度系数</div>
-                        <div style="margin-left: 65px;">
-                            <img src="<%=request.getContextPath()%>/images/solid.png" alt="" width="15px"
-                                 height="15px"/>
-                            <img src="<%=request.getContextPath()%>/images/solid.png" alt="" width="15px"
-                                 height="15px"/>
-                            <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px"
-                                 height="15px"/>
-                            <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px"
-                                 height="15px"/>
-                            <img src="<%=request.getContextPath()%>/images/hollow.png" alt="" width="15px"
-                                 height="15px"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12  meg v-line ">
-            <div class="col-xs-12 p0 " style=" border-bottom: #e5e5e5 1px solid;padding-bottom: 10px">
-                <div class="col-xs-5 col-md-3  col-sm-1 p0 line-details1 ">
-                    <img src="<%=request.getContextPath()%>/images/venues-banner.png" alt="" width="120px"
-                         height="80px"/>
-                </div>
-                <div class="col-xs-7 col-md-9  col-sm-11 p0 line-details2">
-                    <div class="v-title">牛背上-攀岩路线1</div>
-                    <div class="lineDeveloper ">开线者：<span>Carry_Teng</span></div>
+                    <div class="lineDeveloper time ">开线者：<span>Carry_Teng</span></div>
                     <br>
 
                     <div class="col-xs-12 p0" style="position: relative">
@@ -164,10 +135,18 @@
 <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../../js/share/share_index.js"></script>
+<script src="../../js/dataformat.js" type="text/javascript"></script>
 <script>
     //接口调用遍历
-    share(4,function(res){
-           console.log(res,1)
+    share(4, function (res) {
+          dataPush([{field: 'res.venue.createTime',id:'v-label',formatter: timeFormat}
+                 ], res)
     })
+    function cityFormatter(res) {
+        return data.venue.type== 2 ? '室内1' : '室外1';
+    }
+    function timeFormat(data) {
+        return  new Date(data).format("yyyy-mm-dd HH:MM:ss")
+    }
 </script>
 </html>

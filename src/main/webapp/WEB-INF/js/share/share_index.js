@@ -24,3 +24,8 @@ function share(listID,success) {
         }
     })
 }
+function dataPush(obj,res){
+    for(var i in obj){
+        return obj[i].formatter!=undefined?$('#'+obj[i].id+'').html(obj[i].formatter(eval(obj[i].field))) : $('#'+obj[i].id+'').html(eval(obj[i].field))
+    }
+}
