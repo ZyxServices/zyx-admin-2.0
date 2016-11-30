@@ -62,6 +62,7 @@ public class DevaController {
             //2.0版本为区域限定个数
             //entity.setModel(model);
             entity.setArea(area);
+            entity.setDel(0);
             entity.setModelId(modelId);
             List<Devaluation> dblist = devaService.select(entity);
             if (dblist != null && !dblist.isEmpty()) {
