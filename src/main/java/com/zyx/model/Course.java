@@ -90,11 +90,11 @@ public class Course{
 //    @Transient
 //    private String courseLabelName;
 
-    /**
-     * 推荐状态：0未推荐、1推荐
-     */
-    @Column(name="recommend_type")
-    private int recommendType;
+//    /**
+//     * 推荐状态：0未推荐、1推荐
+//     */
+//    @Column(name="recommend_type")
+//    private int recommendType;
 
 
     /***********************   get/set方法  **********************************************/
@@ -203,13 +203,13 @@ public class Course{
 //        this.courseLabelName = courseLabelName;
 //    }
 
-    public int getRecommendType() {
-        return recommendType;
-    }
-
-    public void setRecommendType(int recommendType) {
-        this.recommendType = recommendType;
-    }
+//    public int getRecommendType() {
+//        return recommendType;
+//    }
+//
+//    public void setRecommendType(int recommendType) {
+//        this.recommendType = recommendType;
+//    }
 
     /**********************   toString  ***********************/
 

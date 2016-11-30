@@ -5,7 +5,7 @@
 
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
-        <result column="recommend_type" jdbcType="INTEGER" property="recommendType"/>
+        <!--<result column="recommend_type" jdbcType="INTEGER" property="recommendType"/>-->
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="img_urls" jdbcType="VARCHAR" property="imgUrl"/>
         <result column="content" jdbcType="LONGVARCHAR" property="content"/>
@@ -17,6 +17,7 @@
     
     <resultMap id="courseDto" type="com.zyx.dto.CourseDto" extends="course">
 
+        <association property="isDeva" column="id" select="queryIsDeva"></association>
         <association property="zanCount" column="id" select="zanCountsSelect"/>
         <association property="commentCount" column="id" select="commentCountsSelect"/>
         <association property="courseLabelName" column="label_id" select="courseLabelSelect"/>
@@ -108,16 +109,16 @@
                 mask = #{mask},
             </if>
 
-            <if test="recommendType != null">
-                recommend_type = #{recommendType}
-            </if>
+            <!--<if test="recommendType != null">-->
+                <!--recommend_type = #{recommendType}-->
+            <!--</if>-->
         </set>
         WHERE id=#{id}
     </update>
 
 
     <select id="queryIsDeva" parameterType="java.lang.Integer" resultType="boolean">
-        SELECT NOT ISNULL(id) as isDeva FROM devaluation WHERE model = 8 AND model_id = #{id}
+        SELECT NOT ISNULL(id) as isDeva FROM devaluation WHERE model = 1 AND model_id = #{id}
     </select>
 
     <select id="selectCountCourse" resultType="java.lang.Integer" parameterType="com.zyx.parm.course.QueryCourseParam">

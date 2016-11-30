@@ -5,8 +5,6 @@ import com.zyx.service.BaseService;
 
 import java.util.Map;
 
-import static org.bouncycastle.asn1.x509.X509ObjectIdentifiers.id;
-
 /**
  * Created by zjx on 2016/11/10.
  *
@@ -71,7 +69,7 @@ public interface CourseService extends BaseService<Course>{
      * @param recommendType
      * @return
      */
-    Map<String,Object> recommendCourse(int id,int recommendType);
+//    Map<String,Object> recommendCourse(int id,int recommendType);
 
     /**
      * 分享 获取教程及评论数据
