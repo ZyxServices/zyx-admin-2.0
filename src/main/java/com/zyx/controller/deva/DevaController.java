@@ -74,6 +74,7 @@ public class DevaController {
                 entity.setImage(imageUrl);
                 entity.setSequence(sequence);
                 entity.setState(state);
+                entity.setDel(0);
                 int n = devaService.save(entity);
                 //2.0版本为区域限定个数
                 refreshDevas(area, null);
