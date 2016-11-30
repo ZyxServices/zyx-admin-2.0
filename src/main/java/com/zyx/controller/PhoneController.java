@@ -47,6 +47,10 @@ public class PhoneController {
         return new ModelAndView("/phone/share/s_history");
     }
 
+    @RequestMapping(value = "/share/equip", method = RequestMethod.GET)
+    public ModelAndView redirectEquip(@RequestParam String id) {
+        return new ModelAndView("/phone/share/s_equipment");
+    }
     @RequestMapping(value = "/agreement", method = RequestMethod.GET)
     public ModelAndView redirectAgreement() {
         return new ModelAndView("/phone/agreement/s_agreement");

@@ -43,7 +43,7 @@ function initTable(num) {
         },
         columns: [
             {field: '', checkbox: true, align: 'center', valign: 'middle'},
-            {field: 'labelId', title: 'id', align: 'center', valign: 'middle'},
+            {field: 'id', title: 'id', align: 'center', valign: 'middle'},
             {field: 'title', title: '帖子标题'},
             {field: 'equipLabelName', title: '标签', sortable: true},
             {field: 'account.nickName', title: '发布人'},

@@ -185,6 +185,7 @@ function initAppointmentTable() {
     $("#appointment-list-table").bootstrapTable('destroy');
     $("#appointment-list-table").bootstrapTable({
         url: "/v2/activity/queryActivity",
+        method: 'get',
         toolbar: '#toolbar',        //工具按钮用哪个容器
         striped: true,           //是否显示行间隔色
         cache: true,            //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
@@ -193,17 +194,16 @@ function initAppointmentTable() {
         paginationNextText: "下一页",
         pageNumber: 1,            //初始化加载第一页，默认第一页
         pageSize: 10,            //每页的记录行数（*）
-        pageList: [10, 15, 20, 25],  //记录数可选列表
+        pageList: [10, 25, 50, 100],    //可供选择的每页的行数（*）
         checkbox: true,
         checkboxHeader: "true",
         sortable: true,           //是否启用排序
-        strictSearch: true,
+        sortOrder: "desc",          //排序方式
         contentType: "application/x-www-form-urlencoded",
         height: 500,            //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
         uniqueId: "id",           //每一行的唯一标识，一般为主键列
         search: true,
         sidePagination: "server",
-        method: "get",
         queryParamsType: "undefined",
         queryParams: queryParams,
         responseHandler: fromData
@@ -259,7 +259,7 @@ function fromData(res) {
         }
         return {
             rows: dataArray,
-            total: res.dataCount
+            total: res.data.length
         }
     }
 }
