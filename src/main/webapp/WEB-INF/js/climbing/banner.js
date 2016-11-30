@@ -224,7 +224,7 @@ $("#confirmDeva").click(function () {
         }
     }else{
         var formData = new FormData();
-        formData.append('file', $("#lefile")[0].files[0]);
+        formData.append('avatar', $("#lefile")[0].files[0]);
         $.ajax({
             url: 'http://119.61.66.55:18100/v2/upload',
             type: 'post',

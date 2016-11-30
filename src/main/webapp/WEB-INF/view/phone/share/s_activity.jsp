@@ -6,52 +6,64 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="体育家-活动详情" name="description"/>
     <meta content="趣攀岩" name="author"/>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/tiyujia/index.css"/>
     <style type="text/css">
-        *{
+        * {
             padding: 0;
             margin: 0;
             font-family: "微软雅黑";
         }
-        .fl{
+
+        .fl {
             float: left;
         }
-        .fr{
+
+        .fr {
             float: right;
         }
-        .clearfix{
+
+        .clearfix {
             clear: both;
         }
-        .padding-top-bottom-10{
+
+        .padding-top-bottom-10 {
             padding: 10px 0;
         }
-        .container{
+
+        .activityWrap {
             padding: 0 10px;
         }
-        .imageWrap{
+
+        .imageWrap {
             padding: 10px 0;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid #e6e6e6;
         }
-        .imageWrap img{
+
+        .imageWrap img {
             width: 100%;
         }
-        .imageWrap .freeSword{
+
+        .imageWrap .freeSword {
             color: #00AA88;
         }
-        .imageWrap h3{
+
+        .imageWrap h3 {
             padding: 10px 0;
         }
-        .imageWrap .startTimeWord{
-            color: #bbb;
+
+        .contentWrap {
+            padding-top: 10px;
+            border-bottom: 1px solid #e6e6e6;
         }
-        .contentWrap{
-            border-bottom: 1px solid #ccc;
-        }
-        .locationWrap span{
+
+        .locationWrap span {
             display: inline-block;
             height: 30px;
             line-height: 30px;
         }
-        .locationWrap img{
+
+        .locationWrap img {
             width: 24px;
             height: 24px;
             margin-top: 3px;
@@ -59,36 +71,89 @@
     </style>
 </head>
 <body>
-<div class="container">
+<div class="activityWrap">
     <!--image-->
     <div class="imageWrap">
-        <img src="<%=request.getContextPath()%>/images/bg/phone/phone-detail.png">
-        <div><h3>[登山]登顶5000米，来挑战吗？<span class="fr freeSword">免费</span></h3></div>
+        <img src="<%=request.getContextPath()%>/images/bg/phone/phone-detail.png" id="imgShow">
+        <div><h4 id="title">[登山]登顶5000米，来挑战吗？<span class="fr freeSword" id="paymentType">免费</span></h4></div>
         <div class="clearfix"></div>
-        <span class="startTimeWord">2016.9.13——2016.9.16</span>
     </div>
     <!--content-->
-    <div class="contentWrap padding-top-bottom-10">
-        <p class="padding-top-bottom-10">
+    <div class="contentWrap">
+        <p id="descContent">
             本周六想在成都龙岩山爬一次5.9的路线，本人攀岩萌新一枚，找一个大神带带我
         </p>
-        <p>攀岩地点：<span>成都龙岩山攀岩馆</span></p>
     </div>
     <!--location-->
     <div class="locationWrap padding-top-bottom-10">
-        <p class=""><img class="fl" src="<%=request.getContextPath()%>/images/bg/phone/btn_time@2x.png"><span>本周六14点12分-15点12分</span></p>
+        <p class=""><img class="fl" src="<%=request.getContextPath()%>/images/bg/phone/btn_time@2x.png"><span id="activityTime">本周六14点12分-15点12分</span>
+        </p>
         <div class="clearfix"></div>
-        <p class=""><img class="fl" src="<%=request.getContextPath()%>/images/bg/phone/btn_phone@2x.png"><span>15252525252</span></p>
+        <p class=""><img class="fl" src="<%=request.getContextPath()%>/images/bg/phone/btn_phone@2x.png"><span id="phone">15252525252</span>
+        </p>
         <div class="clearfix"></div>
-        <p class=""><img class="fl" src="<%=request.getContextPath()%>/images/bg/phone/btn_adress@2x.png"><span>成都市体育馆二号馆三楼篮球中心场地</span></p>
+        <p class=""><img class="fl" src="<%=request.getContextPath()%>/images/bg/phone/btn_adress@2x.png"><span id="address">成都市体育馆二号馆三楼篮球中心场地</span>
+        </p>
+    </div>
+</div>
+<%--评论--%>
+<div class="container-fluid content venues">
+    <div class="row" style="margin-top: 20px">
+        <div class="col-xs-12"><h4>他们都在说</h4></div>
+        <div class="col-xs-12 pr0 meg">
+            <div class="col-xs-2 .col-md-1  p0 phone1">
+                <img class="avatar" src="<%=request.getContextPath()%>/images/avatar.jpg">
+            </div>
+            <div class="col-xs-10 .col-md-11  p0 phone9">
+                小美爱吃肉
+                <div class="grade">初窥门径</div>
+                <br>
+                <span class="time">40分钟前</span>
+            </div>
+            <div class="col-xs-10 col-xs-offset-1 mes-content p0 phone-offset-1">
+                如果你无法用简介的语言表达它，说明你真的还不够了解它，热爱它就多多关注吧！
+            </div>
+        </div>
+        <div class="col-xs-12 pr0 meg">
+            <div class="col-xs-2 p0 phone1">
+                <img class="avatar" src="<%=request.getContextPath()%>/images/avatar.jpg">
+            </div>
+            <div class="col-xs-10 p0 phone9">
+                小美爱吃肉
+                <div class="grade">初窥门径</div>
+                <br>
+                <span class="time">40分钟前</span>
+            </div>
+            <div class="col-xs-10 col-xs-offset-1 mes-content p0 phone-offset-1">
+                如果你无法用简介的语言表达它，说明你真的还不够了解它，热爱它就多多关注吧！
+            </div>
+        </div>
+        <button type="button" class=" footer-btn">查看更多精彩内容，使劲搓这里</button>
     </div>
 </div>
 </body>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.10.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/js/dataformat.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../js/share/share_index.js"></script>
 <script>
     //接口调用遍历
-    share(function(res){
-        console.log(res,1)
+    share(3, function (res) {
+        var _activity = res.activity;
+        $("#imgShow").attr("src","http://image.tiyujia.com/"+_activity.imgUrls);
+        if(_activity.paymentType == 0){
+            $("#paymentType").html("奖励")
+        }else if(_activity.paymentType == 1){
+            $("#paymentType").html("免费")
+        }else{
+            $("#paymentType").html("AA")
+        }
+        $("#title").html(_activity.title);
+        $("#activityTime").html(timeFormat(_activity.startTime)+"—"+timeFormat(_activity.endTime))
+        $("#descContent").html(_activity.descContent);
+        $("#address").html(_activity.address);
     })
+    function timeFormat(data) {
+        return new Date(data).format("mm-dd HH:MM:ss");
+    }
 </script>
 </html>
