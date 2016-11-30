@@ -99,6 +99,9 @@
     </select>
 
     <select id="queryCountByUserIdAndVenueId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
-        SELECT count(id) from t_sport_record where user_id=#{param1} and venue_id=#{param2}
+        SELECT count(id) from t_sport_record where user_id=#{param1}
+        <if test="param2!=null">
+            and venue_id=#{param2}
+        </if>
     </select>
 </mapper>

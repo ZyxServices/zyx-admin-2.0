@@ -93,8 +93,10 @@ public class SportInfoServiceImpl extends BaseServiceImpl<SportInfo> implements 
         try {
             AppUser user = appUserMapper.selectByPrimaryKey(userId);
             List<SportRecordDto> records=sportInfoMapper.querySportRecordByUserId(userId);
+            int count=sportInfoMapper.queryCountByUserIdAndVenueId(userId,null);
             Map<String,Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", "");
             map.put("user",user);
+            map.put("recordCount",count);
             map.put("records",records);
             return map;
         }catch (Exception e){
