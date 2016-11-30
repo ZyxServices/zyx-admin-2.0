@@ -119,11 +119,10 @@ function courseFormatter(value, row, index) {
     } else if (row.mask == 1) {
         btnText = "取消屏蔽"
     }
-    if (row.recommendType == 0) {
+    if (row.deva) {
+        Recommend = "已推荐"
+    } else if (row.deva == false) {
         Recommend = "未推荐"
-    }
-    else if (row.recommendType == 1) {
-        Recommend = "推荐"
     }
     return [
         '<a class="preview p5"   href="javascript:void(0)" title="preview">预览</a>',
@@ -321,7 +320,7 @@ function courseRecommend() {
                 title: "推荐成功"
             });
             $("#CourseModal").modal("hide");
-            $('#courseCreateFrom').bootstrapTable('refresh');
+            $('#Course_table').bootstrapTable('refresh');
         }
 
     })
