@@ -25,7 +25,7 @@ public interface LogMapper extends Mapper<Log>{
      * 查询日志数量
      * @return
      */
-    int selectCountLog();
+    int selectCountLog(LogParam logParam);
 
     int insertLog(Log log);
 

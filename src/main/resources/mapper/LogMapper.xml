@@ -33,7 +33,7 @@
   </select>
 
   <select id="selectCountLog" resultType="java.lang.Integer">
-    SELECT count(id) from SYS_OPERATION_LOG
+    SELECT count(id) from SYS_OPERATION_LOG l WHERE l.user_id=#{userId}
   </select>
 
 </mapper>

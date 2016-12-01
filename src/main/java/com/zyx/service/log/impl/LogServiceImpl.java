@@ -29,7 +29,7 @@ public class LogServiceImpl extends BaseServiceImpl<Log> implements LogService{
     @Override
     public Map<String, Object> queryLog(LogParam logParam) {
         List<LogDto> rst = logMapper.queryLog(logParam);
-        int i = logMapper.selectCountLog();
+        int i = logMapper.selectCountLog(logParam);
         Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", rst);
         map.put("total", i);
         return map;
