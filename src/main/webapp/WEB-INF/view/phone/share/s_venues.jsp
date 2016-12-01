@@ -73,20 +73,7 @@
         </div>
     </div>
     <div class="row" style="margin-top: 20px">
-        <div id="v-comments" class="col-xs-12"><h4>他们都在说</h4></div>
-        <div class="col-xs-12 pr0 meg">
-            <div class="col-xs-2 p0 phone1">
-                <img class="avatar" src="<%=request.getContextPath()%>/images/avatar.jpg">
-            </div>
-            <div class="col-xs-10 p0 phone9">
-                小美爱吃肉
-                <div class="grade">初窥门径</div>
-                <br>
-                <span class="time">40分钟前</span>
-            </div>
-            <div class="col-xs-10 col-xs-offset-1 mes-content p0 phone-offset-1">
-                如果你无法用简介的语言表达它，说明你真的还不够了解它，热爱它就多多关注吧！
-            </div>
+        <div id="v-comments" class="col-xs-12">
         </div>
         <button type="button" class=" footer-btn">查看更多精彩内容，使劲搓这里</button>
     </div>
@@ -98,7 +85,7 @@
 <script src="../../js/dataformat.js" type="text/javascript"></script>
 <script>
     //接口调用遍历
-    share(4, function (res) {
+    shareCommon.Ajax(4, function (res) {
         var data = {
             dataPush: function (obj, res) {
                 for (var i in obj) {
@@ -108,7 +95,7 @@
             typeFormatter: function (data) {
                 return data == 2 ? '室外' : '室内';
             },
-            timeFormat: function (data) {
+            timeFormatter: function (data) {
                 return new Date(data).format("yyyy-mm-dd HH:MM:ss")
             },
             levelFormatter: function (data) {
@@ -137,26 +124,6 @@
                     pathsHtml += pathHtml;
                 }
                 return pathsHtml;
-            },
-            commentsFormatter: function (data) {
-                var commentsHtml;
-                for (var i in data) {
-                    var commentHtml = ' <div class="col-xs-12 pr0 meg">' +
-                            ' <div class="col-xs-2 .col-md-1  p0 phone1">' +
-                            ' <img  class="avatar" src="http://image.tiyujia.com/' + data.avatar + '">' +
-                            ' </div>' +
-                            ' <div class="col-xs-10 .col-md-11  p0 phone9">' +
-                            ' '+data.nickname+'' +
-                            ' <div class="grade">'+data.level+'</div>' +
-                            ' <br>' +
-                            ' <span class="time">40分钟前</span>' +
-                            ' </div>' +
-                            ' <div class="col-xs-10 col-xs-offset-1 mes-content p0 phone-offset-1">' +
-                            ' 如果你无法用简介的语言表达它，说明你真的还不够了解它，热爱它就多多关注吧！' +
-                            ' </div>' +
-                            ' </div>'
-                    commentsHtml+=commentHtml
-                }
             }
         }
         data.dataPush([{field: 'res.venue.type', id: 'v-label', formatter: data.typeFormatter},
@@ -168,7 +135,7 @@
             {field: 'res.venue.level', id: 'v-level', formatter: data.levelFormatter},
             {field: 'res.venue.imgUrls', id: 'v-imgUrls', formatter: data.imgFormatter},
             {field: 'res.paths', id: 'v-paths', formatter: data.pathsFormatter},
-            {field: 'res.comments', id: 'v-comments', formatter: data.commentsFormatter},
+            {field: 'res.comments', id: 'v-comments', formatter: shareCommon.commentsFormatter},
         ], res)
         //字符串重复
         String.prototype.repeat = function (n) {
@@ -180,6 +147,5 @@
             return result;
         }
     })
-
 </script>
 </html>

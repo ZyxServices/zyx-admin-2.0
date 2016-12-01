@@ -28,7 +28,7 @@
 <script type="text/javascript" src="../../js/share/share_index.js"></script>
 <script>
     //接口调用遍历
-    share(function(res){
+    shareCommon.Ajax(function(res){
         console.log(res,1)
     })
 </script>

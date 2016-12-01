@@ -99,34 +99,7 @@
 <%--评论--%>
 <div class="container-fluid content venues">
     <div class="row" style="margin-top: 20px">
-        <div class="col-xs-12"><h4>他们都在说</h4></div>
-        <div class="col-xs-12 pr0 meg">
-            <div class="col-xs-2 .col-md-1  p0 phone1">
-                <img class="avatar" src="<%=request.getContextPath()%>/images/avatar.jpg">
-            </div>
-            <div class="col-xs-10 .col-md-11  p0 phone9">
-                小美爱吃肉
-                <div class="grade">初窥门径</div>
-                <br>
-                <span class="time">40分钟前</span>
-            </div>
-            <div class="col-xs-10 col-xs-offset-1 mes-content p0 phone-offset-1">
-                如果你无法用简介的语言表达它，说明你真的还不够了解它，热爱它就多多关注吧！
-            </div>
-        </div>
-        <div class="col-xs-12 pr0 meg">
-            <div class="col-xs-2 p0 phone1">
-                <img class="avatar" src="<%=request.getContextPath()%>/images/avatar.jpg">
-            </div>
-            <div class="col-xs-10 p0 phone9">
-                小美爱吃肉
-                <div class="grade">初窥门径</div>
-                <br>
-                <span class="time">40分钟前</span>
-            </div>
-            <div class="col-xs-10 col-xs-offset-1 mes-content p0 phone-offset-1">
-                如果你无法用简介的语言表达它，说明你真的还不够了解它，热爱它就多多关注吧！
-            </div>
+        <div id="v-comments" class="col-xs-12">
         </div>
         <button type="button" class=" footer-btn">查看更多精彩内容，使劲搓这里</button>
     </div>
@@ -137,7 +110,7 @@
 <script type="text/javascript" src="../../js/share/share_index.js"></script>
 <script>
     //接口调用遍历
-    share(3, function (res) {
+    shareCommon.Ajax(3, function (res) {
         var _activity = res.activity;
         $("#imgShow").attr("src","http://image.tiyujia.com/"+_activity.imgUrls);
         if(_activity.paymentType == 0){
@@ -151,6 +124,7 @@
         $("#activityTime").html(timeFormat(_activity.startTime)+"—"+timeFormat(_activity.endTime))
         $("#descContent").html(_activity.descContent);
         $("#address").html(_activity.address);
+        $("#v-comments").html(shareCommon.commentsFormatter(res.comments))
     })
     function timeFormat(data) {
         return new Date(data).format("mm-dd HH:MM:ss");

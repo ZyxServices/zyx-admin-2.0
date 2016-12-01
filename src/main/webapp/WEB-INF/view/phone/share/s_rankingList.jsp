@@ -208,7 +208,7 @@
 <script type="text/javascript" src="../../js/share/share_index.js"></script>
 <script>
     //接口调用遍历
-    share(5, function (res) {
+    shareCommon.Ajax(5, function (res) {
         if (res.own.avatar) {
             $("#avatar").attr("src", "http://image.tiyujia.com/" + res.own.avatar);
         }

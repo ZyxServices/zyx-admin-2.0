@@ -20,38 +20,10 @@
         </div>
     </div>
     <div class="row" style="margin-top: 20px">
-        <div class="col-xs-12"><h4>精彩评论</h4></div>
-        <div class="col-xs-12 pr0 meg">
-            <div class="col-xs-2 .col-md-1  p0 phone1">
-                <img class="avatar" src="<%=request.getContextPath()%>/images/avatar.jpg">
-            </div>
-            <div class="col-xs-10 .col-md-11  p0 phone9">
-                小美爱吃肉
-                <div class="grade">初窥门径</div>
-                <br>
-                <span class="time">40分钟前</span>
-            </div>
-            <div class="col-xs-10 col-xs-offset-1 mes-content p0 phone-offset-1">
-                如果你无法用简介的语言表达它，说明你真的还不够了解它，热爱它就多多关注吧！
-            </div>
-        </div>
-        <div class="col-xs-12 pr0 meg">
-            <div class="col-xs-2 p0 phone1">
-                <img class="avatar" src="<%=request.getContextPath()%>/images/avatar.jpg">
-            </div>
-            <div class="col-xs-10 p0 phone9">
-                小美爱吃肉
-                <div class="grade">初窥门径</div>
-                <br>
-                <span class="time">40分钟前</span>
-            </div>
-            <div class="col-xs-10 col-xs-offset-1 mes-content p0 phone-offset-1">
-                如果你无法用简介的语言表达它，说明你真的还不够了解它，热爱它就多多关注吧！
-            </div>
+        <div id="v-comments" class="col-xs-12">
         </div>
         <button type="button" class=" footer-btn">查看更多精彩内容，使劲搓这里</button>
     </div>
-
 </div>
 
 </body>
@@ -60,17 +32,17 @@
 <script type="text/javascript" src="../../js/share/share_index.js"></script>
 <script>
     //接口调用遍历
-    share(0,function(res){
+    shareCommon.Ajax(0,function(res){
             var data = {
                 dataPush: function (obj, res) {
                     for (var i in obj) {
                         obj[i].formatter != undefined ? $('#' + obj[i].id + '').html(obj[i].formatter(eval(obj[i].field))) : $('#' + obj[i].id + '').html(eval(obj[i].field))
                     }
                 }
-
             }
             data.dataPush([{field: 'res.course.title', id: 'c-title'},
                 {field: 'res.course.content', id: 'c-content'},
+                {field: 'res.comments', id: 'v-comments', formatter: shareCommon.commentsFormatter},
             ], res)
     })
 </script>
