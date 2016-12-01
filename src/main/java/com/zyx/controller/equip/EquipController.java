@@ -28,7 +28,7 @@ import java.util.Map;
  *          装备控的控制层
  */
 @Controller
-@RequestMapping("/v1/equip")
+@RequestMapping("/v2/equip")
 public class EquipController {
 
     @Resource

@@ -23,7 +23,7 @@ $(function(){
 function initCity() {
     $("#city-list-table").bootstrapTable('destroy');
     $("#city-list-table").bootstrapTable({
-        url: "/v1/city/queryAll",
+        url: "/v2/city/queryAll",
         method:'get',
         locale: 'zh-US',
         striped: true,           //是否显示行间隔色
@@ -89,7 +89,7 @@ var operateEvents = {
             template: '确定删除该城市么？',
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/city/delCity?id=" + row.id,
+                    url: "/v2/city/delCity?id=" + row.id,
                     async: false,
                     type: "delete",
                     success: function (result) {
@@ -123,7 +123,7 @@ var operateEvents = {
             template: warm,
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/city/updateState",
+                    url: "/v2/city/updateState",
                     async: false,
                     type: "post",
                     data:{id:row.id,state:state},
@@ -155,7 +155,7 @@ function addCitys() {
 $("#confirmCmd").click(function () {
     $('#addCityForm').data('bootstrapValidator').validateField('cityName');
     $('#addCityForm').ajaxSubmit({
-        url: '/v1/city/add',
+        url: '/v2/city/add',
         type: 'post',
         dataType: 'json',
         beforeSubmit: function () {

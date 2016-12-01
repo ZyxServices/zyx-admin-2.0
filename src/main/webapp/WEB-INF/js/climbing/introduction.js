@@ -46,7 +46,7 @@ $(function () {
 
     $("#Course_table").bootstrapTable({
         type: 'get',
-        url: ("/v1/course/queryCourse"),
+        url: ("/v2/course/queryCourse"),
         toolbar: '#toolbar',        //工具按钮用哪个容器
         striped: true,           //是否显示行间隔色
         cache: true,            //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
@@ -216,7 +216,7 @@ var operateEvent = {
                 $.ajax({
                     async: false,
                     type: "POST",
-                    url: "/v1/course/maskCourse?id=" + row.id + "&maskType=" + state,
+                    url: "/v2/course/maskCourse?id=" + row.id + "&maskType=" + state,
                     success: function (data) {
                         console.log(row.mask)
                         if (row.mask == 1) {
@@ -244,7 +244,7 @@ var operateEvent = {
             template: '确认删除吗?',
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/course/delCourse?id=" + row.id,
+                    url: "/v2/course/delCourse?id=" + row.id,
                     async: false,
                     type: "POST",
                     success: function (result) {
@@ -328,7 +328,7 @@ function courseRecommend() {
 /*查询标签*/
 var firstopction = "<option value=''></option>";
 var courseLable = $.ajax({
-    url: "/v1/CourseLabel/queryByState",
+    url: "/v2/CourseLabel/queryByState",
     type: 'get',
     dataType: 'json',
     success: function (data) {
@@ -385,9 +385,9 @@ $("#courseSure").click(function () {
                 if(result.state == 200){
                     $("#image").val(result.data.url);
                     if(courseStatue == 1){
-                        Grade("/v1/course/add", "创建成功");
+                        Grade("/v2/course/add", "创建成功");
                     }else{
-                        Grade("/v1/course/updateCourse", "编辑成功");
+                        Grade("/v2/course/updateCourse", "编辑成功");
                     }
                 }
             },
@@ -399,7 +399,7 @@ $("#courseSure").click(function () {
             }
         })
     } else if (courseStatue == 2 && ISCHANGEIMG ==isChange) {
-        Grade("/v1/course/updateCourse", "编辑成功");
+        Grade("/v2/course/updateCourse", "编辑成功");
     }
 
 });

@@ -29,7 +29,7 @@ import java.util.Objects;
  */
 
 @Controller
-@RequestMapping("/v1/concern")
+@RequestMapping("/v2/concern")
 public class ConcernController {
 
     @Resource

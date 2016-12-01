@@ -348,7 +348,7 @@ var seeUrl = {
 }
 $(function () {
     $.ajax({
-        url: '/v1/city/queryByState',
+        url: '/v2/city/queryByState',
         type: 'get',
         dataType: 'json',
         success: function (result) {

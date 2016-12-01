@@ -5,7 +5,7 @@
 var $table = $('#circle-list-table');
 var firstopction = "<option value=''></option>";
 var userList = $.ajax({
-    url: "/v1/appUser/list/all",
+    url: "/v2/appUser/list/all",
     async: false,
     type: "get",
     dateType: "json",
@@ -25,7 +25,7 @@ var userList = $.ajax({
 });
 /*查询圈子时需要选择的用户*/
 var officeUser = $.ajax({
-    url: "/v1/appUser/list/official/all",
+    url: "/v2/appUser/list/official/all",
     type: 'get',
     dataType: 'json',
     success: function (rows) {

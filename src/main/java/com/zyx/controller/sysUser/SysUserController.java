@@ -34,7 +34,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
  * 管理员的业务层方法
  */
 @Controller
-@RequestMapping("/v1/sysUser")
+@RequestMapping("/v2/sysUser")
 public class SysUserController {
 
     @Autowired

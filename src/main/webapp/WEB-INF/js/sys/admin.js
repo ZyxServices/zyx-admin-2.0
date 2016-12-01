@@ -63,7 +63,7 @@ $(function () {
         search: true,
         sidePagination: "server",
         method: "get",
-        url: "/v1/sysUser/list",
+        url: "/v2/sysUser/list",
         dataField: "data",
         queryParamsType: "undefined",
         queryParams: function queryParams(params) {   //设置查询参数
@@ -111,7 +111,7 @@ function stateFormat(data) {
 }
 function getAllOfficial() {
     $.ajax({
-        url:'/v1/appUser/queryUser',
+        url:'/v2/appUser/queryUser',
         type:'GET',
         data:{page:1 ,pageNumber:50, official:1},
         async: false,
@@ -148,7 +148,7 @@ var operateEvent = {
             strictSearch: true,
             sidePagination: "server",
             method: "get",
-            url: "/v1/sysUser/queryOperation",
+            url: "/v2/sysUser/queryOperation",
             dataField: "data",
             queryParamsType: "undefined",
             queryParams: function queryParams(params) {   //设置查询参数
@@ -166,7 +166,7 @@ var operateEvent = {
         $("#roleModal").modal("show");
         $("#editUserId").val(row["id"]);
         $.ajax({
-            url: "/v1/role/all",
+            url: "/v2/role/all",
             type: "GET",
             dataType: 'json',
             success: function (data) {
@@ -191,7 +191,7 @@ var operateEvent = {
             template: '确定删除该管理员',
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/sysUser/delete?id="+row.id,
+                    url: "/v2/sysUser/delete?id="+row.id,
                     async: false,
                     type: "delete",
                     dateType: "json",
@@ -246,7 +246,7 @@ function createAdministrators() {
     $("#administratorsList").hide();
     $("#administratorsCreate").show();
     $.ajax({
-        url: "/v1/role/all",
+        url: "/v2/role/all",
         type: "GET",
         dataType: 'json',
         success: function (data) {
@@ -266,7 +266,7 @@ function createAdministrators() {
 
 function beginCreateSysUser() {
     $("#sysUserCreateForm").ajaxSubmit({
-        url: '/v1/sysUser/insert',
+        url: '/v2/sysUser/insert',
         type: 'post',
         dataType: 'json',
         beforeSubmit: function () {
@@ -298,7 +298,7 @@ function beginCreateSysUser() {
 
 function beginEditSysUser() {
     $("#sysUserEditForm").ajaxSubmit({
-        url: '/v1/sysUser/editRole',
+        url: '/v2/sysUser/editRole',
         type: 'post',
         dataType: 'json',
         success: function (result) {
@@ -325,7 +325,7 @@ function beginEditSysUser() {
 function distributionOfficial() {
     /*分配官方账号*/
     $.ajax({
-        url: '/v1/sysUser/addOfficial',
+        url: '/v2/sysUser/addOfficial',
         type: 'post',
         dataType: 'json',
         data:{id:$("#officialId").val(),userId:$("#userId").val().join()},

@@ -397,7 +397,7 @@ var seeUrl = {
 $(function () {
     $(".create_live").click(function () {
         $.ajax({
-            url: "/v1/appUser/list/official/all",
+            url: "/v2/appUser/list/official/all",
             type: 'get',
             dataType: 'json',
             success: function (result) {

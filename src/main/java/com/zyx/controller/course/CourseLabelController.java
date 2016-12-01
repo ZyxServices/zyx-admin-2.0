@@ -27,7 +27,7 @@ import java.util.Map;
  *          教程标签控制层
  */
 @Controller
-@RequestMapping("/v1/CourseLabel")
+@RequestMapping("/v2/CourseLabel")
 public class CourseLabelController {
     @Resource
     private CourseLabelService courseLabelService;

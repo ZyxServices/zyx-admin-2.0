@@ -5,7 +5,7 @@ var $table = $('#dynamic_table'),
     $remove = $('#remove');
 function initTable() {
     $('#dynamic_table').bootstrapTable({
-        url: ("/v1/concern/findConcern"),
+        url: ("/v2/concern/findConcern"),
         method: 'get',
         toolbar: '#toolbar',        //工具按钮用哪个容器
         striped: true,           //是否显示行间隔色
@@ -378,7 +378,7 @@ var operateEventssssss = {
             template: html,
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/concern/mask?id=" + row.id + "&state=" + state + "",
+                    url: "/v2/concern/mask?id=" + row.id + "&state=" + state + "",
                     async: false,
                     type: "delete",
                     dateType: "json",
@@ -398,12 +398,12 @@ var operateEventssssss = {
 
     },
     'click .remove': function (e, value, row, index) {
-        var delUrl = '/v1/concern/del?id=' + row.id;
+        var delUrl = '/v2/concern/del?id=' + row.id;
         ajaxPlugins.remove(delUrl, 'dynamic_table', 'DELETE')
     },
     createDynamic: function (obj, eidt) {
         var url;
-        eidt == true ? url = '/v1/concern/edit' : url = '/v1/concern/createConcern'
+        eidt == true ? url = '/v2/concern/edit' : url = '/v2/concern/createConcern'
         console.log(eidt)
         $("#createDynamicForm").ajaxForm({
             url: url,

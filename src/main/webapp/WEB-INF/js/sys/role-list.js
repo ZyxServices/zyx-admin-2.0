@@ -80,7 +80,7 @@ $(function () {
         search: true,
         sidePagination: "server",
         method: "get",
-        url: "/v1/role/list",
+        url: "/v2/role/list",
         dataField: "data",
         queryParamsType: "undefined",
         queryParams: function queryParams(params) {   //设置查询参数
@@ -175,7 +175,7 @@ function editJurisdiction(_row) {
 
 function beginCreate() {
     $("#roleCreateForm").ajaxSubmit({
-        url: '/v1/role/insert',
+        url: '/v2/role/insert',
         type: 'post',
         dataType: 'json',
         beforeSubmit: function () {
@@ -206,7 +206,7 @@ function beginCreate() {
 
 function beginEdit() {
     $("#roleEditForm").ajaxSubmit({
-        url: '/v1/role/edit',
+        url: '/v2/role/edit',
         type: 'post',
         dataType: 'json',
         beforeSubmit: function () {

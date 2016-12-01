@@ -31,7 +31,7 @@ import java.util.Map;
  *          Copyright (c)2016 tyj-版权所有
  */
 @Controller
-@RequestMapping("/v1/appUser")
+@RequestMapping("/v2/appUser")
 public class AppUserController {
 
 

@@ -27,7 +27,7 @@ import java.util.Map;
  *          装备控标签控制层
  */
 @Controller
-@RequestMapping("/v1/equipLabel")
+@RequestMapping("/v2/equipLabel")
 public class EquipLabelController {
 
     @Resource

@@ -6,7 +6,7 @@ function initAppUserTable() {
     //先销毁表格
     $('#allApp_user_table').bootstrapTable('destroy');
     $('#allApp_user_table').bootstrapTable({
-        url: ("/v1/appUser/queryUser"),
+        url: ("/v2/appUser/queryUser"),
         method: 'get',
         toolbar: '#toolbar',        //工具按钮用哪个容器
         striped: true,           //是否显示行间隔色
@@ -118,7 +118,7 @@ var operateEvent = {
             template: content,
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/appUser/mask",
+                    url: "/v2/appUser/mask",
                     async: false,
                     type: "get",
                     data: {id: row.id,mask: mask},
@@ -147,7 +147,7 @@ var operateEvent = {
             template: '该活动的所有数据将被完全删除，不能再被浏览',
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/appUser/del",
+                    url: "/v2/appUser/del",
                     async: false,
                     type: "get",
                     data: {id: row.id},
@@ -242,9 +242,9 @@ function beginCreate() {
                 if(result.state == 200){
                     $("#avatar").val(result.data.url);
                     if($("#listType").html() == "创建用户"){
-                        createEditAppUser('/v1/appUser/insert')
+                        createEditAppUser('/v2/appUser/insert')
                     }else{
-                        createEditAppUser('/v1/appUser/update')
+                        createEditAppUser('/v2/appUser/update')
                     }
                 }else{
                     $.Popup({
@@ -265,7 +265,7 @@ function beginCreate() {
         
     }else{/*未改变图片的上传*/
         if($('#createAppUserForm').data('bootstrapValidator').isValid()){
-            createEditAppUser('/v1/appUser/update')
+            createEditAppUser('/v2/appUser/update')
         }
     }
 }

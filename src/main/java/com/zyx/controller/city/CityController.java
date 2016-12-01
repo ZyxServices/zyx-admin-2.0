@@ -23,7 +23,7 @@ import java.util.Map;
  *          Copyright (c)2016 tyj-版权所有
  */
 @Controller
-@RequestMapping("/v1/city")
+@RequestMapping("/v2/city")
 public class CityController {
 
     @Resource

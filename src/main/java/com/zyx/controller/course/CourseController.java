@@ -29,7 +29,7 @@ import java.util.Map;
  *          Copyright (c)2016 tyj-版权所有
  */
 @Controller
-@RequestMapping("/v1/course")
+@RequestMapping("/v2/course")
 public class CourseController {
 
     @Resource

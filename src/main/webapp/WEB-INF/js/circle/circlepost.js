@@ -34,7 +34,7 @@ var showval = getval.split("=")[1];
  };*/
 /*查询圈子时需要选择的用户*/
 var officeUser = $.ajax({
-    url: "/v1/appUser/list/official/all",
+    url: "/v2/appUser/list/official/all",
     type: 'get',
     dataType: 'json',
     success: function (rows) {

@@ -161,7 +161,7 @@ function getIdSelections() {
 
 function queryOfficial(id) {
     $.ajax({
-        url:'/v1/sysUser/choice',
+        url:'/v2/sysUser/choice',
         type:'post',
         async: false,
         success:function (res) {

@@ -18,7 +18,7 @@ $(function () {
 
     $("#Course_table").bootstrapTable({
         type: 'get',
-        url: ("/v1/CourseLabel/queryAll"),
+        url: ("/v2/CourseLabel/queryAll"),
         toolbar: '#toolbar',        //工具按钮用哪个容器
         striped: true,           //是否显示行间隔色
         cache: true,            //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
@@ -82,7 +82,7 @@ var operateEvent = {
             template: '确认删除吗?',
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/CourseLabel/delCourseLabel?id=" + row.id,
+                    url: "/v2/CourseLabel/delCourseLabel?id=" + row.id,
                     async: false,
                     type: "DELETE",
                     success: function (result) {
@@ -117,7 +117,7 @@ function createLabel() {
 }
 $("#confirmCmd").click(function () {
     $('#labelcreate').ajaxSubmit({
-        url: "/v1/CourseLabel/add",
+        url: "/v2/CourseLabel/add",
         type: 'post',
         dataType: 'json',
         processData: false,

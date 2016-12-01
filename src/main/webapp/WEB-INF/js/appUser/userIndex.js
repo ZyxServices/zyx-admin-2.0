@@ -25,7 +25,7 @@ function initTable() {
         search: true,
         sidePagination: "server",
         method: "get",
-        url: "/v1/appUser/list/all",
+        url: "/v2/appUser/list/all",
         queryParamsType: "undefined",
         queryParams: function queryParams(params) {   //设置查询参数
             var param = {

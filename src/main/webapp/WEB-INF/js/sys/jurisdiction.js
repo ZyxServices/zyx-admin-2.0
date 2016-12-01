@@ -68,7 +68,7 @@ $(function () {
     });
 
     $("#roleForm").ajaxForm({
-        url: '/v1/role/insert',
+        url: '/v2/role/insert',
         type: 'post',
         dataType: 'json',
         beforeSubmit: function () {

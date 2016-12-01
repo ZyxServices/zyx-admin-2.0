@@ -168,7 +168,7 @@
                 <!-- BEGIN DASHBOARD STATS -->
                 <div class="row-fluid">
 
-                    <form action="/v1/role/" id="roleCreateForm" method="post" class="form-horizontal" role="form">
+                    <form action="/v2/role/" id="roleCreateForm" method="post" class="form-horizontal" role="form">
                         <div class="control-group form-group">
                             <label class="control-label">角色名称</label>
                             <div class="controls col-xs-5">
@@ -277,7 +277,7 @@
                 <!-- BEGIN DASHBOARD STATS -->
                 <div class="row-fluid">
 
-                    <form action="/v1/role/" id="roleEditForm" method="post"
+                    <form action="/v2/role/" id="roleEditForm" method="post"
                           class="form-horizontal" novalidate="novalidate" role="form">
                         <input type="hidden" id="editRoleId" name="editRoleId">
                         <div class="control-group form-group">

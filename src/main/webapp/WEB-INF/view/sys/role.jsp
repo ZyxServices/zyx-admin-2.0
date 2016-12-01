@@ -174,7 +174,7 @@
                 <!-- BEGIN DASHBOARD STATS -->
                 <div class="row-fluid">
 
-                    <form action="/v1/role/" id="roleForm" method="post" enctype="multipart/form-data"
+                    <form action="/v2/role/" id="roleForm" method="post" enctype="multipart/form-data"
                           class="form-horizontal" novalidate="novalidate" role="form">
                         <div class="control-group">
                             <label class="control-label">角色名称</label>

@@ -26,7 +26,7 @@ function initTable() {
         search: true,
         sidePagination: "server",
         method: "get",
-        url: "/v1/appUser/list/official",
+        url: "/v2/appUser/list/official",
         queryParamsType: "undefined",
         queryParams: function queryParams(params) {   //设置查询参数
             var param = {
@@ -165,7 +165,7 @@ $(function () {
 });
 $("#createButton").click(function () {
     $("#editUserForm").ajaxSubmit({
-        url: '/v1/appUser/update',
+        url: '/v2/appUser/update',
         type: 'post',
         dataType: 'json',
         beforeSubmit: function () {

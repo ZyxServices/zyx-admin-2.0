@@ -27,7 +27,7 @@ function initTable() {
         search: true,
         sidePagination: "server",
         method: "get",
-        url: "/v1/appUser/list/dsh",
+        url: "/v2/appUser/list/dsh",
         queryParamsType: "undefined",
         queryParams: function queryParams(params) {   //设置查询参数
             var param = {
@@ -80,7 +80,7 @@ $(function () {
 });
 $("#authSuccess").click(function () {
     $.ajax({
-        url: "/v1/appUser/authPass",
+        url: "/v2/appUser/authPass",
         data: {id: $("#authId").val()},
         type: "GET",
         dataType: 'json',
@@ -105,7 +105,7 @@ $("#authSuccess").click(function () {
 })
 $("#authFail").click(function () {
     $.ajax({
-        url: "/v1/appUser/authFail",
+        url: "/v2/appUser/authFail",
         data: {id: $("#authId").val()},
         type: "GET",
         dataType: 'json',

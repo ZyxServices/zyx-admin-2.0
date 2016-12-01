@@ -146,7 +146,7 @@ var operateEvent = {
             template: '屏蔽之后该用户将不能再启用',
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/appUser/mask",
+                    url: "/v2/appUser/mask",
                     async: false,
                     type: "get",
                     data: {id: row.id},
@@ -171,7 +171,7 @@ var operateEvent = {
             template: '这是恢复屏蔽是否的对话框',
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/appUser/unMask",
+                    url: "/v2/appUser/unMask",
                     async: false,
                     type: "get",
                     data: {id: row.id},
@@ -196,7 +196,7 @@ var operateEvent = {
             template: '该活动的所有数据将被完全删除，不能再被浏览',
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/appUser/del",
+                    url: "/v2/appUser/del",
                     async: false,
                     type: "get",
                     data: {id: row.id},
@@ -229,7 +229,7 @@ var operateEvent = {
             template: '确定密码重置？重置后密码为：123456！',
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/appUser/resetPwd",
+                    url: "/v2/appUser/resetPwd",
                     async: false,
                     type: "post",
                     data: {phone: row.phone},

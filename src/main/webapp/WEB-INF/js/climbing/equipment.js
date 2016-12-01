@@ -6,7 +6,7 @@ var $table = $('#dynamic_table'),
 function initTable(num) {
     $("#dynamic_table").bootstrapTable('destroy');
     $('#dynamic_table').bootstrapTable({
-        url: ("/v1/equip/queryEquip"),
+        url: ("/v2/equip/queryEquip"),
         method: 'get',
         toolbar: '#toolbar',        //工具按钮用哪个容器
         striped: true,           //是否显示行间隔色
@@ -79,7 +79,7 @@ function initTable(num) {
         })
     });
     $('#labelTabel').bootstrapTable({
-        url: ("/v1/equipLabel/queryAll"),
+        url: ("/v2/equipLabel/queryAll"),
         method: 'get',
         toolbar: '#toolbar',        //工具按钮用哪个容器
         striped: true,           //是否显示行间隔色
@@ -132,7 +132,7 @@ function initTable(num) {
     });
     /*查询创建时需要选择的用户*/
     $.ajax({
-        url: '/v1/equipLabel/queryByState',
+        url: '/v2/equipLabel/queryByState',
         type: 'get',
         dataType: 'json',
         success: function (result) {
@@ -255,7 +255,7 @@ var operateEventssssss = {
             template: html,
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/equip/maskEquip?id=" + row.id + "&maskType=" + state + "",
+                    url: "/v2/equip/maskEquip?id=" + row.id + "&maskType=" + state + "",
                     async: false,
                     type: "post",
                     dateType: "json",
@@ -275,11 +275,11 @@ var operateEventssssss = {
 
     },
     'click .remove': function (e, value, row, index) {
-        var delUrl = '/v1/equip/delEquip?id=' + row.id;
+        var delUrl = '/v2/equip/delEquip?id=' + row.id;
         ajaxPlugins.remove(delUrl, 'dynamic_table', 'post')
     },
     'click .labelRemove': function (e, value, row, index) {
-        var delUrl = '/v1/equipLabel/delEquipLabel?id=' + row.id;
+        var delUrl = '/v2/equipLabel/delEquipLabel?id=' + row.id;
         ajaxPlugins.remove(delUrl, 'labelTabel', 'delete')
     },
     'click .labelEnable': function (e, value, row, index) {
@@ -297,7 +297,7 @@ var operateEventssssss = {
             template: html,
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/equipLabel/updateState?id=" + row.id + "&state=" + state + "",
+                    url: "/v2/equipLabel/updateState?id=" + row.id + "&state=" + state + "",
                     async: false,
                     type: "post",
                     dateType: "json",
@@ -317,7 +317,7 @@ var operateEventssssss = {
     },
     createEquip: function (obj, eidt) {
         var url;
-        eidt == true ? url = '/v1/equip/updateEquip' : url = '/v1/equip/add'
+        eidt == true ? url = '/v2/equip/updateEquip' : url = '/v2/equip/add'
         $.ajax({
             url: url,//提交地址
             data: $("#updateCreateFrom").serialize(),//将表单数据序列化
@@ -347,7 +347,7 @@ var operateEventssssss = {
             template: ' <label style="float: left;padding: 0 20px">标签:</label> <div ><input id="labelName"></div>',
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/equipLabel/add?userId=1&labelName="+$('#labelName').val()+"",
+                    url: "/v2/equipLabel/add?userId=1&labelName="+$('#labelName').val()+"",
                     async: false,
                     type: "post",
                     dateType: "json",
@@ -374,7 +374,7 @@ var seeUrl = {
 $(function () {
     $(".create_live").click(function () {
         $.ajax({
-            url: "/v1/appUser/list/official/all",
+            url: "/v2/appUser/list/official/all",
             type: 'get',
             dataType: 'json',
             success: function (result) {

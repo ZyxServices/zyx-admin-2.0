@@ -663,7 +663,7 @@ function timeFormat(data) {
 function userList(){
     /*查询创建活动时需要选择的用户*/
     $.ajax({
-        url: "/v1/appUser/list/official/all",
+        url: "/v2/appUser/list/official/all",
         type: 'get',
         dataType: 'json',
         success: function (result) {

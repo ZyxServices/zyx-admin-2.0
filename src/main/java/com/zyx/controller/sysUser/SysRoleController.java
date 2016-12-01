@@ -23,7 +23,7 @@ import java.util.Map;
  *
  */
 @Controller
-@RequestMapping("/v1/role")
+@RequestMapping("/v2/role")
 public class SysRoleController {
     @Autowired
     SysRoleService sysRoleService;

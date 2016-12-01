@@ -82,7 +82,7 @@
                 <h3 id="roleModalTitle">权限修改</h3>
             </div>
             <div class="modal-body">
-                <form action="/v1/sysUser/editRole" id="sysUserEditForm" method="post" enctype="multipart/form-data"
+                <form action="/v2/sysUser/editRole" id="sysUserEditForm" method="post" enctype="multipart/form-data"
                       class="form-horizontal" novalidate="novalidate" role="form">
                     <input type="hidden" id="editUserId" name="id">
 
@@ -256,7 +256,7 @@
             <!-- BEGIN DASHBOARD STATS -->
             <div class="row-fluid">
 
-                <form id="sysUserCreateForm" class="form-horizontal" novalidate="novalidate" role="form" enctype="multipart/form-data" action="/v1/sysUser/insert" method="post">
+                <form id="sysUserCreateForm" class="form-horizontal" novalidate="novalidate" role="form" enctype="multipart/form-data" action="/v2/sysUser/insert" method="post">
 
                     <div class="control-group form-group">
                         <label class="control-label">账号</label>
