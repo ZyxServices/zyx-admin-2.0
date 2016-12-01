@@ -63,8 +63,8 @@
                                 <th data-field="userName">管理员</th>
                                 <th data-field="authLevel">权限</th>
                                 <th data-field="createTime" data-formatter="timeFormat">操作时间</th>
-                                <th data-field="result" data-formatter="stateFormat">操作时间</th>
-                                <th data-field="operateDesc">操作内容</th>
+                                <th data-field="result" data-formatter="stateFormat">操作状态</th>
+                                <th data-field="operationDesc">操作内容</th>
                             </tr>
                             </thead>
                         </table>

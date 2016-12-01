@@ -30,7 +30,7 @@ function initMessageTable() {
         striped: true,           //是否显示行间隔色
         pagination: true,
         cache: false,
-        search: true,
+        search: false,
         strictSearch: true,
         uniqueId: "id",
         height:500,
@@ -119,6 +119,7 @@ function createMessage() {
         todayBtn: true,
         format: 'yyyy-mm-dd hh:ii',
         autoclose: true,
+        startDate:new Date(),
         todayHighlight: true,
         minView: false,
         forceParse: true,

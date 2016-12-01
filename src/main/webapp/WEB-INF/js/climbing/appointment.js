@@ -259,7 +259,7 @@ function fromData(res) {
         }
         return {
             rows: dataArray,
-            total: res.data.length
+            total: res.total
         }
     }
 }

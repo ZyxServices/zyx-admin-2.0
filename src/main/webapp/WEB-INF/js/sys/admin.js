@@ -77,14 +77,6 @@ $(function () {
             return param;
         }
     });
-/*创建管理员*/
-    /*$("#sysUserCreateForm").ajaxForm({
-
-    });*/
-/*修改权限等级*/
-   /* $("#sysUserEditForm").ajaxForm({
-
-    });*/
     getAllOfficial();
 })
 
@@ -129,7 +121,7 @@ function getAllOfficial() {
 var operateEvent = {
     'click .look': function (e, value, row) {
         $("#operateLogModal").modal("show");
-        $("#administrators-log-table").bootstrapTable('destroy');
+        // $("#administrators-log-table").bootstrapTable('destroy');
         $("#administrators-log-table").bootstrapTable({
             toolbar: '#toolbar',        //工具按钮用哪个容器
             striped: true,           //是否显示行间隔色
@@ -155,10 +147,11 @@ var operateEvent = {
                 var param = {
                     pageNumber: params.pageSize,
                     page: params.pageNumber,
-                    searchText: params.searchText,
                     userId: row.id
                 };
                 return param;
+            },
+            onLoadSuccess:function () {
             }
         });
     },
