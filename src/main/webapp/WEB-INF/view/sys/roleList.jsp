@@ -193,6 +193,7 @@
                                     <select id="menu-create-select" multiple="multiple">
                                         <option value="menu:climbing:banner" data-section="攀岩管理">banner管理</option>
                                         <option value="menu:climbing:introduction" data-section="攀岩管理">教程攻略</option>
+                                        <option value="menu:climbing:couserlabel" data-section="攀岩管理">教程标签</option>
                                         <option value="menu:climbing:equipment" data-section="攀岩管理">装备控</option>
                                         <option value="menu:climbing:appointment" data-section="攀岩管理">求约</option>
                                         <option value="menu:climbing:venues" data-section="攀岩管理">场馆</option>
@@ -304,6 +305,7 @@
                                     <select id="menu-edit-select" multiple="multiple">
                                         <option value="menu:climbing:banner" data-section="攀岩管理">banner管理</option>
                                         <option value="menu:climbing:introduction" data-section="攀岩管理">教程攻略</option>
+                                        <option value="menu:climbing:couserlabel" data-section="攀岩管理">教程标签</option>
                                         <option value="menu:climbing:equipment" data-section="攀岩管理">装备控</option>
                                         <option value="menu:climbing:appointment" data-section="攀岩管理">求约</option>
                                         <option value="menu:climbing:venues" data-section="攀岩管理">场馆</option>
