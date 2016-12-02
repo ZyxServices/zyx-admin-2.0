@@ -23,6 +23,7 @@ dialog.prototype = {
         if ($('#activity-shield')[0] == undefined) {
             globalID += 1;
             var Successbtn;
+            var headerHtml= "<div id='activity-shield" + globalID + "' class='modal fade'>"
             //this.options.confirm == true ? "<button class='btn btn-default' id='maskSuccess" + globalID + "'>" + this.options.saveText + "</button>" : "";
             if (this.options.confirm == true) {
                 var Successbtn = "<button class='btn btn-default' id='maskSuccess" + globalID + "'>" + this.options.saveText + "</button>"

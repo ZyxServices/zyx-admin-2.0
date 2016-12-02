@@ -13,6 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/phone")
 public class PhoneController {
     /*分享*/
+    @RequestMapping(value = "/share/index", method = RequestMethod.GET)
+    public ModelAndView redirectIndex() {
+        return new ModelAndView("/phone/share/s_index");
+    }
     @RequestMapping(value = "/share/venues", method = RequestMethod.GET)
     public ModelAndView redirectVenues(@RequestParam String id ) {
         return new ModelAndView("/phone/share/s_venues");

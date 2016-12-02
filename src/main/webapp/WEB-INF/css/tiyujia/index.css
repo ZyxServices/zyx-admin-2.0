@@ -1,3 +1,6 @@
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
 .content {
     background-color: #f5f4f0;
 
@@ -53,6 +56,16 @@
     border-radius: 100%;
 
 }
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+.clearfix {
+    clear: both;
+}
 
 .p0 {
     padding: 0;
@@ -81,7 +94,9 @@
 .meg {
     margin-bottom: 20px;
 }
-
+.overflow{
+    overflow: hidden;
+}
 .mes-content {
     margin-left: 45px;
     margin-top: 10px;
@@ -137,6 +152,11 @@
     /*padding: 20px 0 10px 20px;*/
     /*margin: 10px 0 10px 20px ;*/
 
+}
+.v-img{
+    width: 24px;
+    height: 24px;
+    margin-top: 7px;
 }
 
 /* 4寸以下 */

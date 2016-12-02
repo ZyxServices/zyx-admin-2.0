@@ -346,6 +346,9 @@ var seeUrl = {
         alert('You click like seeUrl action, row: ' + JSON.stringify(row));
     }
 }
+
+
+
 $(function () {
     $.ajax({
         url: '/v2/city/queryByState',

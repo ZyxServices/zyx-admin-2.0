@@ -27,7 +27,7 @@
 <div class="container-fluid content venues">
     <div class="row">
         <div id="v-imgUrls" class="col-xs-12 banner" style="">
-            <button type="button" id="v-label" class="v-label-default"></button>
+            <button type="button" id="v-label" class="v-label-default">室内</button>
         </div>
         <div class="col-xs-12 ptb10 pb">
             <span id="v-name" style="font-size: 16px;color: #000000;font-weight: 500">成都理工大学攀岩基地</span>
@@ -44,12 +44,14 @@
             </div>
         </div>
     </div>
-    <div class="row p10" style="margin-top: 10px">
-        <div id="v-address" class="col-xs-12">
-            成都市体育馆二号馆三楼篮球中心场地【我去过】
+    <div class="row " style="margin-top: 10px;padding-bottom: 10px">
+        <div class="col-xs-12">
+            <p><img class="v-img fl" src="<%=request.getContextPath()%>/images/bg/phone/btn_adress@2x.png"></p>
+            <span id="v-address">成都市体育馆二号馆三楼篮球中心场地【我去过】</span>
         </div>
-        <div id="v-phone" class="col-xs-12">
-            13681929137
+        <div class=" col-xs-12">
+            <p><img class="v-img fl" src="<%=request.getContextPath()%>/images/bg/phone/btn_phone@2x.png"></p>
+            <span id="v-phone"> 13681929137</span>
         </div>
     </div>
     <div class="row pb20" style="margin-top: 10px">
