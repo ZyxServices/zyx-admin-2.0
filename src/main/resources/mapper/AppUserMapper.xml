@@ -25,6 +25,7 @@
         <result column="signature" jdbcType="VARCHAR" property="signature"/>
         <result column="level_id" jdbcType="INTEGER" property="levelId"/>
         <result column="money" jdbcType="INTEGER" property="money"/>
+        <result column="app_type" jdbcType="INTEGER" property="appType"/>
         <association property="level" column="level_id" select="levelSelect"/>
         <association property="concernCount" column="id" select="countSelect"/>
 
@@ -65,6 +66,10 @@
     <!--<select id="selectUserBySysUser" parameterType="java.lang.String" resultMap="OfficialUserListDto">-->
         <!--SELECT id,nickname FROM user where id IN <![CDATA[(#{OFFICIAL_ID})]]>-->
     <!--</select>-->
+
+    <select id="queryByUserId" parameterType="int" resultMap="AppUserListDto">
+        SELECT * FROM user WHERE id=#{user_id}
+    </select>
 
     <select id="levelSelect" parameterType="int" resultType="java.lang.String">
         SELECT name FROM level  WHERE id=#{level_id}
@@ -174,10 +179,16 @@
 
     <select id="selectAppUserGetName" parameterType="int" resultType="java.lang.String">
         SELECT nickname FROM user where id = #{userId} and del != 1
+        <if test="appType != null">
+            and app_type=#{appType}
+        </if>
     </select>
 
     <select id="queryAppUserList" parameterType="com.zyx.parm.QueryAppUserParam" resultMap="BaseResultMap">
         SELECT * FROM user where 1=1
+        <if test="appType != null">
+            and app_type=#{appType}
+        </if>
         <if test="searchText != null and searchText != ''">
             and (nickname LIKE CONCAT('%','${searchText}','%' ) or phone LIKE
             CONCAT('%','${searchText}','%' ))
@@ -199,6 +210,9 @@
 
     <select id="selectAppUserListCount" parameterType="com.zyx.parm.QueryAppUserParam" resultType="int">
         SELECT count(*) FROM user where 1=1
+        <if test="appType != null">
+            and app_type=#{appType}
+        </if>
         <if test="searchText != null and searchText != ''">
             and (nickname LIKE CONCAT('%','${searchText}','%' ) or phone LIKE
             CONCAT('%','${searchText}','%' ))

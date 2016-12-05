@@ -29,5 +29,5 @@ public interface SysRoleMapper extends Mapper<SysRole> {
      *查询所有权限
      * @return
      */
-    List<SystemRoleListDto> queryAllSystemRole();
+    List<SystemRoleListDto> queryAllSystemRole(QuerySystemRoleParam param);
 }

@@ -19,5 +19,5 @@ public interface ReplyService extends BaseService<Reply> {
      * @param replyState
      * @return
      */
-     Map<String,Object> findReplyByParams(Integer replyType,Integer replyId,Integer replyState);
+     Map<String,Object> findReplyByParams(Integer replyType,Integer replyId,Integer replyState,Integer appType);
 }

@@ -48,9 +48,12 @@ public class SysRoleController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ApiOperation(value="查询所有权限，用于下拉框列表",notes="查询所有权限，用于下拉框列表")
-    public ModelAndView sysRoleAllLists() {
+    public ModelAndView sysRoleAllLists( @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType) {
         AbstractView jsonView = new MappingJackson2JsonView();
-        Map<String, Object> map = sysRoleService.queryAllList();
+
+        QuerySystemRoleParam param = new QuerySystemRoleParam();
+        param.setAppType(appType);
+        Map<String, Object> map = sysRoleService.queryAllList(param);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
@@ -66,7 +69,8 @@ public class SysRoleController {
     @ApiOperation(value="创建权限",notes = "创建权限")
     public ModelAndView sysRoleInsert(@ApiParam(name="roleName",required = true,value = "权限名称")@RequestParam String roleName,
                                       @ApiParam(name="roleDesc",required = true,value = "权限描述")@RequestParam String roleDesc,
-                                      @ApiParam(name="menuPerm",required = false,value = "权限菜单")@RequestParam(required = false) String menuPerm) {
+                                      @ApiParam(name="menuPerm",required = false,value = "权限菜单")@RequestParam(required = false) String menuPerm,
+                                      @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType) {
         AbstractView jsonView = new MappingJackson2JsonView();
         Map<String, Object> map;
         SysRole sysRole = sysRoleService.selectByRoleName(roleName);
@@ -78,6 +82,7 @@ public class SysRoleController {
             param.setRoleName(roleName);
             param.setRoleDesc(roleDesc);
             param.setMenuPerm(menuPerm);
+            param.setAppType(appType);
 //            param.setRoleId(UUID.randomUUID().toString().replaceAll("-", ""));
             map = sysRoleService.insertSysRole(param);
         }

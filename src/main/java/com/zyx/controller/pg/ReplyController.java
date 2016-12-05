@@ -30,8 +30,9 @@ public class ReplyController {
     @ApiOperation(value = "回复列表", notes = "回复列表")
     public ModelAndView findByParams(@RequestParam(value = "reply_type") Integer replyType,
                                      @RequestParam(value = "reply_id") Integer replyId,
-                                     @RequestParam(value = "reply_state") Integer replyState) {
-        Map<String, Object> replys = replyService.findReplyByParams(replyType, replyId, 0);
+                                     @RequestParam(value = "reply_state") Integer replyState,
+                                     @RequestParam(value = "app_type") Integer appType) {
+        Map<String, Object> replys = replyService.findReplyByParams(replyType, replyId, 0,appType);
         AbstractView abstractView = new MappingJackson2JsonView();
         abstractView.setAttributesMap(replys);
         return new ModelAndView(abstractView);

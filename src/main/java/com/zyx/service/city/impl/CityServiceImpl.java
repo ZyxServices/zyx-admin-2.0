@@ -3,6 +3,7 @@ package com.zyx.service.city.impl;
 import com.zyx.constants.Constants;
 import com.zyx.mapper.CityMapper;
 import com.zyx.model.City;
+import com.zyx.parm.city.QueryCityParam;
 import com.zyx.service.BaseServiceImpl;
 import com.zyx.service.city.CityService;
 import com.zyx.utils.MapUtils;
@@ -38,7 +39,7 @@ public class CityServiceImpl  extends BaseServiceImpl<City> implements CityServi
      */
     @Override
     public Map<String, Object> add(City city) {
-        if(city.getCityName()!=null){
+        if(city.getCityName()!=null && city.getAppType()!=null){
             city.setCreateTime(new Date().getTime());
             city.setState(0);
             int i = cityMapper.insert(city);
@@ -79,8 +80,8 @@ public class CityServiceImpl  extends BaseServiceImpl<City> implements CityServi
      * @return
      */
     @Override
-    public Map<String, Object> queryCity() {
-        List<City> cityList = cityMapper.selectAll();
+    public Map<String, Object> queryCity(City city) {
+        List<City> cityList = cityMapper.select(city);
         if(cityList!=null && cityList.size()>0){
             return MapUtils.buildSuccessMap(Constants.SUCCESS,"查询成功",cityList);
         }else {
@@ -93,8 +94,8 @@ public class CityServiceImpl  extends BaseServiceImpl<City> implements CityServi
      * @return
      */
     @Override
-    public Map<String, Object> queryByState() {
-        List<City> cityList = cityMapper.queryByState();
+    public Map<String, Object> queryByState( City city) {
+        List<City> cityList = cityMapper.queryByState(city);
         if(cityList!=null && cityList.size()>0){
             return MapUtils.buildSuccessMap(Constants.SUCCESS,"查询成功",cityList);
         }else {

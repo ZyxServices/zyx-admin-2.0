@@ -34,13 +34,13 @@ public interface CityService extends BaseService<City> {
      * 查询所有城市
      * @return
      */
-    Map<String,Object>queryCity();
+    Map<String,Object>queryCity(City city);
 
     /**
      * 查询所有已经启用的城市
      * @return
      */
-    Map<String,Object> queryByState();
+    Map<String,Object> queryByState(City city);
 
     /**
      * 修改城市启用状态（启用/禁用）

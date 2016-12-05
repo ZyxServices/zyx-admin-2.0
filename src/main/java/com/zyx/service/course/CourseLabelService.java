@@ -32,7 +32,7 @@ public interface CourseLabelService extends BaseService<CourseLabel>{
      * 查询所有标签
      * @return
      */
-    Map<String,Object> queryCourseLabel();
+    Map<String,Object> queryCourseLabel(CourseLabel courseLabel);
 
     /**
      * 设置标签启用或者禁用
@@ -46,5 +46,5 @@ public interface CourseLabelService extends BaseService<CourseLabel>{
      * @param
      * @return
      */
-    Map<String,Object>queryByState();
+    Map<String,Object>queryByState(CourseLabel courseLabel);
 }

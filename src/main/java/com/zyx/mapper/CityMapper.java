@@ -27,5 +27,5 @@ public interface CityMapper extends BaseMapper<City>{
      * 查询所有启动状态的城市
      * @return
      */
-    List<City> queryByState();
+    List<City> queryByState(City city);
 }

@@ -34,10 +34,13 @@ public class CourseLabelController {
 
     @RequestMapping(value="/add",method = RequestMethod.POST)
     @ApiOperation(value="添加标签",notes="添加标签")
-    public ModelAndView add(HttpServletRequest request,@ApiParam(name = "labelName", required = true, value = "标签名字")@RequestParam(name="labelName",required = true)String labelName){
+    public ModelAndView add(HttpServletRequest request,
+                            @ApiParam(name = "labelName", required = true, value = "标签名字")@RequestParam(name="labelName",required = true)String labelName,
+                            @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
         AbstractView jsonView = new MappingJackson2JsonView();
         CourseLabel courseLabel = new CourseLabel();
         courseLabel.setLabelName(labelName);
+        courseLabel.setAppType(appType);
 
         SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
         courseLabel.setUserId(sysUser.getId());
@@ -59,10 +62,14 @@ public class CourseLabelController {
 
     @RequestMapping(value="/queryAll",method = RequestMethod.GET)
     @ApiOperation(value = "查询所有教程标签",notes="查询所有教程标签")
-    public ModelAndView queryAll(){
+    public ModelAndView queryAll( @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
         AbstractView jsonView = new MappingJackson2JsonView();
 
-        Map<String,Object> map = courseLabelService.queryCourseLabel();
+//        QueryCourseLabelParam param = new QueryCourseLabelParam();
+//        param.setAppType(appType);
+        CourseLabel courseLabel = new CourseLabel();
+        courseLabel.setAppType(appType);
+        Map<String,Object> map = courseLabelService.queryCourseLabel(courseLabel);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
@@ -87,10 +94,15 @@ public class CourseLabelController {
 
     @RequestMapping(value="/queryByState",method = RequestMethod.GET)
     @ApiOperation(value = "查询所有启用状态的标签，用于发布教程时的标签下拉框",notes="查询所有启用状态的标签，用于发布帖子时的标签下拉框")
-    public ModelAndView queryByState(){
+    public ModelAndView queryByState( @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
         AbstractView jsonView = new MappingJackson2JsonView();
 
-        Map<String,Object> map = courseLabelService.queryByState();
+//        QueryCourseLabelParam param = new QueryCourseLabelParam();
+//        param.setAppType(appType);
+
+        CourseLabel courseLabel = new CourseLabel();
+        courseLabel.setAppType(appType);
+        Map<String,Object> map = courseLabelService.queryByState(courseLabel);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }

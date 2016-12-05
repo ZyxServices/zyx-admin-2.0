@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zyx.mapper.OpinionMapper">
+
+    <resultMap id="BaseResultMap" type="com.zyx.model.Opinion">
+
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="app_type" jdbcType="INTEGER" property="appType"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="del" jdbcType="BIT" property="del"/>
+    </resultMap>
+
+    <resultMap id="OpinionListDto" type="com.zyx.dto.OpinionListDto">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+        <result column="app_type" jdbcType="INTEGER" property="appType"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <association property="user" column="user_id" select="com.zyx.mapper.AppUserMapper.queryByUserId"></association>
+    </resultMap>
+
+    <update id="updateOpinion" parameterType="Integer">
+        update t_opinion set del = 1 where id = #{id}
+    </update>
+
+
+    <select id="queryByUser" parameterType="com.zyx.parm.appUser.OpinionParam" resultMap="OpinionListDto">
+        SELECT * FROM t_opinion where app_type=#{appType} and del != 1 and user_id=#{userId}
+        <if test="sortName != null and sortName != ''">
+            ORDER BY #{sortName} #{sortOrder}
+        </if>
+        <if test="pageNumber != null and pageSize != null">
+            limit #{pageNumber}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="queryByUserCount" parameterType="com.zyx.parm.appUser.OpinionParam" resultType="int">
+        SELECT count(*) FROM t_opinion where app_type=#{appType} and del != 1 and user_id=#{userId}
+    </select>
+
+
+</mapper>

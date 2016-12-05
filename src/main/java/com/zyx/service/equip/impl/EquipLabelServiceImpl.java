@@ -39,7 +39,7 @@ public class EquipLabelServiceImpl extends BaseServiceImpl<EquipLabel> implement
 
     @Override
     public Map<String, Object> insertEquipLabel(EquipLabel equipLabel) {
-        if(equipLabel.getLabelName()!=null && equipLabel.getUserId()!=null){
+        if(equipLabel.getLabelName()!=null && equipLabel.getUserId()!=null && equipLabel.getAppType()!=null){
             equipLabel.setState(0);
             equipLabel.setCreateTime(new Date().getTime());
             int insert = equipLabelMapper.insert(equipLabel);
@@ -86,8 +86,8 @@ public class EquipLabelServiceImpl extends BaseServiceImpl<EquipLabel> implement
      * @return
      */
     @Override
-    public Map<String, Object> queryEquipLabel() {
-        List<EquipLabel> equipLabels = equipLabelMapper.selectAll();
+    public Map<String, Object> queryEquipLabel(EquipLabel equipLabel) {
+        List<EquipLabel> equipLabels = equipLabelMapper.select(equipLabel);
         if(equipLabels!=null && equipLabels.size()>0){
             return MapUtils.buildSuccessMap(Constants.SUCCESS,"查询成功",equipLabels);
         }else {
@@ -123,8 +123,7 @@ public class EquipLabelServiceImpl extends BaseServiceImpl<EquipLabel> implement
      * @return
      */
     @Override
-    public Map<String, Object> queryByState() {
-        EquipLabel equipLabel = new EquipLabel();
+    public Map<String, Object> queryByState(EquipLabel equipLabel) {
         equipLabel.setState(0);
         List<EquipLabel> equipLabels = equipLabelMapper.queryByState(equipLabel);
         if(equipLabels!=null && equipLabels.size()>0){

@@ -16,6 +16,7 @@
         <result column="img_url" property="imgUrl" jdbcType="VARCHAR"/>
         <result column="video_url" property="videoUrl" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="BIGINT"/>
+        <result column="app_type" jdbcType="INTEGER" property="appType"/>
     </resultMap>
     <resultMap id="concernVoMap" type="com.zyx.model.vo.ConcernVo" extends="concernMap">
         <!--<association property="zanCounts" column="id" select="zanCountsSelect"/>-->
@@ -25,10 +26,10 @@
     </resultMap>
 
     <insert id="insertConcern" parameterType="com.zyx.model.Concern" useGeneratedKeys="true">
-        INSERT INTO concern(user_id,type,state,concern_type,topic_content,topic_title,topic_visible,img_url,video_url,create_time)
+        INSERT INTO concern(user_id,type,state,concern_type,topic_content,topic_title,topic_visible,img_url,video_url,create_time,app_type)
         VALUES (#{userId},#{type},#{state},(SELECT user.official FROM user
         WHERE user.id=#{userId}),#{topicContent},#{topicTitle},#{topicVisible},#{imgUrl},
-        #{videoUrl},#{createTime})
+        #{videoUrl},#{createTime},#{appType})
     </insert>
 
     <select id="zanCountsSelect" parameterType="int" resultType="int">
@@ -70,6 +71,9 @@
     FROM
         concern
         WHERE state!=-1
+        <if test="appType != null">
+            and app_type=#{appType}
+        </if>
     ORDER BY
     create_time DESC
     LIMIT #{start},#{end}
@@ -122,6 +126,9 @@
     INNER JOIN `user` ON concern.user_id = `user`.id
     WHERE (`user`.nickname LIKE CONCAT('%','${userName}','%' ) OR `concern`.`topic_content` LIKE CONCAT('%','${userName}','%'))
     AND concern.state!=-1
+        <if test="appType != null">
+            and app_type=#{appType}
+        </if>
     ORDER BY create_time DESC  LIMIT #{start},#{end}
     </select>
 </mapper>

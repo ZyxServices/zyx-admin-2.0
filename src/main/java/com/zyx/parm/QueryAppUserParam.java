@@ -20,6 +20,16 @@ public class QueryAppUserParam extends QueryParam {
 
     private Integer official = 0;
 
+    private Integer appType;
+
+    public Integer getAppType() {
+        return appType;
+    }
+
+    public void setAppType(Integer appType) {
+        this.appType = appType;
+    }
+
     public String getSearchText() {
         return searchText;
     }

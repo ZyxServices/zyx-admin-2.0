@@ -18,8 +18,6 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.List;
 import java.util.Map;
 
-import static org.bouncycastle.asn1.x509.X509ObjectIdentifiers.id;
-
 /**
  * Created by wms on 2016/7/15.
  *
@@ -46,9 +44,10 @@ public class AppUserService extends BaseServiceImpl<AppUser> {
      * @param phone
      * @return
      */
-    public AppUser selectByPhone(String phone) {
+    public AppUser selectByPhone(String phone,Integer appType) {
         AppUser appUser = new AppUser();
         appUser.setPhone(phone);
+        appUser.setAppType(appType);
         return appUserMapper.selectOne(appUser);
     }
 
@@ -189,6 +188,7 @@ public class AppUserService extends BaseServiceImpl<AppUser> {
         appUser.setNickname(param.getNickname());
         appUser.setAddress(param.getAddress());
         appUser.setSex(param.getSex());
+        appUser.setAppType(param.getAppType());
         appUser.setOfficial(1);
         appUser.setMask(0);
         appUser.setDel(0);

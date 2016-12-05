@@ -114,6 +114,12 @@ public class AppUser {
     @Transient
     private Integer concernCount;
 
+    /**
+     * app类型 1为趣攀岩
+     */
+    @Column(name = "app_type")
+    private Integer appType;
+
 
     /*******************************   get/set方法  ********************************************/
 
@@ -430,5 +436,13 @@ public class AppUser {
 
     public void setConcernCount(Integer concernCount) {
         this.concernCount = concernCount;
+    }
+
+    public Integer getAppType() {
+        return appType;
+    }
+
+    public void setAppType(Integer appType) {
+        this.appType = appType;
     }
 }

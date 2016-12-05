@@ -45,7 +45,8 @@ public class EquipController {
                             @ApiParam(name = "content", required = true, value = "内容")
                             @RequestParam(name="content",required = true)String content,
                             @ApiParam(name = "labelId", required = true, value = "标签id")
-                            @RequestParam(name="labelId",required = true)Integer labelId){
+                            @RequestParam(name="labelId",required = true)Integer labelId,
+                             @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
 
         AbstractView jsonView = new MappingJackson2JsonView();
         SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
@@ -54,6 +55,7 @@ public class EquipController {
         equip.setContent(content);
         equip.setTitle(title);
         equip.setLabelId(labelId);
+        equip.setAppType(appType);
         Map<String,Object> map = equipService.insertEquip(equip);
         jsonView.setAttributesMap(map);
 
@@ -69,7 +71,8 @@ public class EquipController {
                                     @ApiParam(name = "page", required = true, value = "页码")
                                     @RequestParam(name="page",required = true)Integer page,
                                     @ApiParam(name = "pageNumber", required = true, value = "每页显示数量")
-                                    @RequestParam(name="pageNumber",required = true)Integer pageNumber){
+                                    @RequestParam(name="pageNumber",required = true)Integer pageNumber,
+                                   @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
 
         AbstractView jsonView = new MappingJackson2JsonView();
         QueryEquipParam param = new QueryEquipParam();
@@ -77,6 +80,7 @@ public class EquipController {
         param.setEquipType(equipType);
         param.setPageSize(pageNumber);
         param.setPageNumber((page-1)*pageNumber);
+        param.setAppType(appType);
 
         Map<String,Object> map = equipService.queryEquip(param);
         jsonView.setAttributesMap(map);

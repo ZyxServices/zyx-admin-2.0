@@ -10,5 +10,6 @@ public interface ReplyMapper extends Mapper<Reply> {
 
     List<Reply> findByParams(@Param(value = "replyType") Integer replyType,
                              @Param(value = "replyId") Integer replyId,
-                             @Param(value = "replyState") Integer replyState);
+                             @Param(value = "replyState") Integer replyState,
+                             @Param(value = "appType") int appType);
 }

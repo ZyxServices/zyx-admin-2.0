@@ -46,6 +46,12 @@ public class SysRole {
     private String menuPerm;
 
     /**
+     * app类型 1为趣攀岩
+     */
+    @Column(name = "app_type")
+    private Integer appType;
+
+    /**
      * @return ID
      */
     public Integer getId() {
@@ -205,5 +211,13 @@ public class SysRole {
 
     public void setMenuPerm(String menuPerm) {
         this.menuPerm = menuPerm;
+    }
+
+    public Integer getAppType() {
+        return appType;
+    }
+
+    public void setAppType(Integer appType) {
+        this.appType = appType;
     }
 }

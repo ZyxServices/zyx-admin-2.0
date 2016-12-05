@@ -93,9 +93,24 @@ public class Equip{
 //    @Transient
 //    private List<Comment> commentList;
 
+    /**
+     * app类型 1为趣攀岩
+     */
+    @Column(name = "app_type")
+    private Integer appType;
 
+
+    public Integer getAppType() {
+        return appType;
+    }
+
+    public void setAppType(Integer appType) {
+        this.appType = appType;
+    }
 
     /***********************  get/set方法   *********************************/
+
+
 
     public int getMask() {
         return mask;

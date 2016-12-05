@@ -61,16 +61,16 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
-                /users/**=noSessionCreation,rest
-                /syuser/goAdd=authc
-                /syuser/list=anon
-                /sysrole/goAdd=noSessionCreation,rest
-                /sysrole/list=authc
+                <!--/users/**=noSessionCreation,rest-->
+                /v2/sysUser/insert=authc
+                /v2/sysUser/list=anon
+                /v2/role/insert=noSessionCreation,rest
+                /v2/role/list=authc
                 /sysmenu/goAdd=noSessionCreation,rest
                 /sysmenu/list=authc
                 /login = authc
                 /menu/**=ll,authc
-                /v1/**=ll
+                <!--/v1/**=ll-->
                 /v2/**=ll
                 <!--/v1/**=ll,authc-->
             </value>

@@ -37,6 +37,12 @@ public class SysUser {
     private String name;
 
     /**
+     * app类型 1为趣攀岩
+     */
+//    @Column(name = "app_type")
+//    private Integer appType;
+
+    /**
      * 权限
      */
 //    @Column(name = "RIGHTS")
@@ -312,4 +318,14 @@ public class SysUser {
     public void setOfficialId(String officialId) {
         this.officialId = officialId;
     }
+
+//    public Integer getAppType() {
+//        return appType;
+//    }
+//
+//    public void setAppType(Integer appType) {
+//        this.appType = appType;
+//    }
+
+
 }

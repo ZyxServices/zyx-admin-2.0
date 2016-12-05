@@ -44,7 +44,7 @@ public class CourseLabelServiceImpl extends BaseServiceImpl<CourseLabel> impleme
      */
     @Override
     public Map<String, Object> insertCourseLabel(CourseLabel courseLabel) {
-        if(courseLabel.getLabelName()!=null && courseLabel.getUserId()!=null){
+        if(courseLabel.getLabelName()!=null && courseLabel.getUserId()!=null && courseLabel.getAppType()!=null){
             courseLabel.setState(0);
             courseLabel.setCreateTime(new Date().getTime());
             int insert = courseLabelMapper.insert(courseLabel);
@@ -92,8 +92,8 @@ public class CourseLabelServiceImpl extends BaseServiceImpl<CourseLabel> impleme
      * @return
      */
     @Override
-    public Map<String, Object> queryCourseLabel() {
-        List<CourseLabel> courseLabels = courseLabelMapper.selectAll();
+    public Map<String, Object> queryCourseLabel(CourseLabel courseLabel) {
+        List<CourseLabel> courseLabels = courseLabelMapper.select(courseLabel);
         if(courseLabels!=null && courseLabels.size()>0){
             return MapUtils.buildSuccessMap(Constants.SUCCESS,"查询成功",courseLabels);
         }else {
@@ -130,8 +130,7 @@ public class CourseLabelServiceImpl extends BaseServiceImpl<CourseLabel> impleme
      * @return
      */
     @Override
-    public Map<String, Object> queryByState() {
-        CourseLabel courseLabel = new CourseLabel();
+    public Map<String, Object> queryByState(CourseLabel courseLabel) {
         courseLabel.setState(0);
         List<CourseLabel> courseLabels = courseLabelMapper.queryByState(courseLabel);
         if(courseLabels!=null && courseLabels.size()>0){

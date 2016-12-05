@@ -49,10 +49,11 @@ public class ConcernController {
             @ApiParam(name = "imgFileUrl", required = false, value = "图片路径")
             @RequestParam(value = "imgFileUrl", required = false) String imgFileUrl,
             @ApiParam(name = "videoUrl", required = false, value = "视频路径")
-            @RequestParam(value = "videoUrl", required = false) String videoUrl) {
+            @RequestParam(value = "videoUrl", required = false) String videoUrl,
+            @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType) {
         AbstractView jsonView = new MappingJackson2JsonView();
         SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
-        Map<String, Object> map = concernService.createConcern(content, createId, visible, imgFileUrl,videoUrl);
+        Map<String, Object> map = concernService.createConcern(content, createId, visible, imgFileUrl,videoUrl,appType);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
@@ -64,12 +65,13 @@ public class ConcernController {
                                     @ApiParam(name = "pageSize", required = true, value = "显示数量")
                                     @RequestParam(value = "pageSize") Integer pageSize,
                                     @ApiParam(name = "searchText", required = false, value = "动态模糊查询条件。此处为发布人")
-                                    @RequestParam(value = "searchText", required = false) String searchText) {
+                                    @RequestParam(value = "searchText", required = false) String searchText,
+                                    @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType) {
         Map<String, Object> map = null;
         if (Objects.equals(searchText, null) || Objects.equals(searchText, "")) {
-            map = concernService.findByPager(page, pageSize);
+            map = concernService.findByPager(page, pageSize,appType);
         } else {
-            map = concernService.search(page, pageSize, searchText);
+            map = concernService.search(page, pageSize, searchText,appType);
         }
         AbstractView jsonView = new MappingJackson2JsonView();
         jsonView.setAttributesMap(map);

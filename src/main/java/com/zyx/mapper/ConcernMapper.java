@@ -34,7 +34,7 @@ public interface ConcernMapper extends Mapper<Concern> {
      * @param end
      * @return
      */
-    List<ConcernVo> findByPager(@Param(value = "start") int start, @Param(value = "end") int end);
+    List<ConcernVo> findByPager(@Param(value = "start") int start, @Param(value = "end") int end, @Param(value = "appType") int appType);
 
     /**
      * 查询某一条数据
@@ -68,6 +68,6 @@ public interface ConcernMapper extends Mapper<Concern> {
      * @param pageSize
      * @return
      */
-    List<Concern> search(@Param(value = "userName") String userName, @Param(value = "start") Integer start, @Param(value = "end") Integer pageSize);
+    List<Concern> search(@Param(value = "userName") String userName, @Param(value = "start") Integer start, @Param(value = "end") Integer pageSize, @Param(value = "appType") int appType);
 
 }

@@ -43,7 +43,6 @@ public interface CourseLabelMapper extends Mapper<CourseLabel>{
 
     /**
      * 查询启用状态的标签集合
-     * @param courseLabel
      * @return
      */
     List<CourseLabel> queryByState(CourseLabel courseLabel);

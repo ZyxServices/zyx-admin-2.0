@@ -27,6 +27,16 @@ public class CreateSystemUserParam implements Serializable {
 
     private String officialId;
 
+    private Integer appType;
+
+    public Integer getAppType() {
+        return appType;
+    }
+
+    public void setAppType(Integer appType) {
+        this.appType = appType;
+    }
+
     public Integer getId() {
         return id;
     }

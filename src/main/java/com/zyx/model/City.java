@@ -36,6 +36,12 @@ public class City {
      */
     private int state;
 
+    /**
+     * app类型 1为趣攀岩
+     */
+    @Column(name = "app_type")
+    private Integer appType;
+
     /**********************************  get/set方法   *********************************************/
 
     public Integer getId() {
@@ -68,5 +74,13 @@ public class City {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public Integer getAppType() {
+        return appType;
+    }
+
+    public void setAppType(Integer appType) {
+        this.appType = appType;
     }
 }

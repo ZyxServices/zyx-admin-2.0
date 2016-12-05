@@ -42,7 +42,7 @@ public interface EquipLabelMapper extends Mapper<EquipLabel>{
 
     /**
      * 根据状态查询标签集合
-     * @param equipLabel
+     * @param
      * @return
      */
     List<EquipLabel> queryByState(EquipLabel equipLabel);

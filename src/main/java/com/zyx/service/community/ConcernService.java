@@ -22,7 +22,7 @@ public interface ConcernService extends BaseService<Concern>{
      * @param pageSize
      * @return
      */
-    Map<String, Object> findByPager(int start, int pageSize);
+    Map<String, Object> findByPager(int start, int pageSize,int appType);
 
     /**
      * 根据id查查询
@@ -64,7 +64,7 @@ public interface ConcernService extends BaseService<Concern>{
      * @param dbImgPath 视频路径
      * @return
      */
-    Map<String, Object> createConcern(String content, Integer createId, Integer topVisible, String dbImgPath,String videoUrl);
+    Map<String, Object> createConcern(String content, Integer createId, Integer topVisible, String dbImgPath,String videoUrl,Integer appType);
 
     /**
      * 根据发布人动态查询
@@ -73,7 +73,7 @@ public interface ConcernService extends BaseService<Concern>{
      * @param userName
      * @return
      */
-    Map<String, Object> search(Integer start, Integer pageSize, String userName);
+    Map<String, Object> search(Integer start, Integer pageSize, String userName,Integer appType);
     /**
      *
      * @param fromId

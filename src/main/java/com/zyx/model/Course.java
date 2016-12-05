@@ -71,6 +71,12 @@ public class Course{
     @Column(name="user_id")
     private Integer userId;
 
+    /**
+     * app类型 1为趣攀岩
+     */
+    @Column(name = "app_type")
+    private Integer appType;
+
 
     /**
      * 评论数
@@ -97,7 +103,17 @@ public class Course{
 //    private int recommendType;
 
 
+    public Integer getAppType() {
+        return appType;
+    }
+
+    public void setAppType(Integer appType) {
+        this.appType = appType;
+    }
+
     /***********************   get/set方法  **********************************************/
+
+
 
     public Integer getId() {
         return id;

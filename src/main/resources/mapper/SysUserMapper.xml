@@ -21,6 +21,7 @@
         <!--<result column="NUMBER" jdbcType="VARCHAR" property="number"/>-->
         <result column="PHONE" jdbcType="VARCHAR" property="phone"/>
         <result column="OFFICIAL_ID" jdbcType="VARCHAR" property="officialId"/>
+        <!--<result column="app_type" jdbcType="INTEGER" property="appType"/>-->
     </resultMap>
 
     <resultMap id="SystemUserListResultMap" type="com.zyx.dto.SystemUserListDto">

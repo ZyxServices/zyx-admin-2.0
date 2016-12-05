@@ -66,6 +66,7 @@ public class SysRoleService {
         _role.setRoleName(param.getRoleName());
         _role.setRoleDesc(param.getRoleDesc());
         _role.setMenuPerm(param.getMenuPerm());
+        _role.setAppType(param.getAppType());
 
             int result = sysRoleMapper.insert(_role);
             if (result >= 1) {
@@ -105,8 +106,8 @@ public class SysRoleService {
      * 查询所有权限名称
      * @return
      */
-    public  Map<String, Object>  queryAllList() {
-        List<SystemRoleListDto> _list = sysRoleMapper.queryAllSystemRole();
+    public  Map<String, Object>  queryAllList(QuerySystemRoleParam param) {
+        List<SystemRoleListDto> _list = sysRoleMapper.queryAllSystemRole(param);
 
         if(_list!=null&& _list.size()>0){
             Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS,"查询成功",_list);

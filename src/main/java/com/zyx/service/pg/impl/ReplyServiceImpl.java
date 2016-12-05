@@ -31,11 +31,12 @@ public class ReplyServiceImpl extends BaseServiceImpl<Reply> implements ReplySer
 
 
     @Override
-    public Map<String, Object> findReplyByParams(Integer replyType, Integer replyId, Integer replyState) {
+    public Map<String, Object> findReplyByParams(Integer replyType, Integer replyId, Integer replyState,Integer appType) {
         Optional.ofNullable(replyType).orElse(0);
         Optional.ofNullable(replyId).orElse(0);
         Optional.ofNullable(replyState).orElse(0);
-        List<Reply> replies = replyMapper.findByParams(replyType, replyId, replyState);
+        Optional.ofNullable(replyState).orElse(0);
+        List<Reply> replies = replyMapper.findByParams(replyType, replyId, replyState,appType);
         Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, PgConstants.PG_ERROR_CODE_34000_MSG, replies);
         return map;
     }

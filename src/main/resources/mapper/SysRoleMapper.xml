@@ -17,6 +17,7 @@
         <!--<result column="QX_ID" jdbcType="VARCHAR" property="qxId"/>-->
         <result column="ROLE_DESC" jdbcType="VARCHAR" property="roleDesc"/>
         <result column="MENU_PERM" jdbcType="VARCHAR" property="menuPerm"/>
+        <result column="app_type" jdbcType="INTEGER" property="appType"/>
     </resultMap>
 
     <resultMap id="SystemRoleListDto" type="com.zyx.dto.SystemRoleListDto">
@@ -27,8 +28,13 @@
 
     <select id="querySystemRoleList" parameterType="com.zyx.parm.sys.QuerySystemRoleParam"
             resultMap="BaseResultMap">
-        SELECT * FROM SYS_ROLE where (ROLE_NAME LIKE CONCAT('%','${searchText}','%' ) or ROLE_DESC LIKE
+        SELECT * FROM SYS_ROLE where
+        <if test="appType != null">
+             app_type=#{appType} AND
+        </if>
+        (ROLE_NAME LIKE CONCAT('%','${searchText}','%' ) or ROLE_DESC LIKE
         CONCAT('%','${searchText}','%' ))
+
         <if test="sortName != null and sortName != ''">
             ORDER BY #{sortName} #{sortOrder}
         </if>
@@ -41,9 +47,15 @@
             resultType="int">
         SELECT count(*) FROM SYS_ROLE where (ROLE_NAME LIKE CONCAT('%','${searchText}','%' ) or ROLE_DESC LIKE
         CONCAT('%','${searchText}','%' ))
+        <if test="appType != null">
+            and app_type=#{appType}
+        </if>
     </select>
 
     <select id="queryAllSystemRole" resultMap="SystemRoleListDto">
         SELECT id, ROLE_NAME FROM SYS_ROLE
+        <if test="appType != null">
+            and app_type=#{appType}
+        </if>
     </select>
 </mapper>

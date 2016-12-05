@@ -21,6 +21,8 @@ public class CreateSystemRoleParam implements Serializable {
     private String roleDesc;
 
     private String menuPerm;
+
+    private Integer appType;
     
     public Integer getId() {
         return id;
@@ -60,5 +62,13 @@ public class CreateSystemRoleParam implements Serializable {
 
     public void setMenuPerm(String menuPerm) {
         this.menuPerm = menuPerm;
+    }
+
+    public Integer getAppType() {
+        return appType;
+    }
+
+    public void setAppType(Integer appType) {
+        this.appType = appType;
     }
 }

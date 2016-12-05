@@ -24,6 +24,8 @@ public class QueryEquipParam extends QueryParam{
 
     private Integer equipType;
 
+    private Integer appType;
+
     public String getTitle() {
         return title;
     }
@@ -46,5 +48,13 @@ public class QueryEquipParam extends QueryParam{
 
     public void setEquipType(Integer equipType) {
         this.equipType = equipType;
+    }
+
+    public Integer getAppType() {
+        return appType;
+    }
+
+    public void setAppType(Integer appType) {
+        this.appType = appType;
     }
 }

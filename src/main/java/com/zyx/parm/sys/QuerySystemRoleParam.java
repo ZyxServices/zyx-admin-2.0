@@ -14,6 +14,16 @@ public class QuerySystemRoleParam extends QueryParam {
 
     private String searchText;
 
+    private Integer appType;
+
+    public Integer getAppType() {
+        return appType;
+    }
+
+    public void setAppType(Integer appType) {
+        this.appType = appType;
+    }
+
     public String getSearchText() {
         return searchText;
     }

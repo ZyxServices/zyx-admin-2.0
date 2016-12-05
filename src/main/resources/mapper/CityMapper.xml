@@ -7,6 +7,7 @@
         <result column="city_name" jdbcType="VARCHAR" property="cityName"/>
         <result column="create_time" jdbcType="BIGINT" property="createTime"/>
         <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="app_type" jdbcType="INTEGER" property="appType"/>
     </resultMap>
 
 
@@ -16,6 +17,9 @@
 
     <select id="queryByState" parameterType="com.zyx.model.City" resultMap="cityMapper">
         SELECT * FROM city WHERE state=0
+        <if test="appType != null">
+            and app_type=#{appType}
+        </if>
     </select>
 
 

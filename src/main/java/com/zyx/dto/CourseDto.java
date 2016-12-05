@@ -94,6 +94,8 @@ public class CourseDto implements Serializable{
      */
     private  boolean isDeva;
 
+    private Integer appType;
+
     public Integer getId() {
         return id;
     }
@@ -213,5 +215,13 @@ public class CourseDto implements Serializable{
 
     public void setDeva(boolean deva) {
         isDeva = deva;
+    }
+
+    public Integer getAppType() {
+        return appType;
+    }
+
+    public void setAppType(Integer appType) {
+        this.appType = appType;
     }
 }

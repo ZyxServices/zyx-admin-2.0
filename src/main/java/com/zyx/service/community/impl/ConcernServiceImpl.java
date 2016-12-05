@@ -41,11 +41,12 @@ public class ConcernServiceImpl extends BaseServiceImpl<Concern> implements Conc
      * @return
      */
     @Override
-    public Map<String, Object> findByPager(int start, int pageSize) {
+    public Map<String, Object> findByPager(int start, int pageSize,int appType) {
 
         Optional.ofNullable(start).orElse(0);
         Optional.ofNullable(pageSize).orElse(0);
-        List<ConcernVo> concerns = concernMapper.findByPager(start * pageSize, pageSize);
+        Optional.ofNullable(appType).orElse(0);
+        List<ConcernVo> concerns = concernMapper.findByPager(start * pageSize, pageSize,appType);
         Integer count = concernMapper.count();
 
         Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", concerns, new HashMap() {{
@@ -140,7 +141,7 @@ public class ConcernServiceImpl extends BaseServiceImpl<Concern> implements Conc
      * @return
      */
     @Override
-    public Map<String, Object> createConcern(String content, Integer createId, Integer topVisible, String dbImgPath, String videoUrl) {
+    public Map<String, Object> createConcern(String content, Integer createId, Integer topVisible, String dbImgPath, String videoUrl,Integer appType) {
         if (Objects.equals(content, null) || Objects.equals(content, "")) {
             return MapUtils.buildErrorMap(PgConstants.PG_ERROR_CODE_30010, PgConstants.PG_ERROR_CODE_30010_MSG);
         }
@@ -156,6 +157,10 @@ public class ConcernServiceImpl extends BaseServiceImpl<Concern> implements Conc
 //        if (Objects.equals(dbImgPath, null) || Objects.equals(dbImgPath, "")) {
 //            return MapUtils.buildErrorMap(PgConstants.PG_ERROR_CODE_30013, PgConstants.PG_ERROR_CODE_30013_MSG);
 //        }
+
+        if (Objects.equals(appType, null)) {
+            return MapUtils.buildErrorMap(PgConstants.PG_ERROR_CODE_30034, PgConstants.PG_ERROR_CODE_30034_MSG);
+        }
         Concern concern = new Concern();
         concern.setCreateTime(new Date().getTime());
         concern.setTopicContent(content);
@@ -165,6 +170,7 @@ public class ConcernServiceImpl extends BaseServiceImpl<Concern> implements Conc
         concern.setState(0);//默认正常
         concern.setImgUrl(dbImgPath);
         concern.setVideoUrl(videoUrl);
+        concern.setAppType(appType);
         Integer result = concernMapper.insertConcern(concern);
         if (result > 0) {
             return MapUtils.buildSuccessMap(PgConstants.SUCCESS, PgConstants.PG_ERROR_CODE_33000_MSG, null);
@@ -180,11 +186,11 @@ public class ConcernServiceImpl extends BaseServiceImpl<Concern> implements Conc
      * @return
      */
     @Override
-    public Map<String, Object> search(Integer start, Integer pageSize, String userName) {
+    public Map<String, Object> search(Integer start, Integer pageSize, String userName,Integer appType) {
         if (Objects.equals(userName, null) || Objects.equals(userName, "")) {
             return MapUtils.buildErrorMap(Constants.PARAM_MISS, Constants.MSG_PARAM_MISS);
         }
-        List<Concern> concerns = concernMapper.search(userName, start * pageSize, pageSize);
+        List<Concern> concerns = concernMapper.search(userName, start * pageSize, pageSize,appType);
         return MapUtils.buildSuccessMap(PgConstants.SUCCESS, PgConstants.PG_ERROR_CODE_34000_MSG, concerns);
     }
 

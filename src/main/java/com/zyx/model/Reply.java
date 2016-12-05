@@ -26,6 +26,12 @@ public class Reply {
     private String content;
 
     /**
+     * app类型 1为趣攀岩
+     */
+    @Column(name = "app_type")
+    private Integer appType;
+
+    /**
      * @return id
      */
     public Integer getId() {
@@ -121,5 +127,13 @@ public class Reply {
      */
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Integer getAppType() {
+        return appType;
+    }
+
+    public void setAppType(Integer appType) {
+        this.appType = appType;
     }
 }

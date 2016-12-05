@@ -42,7 +42,7 @@ public class EquipServiceImpl extends BaseServiceImpl<Equip> implements EquipSer
      */
     @Override
     public Map<String, Object> insertEquip(Equip equip) {
-        if(equip.getTitle()!=null && equip.getContent()!=null && equip.getAccountId()!=null){
+        if(equip.getTitle()!=null && equip.getContent()!=null && equip.getAccountId()!=null&& equip.getAppType()!=null){
 
             equip.setDel(0);
             equip.setMask(0);

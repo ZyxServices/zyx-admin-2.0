@@ -30,6 +30,16 @@ public class AppUserCreateParam implements Serializable {
 
     private Long modifyTime;
 
+    private Integer appType;
+
+    public Integer getAppType() {
+        return appType;
+    }
+
+    public void setAppType(Integer appType) {
+        this.appType = appType;
+    }
+
     public Integer getAppUserId() {
         return appUserId;
     }

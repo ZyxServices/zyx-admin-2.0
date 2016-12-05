@@ -25,6 +25,8 @@ public class QueryCourseParam extends QueryParam{
      */
     private String courseType;
 
+    private Integer appType;
+
     public Integer getLabelId() {
         return labelId;
     }
@@ -47,5 +49,13 @@ public class QueryCourseParam extends QueryParam{
 
     public void setCourseType(String courseType) {
         this.courseType = courseType;
+    }
+
+    public Integer getAppType() {
+        return appType;
+    }
+
+    public void setAppType(Integer appType) {
+        this.appType = appType;
     }
 }

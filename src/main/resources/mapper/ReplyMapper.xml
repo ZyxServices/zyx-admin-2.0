@@ -12,9 +12,13 @@
         <result column="reply_state" property="replyState" jdbcType="INTEGER"/>
         <result column="create_time" property="createTime" jdbcType="BIGINT"/>
         <result column="content" property="content" jdbcType="LONGVARCHAR"/>
+        <result column="app_type" jdbcType="INTEGER" property="appType"/>
     </resultMap>
 
     <select id="findByParams" resultMap="replyMap">
     SELECT * FROM reply where reply_type=#{replyType} AND reply_id=#{replyId} AND  reply_state=#{replyState}
+        <if test="appType != null">
+            and app_type=#{appType}
+        </if>
   </select>
 </mapper>

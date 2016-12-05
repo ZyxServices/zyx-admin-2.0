@@ -1,6 +1,7 @@
 package com.zyx.controller.city;
 
 import com.zyx.model.City;
+import com.zyx.parm.city.QueryCityParam;
 import com.zyx.service.city.CityService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -32,10 +33,12 @@ public class CityController {
     @RequestMapping(value="/add",method = RequestMethod.POST)
     @ApiOperation(value="添加城市",notes="添加城市")
     public ModelAndView add(@ApiParam(name = "cityName", required = true, value = "城市名")
-                            @RequestParam(name="cityName",required = true)String cityName){
+                            @RequestParam(name="cityName",required = true)String cityName,
+                            @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
         AbstractView jsonView = new MappingJackson2JsonView();
         City city = new City();
         city.setCityName(cityName);
+        city.setAppType(appType);
 
         Map<String,Object> map = cityService.add(city);
         jsonView.setAttributesMap(map);
@@ -55,10 +58,14 @@ public class CityController {
 
     @RequestMapping(value="/queryAll",method = RequestMethod.GET)
     @ApiOperation(value = "查询所有城市",notes="查询所有城市")
-    public ModelAndView queryAll(){
+    public ModelAndView queryAll(@ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
         AbstractView jsonView = new MappingJackson2JsonView();
 
-        Map<String,Object> map = cityService.queryCity();
+//        QueryCityParam param = new QueryCityParam();
+//        param.setAppType(appType);
+        City city = new City();
+        city.setAppType(appType);
+        Map<String,Object> map = cityService.queryCity(city);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
@@ -81,10 +88,15 @@ public class CityController {
 
     @RequestMapping(value="/queryByState",method = RequestMethod.GET)
     @ApiOperation(value = "查询所有启用状态的城市",notes="查询所有启用状态的城市")
-    public ModelAndView queryByState(){
+    public ModelAndView queryByState(@ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
         AbstractView jsonView = new MappingJackson2JsonView();
 
-        Map<String,Object> map = cityService.queryByState();
+//        QueryCityParam param = new QueryCityParam();
+//        param.setAppType(appType);
+
+        City city = new City();
+        city.setAppType(appType);
+        Map<String,Object> map = cityService.queryByState(city);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }

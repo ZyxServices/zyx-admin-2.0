@@ -85,7 +85,21 @@ public class Concern {
     @Column(name="concern_type")
     private int concernType;
 
+    /**
+     * app类型 1为趣攀岩
+     */
+    @Column(name = "app_type")
+    private Integer appType;
+
     /***********************************************  get/set方法   **************************************************/
+
+    public Integer getAppType() {
+        return appType;
+    }
+
+    public void setAppType(Integer appType) {
+        this.appType = appType;
+    }
 
     /**
      * @return id

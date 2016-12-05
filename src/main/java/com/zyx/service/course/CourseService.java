@@ -31,14 +31,14 @@ public interface CourseService extends BaseService<Course>{
      * @param pageNumber
      * @return
      */
-    Map<String,Object> queryCourse(Integer label,String courseType,int page, int pageNumber);
+    Map<String,Object> queryCourse(Integer label,String courseType,int page, int pageNumber,Integer appType);
 
     /**
-     * 根据标题完成查询结果
+     * 根据标题以及app类型完成查询结果
      * @param title 标题
      * @return 查询结果的map集合
      */
-    Map<String,Object> queryByTitle(String title);
+    Map<String,Object> queryByTitle(String title,Integer appType);
 
     /**
      * 编辑教程攻略

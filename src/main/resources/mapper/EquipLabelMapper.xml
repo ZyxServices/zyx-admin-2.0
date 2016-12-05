@@ -8,11 +8,15 @@
         <result column="label_name" jdbcType="VARCHAR" property="labelName"/>
         <result column="create_time" jdbcType="BIGINT" property="createTime"/>
         <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="app_type" jdbcType="INTEGER" property="appType"/>
     </resultMap>
 
 
     <select id="queryByState" parameterType="com.zyx.model.EquipLabel" resultMap="equipLabelMap">
     SELECT * FROM t_equip_label WHERE state=#{state}
+        <if test="appType != null">
+            and app_type=#{appType}
+        </if>
      </select>
 
 

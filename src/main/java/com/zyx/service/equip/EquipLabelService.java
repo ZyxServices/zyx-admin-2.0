@@ -32,7 +32,7 @@ public interface EquipLabelService extends BaseService<EquipLabel>{
      * 查询所有标签
      * @return
      */
-    Map<String,Object> queryEquipLabel();
+    Map<String,Object> queryEquipLabel(EquipLabel equipLabel);
 
     /**
      * 设置标签启用或者禁用
@@ -46,5 +46,5 @@ public interface EquipLabelService extends BaseService<EquipLabel>{
      * @param
      * @return
      */
-    Map<String,Object>queryByState();
+    Map<String,Object>queryByState(EquipLabel equipLabel);
 }

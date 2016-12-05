@@ -6,7 +6,6 @@ import com.zyx.mapper.CommentMapper;
 import com.zyx.mapper.CourseLabelMapper;
 import com.zyx.mapper.CourseMapper;
 import com.zyx.model.Course;
-import com.zyx.model.Venue;
 import com.zyx.parm.course.QueryCourseParam;
 import com.zyx.service.BaseServiceImpl;
 import com.zyx.service.course.CourseService;
@@ -51,7 +50,7 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
     @Override
     public Map<String, Object> insertCourse(Course course) {
         if(course.getUserId()!=null && course.getContent()!=null && course.getCourseType()!=null
-                && course.getImgUrl()!=null && course.getTitle()!=null){
+                && course.getImgUrl()!=null && course.getTitle()!=null && course.getAppType()!=null){
             if(courseLabelMapper.selectByPrimaryKey(course.getLabelId())==null){
                 return MapUtils.buildErrorMap(Constants.PARAM_ILIGAL, "该标签不存在");
             }
@@ -81,7 +80,7 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
      * @return
      */
     @Override
-    public Map<String, Object> queryCourse(Integer label, String courseType,int page, int pageNumber) {
+    public Map<String, Object> queryCourse(Integer label, String courseType,int page, int pageNumber,Integer appType) {
         QueryCourseParam param = new QueryCourseParam();
         param.setLabelId(label);
         if(courseType!=null && courseType!=""){
@@ -95,6 +94,7 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
         }
         param.setPageSize(pageNumber);
         param.setPageNumber((page-1)*pageNumber);
+        param.setAppType(appType);
         List<Course> courses = courseMapper.queryCourse(param);
         int i = courseMapper.selectCountCourse(param);
         if(courses !=null && courses.size() > 0){
@@ -112,10 +112,11 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
      * @return
      */
     @Override
-    public Map<String, Object> queryByTitle(String title) {
+    public Map<String, Object> queryByTitle(String title,Integer appType) {
         if(title!=null) {
             QueryCourseParam param = new QueryCourseParam();
             param.setTitle(title);
+            param.setAppType(appType);
             List<Course> courses = courseMapper.queryByTitle(param);
             int i = courseMapper.selectCountTitle(param);
             if (courses != null && courses.size() > 0) {
@@ -138,8 +139,10 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
     @Override
     public Map<String, Object> updateCourse(Course course) {
         if(course!=null){
-            if(courseLabelMapper.selectByPrimaryKey(course.getLabelId())==null){
-                return MapUtils.buildErrorMap(Constants.PARAM_ILIGAL, "该标签不存在");
+            if(course.getLabelId()!=null){
+                if(courseLabelMapper.selectByPrimaryKey(course.getLabelId())==null){
+                    return MapUtils.buildErrorMap(Constants.PARAM_ILIGAL, "该标签不存在");
+                }
             }
             int i = courseMapper.updateCourse(course);
             if (i > 0) {

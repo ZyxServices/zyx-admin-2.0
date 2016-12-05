@@ -49,11 +49,12 @@ public class AppUserController {
                                @ApiParam(name = "sex",required = true,value = "性别:1男、0女")@RequestParam String sex,
                                @ApiParam(name = "birthday",required = false,value = "生日")@RequestParam(required = false) Long birthday,
                                @ApiParam(name = "address",required = true,value = "地址")@RequestParam String address,
-                               @ApiParam(name = "signature",required = false,value = "签名")@RequestParam(required = false) String signature) {
+                               @ApiParam(name = "signature",required = false,value = "签名")@RequestParam(required = false) String signature,
+                               @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType) {
         AbstractView jsonView = new MappingJackson2JsonView();
         Map<String, Object> map;
         try {
-            if (appUserService.selectByPhone(phone) != null) {
+            if (appUserService.selectByPhone(phone,appType) != null) {
                 map = MapUtils.buildErrorMap(AppUserConstants.ERROR_APP_USER_5001, AppUserConstants.ERROR_APP_USER_5001_MSG);
             } else {
                 AppUserCreateParam param = new AppUserCreateParam();
@@ -69,6 +70,7 @@ public class AppUserController {
                     param.setBirthday(birthday);
                 }
                 param.setSignature(signature);
+                param.setAppType(appType);
                 map = appUserService.insertAppUser(param);
             }
         } catch (Exception e) {
@@ -89,14 +91,15 @@ public class AppUserController {
                                @ApiParam(name = "sex",required = false,value = "性别:1男、0女")@RequestParam(required = false) String sex,
                                @ApiParam(name = "address",required = false,value = "地址") @RequestParam(required = false) String address,
                                @ApiParam(name = "birthday",required = false,value = "生日")@RequestParam(required = false) Long birthday,
-                               @ApiParam(name = "signature",required = false,value = "签名")@RequestParam(required = false) String signature
+                               @ApiParam(name = "signature",required = false,value = "签名")@RequestParam(required = false) String signature,
+                               @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
                                ) {
         AbstractView jsonView = new MappingJackson2JsonView();
         AppUserCreateParam param = new AppUserCreateParam();
 
         Map<String, Object> map;
         if(phone!=null && phone!=""){
-            AppUser appUser = appUserService.selectByPhone(phone);
+            AppUser appUser = appUserService.selectByPhone(phone,appType);
             if (appUser != null && !appUser.getId().equals(id)) {
                 map = MapUtils.buildErrorMap(AppUserConstants.ERROR_APP_USER_5001, AppUserConstants.ERROR_APP_USER_5001_MSG);
                 jsonView.setAttributesMap(map);
@@ -142,7 +145,8 @@ public class AppUserController {
                              @ApiParam(name="pageNumber",required = true,value = "每页显示数量")@RequestParam Integer pageNumber,
                              @ApiParam(name="searchText",required = false,value = "此为用户昵称")@RequestParam(required = false) String searchText,
                              @ApiParam(name="sortName",required = false,value = "排序字段：可以是id、birthday生日、lastLoginTime最后一次登录日期、create_time创建日期、money攀岩币") @RequestParam(required = false) String sortName,
-                             @ApiParam(name="sortOrder",required = false,value = "排序规则：desc倒序、asc正序")@RequestParam(required = false) String sortOrder) {
+                             @ApiParam(name="sortOrder",required = false,value = "排序规则：desc倒序、asc正序")@RequestParam(required = false) String sortOrder,
+                             @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType) {
         AbstractView jsonView = new MappingJackson2JsonView();
         QueryAppUserParam param = new QueryAppUserParam();
         param.setPageSize(pageNumber);
@@ -157,6 +161,7 @@ public class AppUserController {
         param.setSortName(sortName);
         param.setSortOrder(sortOrder);
         param.setOfficial(official);
+        param.setAppType(appType);
         Map<String, Object> map = appUserService.queryList(param);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);

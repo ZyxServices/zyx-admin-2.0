@@ -12,6 +12,7 @@
         <result column="course_type" jdbcType="INTEGER" property="courseType"/>
         <result column="label_id" jdbcType="VARCHAR" property="labelId"/>
         <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="app_type" jdbcType="INTEGER" property="appType"/>
 
     </resultMap>
     
@@ -39,6 +40,9 @@
 
     <select id="queryCourse" parameterType="com.zyx.parm.course.QueryCourseParam" resultMap="courseDto">
         select * from t_course where 1=1
+        <if test="appType != null">
+            and app_type=#{appType}
+        </if>
         <if test="labelId != null and labelId != ''">
             and label_id=#{labelId}
         </if>
@@ -55,6 +59,9 @@
 
     <select id="queryByTitle" parameterType="com.zyx.parm.course.QueryCourseParam" resultMap="courseDto">
         SELECT * FROM  t_course where 1=1
+        <if test="appType != null">
+            and app_type=#{appType}
+        </if>
         <if test="title !=null and title !=''">
             AND title like '%${title}%'
         </if>
@@ -71,6 +78,9 @@
         SELECT COUNT(id) from t_course where 1=1
         <if test="title !=null and title !=''">
             AND title like '%${title}%'
+        </if>
+        <if test="appType != null">
+            and app_type=#{appType}
         </if>
 
         AND del = 0
@@ -123,6 +133,9 @@
 
     <select id="selectCountCourse" resultType="java.lang.Integer" parameterType="com.zyx.parm.course.QueryCourseParam">
         SELECT COUNT(id) from t_course where 1=1
+        <if test="appType != null">
+            and app_type=#{appType}
+        </if>
         <if test="labelId != null and labelId != ''">
             and label_id=#{labelId}
         </if>
