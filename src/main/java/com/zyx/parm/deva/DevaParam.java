@@ -8,14 +8,16 @@ public class DevaParam {
     Integer area;
     Integer model;
     Integer modelId;
+    Integer appType;
 
     public DevaParam() {
     }
 
-    public DevaParam(Integer area, Integer model, Integer modelId) {
+    public DevaParam(Integer area, Integer model, Integer modelId,Integer appType) {
         this.area = area;
         this.model = model;
         this.modelId = modelId;
+        this.appType=appType;
     }
 
     public Integer getArea() {
@@ -40,4 +42,8 @@ public class DevaParam {
     public void setModelId(Integer modelId) {
         this.modelId = modelId;
     }
+
+    public Integer getAppType() { return appType; }
+
+    public void setAppType(Integer appType) { this.appType = appType; }
 }

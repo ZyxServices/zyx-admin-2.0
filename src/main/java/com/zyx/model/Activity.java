@@ -103,7 +103,11 @@ public class Activity{
     private Long createTime;
 
     private Integer mask;
-
+    /**
+     * app类型 1为趣攀岩
+     */
+    @Column(name = "app_type")
+    private Integer appType;
     /**
      * 活动状态 0-正在报名 1-结束
      */
@@ -111,6 +115,19 @@ public class Activity{
     private Integer status;
     @Transient
     private  Long currentTime;
+    /**
+     * 活动地址纬度
+     */
+    private double latitude;
+    /**
+     * 活动地址经度
+     */
+    private double longitude;
+
+
+    public Integer getAppType() { return appType; }
+
+    public void setAppType(Integer appType) { this.appType = appType; }
 
     public Integer getId() { return id; }
 
@@ -199,4 +216,12 @@ public class Activity{
     public Long getCurrentTime() { return currentTime; }
 
     public void setCurrentTime(Long currentTime) { this.currentTime = currentTime; }
+
+    public double getLatitude() { return latitude; }
+
+    public void setLatitude(double latitude) { this.latitude = latitude; }
+
+    public double getLongitude() { return longitude; }
+
+    public void setLongitude(double longitude) { this.longitude = longitude; }
 }

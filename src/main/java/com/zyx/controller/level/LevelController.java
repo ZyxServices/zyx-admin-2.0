@@ -34,7 +34,7 @@ public class LevelController {
                                @ApiParam(name = "step",required = true,value = "阶级")@RequestParam(name = "step",required = true) String step,
                                @ApiParam(name = "minScore",required = true,value = "等级最小积分 如：0-300")@RequestParam(name = "minScore",required = true) Integer minScore,
                                @ApiParam(name = "maxScore",required = true,value = "等级最大积分 如：0-300")@RequestParam(name = "maxScore",required = true) Integer maxScore,
-                               @ApiParam(name = "appType",required = false,value = "app类型，1为趣攀岩，默认值为1")@RequestParam(name = "appType",required = false) Integer appType
+                               @ApiParam(name = "appType",required = true,value = "app类型，1为趣攀岩，默认值为1")@RequestParam(name = "appType",required = true) Integer appType
                                 ){
         AbstractView jsonView = new MappingJackson2JsonView();
         Level level = new Level();
@@ -79,9 +79,11 @@ public class LevelController {
 
     @ApiOperation(value = "获取所有等级",notes = "获取所有等级")
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public  ModelAndView list(){
+    public  ModelAndView list(@ApiParam(name = "appType",required = true,value = "app类型，1为趣攀岩，默认值为1")@RequestParam(name = "appType",required = true) Integer appType){
         AbstractView jsonView = new MappingJackson2JsonView();
-        Map<String,Object> map=levelService.queryLevel(new Level());
+        Level query = new Level();
+        query.setAppType(appType);
+        Map<String,Object> map=levelService.queryLevel(query);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }

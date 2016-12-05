@@ -43,7 +43,7 @@ public class ActivityController {
     @RequestMapping(value = "/release", method = RequestMethod.POST)
     @ApiOperation(value = "活动发布", notes = "活动发布")
     public ModelAndView release(@ApiParam(name = "userId",required = true,value = "用户id") @RequestParam(name = "userId", required = true) Integer userId,
-//                                HttpServletRequest request,
+                                @ApiParam(name = "appType",required = true,value = "app类型 1为趣攀岩") @RequestParam(name = "appType", required = true) Integer appType,
                                 @ApiParam(name = "title",required = true,value = "活动名称")@RequestParam(name = "title", required = true) String title,
                                 @ApiParam(name = "descContent",required = true,value = "活动简介")@RequestParam(name = "descContent", required = true) String descContent,
                                 @ApiParam(name = "imageUrls",required = false,value = "活动图片")@RequestParam(name = "imageUrls", required = false) String imageUrls,
@@ -57,18 +57,22 @@ public class ActivityController {
                                 @ApiParam(name = "maxPeople",required = false,value = "活动人数上限")@RequestParam(name = "maxPeople", required = false) Integer maxPeople,
                                 @ApiParam(name = "price",required = false,value = "活动金额")@RequestParam(name = "price", required = false) Double price,
                                 @ApiParam(name = "targetUrl",required = false,value = "活动跳转地址")@RequestParam(name = "targetUrl", required = false) String targetUrl,
+                                @ApiParam(name = "latitude",required = true,value = "活动地址纬度")@RequestParam(name = "latitude", required = true) Double latitude,
+                                @ApiParam(name = "longitude",required = true,value = "活动地址经度")@RequestParam(name = "longitude", required = true) Double longitude,
                                 @ApiParam(name = "type",required = false,value = "0官方 1用户")@RequestParam(name = "type", required = true) Integer type,
                                 @ApiParam(name = "paymentType",required = false,value = "付费类型 0-奖励 1-免费 2-AA")@RequestParam(name = "paymentType", required = false) Integer paymentType) {
         AbstractView jsonView = new MappingJackson2JsonView();
-//        SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
         Activity activity = new Activity();
         activity.setUserId(userId);
+        activity.setAppType(appType);
         activity.setTitle(title);
+        activity.setLatitude(latitude);
+        activity.setLongitude(longitude);
         activity.setDescContent(descContent);
         activity.setImgUrls(imageUrls);
         activity.setActivityType(activityType);
         activity.setActivityModule(activityModule);
-
+        activity.setTargetUrl(targetUrl);
         activity.setStartTime(getDateTime(startTime));
         activity.setEndTime(getDateTime(endTime));
         activity.setLastTime(getDateTime(lastTime));
@@ -93,11 +97,17 @@ public class ActivityController {
                                @ApiParam(name = "descContent",required = true,value = "活动简介")@RequestParam(name = "descContent", required = true) String descContent,
                                @ApiParam(name = "activityType",required = true,value = "活动类型 1-求约 2-求带")@RequestParam(name = "activityType", required = true) Integer activityType,
                                @ApiParam(name = "price",required = false,value = "活动金额")@RequestParam(name = "price", required = false) Double price,
+                               @ApiParam(name = "latitude",required = false,value = "活动地址纬度")@RequestParam(name = "latitude", required = false) Double latitude,
+                               @ApiParam(name = "longitude",required = false,value = "活动地址经度")@RequestParam(name = "longitude", required = false) Double longitude,
+                               @ApiParam(name = "address",required = false,value = "活动集合地点")@RequestParam(name = "address", required = false) String address,
                                @ApiParam(name = "paymentType",required = false,value = "付费类型 0-奖励 1-免费 2-AA")@RequestParam(name = "paymentType", required = false) Integer paymentType) {
         AbstractView jsonView = new MappingJackson2JsonView();
         Activity activity = new Activity();
         activity.setId(id);
         activity.setTitle(title);
+        activity.setLongitude(longitude);
+        activity.setLatitude(latitude);
+        activity.setAddress(address);
         activity.setDescContent(descContent);
         activity.setActivityType(activityType);
         activity.setPrice(price != null ? price : 0);
@@ -113,6 +123,7 @@ public class ActivityController {
     public ModelAndView queryActivity(@ApiParam(name = "type",required = false,value = "活动分类 0-官方 1用户")@RequestParam(name = "type", required = false) Integer type,
                                       @ApiParam(name = "activityType",required = false,value = "活动类型 1-求约 2-求带")@RequestParam(name = "activityType", required = false) Integer activityType,
                                       @ApiParam(name = "paymentType",required = false,value = "付费类型 0-奖励 1-免费 2-AA")@RequestParam(name = "paymentType", required = false) Integer paymentType,
+                                      @ApiParam(name = "appType",required = true,value = "app类型 1为趣攀岩")@RequestParam(name = "appType", required = true) Integer appType,
                                       @ApiParam(name = "title",required = false,value = "搜索标题")@RequestParam(name = "title", required = false) String title,
                                       @ApiParam(name = "page",required = true,value = "页码 从0开始")@RequestParam(name = "page", required = true) Integer page,
                                       @ApiParam(name = "pageNumber",required = true,value = "每页显示数量")@RequestParam(name = "pageNumber", required = true) Integer pageNumber,
@@ -120,6 +131,7 @@ public class ActivityController {
 
         AbstractView jsonView = new MappingJackson2JsonView();
         QueryActivityParm queryActivityParm = new QueryActivityParm();
+        queryActivityParm.setAppType(appType);
         queryActivityParm.setPage(page);
         queryActivityParm.setPageNumber(pageNumber);
         queryActivityParm.setType(type);

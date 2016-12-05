@@ -45,6 +45,11 @@ public class SysMessage extends  BaseModel{
      */
     private Integer mask;
 
+    /**
+     * app类型 1趣攀岩
+     */
+    private Integer appType;
+
     public Integer getMask() { return mask; }
 
     public void setMask(Integer mask) { this.mask = mask; }
@@ -76,4 +81,8 @@ public class SysMessage extends  BaseModel{
     public Integer getPushType() { return pushType; }
 
     public void setPushType(Integer pushType) { this.pushType = pushType; }
+
+    public Integer getAppType() { return appType; }
+
+    public void setAppType(Integer appType) { this.appType = appType; }
 }

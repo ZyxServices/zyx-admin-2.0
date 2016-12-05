@@ -11,6 +11,12 @@ public class SysMessageParam extends QueryParam{
      */
     private Integer done;
 
+    private Integer appType;
+
+    public Integer getAppType() { return appType; }
+
+    public void setAppType(Integer appType) { this.appType = appType; }
+
     public Integer getDone() { return done; }
 
     public void setDone(Integer done) { this.done = done; }

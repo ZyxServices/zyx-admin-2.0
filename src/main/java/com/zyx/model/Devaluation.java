@@ -2,6 +2,8 @@ package com.zyx.model;
 
 import javax.persistence.*;
 
+import static org.bouncycastle.asn1.x500.style.RFC4519Style.c;
+
 @Table(name = "devaluation")
 public class Devaluation{
     @Id
@@ -37,6 +39,12 @@ public class Devaluation{
 
     @Column(name = "state")
     private Integer state;//激活0，未激活1
+
+    /**
+     * app类型 1为趣攀岩
+     */
+    @Column(name = "app_type")
+    private Integer appType;
 
     @Column(name = "area")
     private Integer area;
@@ -175,4 +183,8 @@ public class Devaluation{
     public void setDel(Integer del) { this.del = del; }
 
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+
+    public Integer getAppType() { return appType; }
+
+    public void setAppType(Integer appType) { this.appType = appType; }
 }

@@ -38,35 +38,38 @@ public class DevaServiceImpl extends BaseServiceImpl<Devaluation> implements Dev
     }
 
     @Override
-    public List<Devaluation> getDevas(Integer model) {
-        return getDevas(model,null);
+    public List<Devaluation> getDevas(Integer model,Integer appType) {
+        return getDevas(model,null,appType);
     }
     @Override
-    public List<Devaluation> getDevas(Integer model, Integer area) {
+    public List<Devaluation> getDevas(Integer model, Integer area,Integer appType) {
         Devaluation record =  new Devaluation();
         record.setModel(model);
         record.setArea(area);
+        record.setAppType(appType);
         return devaMapper.select(record);
     }
 
     @Override
-    public List<DevaVo> getDevaList(Integer model, Integer area) {
+    public List<DevaVo> getDevaList(Integer model, Integer area,Integer appType) {
         DevaParam devaParam =new DevaParam();
         devaParam.setModel(model);
         devaParam.setArea(area);
+        devaParam.setAppType(appType);
         return devaMapper.selectDevaList(devaParam);
     }
 
     @Override
-    public List<Integer> getUsedSequence(Integer model, Integer area) {
-        return devaMapper.selectUsedSequence(model,area);
+    public List<Integer> getUsedSequence(Integer model, Integer area,Integer appType) {
+        return devaMapper.selectUsedSequence(model,area,appType);
     }
 
     @Override
-    public List<Integer> selectModelIds(Integer area, Integer model) {
+    public List<Integer> selectModelIds(Integer area, Integer model,Integer appType) {
         DevaParam param =new DevaParam();
         param.setArea(area);
         param.setModel(model);
+        param.setAppType(appType);
         return devaMapper.queryModelIds(param);
     }
 
@@ -75,7 +78,7 @@ public class DevaServiceImpl extends BaseServiceImpl<Devaluation> implements Dev
         if(model==null||modelId==null)
             return;
 
-        devaMapper.cascadeDelete(new DevaParam(area,model,modelId));
+        devaMapper.cascadeDelete(new DevaParam(area,model,modelId,null));
     }
 
     @Override

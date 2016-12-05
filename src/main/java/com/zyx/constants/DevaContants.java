@@ -27,8 +27,8 @@ public interface DevaContants extends Constants {
     String MSG_DEVA_REPEAT="repeat set devaluation";
     Map<String, Integer> DEVA_AREA_MAX_ITEM = new HashMap<String, Integer>() {
         {
-            put("1", 5);
-            put("2",5);
+            put("1_1", 5);
+            put("1_2",5);
         }
     };
 }

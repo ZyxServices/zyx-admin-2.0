@@ -26,6 +26,7 @@ public class QueryActivityParm {
     private  String title;
     private Integer activityType;
     private Integer paymentType;
+    private Integer appType;
     private Integer status;
 
 
@@ -104,4 +105,8 @@ public class QueryActivityParm {
     public Integer getStatus() { return status; }
 
     public void setStatus(Integer status) { this.status = status; }
+
+    public Integer getAppType() { return appType; }
+
+    public void setAppType(Integer appType) { this.appType = appType; }
 }

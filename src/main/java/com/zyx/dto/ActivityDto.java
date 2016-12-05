@@ -57,6 +57,14 @@ public class ActivityDto {
      * 报名数
      */
     private  int joinNum;
+    /**
+     * 活动地址纬度
+     */
+    private double latitude;
+    /**
+     * 活动地址经度
+     */
+    private double longitude;
 
     public Integer getId() { return id; }
 
@@ -157,4 +165,12 @@ public class ActivityDto {
     public int getZanNum() { return zanNum; }
 
     public void setZanNum(int zanNum) { this.zanNum = zanNum; }
+
+    public double getLongitude() { return longitude; }
+
+    public void setLongitude(double longitude) { this.longitude = longitude; }
+
+    public double getLatitude() { return latitude; }
+
+    public void setLatitude(double latitude) { this.latitude = latitude; }
 }

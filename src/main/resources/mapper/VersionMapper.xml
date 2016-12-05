@@ -3,19 +3,25 @@
 <mapper namespace="com.zyx.mapper.VersionMapper">
     <resultMap id="version" type="com.zyx.model.Version">
         <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="number" jdbcType="VARCHAR" property="number"/>
+        <result column="version" jdbcType="VARCHAR" property="version"/>
         <result column="publish_time" jdbcType="BIGINT" property="publishTime"/>
         <result column="create_time" jdbcType="BIGINT" property="createTime"/>
         <result column="download_url" jdbcType="VARCHAR" property="downloadUrl"/>
         <result column="notes" jdbcType="VARCHAR" property="notes"/>
-        <result column="system_type" jdbcType="INTEGER" property="systemType"/>
+        <result column="platform" jdbcType="INTEGER" property="platform"/>
+        <result column="del" jdbcType="INTEGER" property="del"/>
+        <result column="app_type" jdbcType="INTEGER" property="appType"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
     </resultMap>
 
 
     <select id="queryVersion" parameterType="com.zyx.parm.version.VersionParam" resultMap="version">
-        select id,number,publish_time,create_time,download_url,notes,system_type from version where del=0
-        <if test="systemType!=null">
-            and system_type=#{systemType}
+        select * from t_version where del=0
+        <if test="platform!=null">
+            and platform=#{platform}
+        </if>
+        <if test="appType!=null">
+            and app_type=#{appType}
         </if>
         ORDER BY create_time desc
         <if test="pageNumber != null and pageSize != null">
@@ -24,18 +30,18 @@
     </select>
 
     <select id="selectCountVersion" resultType="java.lang.Integer" parameterType="com.zyx.parm.version.VersionParam">
-        SELECT COUNT(id) FROM version WHERE del=0
+        SELECT COUNT(id) FROM t_version WHERE del=0 and app_type=#{appType}
     </select>
 
     <update id="delVersion" parameterType="java.lang.Integer">
-        UPDATE version SET del=1 WHERE  id=#{id}
+        UPDATE t_version SET del=1 WHERE  id=#{id}
     </update>
 
     <update id="updateVersion" parameterType="com.zyx.model.Version">
-        UPDATE version
+        UPDATE t_version
           <set>
-              <if test="number!=null">
-                  number=#{number},
+              <if test="version!=null">
+                  version=#{version},
               </if>
               <if test="publishTime!=null">
                   publish_time=#{publishTime},
@@ -49,8 +55,8 @@
               <if test="notes!=null">
                   notes=#{notes},
               </if>
-              <if test="systemType!=null">
-                  system_type=#{systemType},
+              <if test="platform!=null">
+                  platform=#{platform},
               </if>
           </set>
         where id=#{id}

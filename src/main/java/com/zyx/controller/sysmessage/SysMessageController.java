@@ -1,14 +1,11 @@
 package com.zyx.controller.sysmessage;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import com.zyx.model.Devaluation;
 import com.zyx.model.SysMessage;
 import com.zyx.parm.sysmessage.SysMessageParam;
 import com.zyx.service.sysmessage.SysMessageService;
 import com.zyx.utils.GetTimeUtil;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.models.auth.In;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,13 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import java.util.Date;
 import java.util.Map;
-
-import static org.bouncycastle.asn1.x500.style.RFC4519Style.c;
-import static org.bouncycastle.asn1.x500.style.RFC4519Style.name;
-import static org.bouncycastle.asn1.x500.style.RFC4519Style.st;
-import static org.bouncycastle.asn1.x509.X509ObjectIdentifiers.id;
 
 /**
  * Created by HL on 2016/11/14.
@@ -42,6 +33,7 @@ public class SysMessageController {
                                 @ApiParam(name = "content",required = true,value = "消息内容")@RequestParam(name = "content",required = true)String content,
                                 @ApiParam(name = "type",required = true,value = "消息类型 0-系统消息 1-日常推送")@RequestParam(name = "type",required = true)Integer type,
                                 @ApiParam(name = "pushType",required = true,value = "消息发送模式 0-及时 1-定时")@RequestParam(name = "pushType",required = true)Integer pushType,
+                                @ApiParam(name = "appType",required = true,value = "app类型 1-趣攀岩")@RequestParam(name = "appType",required = true)Integer appType,
                                 @ApiParam(name = "pushTime",required = false,value = "定时发送时间")@RequestParam(name = "pushTime",required = false)String pushTime
                         ){
         AbstractView jsonView = new MappingJackson2JsonView();
@@ -50,6 +42,7 @@ public class SysMessageController {
         if (StringUtils.isNotEmpty(pushTime)){
             sysMessage.setPushTime(GetTimeUtil.getDateTime(pushTime));
         }
+        sysMessage.setAppType(appType);
         sysMessage.setPushType(pushType);
         sysMessage.setType(type);
         sysMessage.setMask(0);
@@ -87,11 +80,13 @@ public class SysMessageController {
     @RequestMapping(value = "querySysMessage",method = RequestMethod.GET)
     @ApiOperation(value = "消息列表",notes = "消息列表")
     public ModelAndView querySysMessage(@ApiParam(name = "page",required =true,value = "页码从0开始")@RequestParam(name = "page",required = true)Integer page,
+                                        @ApiParam(name = "appType",required =true,value = "app类型 1、趣攀岩")@RequestParam(name = "appType",required = true)Integer appType,
                                         @ApiParam(name = "pageNumber",required =true,value = "每页数量")@RequestParam(name = "pageNumber",required = true)Integer pageNumber
                                         ){
         AbstractView jsonView = new MappingJackson2JsonView();
         SysMessageParam param = new SysMessageParam();
         param.setPageNumber(page);
+        param.setAppType(appType);
         param.setPageSize(pageNumber);
         Map<String, Object> map =sysMessageService.querySysMessage(param);
         jsonView.setAttributesMap(map);

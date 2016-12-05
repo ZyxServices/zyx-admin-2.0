@@ -29,30 +29,31 @@ public class VersionController {
 
     @ApiOperation(value = "新增版本信息",notes = "新增版本信息")
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
-    public ModelAndView insert(@ApiParam(name = "number",required = true,value = "版本号")@RequestParam(name = "number",required = true)String number,
+    public ModelAndView insert(@ApiParam(name = "version",required = true,value = "版本号")@RequestParam(name = "version",required = true)String version,
+                               @ApiParam(name = "appType",required = true,value = "app类型 1-趣攀岩")@RequestParam(name = "appType",required = true)Integer appType,
                                @ApiParam(name = "publishTime",required = true,value = "发布时间 格式yyyy-MM-dd hh:mm:ss")@RequestParam(name = "publishTime",required = true)String publishTime,
                                @ApiParam(name = "createTime",required = true,value = "创建时间 格式yyyy-MM-dd hh:mm:ss")@RequestParam(name = "createTime",required = true)String createTime,
                                @ApiParam(name = "downloadUrl",required = false,value = "下载地址")@RequestParam(name = "downloadUrl",required = false)String downloadUrl,
                                @ApiParam(name = "notes",required = false,value = "注释")@RequestParam(name = "notes",required = false)String notes,
-                               @ApiParam(name = "systemType",required = true,value = "系统类型 0-Android 1-IOS")@RequestParam(name = "systemType",required = true)Integer systemType
+                               @ApiParam(name = "platform",required = true,value = "系统类型 1-Android 2-IOS")@RequestParam(name = "platform",required = true)Integer platform
                                 ){
         AbstractView jsonView = new MappingJackson2JsonView();
-        Version version = new Version();
-        version.setPublishTime(GetTimeUtil.getDateTime(publishTime));
-        version.setCreateTime(GetTimeUtil.getDateTime(createTime));
-        version.setSystemType(systemType);
-        version.setNumber(number);
-        version.setNotes(notes);
-        version.setDownloadUrl(downloadUrl);
-        Map<String, Object> map = versionService.insertVersion(version);
+        Version versionEntity = new Version();
+        versionEntity.setAppType(appType);
+        versionEntity.setPublishTime(GetTimeUtil.getDateTime(publishTime));
+        versionEntity.setCreateTime(GetTimeUtil.getDateTime(createTime));
+        versionEntity.setPlatform(platform);
+        versionEntity.setVersion(version);
+        versionEntity.setNotes(notes);
+        versionEntity.setDownloadUrl(downloadUrl);
+        Map<String, Object> map = versionService.insertVersion(versionEntity);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
 
     @RequestMapping(value = "/del", method = RequestMethod.POST)
-    @ApiOperation(value = "删除活动", notes = "删除活动")
+    @ApiOperation(value = "删除版本", notes = "删除版本")
     public ModelAndView del(@ApiParam(name = "id",required = true,value = "主键id 批量删除id用英文逗号隔开（1,2,3）")@RequestParam(name = "id", required = true) String id) {
-
         AbstractView jsonView = new MappingJackson2JsonView();
         Map<String, Object> map = versionService.delVersion(id);
         jsonView.setAttributesMap(map);
@@ -61,39 +62,41 @@ public class VersionController {
 
     @ApiOperation(value = "修改版本信息",notes = "修改版本信息")
     @RequestMapping(value = "/update",method = RequestMethod.POST)
-    public ModelAndView insert(@ApiParam(name = "number",required = true,value = "版本号")@RequestParam(name = "number",required = true)String number,
+    public ModelAndView insert(@ApiParam(name = "version",required = true,value = "版本号")@RequestParam(name = "version",required = true)String version,
                                @ApiParam(name = "publishTime",required = true,value = "发布时间 格式yyyy-MM-dd hh:mm:ss")@RequestParam(name = "publishTime",required = true)String publishTime,
                                @ApiParam(name = "createTime",required = true,value = "创建时间 格式yyyy-MM-dd hh:mm:ss")@RequestParam(name = "createTime",required = true)String createTime,
                                @ApiParam(name = "downloadUrl",required = false,value = "下载地址")@RequestParam(name = "downloadUrl",required = false)String downloadUrl,
                                @ApiParam(name = "notes",required = false,value = "注释")@RequestParam(name = "notes",required = false)String notes,
-                               @ApiParam(name = "systemType",required = true,value = "系统类型 0-Android 1-IOS")@RequestParam(name = "systemType",required = true)Integer systemType,
+                               @ApiParam(name = "platform",required = true,value = "系统类型 1-Android 2-IOS")@RequestParam(name = "platform",required = true)Integer platform,
                                @ApiParam(name = "id",required = true,value = "主键id")@RequestParam(name = "id",required = true)Integer id
                             ){
         AbstractView jsonView = new MappingJackson2JsonView();
-        Version version = new Version();
-        version.setId(id);
-        version.setPublishTime(GetTimeUtil.getDateTime(publishTime));
-        version.setCreateTime(GetTimeUtil.getDateTime(createTime));
-        version.setSystemType(systemType);
-        version.setNumber(number);
-        version.setNotes(notes);
-        version.setDownloadUrl(downloadUrl);
-        Map<String, Object> map = versionService.updateVersion(version);
+        Version versionEntity = new Version();
+        versionEntity.setId(id);
+        versionEntity.setPublishTime(GetTimeUtil.getDateTime(publishTime));
+        versionEntity.setCreateTime(GetTimeUtil.getDateTime(createTime));
+        versionEntity.setPlatform(platform);
+        versionEntity.setVersion(version);
+        versionEntity.setNotes(notes);
+        versionEntity.setDownloadUrl(downloadUrl);
+        Map<String, Object> map = versionService.updateVersion(versionEntity);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
 
     @RequestMapping(value = "queryVersion",method =RequestMethod.GET)
     @ApiOperation(value = "版本查询",notes = "版本查询")
-    public ModelAndView queryVersion(@ApiParam(name = "systemType",required = false,value = "系统类型 0-Android 1-IOS")@RequestParam(name = "systemType",required = false)Integer systemType,
+    public ModelAndView queryVersion(@ApiParam(name = "platform",required = true,value = "系统类型 1-Android 2-IOS")@RequestParam(name = "platform",required = true)Integer platform,
                                      @ApiParam(name = "page",required = true,value = "页码 从0开始")@RequestParam(name = "page",required = true)Integer page,
+                                     @ApiParam(name = "appType",required = true,value = "app类型 1趣攀岩")@RequestParam(name = "appType",required = true)Integer appType,
                                      @ApiParam(name = "pageNumber",required = true,value = "每页数量")@RequestParam(name = "pageNumber",required = true)Integer pageNumber
                                     ){
         AbstractView jsonView = new MappingJackson2JsonView();
         VersionParam versionParam = new VersionParam();
         versionParam.setPageNumber(page);
+        versionParam.setAppType(appType);
         versionParam.setPageSize(pageNumber);
-        versionParam.setSystemType(systemType);
+        versionParam.setPlatform(platform);
         Map<String,Object> map = versionService.queryVersion(versionParam);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);

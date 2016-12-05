@@ -78,6 +78,10 @@
             AND
             model = #{model}
         </if>
+        <if test="appType != null">
+            AND
+            app_type = #{appType}
+        </if>
         ORDER BY
         sequence
     </select>
@@ -93,6 +97,10 @@
         <if test="param1 != null">
             AND
             model = ${param1}
+        </if>
+        <if test="param3 != null">
+            AND
+            app_type = ${param3}
         </if>
       ORDER BY
       sequence
@@ -110,6 +118,10 @@
         <if test="model != null">
             AND
             model = #{model}
+        </if>
+        <if test="appType != null">
+            AND
+            app_type = #{appType}
         </if>
         ORDER BY
         create_time desc
@@ -132,6 +144,10 @@
         <if test="modelId != null">
             AND
             model_id = #{modelId}
+        </if>
+        <if test="appType != null">
+            AND
+            app_type = #{appType}
         </if>
     </delete>
 

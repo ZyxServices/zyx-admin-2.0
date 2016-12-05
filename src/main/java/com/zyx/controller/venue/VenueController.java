@@ -32,6 +32,8 @@ public class VenueController {
     @ApiOperation(value = "新增场馆",notes = "新增场馆")
     public ModelAndView insert( @ApiParam(name = "type",required = true, value = "场馆类型:1-室内 2-室外")
                                 @RequestParam(name = "type",required =true)Integer type,
+                                @ApiParam(name = "appType",required = true, value = "app类型类型:1-趣攀岩")
+                                @RequestParam(name = "appType",required =true)Integer appType,
                                 @ApiParam(name = "name",required = true, value = "场馆名称")
                                 @RequestParam(name = "name",required = true)String name,
                                 @ApiParam(name = "background",required = false, value = "开发背景")
@@ -57,6 +59,7 @@ public class VenueController {
         AbstractView jsonView = new MappingJackson2JsonView();
         Venue venue  = new Venue();
         venue.setName(name);
+        venue.setAppType(appType);
         venue.setType(type);
         venue.setDescription(description);
         venue.setLatitude(latitude);
@@ -138,6 +141,8 @@ public class VenueController {
                                    @RequestParam(name = "page",required = true)Integer page,
                                    @ApiParam(name = "pageNumber",required = true, value = "每页显示数量")
                                    @RequestParam(name = "pageNumber",required = true)Integer pageNumber,
+                                   @ApiParam(name = "appType",required = true, value = "app类型")
+                                   @RequestParam(name = "appType",required = true)Integer appType,
                                    @ApiParam(name = "type",required =false,value = "场馆类型 1-室内 2-室外")
                                    @RequestParam(name = "type",required = false)Integer type,
                                    @ApiParam(name = "city",required = false, value = "城市")
@@ -148,6 +153,7 @@ public class VenueController {
                                    @RequestParam(name="name",required =false)String name){
         AbstractView jsonView = new MappingJackson2JsonView();
         VenueParam venueParam = new VenueParam();
+        venueParam.setAppType(appType);
         venueParam.setPageSize(pageNumber);
         venueParam.setPageNumber(page);
         venueParam.setType(type);

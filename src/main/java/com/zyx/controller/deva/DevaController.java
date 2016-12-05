@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.sun.xml.internal.ws.api.model.wsdl.WSDLBoundOperation.ANONYMOUS.required;
+
 @Controller
 @RequestMapping("/v2/deva")
 @Api(description = "首推相关接口")
@@ -49,10 +51,11 @@ public class DevaController {
             @ApiParam(required = true, name = "area", value = "展示区域（首页，2求约）") @RequestParam(name = "area", required = true) Integer area,
             @ApiParam(required = false, name = "imageUrl", value = "图片地址") @RequestParam(name = "imageUrl", required = false) String imageUrl,
             @ApiParam(required = true, name = "state", value = "状态（0-未激活，1-激活）") @RequestParam(name = "state", required = true) Integer state,
-            @ApiParam(required = true, name = "sequence", value = "展示顺序") @RequestParam(name = "sequence", required = true) Integer sequence
+            @ApiParam(required = true, name = "sequence", value = "展示顺序") @RequestParam(name = "sequence", required = true) Integer sequence,
+            @ApiParam(required = true, name = "appType", value = "app类型 1、趣攀岩") @RequestParam(name = "appType", required = true) Integer appType
     ) {
         Map<String, Object> result = new HashMap<>();
-        Integer sSize = DevaContants.DEVA_AREA_MAX_ITEM.get(area + "");
+        Integer sSize = DevaContants.DEVA_AREA_MAX_ITEM.get(appType+"_"+area);
         if (sSize == null) {
             result.put(Constants.STATE, DevaContants.DEVA_NOT_EXIST_MODEL_AREA);
             result.put(Constants.ERROR_MSG, DevaContants.MSG_DEVA_NOT_EXIST_MODEL_AREA);
@@ -62,6 +65,7 @@ public class DevaController {
             //2.0版本为区域限定个数
             //entity.setModel(model);
             entity.setArea(area);
+            entity.setAppType(appType);
             entity.setDel(0);
             entity.setModelId(modelId);
             List<Devaluation> dblist = devaService.select(entity);
@@ -78,7 +82,7 @@ public class DevaController {
                 entity.setDel(0);
                 int n = devaService.save(entity);
                 //2.0版本为区域限定个数
-                refreshDevas(area, null);
+                refreshDevas(area, null,appType);
                 result.put(Constants.STATE, LiveConstants.SUCCESS);
             }
         }
@@ -94,6 +98,7 @@ public class DevaController {
             @ApiParam(required = false, name = "area", value = "展示区域（1首页，2求约）") @RequestParam(name = "area", required = false) Integer area,
             @ApiParam(required = false, name = "imageUrl", value = "图片地址") @RequestParam(name = "imageUrl", required = false) String imageUrl,
             @ApiParam(required = true, name = "state", value = "状态（0-未激活，1-激活）") @RequestParam(name = "state", required = true) Integer state,
+            @ApiParam(required = true, name = "appType", value = "app类型（1-趣攀岩）") @RequestParam(name = "appType", required = true) Integer appType,
             @ApiParam(required = true, name = "sequence", value = "展示顺序") @RequestParam(name = "sequence", required = true) Integer sequence) {
 
         Map<String, Object> result = new HashMap<>();
@@ -112,7 +117,7 @@ public class DevaController {
                 entity.setState(state);
                 devaService.updateNotNull(entity);
                 //2.0版本是展示区域限定个数
-                refreshDevas(deva.getArea(), null);
+                refreshDevas(deva.getArea(), null,appType);
             }
         }
         result.put(Constants.STATE, LiveConstants.SUCCESS);
@@ -157,11 +162,11 @@ public class DevaController {
     @RequestMapping(value = "/list", method = {RequestMethod.POST, RequestMethod.GET})
     @ApiOperation(value = "首推接口-获取首推", notes = "首推接口-获取首推")
     public ModelAndView getDevasByArea(
-            //@ApiParam(required = true, name = "model", value = "模块类型（1教程攻略，2求约）") @RequestParam(name = "model", required = true) Integer model,
+            @ApiParam(required = true, name = "appType", value = "app类型 1、趣攀岩") @RequestParam(name = "appType", required = true) Integer appType,
             @ApiParam(required = false, name = "area", value = "展示区域（1首页，2求约）") @RequestParam(name = "area", required = false) Integer area) {
         Map<String, Object> result = new HashMap<>();
         //2.0版本是区域限定个数
-        List<DevaVo> list = devaService.getDevaList(null, area);
+        List<DevaVo> list = devaService.getDevaList(null, area,appType);
         result.put(Constants.DATA, list);
         result.put(Constants.STATE, LiveConstants.SUCCESS);
         AbstractView jsonView = new MappingJackson2JsonView();
@@ -172,16 +177,16 @@ public class DevaController {
     @RequestMapping(value = "/sequence", method = {RequestMethod.POST, RequestMethod.GET})
     @ApiOperation(value = "首推接口-获取未使用的顺序列表", notes = "首推接口-获取未使用的顺序列表")
     public ModelAndView getUnusedSquen(
-            //@ApiParam(required = true, name = "model", value = "模块类型（1教程攻略，2求约）") @RequestParam(name = "model", required = true) Integer model,
+            @ApiParam(required = true, name = "appType", value = "app类型（1趣攀岩）") @RequestParam(name = "appType", required = true) Integer appType,
             @ApiParam(required = true, name = "area", value = "展示区域（1首页，2求约）") @RequestParam(name = "area", required = true) Integer area) {
         Map<String, Object> result = new HashMap<>();
-        Integer sSize = DevaContants.DEVA_AREA_MAX_ITEM.get(area+"");
+        Integer sSize = DevaContants.DEVA_AREA_MAX_ITEM.get(appType+"_"+area);
 
         if (sSize == null) {
             result.put(Constants.STATE, DevaContants.DEVA_NOT_EXIST_MODEL_AREA);
             result.put(Constants.ERROR_MSG, DevaContants.DEVA_NOT_EXIST_MODEL_AREA);
         } else {
-            List<Integer> list = devaService.getUsedSequence(null,area);
+            List<Integer> list = devaService.getUsedSequence(null,area,appType);
             List<Integer> seqList = new ArrayList<>();
             int i = 1;
             if (list != null && !list.isEmpty()) {
@@ -205,8 +210,8 @@ public class DevaController {
         return new ModelAndView(jsonView);
     }
 
-    private List refreshDevas(Integer area, Integer model) {
-        List<Integer> ids = devaService.selectModelIds(area, model);
+    private List refreshDevas(Integer area, Integer model,Integer appType) {
+        List<Integer> ids = devaService.selectModelIds(area, model,appType);
         List list = null;
         if (null != ids && !ids.isEmpty()) {
             //2.0版本为区域数量限定

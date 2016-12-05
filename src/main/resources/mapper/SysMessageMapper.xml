@@ -11,8 +11,8 @@
     </resultMap>
 
     <insert id="insertSysMessage" parameterType="com.zyx.model.SysMessage" useGeneratedKeys="true">
-        insert INTO SYS_MSG(content,push_time,push_type,type,del,done,create_time,mask)
-        VALUE (#{content}, #{pushTime}, #{pushType}, #{type},#{del},#{done}, #{createTime},#{mask})
+        insert INTO SYS_MSG(content,push_time,push_type,type,del,done,create_time,mask,app_type)
+        VALUE (#{content}, #{pushTime}, #{pushType}, #{type},#{del},#{done}, #{createTime},#{mask},#{appType})
         <selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
             select LAST_INSERT_ID() AS id
         </selectKey>
@@ -23,6 +23,9 @@
         <if test="done!=null">
             and done=#{done}
         </if>
+        <if test="appType!=null">
+            and app_type=#{appType}
+        </if>
         ORDER BY create_time desc
         <if test="pageNumber != null and pageSize != null">
             limit #{pageNumber}, #{pageSize}
@@ -30,7 +33,7 @@
     </select>
 
     <select id="selectCountSysMessage" resultType="java.lang.Integer" parameterType="com.zyx.parm.sysmessage.SysMessageParam">
-        SELECT COUNT(id) FROM SYS_MSG WHERE del=0
+        SELECT COUNT(id) FROM SYS_MSG WHERE del=0 and app_type=#{appType}
     </select>
 
     <update id="delSysMessage" parameterType="java.lang.Integer">

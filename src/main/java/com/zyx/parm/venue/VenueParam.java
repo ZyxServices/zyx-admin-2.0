@@ -10,6 +10,7 @@ public class VenueParam extends QueryParam{
     private String city;
     private String mark;
     private String name;
+    private Integer appType;
 
     public Integer getType() { return type; }
 
@@ -26,4 +27,8 @@ public class VenueParam extends QueryParam{
     public String getName() { return name; }
 
     public void setName(String name) { this.name = name; }
+
+    public Integer getAppType() { return appType; }
+
+    public void setAppType(Integer appType) { this.appType = appType; }
 }

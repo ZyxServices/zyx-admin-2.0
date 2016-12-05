@@ -23,19 +23,19 @@ public interface DevaService extends BaseService<Devaluation>{
      * @param model
      * @return
      */
-    List<Devaluation> getDevas(Integer model);
+    List<Devaluation> getDevas(Integer model,Integer appType);
     /**
      *
      * @param model
      * @param area
      * @return
      */
-    List<Devaluation> getDevas(Integer model, Integer area);
+    List<Devaluation> getDevas(Integer model, Integer area,Integer appType);
 
-    List<DevaVo> getDevaList(Integer model, Integer area);
+    List<DevaVo> getDevaList(Integer model, Integer area,Integer appType);
 
-    List<Integer> getUsedSequence(Integer model, Integer area);
-    List<Integer> selectModelIds(Integer area,Integer model);
+    List<Integer> getUsedSequence(Integer model, Integer area,Integer appType);
+    List<Integer> selectModelIds(Integer area,Integer model,Integer appType);
 
     void cascadeDelete(Integer area,Integer model,Integer modelId);
     void cascadeDelete(Integer model,Integer modelId);

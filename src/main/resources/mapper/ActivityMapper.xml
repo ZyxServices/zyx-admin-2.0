@@ -24,6 +24,8 @@
         <result column="payment_type" jdbcType="INTEGER" property="paymentType"/>
         <result column="create_time" jdbcType="BIGINT" property="createTime"/>
         <result column="mask" jdbcType="INTEGER" property="mask"/>
+        <result column="latitude" jdbcType="DOUBLE" property="latitude"/>
+        <result column="longitude" jdbcType="DOUBLE" property="longitude"/>
     </resultMap>
     <resultMap id="activitydto" type="com.zyx.dto.ActivityDto" extends="activity">
         <association property="userName" column="user_id"
@@ -60,7 +62,7 @@
                 ]]>
             </if>
         </if>
-        AND del = 0
+        AND del = 0 and app_type=#{appType}
         ORDER BY create_time desc
         <if test="pageNumber != null and page != null">
             limit #{page}, #{pageNumber}
@@ -97,6 +99,10 @@
         </if>
         <if test="paymentType != null and paymentType != ''">
             and payment_type=#{paymentType}
+        </if>
+
+        <if test="appType != null and appType != ''">
+            and app_type=#{appType}
         </if>
         <if test="status != null and status != ''">
             <if test="status==1">
@@ -174,6 +180,12 @@
             </if>
             <if test="del != null">
                 del = #{del},
+            </if>
+            <if test="latitude != null">
+                latitude = #{latitude},
+            </if>
+            <if test="longitude != null">
+                longitude = #{longitude},
             </if>
             <if test="mask != null">
                 mask = #{mask}

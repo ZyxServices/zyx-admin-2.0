@@ -2,6 +2,8 @@ package com.zyx.model;
 
 import javax.persistence.*;
 
+import static org.bouncycastle.asn1.x500.style.RFC4519Style.c;
+
 
 /**
  * 场馆
@@ -75,6 +77,15 @@ public class Venue{
      * 开发背景
      */
     private String background;
+    /**
+     * app类型 1为趣攀岩
+     */
+    @Column(name = "app_type")
+    private  Integer appType;
+
+    public Integer getAppType() { return appType; }
+
+    public void setAppType(Integer appType) { this.appType = appType; }
 
     public Integer getLevel() { return level; }
 

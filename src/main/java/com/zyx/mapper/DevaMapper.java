@@ -12,7 +12,7 @@ import java.util.List;
 public interface DevaMapper extends Mapper<Devaluation> {
 
     public List<DevaVo> selectDevaList(DevaParam devaParam);
-    public List<Integer> selectUsedSequence(Integer model, Integer area);
+    public List<Integer> selectUsedSequence(Integer model, Integer area,Integer appType);
     /**
      * 查询相关类型的所有首推ids
      * @param param

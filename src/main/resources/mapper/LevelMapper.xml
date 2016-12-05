@@ -12,6 +12,9 @@
 
   <select id="queryLevel" parameterType="com.zyx.model.Level" resultMap="leveldto">
     SELECT  id,name,step,score,min_score,max_score from level WHERE  del=0
+    <if test="appType!=null">
+      and app_type=#{appType}
+    </if>
     ORDER by create_time desc
   </select>
 
