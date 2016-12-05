@@ -73,6 +73,14 @@
     <div class="modal-body">
         <form id="lineForm" class="form-horizontal"  method="post"  role="form" enctype="multipart/form-data">
             <input type="hidden" name="id">
+            <div class="control-group">
+                <label class="control-label">app版本</label>
+                <div class="controls form-group">
+                    <select name="appType"  id="app" >
+                        <option value="1">趣攀岩</option>
+                    </select>
+                </div>
+            </div>
             <div class="control-group form-group">
                 <label class="control-label">等级名称</label>
                 <div class="controls form-group">

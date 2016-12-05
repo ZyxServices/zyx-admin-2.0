@@ -3,7 +3,7 @@
  */
 //获取url参数
 var shareCommon={
-    Ajax:function(listID,success){
+    Ajax:function(success){
         var ways={
             GetRequest:function(){
                 var url = location.search; //获取url中"?"符后的字串
@@ -19,7 +19,7 @@ var shareCommon={
             }
         }
         $.ajax({
-            url: '/share?id=' + ways.GetRequest().id + '&type=' + listID + '',
+            url: '/share?id=' + ways.GetRequest().id + '&type=' + ways.GetRequest().type + '&appType='+ways.GetRequest().appType+'',
             type: 'post',
             success: function (res) {
                 success(res)

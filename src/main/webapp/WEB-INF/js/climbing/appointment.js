@@ -207,7 +207,6 @@ function initAppointmentTable() {
         queryParamsType: "undefined",
         queryParams: queryParams,
         responseHandler: fromData
-
     })
 }
 
@@ -258,6 +257,7 @@ function fromData(res) {
             var dataObj = {};
             dataArray.push(dataObj);
         }
+        console.log(dataArray)
         return {
             rows: dataArray,
             total: res.total
@@ -417,6 +417,8 @@ function editPreview(row) {
     $("#maxPeople").val(row.maxPeople);
     $("#activityType").val(row.activityType == "求约" ? "1":"2");
     $("#address").val(row.address);
+    $("#v_latitude").val(row.latitude);
+    $("#v_longitude").val(row.longitude);
     $("#paymentType").val(row.paymentType);
 }
 function operate(value, row, index) {

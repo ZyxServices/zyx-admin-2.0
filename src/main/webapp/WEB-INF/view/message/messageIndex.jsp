@@ -95,6 +95,14 @@
         <div class="row-fluid">
 
           <form class="form-horizontal" role="form" id="messageForm">
+            <div class="control-group">
+              <label class="control-label">app版本</label>
+              <div class="controls">
+                <select name="appType" class="span6" id="app" style="height: 34px" >
+                  <option value="1">趣攀岩</option>
+                </select>
+              </div>
+            </div>
             <div class="control-group form-group">
               <label class="control-label">推送内容</label>
               <div class="controls col-xs-5">

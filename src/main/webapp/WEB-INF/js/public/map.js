@@ -256,10 +256,11 @@ function obtainXy(x,y,a,c){
             if(document.getElementById("address")){
                 document.getElementById("address").value = a;
             }else{
-                document.getElementById("v_longitude").value = x;
-                document.getElementById("v_latitude").value =y;
                 document.getElementById("v_address").value = a;
             }
+
+            document.getElementById("v_longitude").value = x;
+            document.getElementById("v_latitude").value =y;
             $('#mapModel').modal('hide')
         },
         cancelEvent:function(){

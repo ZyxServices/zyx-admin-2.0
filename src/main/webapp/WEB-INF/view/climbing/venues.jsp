@@ -21,88 +21,95 @@
     <link rel="stylesheet" href="../../css/summernote.css"/>
     <link rel="stylesheet" href="../../css/tiyujia/style.css"/>
     <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
-    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=bc83b9475a5b54ab35e22bbaf1b0ab06&plugin=AMap.Autocomplete"></script>
+    <script type="text/javascript"
+            src="http://webapi.amap.com/maps?v=1.3&key=bc83b9475a5b54ab35e22bbaf1b0ab06&plugin=AMap.Autocomplete"></script>
 </head>
 <style type="text/css">
-    body{
-        margin:0;
-        height:100%;
-        width:100%;
-        position:absolute;
-        font-size:12px;
+    body {
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        font-size: 12px;
     }
-    h6{
+
+    h6 {
         margin: 0;
     }
-    #mapContainer{
+
+    #mapContainer {
         position: absolute;
-        top:0;
+        top: 0;
         left: 0;
-        right:0;
-        bottom:0;
+        right: 0;
+        bottom: 0;
     }
 
-    #tip{
-        background-color:#fff;
-        border:1px solid #ccc;
-        padding-left:10px;
-        padding-right:2px;
-        position:absolute;
+    #tip {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding-left: 10px;
+        padding-right: 2px;
+        position: absolute;
         /*min-height:65px;*/
-        top:10px;
-        font-size:12px;
-        right:10px;
-        border-radius:3px;
-        overflow:hidden;
-        line-height:20px;
+        top: 10px;
+        font-size: 12px;
+        right: 10px;
+        border-radius: 3px;
+        overflow: hidden;
+        line-height: 20px;
         /*min-width:400px;*/
     }
-    #tip input[type="button"]{
+
+    #tip input[type="button"] {
         background-color: #0D9BF2;
-        height:25px;
-        text-align:center;
-        line-height:25px;
-        color:#fff;
-        font-size:12px;
-        border-radius:3px;
+        height: 25px;
+        text-align: center;
+        line-height: 25px;
+        color: #fff;
+        font-size: 12px;
+        border-radius: 3px;
         outline: none;
-        border:0;
-        cursor:pointer;
+        border: 0;
+        cursor: pointer;
 
     }
 
-    #tip input[type="text"]{
-        height:25px;
-        border:1px solid #ccc;
-        padding-left:5px;
-        border-radius:3px;
-        outline:none;
+    #tip input[type="text"] {
+        height: 25px;
+        border: 1px solid #ccc;
+        padding-left: 5px;
+        border-radius: 3px;
+        outline: none;
         margin-top: 10px;
     }
-    #pos{
+
+    #pos {
         height: 70px;
         background-color: #fff;
         padding-left: 10px;
         padding-right: 10px;
-        position:absolute;
+        position: absolute;
         font-size: 12px;
         right: 10px;
         bottom: 30px;
         border-radius: 3px;
         line-height: 30px;
-        border:1px solid #ccc;
+        border: 1px solid #ccc;
     }
-    #pos input{
-        border:1px solid #ddd;
-        height:23px;
-        border-radius:3px;
-        outline:none;
+
+    #pos input {
+        border: 1px solid #ddd;
+        height: 23px;
+        border-radius: 3px;
+        outline: none;
     }
+
     /*.modal-body{*/
-        /*max-width: 100%;*/
+    /*max-width: 100%;*/
     /*}*/
-    #result1{
-        max-height:300px;
+    #result1 {
+        max-height: 300px;
     }
 </style>
 <body class="page-header-fixed">
@@ -228,6 +235,18 @@
                             </div>
                         </div>
 
+                        <div class="control-group form-group">
+                            <label class="control-label">开发背景</label>
+
+                            <div id="ven_background" class="controls summernote">
+                                <div class="span6 col-xs-5">
+                                    <div id="background-summernote"></div>
+                                    <input id="v_background" type="text" class="hideInput" name="background" value="">
+                                </div>
+                                <span class="help-inline required">*</span>
+                            </div>
+                        </div>
+
                         <div class="control-group">
                             <label class="control-label">场馆地址</label>
 
@@ -241,7 +260,7 @@
 
                             <div class="controls">
                                 <input type="text" id="v_longitude" name="longitude" class="span6"
-                                       placeholder="" disabled/>
+                                       placeholder="" readonly />
                             </div>
                         </div>
 
@@ -249,7 +268,8 @@
                             <label class="control-label">纬度</label>
 
                             <div class="controls">
-                                <input type="text" id="v_latitude" name="latitude" class="span6" placeholder="" disabled/>
+                                <input type="text" id="v_latitude" name="latitude" class="span6" placeholder=""
+                                       readonly/>
                                 <a id="openMap" onclick="$('#mapModel').modal('show')" class="controls"
                                    style="margin-left: 0;display: block;cursor:hand">打开地图</a>
                             </div>
@@ -281,7 +301,15 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="control-group">
+                            <label class="control-label">app版本</label>
 
+                            <div class="controls">
+                                <select name="appType" class="span6" id="app" style="height: 34px">
+                                    <option value="1">趣攀岩</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="control-group hide" id="addChoice">
                             <label class="control-label"></label>
 
@@ -315,7 +343,8 @@
     <!-- END PAGE -->
 </div>
 <%--添加线路modal--%>
-<div class="modal fade hide" style=" width:60%;left:20%;right:20%" id="addLineModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade hide" style=" width:60%;left:20%;right:20%" id="addLineModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-header">
         <button data-dismiss="modal" class="close" type="button"></button>
@@ -415,18 +444,19 @@
         <button data-dismiss="modal" class="close" type="button"></button>
         <h3>经纬度获取</h3></div>
     <div class="modal-body" style="height: 700px">
-        <div >
+        <div>
 
             <div id="container"></div>
-            <div id="mapContainer" ></div>
+            <div id="mapContainer"></div>
             <div id="tip">
                 <b>请输入关键字：</b>
-                <input type="text" id="keyword" name="keyword" value="" onkeydown='keydown(event)' style="width: 55%;"/>  <button onclick="search()">搜索</button>
+                <input type="text" id="keyword" name="keyword" value="" onkeydown='keydown(event)' style="width: 55%;"/>
+                <button onclick="search()">搜索</button>
                 <div id="result1" name="result1"></div>
             </div>
             <%--<div id="pos">--%>
-                <%--<b>鼠标左键在地图上单击获取坐标</b>--%>
-                <%--<br><div>X：<input type="text" id="lngX" name="lngX" value=""/>&nbsp;Y：<input type="text" id="latY" name="latY" value=""/></div>--%>
+            <%--<b>鼠标左键在地图上单击获取坐标</b>--%>
+            <%--<br><div>X：<input type="text" id="lngX" name="lngX" value=""/>&nbsp;Y：<input type="text" id="latY" name="latY" value=""/></div>--%>
             <%--</div>--%>
         </div>
     </div>

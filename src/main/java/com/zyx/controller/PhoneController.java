@@ -5,59 +5,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 /**
  * Created by 文楷 on 2016/11/23.
  */
 @Controller
 @RequestMapping("/phone")
 public class PhoneController {
-    /*分享*/
-    @RequestMapping(value = "/share/index", method = RequestMethod.GET)
-    public ModelAndView redirectIndex() {
-        return new ModelAndView("/phone/share/s_index");
+    @RequestMapping(value = "/share", method = RequestMethod.GET)
+    public ModelAndView redirectVenues(@RequestParam int type, @RequestParam String id, @RequestParam String appType) {
+        switch (type) {
+            case 0:
+                return new ModelAndView("/phone/share/s_course");
+            case 1:
+                return new ModelAndView("/phone/share/s_history");
+            case 2:
+                return new ModelAndView("/phone/share/s_equipment");
+            case 3:
+                return new ModelAndView("/phone/share/s_activity");
+            case 4:
+                return new ModelAndView("/phone/share/s_venues");
+            case 5:
+                return new ModelAndView("/phone/share/s_rankingList");
+            case 6:
+                return new ModelAndView("/phone/agreement/s_agreement");
+            default:
+                return new ModelAndView("/error/404");
+        }
     }
-    @RequestMapping(value = "/share/venues", method = RequestMethod.GET)
-    public ModelAndView redirectVenues(@RequestParam String id ) {
-        return new ModelAndView("/phone/share/s_venues");
-    }
-
-    @RequestMapping(value = "/share/article", method = RequestMethod.GET)
-    public ModelAndView redirectArticle(@RequestParam String id ) {
-        return new ModelAndView("/phone/share/s_article");
-    }
-
-    @RequestMapping(value = "/share/activity", method = RequestMethod.GET)
-    public ModelAndView redirectActivity(@RequestParam String id) {
-        return new ModelAndView("/phone/share/s_activity");
-    }
-
-    @RequestMapping(value = "/share/course", method = RequestMethod.GET)
-    public ModelAndView redirectCourse(@RequestParam String id) {
-        return new ModelAndView("/phone/share/s_course");
-    }
-
-    @RequestMapping(value = "/share/dynamic", method = RequestMethod.GET)
-    public ModelAndView redirectDynamic(@RequestParam String id) {
-        return new ModelAndView("/phone/share/s_dynamic");
-    }
-
-    @RequestMapping(value = "/share/rankingList", method = RequestMethod.GET)
-    public ModelAndView redirectRankingList(@RequestParam String id) {
-        return new ModelAndView("/phone/share/s_rankingList");
-    }
-    @RequestMapping(value = "/share/history", method = RequestMethod.GET)
-    public ModelAndView redirectHistory(@RequestParam String id) {
-        return new ModelAndView("/phone/share/s_history");
-    }
-
-    @RequestMapping(value = "/share/equip", method = RequestMethod.GET)
-    public ModelAndView redirectEquip(@RequestParam String id) {
-        return new ModelAndView("/phone/share/s_equipment");
-    }
+//    return new ModelAndView("/phone/share/s_index");
     @RequestMapping(value = "/agreement", method = RequestMethod.GET)
     public ModelAndView redirectAgreement() {
-        return new ModelAndView("/phone/agreement/s_agreement");
+        return new ModelAndView("/phone/agreement/agreement");
     }
 }
 

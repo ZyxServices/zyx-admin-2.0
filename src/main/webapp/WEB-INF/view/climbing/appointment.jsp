@@ -211,7 +211,7 @@
                         <div class="control-group">
                             <label class="control-label">选择官方用户</label>
                             <div class="controls">
-                                <select id="choiceOfficial" name="officialId" class="span6">
+                                <select id="choiceOfficial" name="userId" class="span6">
                                 </select>
                             </div>
                         </div>
@@ -301,8 +301,23 @@
                             <div class="controls">
                                 <input type="text" id="address" name="address" class="span6" placeholder="请输入详细地址"/>
                             </div>
-                            <a id="openMap" onclick="$('#mapModel').modal('show')" class="controls"
-                               style="margin-left: 180px;display: block;cursor:hand">打开地图</a>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">经度</label>
+                            <div class="controls">
+                                <input type="text" id="v_longitude" name="longitude" class="span6"
+                                       placeholder="" readonly />
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">纬度</label>
+                            <div class="controls">
+                                <input type="text" id="v_latitude" name="latitude" class="span6" placeholder=""
+                                       readonly/>
+                                <a id="openMap" onclick="$('#mapModel').modal('show')" class="controls"
+                                   style="margin-left: 0;display: block;cursor:hand">打开地图</a>
+                            </div>
                         </div>
 
                         <div class="control-group">
@@ -317,6 +332,14 @@
                             </div>
                         </div>
 
+                        <div class="control-group">
+                            <label class="control-label">app版本</label>
+                            <div class="controls">
+                                <select name="appType" class="span6" id="app" style="height: 34px" >
+                                    <option value="1">趣攀岩</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button class="btn btn-default" id="czS">确定</button>
