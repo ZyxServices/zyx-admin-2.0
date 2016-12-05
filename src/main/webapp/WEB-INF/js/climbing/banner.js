@@ -83,7 +83,11 @@ function timeFormat(data) {
  * */
 function operate(value, row, index) {
     var dataArray = new Array();
-    dataArray.push('<a class="withdraw p5" href="javascript:void(0)" title="withdraw">撤回</a>');
+    if(row.state == "未激活"){
+        dataArray.push('<a class="withdraw p5" href="javascript:void(0)" title="withdraw">取消撤回</a>');
+    }else{
+        dataArray.push('<a class="withdraw p5" href="javascript:void(0)" title="withdraw">撤回</a>');
+    }
     dataArray.push('<a class="remove p5" href="javascript:void(0)" title="remove">删除</a>');
     dataArray.push('<a class="edit p5" href="javascript:void(0)" title="edit">编辑</a>');
     return dataArray.join('');
@@ -91,19 +95,26 @@ function operate(value, row, index) {
 /*table事件*/
 var operateEvents = {
     'click .withdraw':function (e, value, row, index) {
+        var _state = '';
+        if(row.state == "激活"){
+            _state = 0;
+        }else{
+            _state = 1;
+        }
         $.Popup({
             title: '撤回',
             template: '确定撤回该banner？',
             saveEvent: function () {
                 $.ajax({
-                    url: "/v1/deva/delete?id=" + row.id,
+                    url: "/v2/deva/cancel",
                     async: false,
-                    type: "delete",
+                    type: "post",
+                    data:{id:row.id,state:_state},
                     success: function (result) {
                         if (result.state == 200) {
                             $.Popup({
                                 confirm: false,
-                                template: '撤回成功'
+                                template: result.successmsg
                             })
                             $('#banner-list-table').bootstrapTable('refresh');
                         } else {
@@ -145,7 +156,6 @@ var operateEvents = {
         })
     },
     'click .edit':function (e, value, row, index) {/*编辑有不是公用的部分*/
-        console.log(row)
         row.model = row.model == "教程攻略" ? "1":"2";
         row.area = row.area == "首页" ? "1":"2";
         $("#devaId").val(row.id);
@@ -153,7 +163,8 @@ var operateEvents = {
         $("#area").val(row.area);
         $("#imageUrl").val(row._image);
         $("#preImage").html('<img src="http://image.tiyujia.com/'+ row._image+'">');
-        getBannerSequence(row.area,row.sequence);
+        $("#createEditAppType").val(row.appType);
+        getBannerSequence(row.area,row.sequence,row.appType);
         $("#sequence").val(row.sequence);
         EDITAREA = row.area;
         EDITSEQUENCE = row.sequence;
@@ -171,13 +182,13 @@ var EDITSEQUENCE = '';
 /*
  * banner序列的请求
  * */
-function getBannerSequence(area, currentSequence) {
+function getBannerSequence(area, currentSequence,appType) {
     $.ajax({
         url: "/v2/deva/sequence",
         type: 'POST',
         dataType: 'json',
         async:false,
-        data: {area: area},
+        data: {area: area,appType:appType},
         success: function (result) {
             if(result.state == 200){
                 var bannerNoArr = result.data;
@@ -208,11 +219,12 @@ function getBannerSequence(area, currentSequence) {
 /*改变推荐位置*/
 function changeDevArea(obj) {
     var area = $(obj).val();
-    if(EDITAREA == area){
-        getBannerSequence(area,EDITSEQUENCE);
+    var appType = $("#createEditAppType").val()
+    if(EDITAREA == area){/*当前自己的序列号*/
+        getBannerSequence(area,EDITSEQUENCE,appType);
         $("#sequence").val(EDITSEQUENCE);
-    }else{
-        getBannerSequence(area);
+    }else{/*不存在序列号的时候*/
+        getBannerSequence(area,'',appType);
     }
 }
 /*

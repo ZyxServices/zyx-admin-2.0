@@ -94,6 +94,7 @@
                 <div class="row-fluid">
 
                     <form class="form-horizontal" role="form" id="bannerForm">
+                        <input type="hidden" name="appType" id="createEditAppType">
                         <input type="hidden" name="id" id="devaId">
                         <div class="control-group form-group">
                             <label class="control-label">banner模块</label>
