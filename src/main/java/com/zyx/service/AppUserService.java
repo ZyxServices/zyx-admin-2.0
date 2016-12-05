@@ -281,11 +281,11 @@ public class AppUserService extends BaseServiceImpl<AppUser> {
      * @param userId
      * @return
      */
-    public Map<String,Object> getRank(Integer userId){
+    public Map<String,Object> getRank(Integer userId,Integer appType){
         try {
             Map<String,Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "查询成功", null);
-            RankDto own = appUserMapper.getOwnRank(userId);
-            List<RankDto> tops = appUserMapper.getTopRank();
+            RankDto own = appUserMapper.getOwnRank(userId,appType);
+            List<RankDto> tops = appUserMapper.getTopRank(appType);
             int beat = appUserMapper.selectCount(null);
             map.put("own",own);
             map.put("tops",tops);

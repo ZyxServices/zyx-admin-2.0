@@ -82,13 +82,13 @@ public interface AppUserMapper extends Mapper<AppUser> {
      * @param id
      * @return
      */
-    RankDto getOwnRank(Integer id);
+    RankDto getOwnRank(Integer id,Integer appType);
 
 
     /**
      * 查询排名前5
      * @return
      */
-    List<RankDto> getTopRank();
+    List<RankDto> getTopRank(Integer appType);
 
 }

@@ -240,17 +240,19 @@
 		FROM
 		t_sport_record sr LEFT JOIN t_sport_info si ON sr.sport_info_id=si.id
 		,(SELECT @row := 0) r
+		where sr.type=#{param2}
 		GROUP BY sr.user_id
         ) AS mm ON u.id=mm.user_id )AS nn LEFT JOIN level l ON nn.level_id = l.id
 
-        WHERE nn.id=#{id}
+        WHERE nn.id=#{param1}
     </select>
 
-    <select id="getTopRank" resultMap="rankDto">
+    <select id="getTopRank" parameterType="java.lang.Integer" resultMap="rankDto">
         SELECT @row := @row + 1 AS row_num,sr.user_id,SUM(si.score) AS total_score ,u.nickname,u.avatar,l.name
         FROM
         t_sport_record sr LEFT JOIN t_sport_info si ON sr.sport_info_id=si.id LEFT JOIN user u ON sr.user_id = u.id LEFT JOIN level l ON u.level_id =l.id
         ,(SELECT @row := 0) r
+        where sr.type=#{appType}
         GROUP BY sr.user_id
         ORDER BY total_score DESC
         LIMIT 0,5

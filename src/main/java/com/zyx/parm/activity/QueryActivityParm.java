@@ -28,6 +28,7 @@ public class QueryActivityParm {
     private Integer paymentType;
     private Integer appType;
     private Integer status;
+    private Long currentTime;
 
 
     public Integer getCreateId() {
@@ -109,4 +110,8 @@ public class QueryActivityParm {
     public Integer getAppType() { return appType; }
 
     public void setAppType(Integer appType) { this.appType = appType; }
+
+    public Long getCurrentTime() { return currentTime; }
+
+    public void setCurrentTime(Long currentTime) { this.currentTime = currentTime; }
 }

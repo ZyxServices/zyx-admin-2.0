@@ -17,6 +17,7 @@ import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.Map;
 
 import static com.zyx.utils.GetTimeUtil.getDateTime;
@@ -139,6 +140,7 @@ public class ActivityController {
         queryActivityParm.setActivityType(activityType);
         queryActivityParm.setPaymentType(paymentType);
         queryActivityParm.setStatus(status);
+        queryActivityParm.setCurrentTime(new Date().getTime());
 
         Map<String, Object> map = activityService.queryActivity(queryActivityParm);
         jsonView.setAttributesMap(map);

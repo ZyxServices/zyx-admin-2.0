@@ -43,6 +43,7 @@ public class ShareDataController {
     @RequestMapping(name = "/getData",method = RequestMethod.POST)
     public ModelAndView getData(@ApiParam(name = "id",required = true,value = "主键id(对应数据为用户id、装备控帖子id、活动id、场馆id、用户id、教程id)")@RequestParam(name = "id",required = true)Integer id,
                                 @ApiParam(name = "type",required = true,value = "1历史记录、2装备控、3求约、4场馆、5排行榜、0教程")@RequestParam(name = "type",required = true)Integer type,
+                                @ApiParam(name = "appType",required = true,value = "1趣攀岩")@RequestParam(name = "appType",required = true)Integer appType,
                                 @ApiParam(name = "userId",required = false,value = "用户id，此为场馆必填参数，其他的不填")@RequestParam(name = "userId",required = false)Integer userId){
         AbstractView jsonView = new MappingJackson2JsonView();
         Map<String, Object> map=null;
@@ -69,7 +70,7 @@ public class ShareDataController {
                 break;
             case 5:
                 //排行榜
-                map=appUserService.getRank(id);
+                map=appUserService.getRank(id,appType);
                 break;
         }
 
