@@ -10,6 +10,7 @@
         <result column="sequence" jdbcType="INTEGER" property="sequence"/>
         <result column="state" jdbcType="INTEGER" property="state"/>
         <result column="area" jdbcType="INTEGER" property="area"/>
+        <result column="app_type" jdbcType="INTEGER" property="appType"/>
         <!--<discriminator javaType="java.lang.Integer" column="model">
             <case value="1" resultMap="getActivityInfo"/>
             <case value="2" resultMap="getLiveInfo"/>

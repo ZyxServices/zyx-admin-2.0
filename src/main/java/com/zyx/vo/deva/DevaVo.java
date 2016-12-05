@@ -18,7 +18,10 @@ public class DevaVo implements Serializable{
      */
     private Integer modelId;
 
-
+    /**
+     * app类型 1为趣攀岩
+     */
+    private Integer appType;
 
     private Long createTime;
     /**
@@ -98,4 +101,8 @@ public class DevaVo implements Serializable{
     public void setArea(Integer area) {
         this.area = area;
     }
+
+    public Integer getAppType() { return appType; }
+
+    public void setAppType(Integer appType) { this.appType = appType; }
 }
