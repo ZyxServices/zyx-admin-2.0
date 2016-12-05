@@ -21,7 +21,92 @@
     <link rel="stylesheet" href="../../css/summernote.css"/>
     <link rel="stylesheet" href="../../css/datetimepicker.css"/>
     <link rel="stylesheet" href="../../css/tiyujia/style.css"/>
-</head>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+    <script type="text/javascript"src="http://webapi.amap.com/maps?v=1.3&key=bc83b9475a5b54ab35e22bbaf1b0ab06&plugin=AMap.Autocomplete"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+
+    <style type="text/css">
+        body{
+            margin:0;
+            height:100%;
+            width:100%;
+            position:absolute;
+            font-size:12px;
+        }
+        h6{
+            margin: 0;
+        }
+        #mapContainer{
+            position: absolute;
+            top:0;
+            left: 0;
+            right:0;
+            bottom:0;
+        }
+
+        #tip{
+            background-color:#fff;
+            border:1px solid #ccc;
+            padding-left:10px;
+            padding-right:2px;
+            position:absolute;
+            /*min-height:65px;*/
+            top:10px;
+            font-size:12px;
+            right:10px;
+            border-radius:3px;
+            overflow:hidden;
+            line-height:20px;
+            /*min-width:400px;*/
+        }
+        #tip input[type="button"]{
+            background-color: #0D9BF2;
+            height:25px;
+            text-align:center;
+            line-height:25px;
+            color:#fff;
+            font-size:12px;
+            border-radius:3px;
+            outline: none;
+            border:0;
+            cursor:pointer;
+
+        }
+
+        #tip input[type="text"]{
+            height:25px;
+            border:1px solid #ccc;
+            padding-left:5px;
+            border-radius:3px;
+            outline:none;
+            margin-top: 10px;
+        }
+        #pos{
+            height: 70px;
+            background-color: #fff;
+            padding-left: 10px;
+            padding-right: 10px;
+            position:absolute;
+            font-size: 12px;
+            right: 10px;
+            bottom: 30px;
+            border-radius: 3px;
+            line-height: 30px;
+            border:1px solid #ccc;
+        }
+        #pos input{
+            border:1px solid #ddd;
+            height:23px;
+            border-radius:3px;
+            outline:none;
+        }
+        /*.modal-body{*/
+        /*max-width: 100%;*/
+        /*}*/
+        #result1{
+            max-height:300px;
+        }
+    </style>
 <body class="page-header-fixed">
 <jsp:include page="../public/header.jsp"/>
 <div class="page-container">
@@ -218,6 +303,8 @@
                             <div class="controls">
                                 <input type="text" id="address" name="address" class="span6" placeholder="请输入详细地址"/>
                             </div>
+                            <a id="openMap" onclick="$('#mapModel').modal('show')" class="controls"
+                               style="margin-left: 180px;display: block;cursor:hand">打开地图</a>
                         </div>
 
                         <div class="control-group">
@@ -314,12 +401,40 @@
         <p id="uploadContent"></p>
     </div>
 </div>
+<div class="modal fade hide" id="mapModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-header">
+        <button data-dismiss="modal" class="close" type="button"></button>
+        <h3>地址获取</h3></div>
+    <div class="modal-body" style="height: 700px">
+        <div >
 
+            <div id="container"></div>
+            <div id="mapContainer"></div>
+            <div id="tip">
+                <b>请输入关键字：</b>
+                <input type="text" id="keyword" name="keyword" value="" onkeydown='keydown(event)' style="width: 55%;"/>  <button onclick="search()">搜索</button>
+                <div id="result1" name="result1"></div>
+            </div>
+            <%--<div id="pos">--%>
+            <%--<b>鼠标左键在地图上单击获取坐标</b>--%>
+            <%--<br><div>X：<input type="text" id="lngX" name="lngX" value=""/>&nbsp;Y：<input type="text" id="latY" name="latY" value=""/></div>--%>
+            <%--</div>--%>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <a href="javascript:void(0)" class="btn btn-default" data-dismiss='modal'>关闭</a>
+            </div>
+        </div>
+    </div>
+</div>
 <jsp:include page="../public/footer.jsp"/>
 <jsp:include page="../public/common-js.jsp"/>
-
 <script src="../../js/app.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../js/climbing/appointment.js"></script>
+<script src="../../js/public/map.js" type="text/javascript"></script>
 <script>
 
     jQuery(document).ready(function () {
