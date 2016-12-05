@@ -28,12 +28,13 @@
 
     <select id="querySystemRoleList" parameterType="com.zyx.parm.sys.QuerySystemRoleParam"
             resultMap="BaseResultMap">
-        SELECT * FROM SYS_ROLE where
+        SELECT * FROM SYS_ROLE where 1=1
         <if test="appType != null">
-             app_type=#{appType} AND
+             and app_type=#{appType}
         </if>
-        (ROLE_NAME LIKE CONCAT('%','${searchText}','%' ) or ROLE_DESC LIKE
-        CONCAT('%','${searchText}','%' ))
+        <if test="searchText !=null and searchText !=''">
+            AND ROLE_NAME like '%${searchText}%'
+        </if>
 
         <if test="sortName != null and sortName != ''">
             ORDER BY #{sortName} #{sortOrder}
@@ -45,15 +46,17 @@
 
     <select id="querySystemRoleListCount" parameterType="com.zyx.parm.sys.QuerySystemRoleParam"
             resultType="int">
-        SELECT count(*) FROM SYS_ROLE where (ROLE_NAME LIKE CONCAT('%','${searchText}','%' ) or ROLE_DESC LIKE
-        CONCAT('%','${searchText}','%' ))
+        SELECT count(*) FROM SYS_ROLE where 1=1
         <if test="appType != null">
             and app_type=#{appType}
+        </if>
+        <if test="searchText !=null and searchText !=''">
+            AND ROLE_NAME like '%${searchText}%'
         </if>
     </select>
 
     <select id="queryAllSystemRole" resultMap="SystemRoleListDto">
-        SELECT id, ROLE_NAME FROM SYS_ROLE
+        SELECT id, ROLE_NAME FROM SYS_ROLE WHERE 1=1
         <if test="appType != null">
             and app_type=#{appType}
         </if>

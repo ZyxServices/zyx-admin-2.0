@@ -32,14 +32,16 @@ public class SysRoleController {
     @ApiOperation(value="动态分页查询权限，可以按照权限名称或者权限描述查询",notes="动态分页查询权限，可以按照权限名称或者权限描述查询")
     public ModelAndView sysRoleLists(@ApiParam(name="pageSize",required = true,value = "每页显示数量")@RequestParam Integer pageSize,
                                      @ApiParam(name="pageNumber",required = true,value = "页码，从1开始")@RequestParam Integer pageNumber,
-                                     @ApiParam(name="searchText",required = false,value = "可以是权限名称或者描述，模糊查询")
-                                         @RequestParam(required = false) String searchText
+                                     @ApiParam(name="searchText",required = false,value = "权限名称模糊查询")
+                                     @RequestParam(required = false) String searchText,
+                                     @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
                                     ) {
         AbstractView jsonView = new MappingJackson2JsonView();
         QuerySystemRoleParam param = new QuerySystemRoleParam();
         param.setPageSize(pageSize);
         param.setPageNumber((pageNumber - 1) * pageSize);
         param.setSearchText(searchText);
+        param.setAppType(appType);
 
         Map<String, Object> map = sysRoleService.queryList(param);
         jsonView.setAttributesMap(map);

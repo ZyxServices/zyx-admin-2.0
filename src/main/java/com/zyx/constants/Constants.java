@@ -384,9 +384,8 @@ public interface Constants {
      put("addOfficial","绑定官方账户");
 
 
-
-
-
+        put("delOpinion","删除意见反馈");
+        
 
 
     }};

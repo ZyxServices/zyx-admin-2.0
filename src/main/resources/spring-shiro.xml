@@ -65,7 +65,7 @@
                 /v2/sysUser/insert=authc
                 /v2/sysUser/list=anon
                 /v2/role/insert=noSessionCreation,rest
-                /v2/role/list=authc
+                <!--/v2/role/list=authc-->
                 /sysmenu/goAdd=noSessionCreation,rest
                 /sysmenu/list=authc
                 /login = authc

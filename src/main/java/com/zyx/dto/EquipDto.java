@@ -87,6 +87,11 @@ public class EquipDto implements Serializable{
      */
     private List<CommentListDto> commentList;
 
+    /**
+     * app类型：1趣攀岩
+     */
+    private Integer appType;
+
 
 
     public Integer getId() {
@@ -199,5 +204,13 @@ public class EquipDto implements Serializable{
 
     public void setDel(int del) {
         this.del = del;
+    }
+
+    public Integer getAppType() {
+        return appType;
+    }
+
+    public void setAppType(Integer appType) {
+        this.appType = appType;
     }
 }
