@@ -51,14 +51,14 @@
         <if test="paymentType != null and paymentType != ''">
             and payment_type=#{paymentType}
         </if>
-        <if test="status != null and status != ''">
+        <if test="status != null">
             <if test="status==1">
-                <![CDATA[and #{currentTime} < end_time ]]>
+                <![CDATA[and #{currentTime} > end_time ]]>
             </if>
             <if test="status==0">
                 <![CDATA[
-                and  #{currentTime} < end_time
-                and  #{currentTime} > start_time
+                and  #{currentTime} <= last_time
+                and  #{currentTime} >= start_time
                 ]]>
             </if>
         </if>
@@ -86,7 +86,7 @@
     </select>
 
 
-    <select id="selectCountActivity" resultType="java.lang.Integer" parameterType="com.zyx.parm.QueryAppUserParam">
+    <select id="selectCountActivity" resultType="java.lang.Integer" parameterType="com.zyx.parm.activity.QueryActivityParm">
         SELECT COUNT(id) FROM activity WHERE  del = 0
         <if test="title != null and title != ''">
             and title LIKE CONCAT('%',${title},'%' )
@@ -104,14 +104,14 @@
         <if test="appType != null and appType != ''">
             and app_type=#{appType}
         </if>
-        <if test="status != null and status != ''">
+        <if test="status != null">
             <if test="status==1">
-                <![CDATA[and #{currentTime} < end_time ]]>
+                <![CDATA[and #{currentTime} > end_time ]]>
             </if>
             <if test="status==0">
                 <![CDATA[
-                and  #{currentTime} < end_time
-                and  #{currentTime} > start_time
+                and  #{currentTime} <= last_time
+                and  #{currentTime} >= start_time
                 ]]>
             </if>
         </if>
