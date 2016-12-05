@@ -135,29 +135,29 @@
                         <a class="btn btn-default" href="javascript:void(0)" onclick="createActivity()">创建活动</a>
                         <a class="btn btn-default" href="javascript:void(0)" onclick="batchDelete()">批量删除</a>
                     </div>
-                    <form  id="searchCondition" enctype="multipart/form-data" class="form-inline" role="form">
-                        <select name="type" id="searchType">
+                        <select name="type" id="searchType" onchange="initAppointmentTable()">
                             <option value="0">官方</option>
                             <option value="1">用户</option>
                         </select>
 
-                        <select name="activityType" id="searchActivityType">
+                        <select name="activityType" id="searchActivityType" onchange="initAppointmentTable()">
                             <option value="1">求约</option>
                             <option value="2">求带</option>
                         </select>
 
-                        <select name="paymentType" id="searchPaymentType">
+                        <select name="paymentType" id="searchPaymentType" onchange="initAppointmentTable()">
                             <option value="0">奖励</option>
                             <option value="1">免费</option>
                             <option value="2">AA</option>
                         </select>
 
-                        <select name="status" id="searchStatus">
+                        <select name="status" id="searchStatus" onchange="initAppointmentTable()">
                             <option value="0">正在报名</option>
                             <option value="1">已结束</option>
                         </select>
-                        <a class="btn btn-default" href="javascript:void(0)" onclick="startFilter()">开始筛选</a>
-                    </form>
+                        <select id="appType" class="form-control" onchange="initAppointmentTable()">
+                          <option value="1">趣攀岩</option>
+                        </select>
                 </div>
                 <div class="row-fluid">
                     <div class="span12 responsive">

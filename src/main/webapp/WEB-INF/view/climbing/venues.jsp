@@ -21,8 +21,7 @@
     <link rel="stylesheet" href="../../css/summernote.css"/>
     <link rel="stylesheet" href="../../css/tiyujia/style.css"/>
     <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
-    <script type="text/javascript"
-            src="http://webapi.amap.com/maps?v=1.3&key=bc83b9475a5b54ab35e22bbaf1b0ab06&plugin=AMap.Autocomplete"></script>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=bc83b9475a5b54ab35e22bbaf1b0ab06&plugin=AMap.Autocomplete"></script>
     <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
 </head>
 <style type="text/css">
@@ -124,8 +123,12 @@
                     <div class="margin-bottom-10"><a class="btn btn-default" href="javascript:void(0)"
                                                      onclick="typeInfo()">录入场馆信息</a></div>
                     <span>城市</span>
-                    <select id="city" class="form-control" onchange="changeBannerTable(this)">
+                    <select id="city" class="form-control" onchange="initTable()">
                         <option value="">全部</option>
+                    </select>
+                    <span>app版本</span>
+                    <select id="appType" class="form-control" onchange="initTable()">
+                        <option value="1">趣攀岩</option>
                     </select>
                 </div>
             </div>

@@ -41,10 +41,10 @@ function initMessageTable() {
         paginationNextText: "下一页",
         sidePagination: 'server',
         queryParams: function (params) {
-            console.log(params)
             return {
                 page: params.offset,
-                pageNumber: params.limit
+                pageNumber: params.limit,
+                appType:$("#appType").val()
             }
         },
         responseHandler:groupFromData

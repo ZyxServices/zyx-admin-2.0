@@ -2,7 +2,7 @@
  * Created by ZYX on 2016/11/9.
  */
 $(function(){
-    initBanner(1);
+    initBanner();
     /*banner表单验证*/
     $("#bannerForm").bootstrapValidator({
         message: '数据无效',
@@ -21,7 +21,7 @@ $(function(){
     });
 })
 
-function initBanner(area) {
+function initBanner() {
     $("#banner-list-table").bootstrapTable('destroy');
     $("#banner-list-table").bootstrapTable({
         url: "/v2/deva/list",
@@ -42,10 +42,11 @@ function initBanner(area) {
         sidePagination: 'server',
         queryParams: function (params) {
             return {
-                area: area,
+                area: $('#b-area').val(),
                 pageDataNum: params.limit,
                 pageNum: (params.offset + 1),
-                search: params.search
+                search: params.search,
+                appType:$("#appType").val()
             }
         },
         responseHandler:groupFromData
@@ -267,11 +268,7 @@ function confirmDevaSubmit() {
         }
     });
 }
-/*banner表格切换*/
-function changeBannerTable(obj) {
-    var _val = $(obj).val();
-    initBanner(_val);
-}
+
 
 /*
  * 图片的上传和预览

@@ -42,9 +42,12 @@
                     </ul>
                 </div>
                 <div>
-                    <select class="form-control" onchange="changeBannerTable(this)">
+                    <select id="b-area" class="form-control" onchange="initBanner()">
                         <option value="1">首页banner</option>
                         <option value="2">求约banner</option>
+                    </select>
+                    <select id="appType" class="form-control" onchange="initBanner()">
+                        <option value="1">趣攀岩</option>
                     </select>
                 </div>
             </div>

@@ -44,9 +44,14 @@
             </div>
             <div id="banner-list">
                 <div class="row-fluid">
-                    <div class="span6">
+                    <div class="span12 margin-bottom-10">
                         <a class="btn btn-default" href="javascript:void(0)" onclick="addGrades()">添加等级</a>
                     </div>
+                </div>
+                <div>
+                    <select id="appType" class="form-control" onchange="initGradersTable()">
+                        <option value="1">趣攀岩</option>
+                    </select>
                 </div>
                 <div class="row-fluid">
                     <div class="span12 responsive">

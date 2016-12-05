@@ -4,7 +4,7 @@
 var $table = $('#dynamic_table'),
     $remove = $('#remove');
 //场馆列表
-function initTable(city) {
+function initTable() {
     $("#dynamic_table").bootstrapTable('destroy');
     $('#dynamic_table').bootstrapTable({
         url: ("/v2/venue/queryVenue"),
@@ -37,7 +37,8 @@ function initTable(city) {
                 pageNumber: params.pageSize,
                 searchText: params.searchText,
                 sortName: params.sortName,
-                city: city
+                appType:$("#appType").val(),
+                city: $("#city").val()
                 //sortOrder: params.sortOrder
             };
             return param;
@@ -441,9 +442,8 @@ function typeInfo() {
     $("#venuesList").hide();
     $("#createModify").show();
 }
-/*点击添加线路---弹出模态窗*/
 
-function changeBannerTable(obj) {
-    var _val = $(obj).val();
-    initTable(_val);
-}
+//function changeBannerTable(obj) {
+//    var _val = $(obj).val();
+//    initTable(_val);
+//}
