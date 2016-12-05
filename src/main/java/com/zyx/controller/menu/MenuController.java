@@ -172,6 +172,11 @@ public class MenuController {
     public ModelAndView redirectCityCity() {
         return new ModelAndView("/city/city");
     }
+    /*版本*/
+    @RequestMapping(value = "/version/version", method = RequestMethod.GET)
+    public ModelAndView redirectVersionVersion() {
+        return new ModelAndView("/version/version");
+    }
 
 //    攀岩
 }

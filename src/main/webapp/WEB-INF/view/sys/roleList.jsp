@@ -206,6 +206,8 @@
                                         <option value="menu:appUser:allAppUser" data-section="用户列表">用户列表</option>
 
                                         <option value="menu:message:messageIndex" data-section="消息">消息</option>
+
+                                        <option value="menu:version:version" data-section="版本控制">版本控制</option>
                                     </select>
                                 </div>
                                 <span class="help-inline required">*</span>
@@ -318,6 +320,8 @@
                                         <option value="menu:appUser:allAppUser" data-section="用户列表">用户列表</option>
 
                                         <option value="menu:message:messageIndex" data-section="消息">消息</option>
+
+                                        <option value="menu:version:version" data-section="版本控制">版本控制</option>
                                     </select>
                                 </div>
                                 <span class="help-inline required">*</span>

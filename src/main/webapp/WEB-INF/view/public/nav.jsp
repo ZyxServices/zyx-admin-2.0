@@ -287,6 +287,16 @@
                 </ul>
             </li>
         </shiro:hasPermission>
+        <%--版本控制--%>
+        <shiro:hasPermission name="menu:version:version">
+            <li class="version">
+                <a href="<%=request.getContextPath()%>/menu/version/version">
+                    <i class="icon-comment"></i>
+                    <span class="title">版本控制</span>
+                    <span class="selected hide"></span>
+                </a>
+            </li>
+        </shiro:hasPermission>
     </ul>
     <!-- END SIDEBAR MENU -->
 </div>
