@@ -169,9 +169,9 @@ function addmarker(i, d) {
     var lngX = d.location.getLng();
     var latY = d.location.getLat();
     var latxy='"'+lngX+'.'+latY+'"';
-    var address='"'+d.address+'"'
-    var name='"'+d.name+'"'
-    var c= '"'+d.pname+d.name
+    var address='"'+d.address+'"';
+    var name='"'+d.name+'"';
+    var c= '"'+d.pname+d.name+'"';
     var markerOption = {
         map:mapObj,
         icon:"http://webapi.amap.com/images/" + (i + 1) + ".png",
@@ -245,7 +245,6 @@ function keydown(event){
     }
 }
 function obtainXy(x,y,a,c){
-    console.log(x,a,c)
     $('#mapModel').modal('hide')
     $.Popup({
         template: '<div style="font-size: 18px">确认获取该地址及经纬度吗?<div style="color: red"><br/>省市:'+c+'<br/>地址:'+a+'<br/>经纬度：'+x+','+y+'<br/></div></div>',
