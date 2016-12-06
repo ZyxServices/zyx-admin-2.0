@@ -6,8 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.AbstractView;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by zjx on 2016/12/5.
@@ -26,6 +31,20 @@ public class ChoiceController {
             @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
 
         request.getSession().setAttribute("appType",appType);
+
+    }
+
+    @RequestMapping(value = "/queryAppType", method = RequestMethod.POST)
+    @ApiOperation(value="查询app类型",notes = "查询app类型")
+    public ModelAndView queryAppType(HttpServletRequest request){
+
+        Integer appType = (Integer) request.getSession().getAttribute("appType");
+
+        AbstractView jsonView = new MappingJackson2JsonView();
+        Map<String,Integer> map = new HashMap<String,Integer>();
+        map.put("appType",appType);
+        jsonView.setAttributesMap(map);
+        return new ModelAndView(jsonView);
 
     }
 }
