@@ -21,12 +21,11 @@ import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.sun.xml.internal.ws.api.model.wsdl.WSDLBoundOperation.ANONYMOUS.required;
 
 @Controller
 @RequestMapping("/v2/deva")
@@ -52,9 +51,11 @@ public class DevaController {
             @ApiParam(required = false, name = "imageUrl", value = "图片地址") @RequestParam(name = "imageUrl", required = false) String imageUrl,
             @ApiParam(required = true, name = "state", value = "状态（0-未激活，1-激活）") @RequestParam(name = "state", required = true) Integer state,
             @ApiParam(required = true, name = "sequence", value = "展示顺序") @RequestParam(name = "sequence", required = true) Integer sequence,
-            @ApiParam(required = true, name = "appType", value = "app类型 1、趣攀岩") @RequestParam(name = "appType", required = true) Integer appType
-    ) {
+            HttpServletRequest request
+            //@ApiParam(required = true, name = "appType", value = "app类型 1、趣攀岩") @RequestParam(name = "appType", required = true) Integer appType
+            ) {
         Map<String, Object> result = new HashMap<>();
+        Integer appType=(Integer) request.getSession().getAttribute("appType");
         Integer sSize = DevaContants.DEVA_AREA_MAX_ITEM.get(appType+"_"+area);
         if (sSize == null) {
             result.put(Constants.STATE, DevaContants.DEVA_NOT_EXIST_MODEL_AREA);
@@ -98,9 +99,10 @@ public class DevaController {
             @ApiParam(required = false, name = "area", value = "展示区域（1首页，2求约）") @RequestParam(name = "area", required = false) Integer area,
             @ApiParam(required = false, name = "imageUrl", value = "图片地址") @RequestParam(name = "imageUrl", required = false) String imageUrl,
             @ApiParam(required = true, name = "state", value = "状态（0-未激活，1-激活）") @RequestParam(name = "state", required = true) Integer state,
-            @ApiParam(required = true, name = "appType", value = "app类型（1-趣攀岩）") @RequestParam(name = "appType", required = true) Integer appType,
+            HttpServletRequest request,
+            //@ApiParam(required = true, name = "appType", value = "app类型（1-趣攀岩）") @RequestParam(name = "appType", required = true) Integer appType,
             @ApiParam(required = true, name = "sequence", value = "展示顺序") @RequestParam(name = "sequence", required = true) Integer sequence) {
-
+        Integer appType=(Integer) request.getSession().getAttribute("appType");
         Map<String, Object> result = new HashMap<>();
         if (id == null) {
             result.put(LiveConstants.STATE, LiveConstants.PARAM_MISS);
@@ -162,9 +164,11 @@ public class DevaController {
     @RequestMapping(value = "/list", method = {RequestMethod.POST, RequestMethod.GET})
     @ApiOperation(value = "首推接口-获取首推", notes = "首推接口-获取首推")
     public ModelAndView getDevasByArea(
-            @ApiParam(required = true, name = "appType", value = "app类型 1、趣攀岩") @RequestParam(name = "appType", required = true) Integer appType,
+            //@ApiParam(required = true, name = "appType", value = "app类型 1、趣攀岩") @RequestParam(name = "appType", required = true) Integer appType,
+            HttpServletRequest request,
             @ApiParam(required = false, name = "area", value = "展示区域（1首页，2求约）") @RequestParam(name = "area", required = false) Integer area) {
         Map<String, Object> result = new HashMap<>();
+        Integer appType=(Integer) request.getSession().getAttribute("appType");
         //2.0版本是区域限定个数
         List<DevaVo> list = devaService.getDevaList(null, area,appType);
         result.put(Constants.DATA, list);
@@ -177,9 +181,11 @@ public class DevaController {
     @RequestMapping(value = "/sequence", method = {RequestMethod.POST, RequestMethod.GET})
     @ApiOperation(value = "首推接口-获取未使用的顺序列表", notes = "首推接口-获取未使用的顺序列表")
     public ModelAndView getUnusedSquen(
-            @ApiParam(required = true, name = "appType", value = "app类型（1趣攀岩）") @RequestParam(name = "appType", required = true) Integer appType,
+            HttpServletRequest request,
+            //@ApiParam(required = true, name = "appType", value = "app类型（1趣攀岩）") @RequestParam(name = "appType", required = true) Integer appType,
             @ApiParam(required = true, name = "area", value = "展示区域（1首页，2求约）") @RequestParam(name = "area", required = true) Integer area) {
         Map<String, Object> result = new HashMap<>();
+        Integer appType=(Integer) request.getSession().getAttribute("appType");
         Integer sSize = DevaContants.DEVA_AREA_MAX_ITEM.get(appType+"_"+area);
 
         if (sSize == null) {

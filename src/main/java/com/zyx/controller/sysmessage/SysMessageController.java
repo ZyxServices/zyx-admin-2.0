@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -33,10 +34,12 @@ public class SysMessageController {
                                 @ApiParam(name = "content",required = true,value = "消息内容")@RequestParam(name = "content",required = true)String content,
                                 @ApiParam(name = "type",required = true,value = "消息类型 0-系统消息 1-日常推送")@RequestParam(name = "type",required = true)Integer type,
                                 @ApiParam(name = "pushType",required = true,value = "消息发送模式 0-及时 1-定时")@RequestParam(name = "pushType",required = true)Integer pushType,
-                                @ApiParam(name = "appType",required = true,value = "app类型 1-趣攀岩")@RequestParam(name = "appType",required = true)Integer appType,
+                                //@ApiParam(name = "appType",required = true,value = "app类型 1-趣攀岩")@RequestParam(name = "appType",required = true)Integer appType,
+                                HttpServletRequest request,
                                 @ApiParam(name = "pushTime",required = false,value = "定时发送时间")@RequestParam(name = "pushTime",required = false)String pushTime
-                        ){
+                                ){
         AbstractView jsonView = new MappingJackson2JsonView();
+        Integer appType=(Integer) request.getSession().getAttribute("appType");
         SysMessage sysMessage = new SysMessage();
         sysMessage.setContent(content);
         if (StringUtils.isNotEmpty(pushTime)){
@@ -80,10 +83,12 @@ public class SysMessageController {
     @RequestMapping(value = "querySysMessage",method = RequestMethod.GET)
     @ApiOperation(value = "消息列表",notes = "消息列表")
     public ModelAndView querySysMessage(@ApiParam(name = "page",required =true,value = "页码从0开始")@RequestParam(name = "page",required = true)Integer page,
-                                        @ApiParam(name = "appType",required =true,value = "app类型 1、趣攀岩")@RequestParam(name = "appType",required = true)Integer appType,
+                                        //@ApiParam(name = "appType",required =true,value = "app类型 1、趣攀岩")@RequestParam(name = "appType",required = true)Integer appType,
+                                        HttpServletRequest request,
                                         @ApiParam(name = "pageNumber",required =true,value = "每页数量")@RequestParam(name = "pageNumber",required = true)Integer pageNumber
                                         ){
         AbstractView jsonView = new MappingJackson2JsonView();
+        Integer appType=(Integer) request.getSession().getAttribute("appType");
         SysMessageParam param = new SysMessageParam();
         param.setPageNumber(page);
         param.setAppType(appType);

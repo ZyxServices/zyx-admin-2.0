@@ -42,30 +42,31 @@
         <if test="title != null and title != ''">
             and title LIKE CONCAT('%',${title},'%' )
         </if>
-        <if test="type != null and type != ''">
+        <if test="type != null">
             and type =#{type}
         </if>
-        <if test="activityType != null and activityType != ''">
+        <if test="activityType != null">
             and activity_type =#{activityType}
         </if>
-        <if test="paymentType != null and paymentType != ''">
+        <if test="paymentType != null">
             and payment_type=#{paymentType}
         </if>
         <if test="status != null">
             <if test="status==1">
-                <![CDATA[and #{currentTime} > end_time ]]>
+                and #{currentTime} &gt; end_time
             </if>
             <if test="status==0">
-                <![CDATA[
-                and  #{currentTime} <= last_time
-                and  #{currentTime} >= start_time
-                ]]>
+                and  #{currentTime} &gt;= start_time
+                and  #{currentTime} &lt;= last_time
             </if>
         </if>
-        AND del = 0 and app_type=#{appType}
+        AND del = 0
+        <if test="appType!=null">
+            and app_type=#{appType}
+        </if>
         ORDER BY create_time desc
-        <if test="pageNumber != null and page != null">
-            limit #{page}, #{pageNumber}
+        <if test="pageNumber != null and pageSize != null">
+            limit #{pageNumber}, #{pageSize}
         </if>
     </select>
 
@@ -91,28 +92,26 @@
         <if test="title != null and title != ''">
             and title LIKE CONCAT('%',${title},'%' )
         </if>
-        <if test="type != null and type != ''">
+        <if test="type != null">
             and type =#{type}
         </if>
-        <if test="activityType != null and activityType != ''">
+        <if test="activityType != null">
             and activity_type =#{activityType}
         </if>
-        <if test="paymentType != null and paymentType != ''">
+        <if test="paymentType != null">
             and payment_type=#{paymentType}
         </if>
 
-        <if test="appType != null and appType != ''">
+        <if test="appType != null">
             and app_type=#{appType}
         </if>
         <if test="status != null">
             <if test="status==1">
-                <![CDATA[and #{currentTime} > end_time ]]>
+                and #{currentTime} &gt; end_time
             </if>
             <if test="status==0">
-                <![CDATA[
-                and  #{currentTime} <= last_time
-                and  #{currentTime} >= start_time
-                ]]>
+                and  #{currentTime} &gt;= start_time
+                and  #{currentTime} &lt;= last_time
             </if>
         </if>
     </select>
@@ -137,10 +136,10 @@
             <if test="imgUrls != null and imgUrls != ''">
                 img_urls = #{imgUrls},
             </if>
-            <if test="activityType != null and activityType != ''">
+            <if test="activityType != null">
                 activity_type = #{activityType},
             </if>
-            <if test="activityModule != null and activityModule != ''">
+            <if test="activityModule != null">
                 activity_module = #{activityModule},
             </if>
             <if test="descContent != null and descContent != ''">
@@ -168,14 +167,14 @@
             <if test="price != null">
                 price = #{price},
             </if>
-            <if test="type != null and type !=''">
+            <if test="type != null">
                 type = #{type},
             </if>
             <if test="targetUrl != null and targetUrl != ''">
                 target_url = #{targetUrl},
             </if>
 
-            <if test="paymentType != null and paymentType !=''">
+            <if test="paymentType != null">
                 payment_type = #{paymentType},
             </if>
             <if test="del != null">

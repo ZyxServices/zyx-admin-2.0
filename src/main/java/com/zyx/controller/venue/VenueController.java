@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 import static org.bouncycastle.asn1.x500.style.RFC4519Style.name;
@@ -32,8 +33,9 @@ public class VenueController {
     @ApiOperation(value = "新增场馆",notes = "新增场馆")
     public ModelAndView insert( @ApiParam(name = "type",required = true, value = "场馆类型:1-室内 2-室外")
                                 @RequestParam(name = "type",required =true)Integer type,
-                                @ApiParam(name = "appType",required = true, value = "app类型类型:1-趣攀岩")
-                                @RequestParam(name = "appType",required =true)Integer appType,
+                                //@ApiParam(name = "appType",required = true, value = "app类型类型:1-趣攀岩")
+                                //@RequestParam(name = "appType",required =true)Integer appType,
+                                HttpServletRequest request,
                                 @ApiParam(name = "name",required = true, value = "场馆名称")
                                 @RequestParam(name = "name",required = true)String name,
                                 @ApiParam(name = "background",required = false, value = "开发背景")
@@ -57,6 +59,7 @@ public class VenueController {
                                 @ApiParam(name = "city", value = "城市",required =true)
                                 @RequestParam(name = "city",required = true)String city){
         AbstractView jsonView = new MappingJackson2JsonView();
+        Integer appType=(Integer) request.getSession().getAttribute("appType");
         Venue venue  = new Venue();
         venue.setName(name);
         venue.setAppType(appType);
@@ -141,8 +144,9 @@ public class VenueController {
                                    @RequestParam(name = "page",required = true)Integer page,
                                    @ApiParam(name = "pageNumber",required = true, value = "每页显示数量")
                                    @RequestParam(name = "pageNumber",required = true)Integer pageNumber,
-                                   @ApiParam(name = "appType",required = true, value = "app类型")
-                                   @RequestParam(name = "appType",required = true)Integer appType,
+                                   //@ApiParam(name = "appType",required = true, value = "app类型")
+                                   //@RequestParam(name = "appType",required = true)Integer appType,
+                                   HttpServletRequest request,
                                    @ApiParam(name = "type",required =false,value = "场馆类型 1-室内 2-室外")
                                    @RequestParam(name = "type",required = false)Integer type,
                                    @ApiParam(name = "city",required = false, value = "城市")
@@ -152,6 +156,7 @@ public class VenueController {
                                    @ApiParam(name = "name", value = "场馆名称")
                                    @RequestParam(name="name",required =false)String name){
         AbstractView jsonView = new MappingJackson2JsonView();
+        Integer appType=(Integer) request.getSession().getAttribute("appType");
         VenueParam venueParam = new VenueParam();
         venueParam.setAppType(appType);
         venueParam.setPageSize(pageNumber);

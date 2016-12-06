@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -30,7 +31,8 @@ public class VersionController {
     @ApiOperation(value = "新增版本信息",notes = "新增版本信息")
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     public ModelAndView insert(@ApiParam(name = "version",required = true,value = "版本号")@RequestParam(name = "version",required = true)String version,
-                               @ApiParam(name = "appType",required = true,value = "app类型 1-趣攀岩")@RequestParam(name = "appType",required = true)Integer appType,
+                               HttpServletRequest request,
+                               //@ApiParam(name = "appType",required = true,value = "app类型 1-趣攀岩")@RequestParam(name = "appType",required = true)Integer appType,
                                @ApiParam(name = "publishTime",required = true,value = "发布时间 格式yyyy-MM-dd hh:mm:ss")@RequestParam(name = "publishTime",required = true)String publishTime,
                                @ApiParam(name = "createTime",required = true,value = "创建时间 格式yyyy-MM-dd hh:mm:ss")@RequestParam(name = "createTime",required = true)String createTime,
                                @ApiParam(name = "downloadUrl",required = false,value = "下载地址")@RequestParam(name = "downloadUrl",required = false)String downloadUrl,
@@ -38,6 +40,7 @@ public class VersionController {
                                @ApiParam(name = "platform",required = true,value = "系统类型 1-Android 2-IOS")@RequestParam(name = "platform",required = true)Integer platform
                                 ){
         AbstractView jsonView = new MappingJackson2JsonView();
+        Integer appType=(Integer) request.getSession().getAttribute("appType");
         Version versionEntity = new Version();
         versionEntity.setAppType(appType);
         versionEntity.setPublishTime(GetTimeUtil.getDateTime(publishTime));
@@ -88,10 +91,12 @@ public class VersionController {
     @ApiOperation(value = "版本查询",notes = "版本查询")
     public ModelAndView queryVersion(@ApiParam(name = "platform",required = true,value = "系统类型 1-Android 2-IOS")@RequestParam(name = "platform",required = true)Integer platform,
                                      @ApiParam(name = "page",required = true,value = "页码 从0开始")@RequestParam(name = "page",required = true)Integer page,
-                                     @ApiParam(name = "appType",required = true,value = "app类型 1趣攀岩")@RequestParam(name = "appType",required = true)Integer appType,
+                                     //@ApiParam(name = "appType",required = true,value = "app类型 1趣攀岩")@RequestParam(name = "appType",required = true)Integer appType,
+                                     HttpServletRequest request,
                                      @ApiParam(name = "pageNumber",required = true,value = "每页数量")@RequestParam(name = "pageNumber",required = true)Integer pageNumber
                                     ){
         AbstractView jsonView = new MappingJackson2JsonView();
+        Integer appType=(Integer) request.getSession().getAttribute("appType");
         VersionParam versionParam = new VersionParam();
         versionParam.setPageNumber(page);
         versionParam.setAppType(appType);

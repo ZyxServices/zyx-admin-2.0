@@ -37,7 +37,7 @@
 
     <select id="queryVenue" parameterType="com.zyx.parm.venue.VenueParam" resultMap="venuedto">
         select id,name,description,type,city,mark,level,address,phone,img_urls,longitude,latitude,background from t_venue where del=0
-        <if test="type != null and type != ''">
+        <if test="type != null">
             and TYPE =#{type}
         </if>
         <if test="mark != null and mark != ''">
@@ -49,7 +49,7 @@
         <if test="name != null and name != ''">
             and name LIKE CONCAT('%',#{name},'%' )
         </if>
-        <if test="appType != null and appType != ''">
+        <if test="appType != null">
             and app_type=#{appType}
         </if>
         ORDER BY create_time desc
@@ -60,7 +60,7 @@
 
     <select id="selectCountVenue" resultType="java.lang.Integer" parameterType="com.zyx.parm.venue.VenueParam">
         SELECT COUNT(id) FROM t_venue WHERE del=0
-        <if test="type != null and type != ''">
+        <if test="type != null">
             and TYPE =#{type}
         </if>
         <if test="mark != null and mark != ''">
@@ -72,7 +72,7 @@
         <if test="name != null and name != ''">
             and name LIKE CONCAT('%',#{name},'%' )
         </if>
-        <if test="appType != null and appType != ''">
+        <if test="appType != null">
             and app_type=#{appType}
         </if>
     </select>
@@ -96,7 +96,7 @@
             <if test="city != null and city != ''">
                 city = #{city},
             </if>
-            <if test="type != null and type != ''">
+            <if test="type != null">
                 type = #{type},
             </if>
             <if test="longitude != null and longitude != ''">
@@ -118,7 +118,7 @@
             <if test="background != null and background != ''">
                 background = #{background},
             </if>
-            <if test="level != null and level != ''">
+            <if test="level != null">
                 level = #{level},
             </if>
         </set>
