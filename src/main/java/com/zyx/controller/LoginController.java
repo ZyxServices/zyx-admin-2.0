@@ -21,6 +21,7 @@ import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Base64;
@@ -119,6 +120,9 @@ public class LoginController {
             SysUser user = token.getUser();
             request.setAttribute(Constants.CURRENT_USER, user);
             currentUser.getSession().setAttribute(Constants.CURRENT_USER, user);
+            HttpServletRequest req = (HttpServletRequest)request;
+            req.getSession().setAttribute("appType",1);
+
             return new ModelAndView("redirect:/home");
         } else {
             return new ModelAndView("redirect:/");
