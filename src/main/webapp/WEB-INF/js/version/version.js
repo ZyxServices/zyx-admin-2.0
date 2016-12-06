@@ -97,7 +97,6 @@ function initVersionTable() {
             return {
                 platform:$("#platform").val(),
                 page: params.offset,
-                appType:$("#appType").val(),
                 pageNumber: params.limit
             }
         },

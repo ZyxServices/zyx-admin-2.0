@@ -52,7 +52,7 @@ function initAppUserTable() {
             {field: 'id', title: 'id', align: 'center'},
             {field: 'nickname', title: '用户昵称'},
             {field: 'sex', title: '性别', formatter:sexFormat},
-            {field: 'phone', title: '联系电弧'},
+            {field: 'phone', title: '联系电话'},
             {field: 'createTime', title: '注册时间', sortable: true,formatter:timeFormat},
             {field: 'birthday', title: '生日', sortable: true, formatter:timeFormat},
             {field: 'address', title: '所在地', sortable: true},
@@ -91,7 +91,7 @@ var operateEvent = {
         $("#nickname").val(row.nickname);
         $("#userId").val(row.id);
         $("#phone").val(row.phone);
-        $("#password").val(row.password);
+        $("#password").val('');
         $('input[name=sex]').eq(!row.sex).attr({"checked": "checked"});
         if(row.avatar){
             $("#avatarImg").attr("src","http://image.tiyujia.com/" + row.avatar);
