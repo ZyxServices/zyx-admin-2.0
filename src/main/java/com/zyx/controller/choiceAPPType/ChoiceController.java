@@ -27,10 +27,20 @@ public class ChoiceController {
 
     @RequestMapping(value = "/choiceAppType", method = RequestMethod.POST)
     @ApiOperation(value="修改app类型：1趣攀岩",notes = "修改app类型：1趣攀岩")
-    public void choiceAppType(HttpServletRequest request,
+    public ModelAndView choiceAppType(HttpServletRequest request,
             @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
 
         request.getSession().setAttribute("appType",appType);
+        AbstractView jsonView = new MappingJackson2JsonView();
+        Map<String,String> map = new HashMap<String,String>();
+        if(request.getSession().getAttribute("appType")!=null){
+            map.put("msg","设置成功");
+        }else {
+            map.put("msg","设置失败");
+        }
+
+        jsonView.setAttributesMap(map);
+        return new ModelAndView(jsonView);
 
     }
 
