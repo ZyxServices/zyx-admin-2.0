@@ -70,11 +70,9 @@ $(function () {
         dataField: "data",
         queryParams: function queryParams(params) {   //设置查询参数
             var param = {
-                page: 1,
+                page: params.pageNumber,
                 pageNumber: params.pageSize,
                 searchText: params.searchText
-                //sortName: params.sortName
-                //sortOrder: params.sortOrder
             };
             return param;
         },
