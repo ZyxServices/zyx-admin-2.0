@@ -153,9 +153,6 @@
                             <option value="0">正在报名</option>
                             <option value="1">已结束</option>
                         </select>
-                        <select id="appType" class="form-control" onchange="initAppointmentTable()">
-                          <option value="1">趣攀岩</option>
-                        </select>
                 </div>
                 <div class="row-fluid">
                     <div class="span12 responsive">
@@ -329,15 +326,6 @@
                                     <option value="2">AA</option>
                                 </select>
                                 <input type="text" name="price" placeholder="输入AA金额" id="price" class="hide">
-                            </div>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label">app版本</label>
-                            <div class="controls">
-                                <select name="appType" class="span6" id="app" style="height: 34px" >
-                                    <option value="1">趣攀岩</option>
-                                </select>
                             </div>
                         </div>
                         <div class="form-group">

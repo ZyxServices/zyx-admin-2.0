@@ -187,8 +187,7 @@ function queryParams(params) {
         type: $("#searchType").val(),
         activityType: $("#searchActivityType").val(),
         paymentType: $("#searchPaymentType").val(),
-        status: $("#searchStatus").val(),
-        appType:$("#appType").val()
+        status: $("#searchStatus").val()
     };
 }
 

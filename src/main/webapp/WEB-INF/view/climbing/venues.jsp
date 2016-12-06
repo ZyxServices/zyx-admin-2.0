@@ -132,10 +132,6 @@
                     <select id="city" class="form-control" onchange="initTable()">
                         <option value="">全部</option>
                     </select>
-                    <span>app版本</span>
-                    <select id="appType" class="form-control" onchange="initTable()">
-                        <option value="1">趣攀岩</option>
-                    </select>
                 </div>
             </div>
             <div id="banner-list">
@@ -304,15 +300,6 @@
                                 <select id="v_type" name="type">
                                     <option value="1">室内</option>
                                     <option value="2">室外</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">app版本</label>
-
-                            <div class="controls">
-                                <select name="appType" class="span6" id="app" style="height: 34px">
-                                    <option value="1">趣攀岩</option>
                                 </select>
                             </div>
                         </div>

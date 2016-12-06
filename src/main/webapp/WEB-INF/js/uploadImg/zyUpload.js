@@ -1241,9 +1241,9 @@ var ZYFILE = {
         //    formdata.append("imgFile", $("#uploadTailor_" + file.index).attr("tailor"))
         //}
         var xhr = new XMLHttpRequest();
-        xhr.upload.addEventListener("progress", function (e) {
-            self.onProgress(file, e.loaded, e.total)
-        }, false);
+        //xhr.upload.addEventListener("progress", function (e) {
+        //    self.onProgress(file, e.loaded, e.total)
+        //}, false);
         xhr.addEventListener("load", function (e) {
             self.funDeleteFile(file.index, false);
             self.onSuccess(file, xhr.responseText);
@@ -1259,10 +1259,8 @@ var ZYFILE = {
         xhr.addEventListener("error", function (e) {
             self.onFailure(file, xhr.responseText)
         }, false);
-
         xhr.open("POST", self.url, true);
-        xhr.send(formdata)
-
+        xhr.send(formdata);
     },
     funReturnNeedFiles: function () {
         return this.uploadFile

@@ -134,7 +134,7 @@ function initTable() {
         selections = getIdSelections();
     });
     /*查询创建活动时需要选择的用户*/
-
+    queryOfficial('choiceUser')
 }
 
 // 认证状态格式化

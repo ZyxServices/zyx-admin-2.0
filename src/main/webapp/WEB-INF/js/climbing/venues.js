@@ -37,7 +37,6 @@ function initTable() {
                 pageNumber: params.pageSize,
                 searchText: params.searchText,
                 sortName: params.sortName,
-                appType:$("#appType").val(),
                 city: $("#city").val()
                 //sortOrder: params.sortOrder
             };
