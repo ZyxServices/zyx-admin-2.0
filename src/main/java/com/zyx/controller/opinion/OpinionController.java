@@ -15,6 +15,7 @@ import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -36,10 +37,12 @@ public class OpinionController {
 
     @RequestMapping(value = "/queryUser", method = RequestMethod.GET)
     @ApiOperation(value = "分页查询意见", notes = "分页查询意见")
-    public ModelAndView queryUser(@ApiParam(name="page",required = true,value = "页码:从1开始")@RequestParam Integer page,
-                             @ApiParam(name="pageNumber",required = true,value = "每页显示数量")@RequestParam Integer pageNumber,
-                             @ApiParam(name="userId",required = true,value = "用户id")@RequestParam(required = true) Integer userId,
-                             @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType) {
+    public ModelAndView queryUser(HttpServletRequest request,
+                                  @ApiParam(name="page",required = true,value = "页码:从1开始")@RequestParam Integer page,
+                                  @ApiParam(name="pageNumber",required = true,value = "每页显示数量")@RequestParam Integer pageNumber,
+                                  @ApiParam(name="userId",required = true,value = "用户id")@RequestParam(required = true) Integer userId
+//                             ,@ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+    ) {
         AbstractView jsonView = new MappingJackson2JsonView();
         OpinionParam param = new OpinionParam();
         param.setPageSize(pageNumber);
@@ -51,7 +54,7 @@ public class OpinionController {
         }
 
         param.setUserId(userId);
-        param.setAppType(appType);
+        param.setAppType((Integer) request.getSession().getAttribute("appType"));
 
         Map<String, Object> map = opinionService.queryByUser(param);
         jsonView.setAttributesMap(map);

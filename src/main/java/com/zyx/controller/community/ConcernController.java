@@ -49,29 +49,33 @@ public class ConcernController {
             @ApiParam(name = "imgFileUrl", required = false, value = "图片路径")
             @RequestParam(value = "imgFileUrl", required = false) String imgFileUrl,
             @ApiParam(name = "videoUrl", required = false, value = "视频路径")
-            @RequestParam(value = "videoUrl", required = false) String videoUrl,
-            @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType) {
+            @RequestParam(value = "videoUrl", required = false) String videoUrl
+//            ,@ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+    ) {
         AbstractView jsonView = new MappingJackson2JsonView();
         SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
-        Map<String, Object> map = concernService.createConcern(content, createId, visible, imgFileUrl,videoUrl,appType);
+        Map<String, Object> map = concernService.createConcern(content, createId, visible, imgFileUrl,videoUrl,
+                (Integer) request.getSession().getAttribute("appType"));
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
 
     @RequestMapping(value = "/findConcern", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有动态", notes = "查询所有动态")
-    public ModelAndView findConcern(@ApiParam(name = "page", required = true, value = "页码。从零开始")
+    public ModelAndView findConcern(HttpServletRequest request,
+                                    @ApiParam(name = "page", required = true, value = "页码。从零开始")
                                     @RequestParam(value = "page") Integer page,
                                     @ApiParam(name = "pageSize", required = true, value = "显示数量")
                                     @RequestParam(value = "pageSize") Integer pageSize,
                                     @ApiParam(name = "searchText", required = false, value = "动态模糊查询条件。此处为发布人")
-                                    @RequestParam(value = "searchText", required = false) String searchText,
-                                    @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType) {
+                                    @RequestParam(value = "searchText", required = false) String searchText
+//                                    ,@ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+                                                                                                                         ) {
         Map<String, Object> map = null;
         if (Objects.equals(searchText, null) || Objects.equals(searchText, "")) {
-            map = concernService.findByPager(page, pageSize,appType);
+            map = concernService.findByPager(page, pageSize,(Integer) request.getSession().getAttribute("appType"));
         } else {
-            map = concernService.search(page, pageSize, searchText,appType);
+            map = concernService.search(page, pageSize, searchText,(Integer) request.getSession().getAttribute("appType"));
         }
         AbstractView jsonView = new MappingJackson2JsonView();
         jsonView.setAttributesMap(map);

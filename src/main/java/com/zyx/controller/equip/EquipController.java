@@ -45,8 +45,9 @@ public class EquipController {
                             @ApiParam(name = "content", required = true, value = "内容")
                             @RequestParam(name="content",required = true)String content,
                             @ApiParam(name = "labelId", required = true, value = "标签id")
-                            @RequestParam(name="labelId",required = true)Integer labelId,
-                             @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
+                            @RequestParam(name="labelId",required = true)Integer labelId
+//                             ,@ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+                                                                                                                                                ){
 
         AbstractView jsonView = new MappingJackson2JsonView();
         SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
@@ -55,7 +56,7 @@ public class EquipController {
         equip.setContent(content);
         equip.setTitle(title);
         equip.setLabelId(labelId);
-        equip.setAppType(appType);
+        equip.setAppType((Integer) request.getSession().getAttribute("appType"));
         Map<String,Object> map = equipService.insertEquip(equip);
         jsonView.setAttributesMap(map);
 
@@ -64,15 +65,17 @@ public class EquipController {
 
     @RequestMapping(value="/queryEquip",method = RequestMethod.GET)
     @ApiOperation(value="动态分页查询装备控帖子",notes = "动态分页装备控帖子")
-    public ModelAndView queryEquip(@ApiParam(name = "title", required = false, value = "装备控标题")
+    public ModelAndView queryEquip(HttpServletRequest request,
+                                   @ApiParam(name = "title", required = false, value = "装备控标题")
                                     @RequestParam(name="title",required = false)String title,
                                     @ApiParam(name = "equipType", required = true, value = "装备控状态：0用户帖；1官方贴")
                                     @RequestParam(name="equipType",required = true)Integer equipType,
                                     @ApiParam(name = "page", required = true, value = "页码")
                                     @RequestParam(name="page",required = true)Integer page,
                                     @ApiParam(name = "pageNumber", required = true, value = "每页显示数量")
-                                    @RequestParam(name="pageNumber",required = true)Integer pageNumber,
-                                   @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
+                                    @RequestParam(name="pageNumber",required = true)Integer pageNumber
+//                                   @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+                                                                                                                                                    ){
 
         AbstractView jsonView = new MappingJackson2JsonView();
         QueryEquipParam param = new QueryEquipParam();
@@ -80,7 +83,7 @@ public class EquipController {
         param.setEquipType(equipType);
         param.setPageSize(pageNumber);
         param.setPageNumber((page-1)*pageNumber);
-        param.setAppType(appType);
+        param.setAppType((Integer) request.getSession().getAttribute("appType"));
 
         Map<String,Object> map = equipService.queryEquip(param);
         jsonView.setAttributesMap(map);

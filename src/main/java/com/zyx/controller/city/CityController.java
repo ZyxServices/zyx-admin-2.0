@@ -1,7 +1,6 @@
 package com.zyx.controller.city;
 
 import com.zyx.model.City;
-import com.zyx.parm.city.QueryCityParam;
 import com.zyx.service.city.CityService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -14,6 +13,7 @@ import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -32,13 +32,15 @@ public class CityController {
 
     @RequestMapping(value="/add",method = RequestMethod.POST)
     @ApiOperation(value="添加城市",notes="添加城市")
-    public ModelAndView add(@ApiParam(name = "cityName", required = true, value = "城市名")
-                            @RequestParam(name="cityName",required = true)String cityName,
-                            @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
+    public ModelAndView add(HttpServletRequest request,
+                            @ApiParam(name = "cityName", required = true, value = "城市名")
+                            @RequestParam(name="cityName",required = true)String cityName
+//                            ,@ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+    ){
         AbstractView jsonView = new MappingJackson2JsonView();
         City city = new City();
         city.setCityName(cityName);
-        city.setAppType(appType);
+        city.setAppType((Integer) request.getSession().getAttribute("appType"));
 
         Map<String,Object> map = cityService.add(city);
         jsonView.setAttributesMap(map);
@@ -58,13 +60,15 @@ public class CityController {
 
     @RequestMapping(value="/queryAll",method = RequestMethod.GET)
     @ApiOperation(value = "查询所有城市",notes="查询所有城市")
-    public ModelAndView queryAll(@ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
+    public ModelAndView queryAll(HttpServletRequest request
+//                                 @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+    ){
         AbstractView jsonView = new MappingJackson2JsonView();
 
 //        QueryCityParam param = new QueryCityParam();
 //        param.setAppType(appType);
         City city = new City();
-        city.setAppType(appType);
+        city.setAppType((Integer) request.getSession().getAttribute("appType"));
         Map<String,Object> map = cityService.queryCity(city);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
@@ -88,14 +92,16 @@ public class CityController {
 
     @RequestMapping(value="/queryByState",method = RequestMethod.GET)
     @ApiOperation(value = "查询所有启用状态的城市",notes="查询所有启用状态的城市")
-    public ModelAndView queryByState(@ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
+    public ModelAndView queryByState(HttpServletRequest request
+//                                     @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+    ){
         AbstractView jsonView = new MappingJackson2JsonView();
 
 //        QueryCityParam param = new QueryCityParam();
 //        param.setAppType(appType);
 
         City city = new City();
-        city.setAppType(appType);
+        city.setAppType((Integer) request.getSession().getAttribute("appType"));
         Map<String,Object> map = cityService.queryByState(city);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);

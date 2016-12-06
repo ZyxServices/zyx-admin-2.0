@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -30,18 +31,19 @@ public class SysRoleController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ApiOperation(value="动态分页查询权限，可以按照权限名称或者权限描述查询",notes="动态分页查询权限，可以按照权限名称或者权限描述查询")
-    public ModelAndView sysRoleLists(@ApiParam(name="pageSize",required = true,value = "每页显示数量")@RequestParam Integer pageSize,
+    public ModelAndView sysRoleLists(HttpServletRequest request,
+                                     @ApiParam(name="pageSize",required = true,value = "每页显示数量")@RequestParam Integer pageSize,
                                      @ApiParam(name="pageNumber",required = true,value = "页码，从1开始")@RequestParam Integer pageNumber,
                                      @ApiParam(name="searchText",required = false,value = "权限名称模糊查询")
-                                     @RequestParam(required = false) String searchText,
-                                     @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+                                     @RequestParam(required = false) String searchText
+//                                     @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
                                     ) {
         AbstractView jsonView = new MappingJackson2JsonView();
         QuerySystemRoleParam param = new QuerySystemRoleParam();
         param.setPageSize(pageSize);
         param.setPageNumber((pageNumber - 1) * pageSize);
         param.setSearchText(searchText);
-        param.setAppType(appType);
+        param.setAppType((Integer) request.getSession().getAttribute("appType"));
 
         Map<String, Object> map = sysRoleService.queryList(param);
         jsonView.setAttributesMap(map);
@@ -50,11 +52,13 @@ public class SysRoleController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ApiOperation(value="查询所有权限，用于下拉框列表",notes="查询所有权限，用于下拉框列表")
-    public ModelAndView sysRoleAllLists( @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType) {
+    public ModelAndView sysRoleAllLists( HttpServletRequest request
+//                                         @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+    ) {
         AbstractView jsonView = new MappingJackson2JsonView();
 
         QuerySystemRoleParam param = new QuerySystemRoleParam();
-        param.setAppType(appType);
+        param.setAppType((Integer) request.getSession().getAttribute("appType"));
         Map<String, Object> map = sysRoleService.queryAllList(param);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
@@ -69,10 +73,12 @@ public class SysRoleController {
      */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ApiOperation(value="创建权限",notes = "创建权限")
-    public ModelAndView sysRoleInsert(@ApiParam(name="roleName",required = true,value = "权限名称")@RequestParam String roleName,
+    public ModelAndView sysRoleInsert(HttpServletRequest request,
+                                      @ApiParam(name="roleName",required = true,value = "权限名称")@RequestParam String roleName,
                                       @ApiParam(name="roleDesc",required = true,value = "权限描述")@RequestParam String roleDesc,
-                                      @ApiParam(name="menuPerm",required = false,value = "权限菜单")@RequestParam(required = false) String menuPerm,
-                                      @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType) {
+                                      @ApiParam(name="menuPerm",required = false,value = "权限菜单")@RequestParam(required = false) String menuPerm
+//                                      ,@ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+    ) {
         AbstractView jsonView = new MappingJackson2JsonView();
         Map<String, Object> map;
         SysRole sysRole = sysRoleService.selectByRoleName(roleName);
@@ -84,7 +90,7 @@ public class SysRoleController {
             param.setRoleName(roleName);
             param.setRoleDesc(roleDesc);
             param.setMenuPerm(menuPerm);
-            param.setAppType(appType);
+            param.setAppType((Integer) request.getSession().getAttribute("appType"));
 //            param.setRoleId(UUID.randomUUID().toString().replaceAll("-", ""));
             map = sysRoleService.insertSysRole(param);
         }

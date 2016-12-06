@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -42,19 +43,21 @@ public class AppUserController {
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ApiOperation(value = "创建官方账号", notes = "创建官方账户")
-    public ModelAndView insert(@ApiParam(name = "phone",required = true,value = "电话，即账号")@RequestParam String phone,
+    public ModelAndView insert(HttpServletRequest request,
+                               @ApiParam(name = "phone",required = true,value = "电话，即账号")@RequestParam String phone,
                                @ApiParam(name = "password",required = true,value = "密码")@RequestParam String password,
                                @ApiParam(name = "avatar",required = false,value = "头像") @RequestParam(required = false) String avatar,
                                @ApiParam(name = "nickname",required = true,value = "昵称")@RequestParam String nickname,
                                @ApiParam(name = "sex",required = true,value = "性别:1男、0女")@RequestParam String sex,
                                @ApiParam(name = "birthday",required = false,value = "生日")@RequestParam(required = false) Long birthday,
                                @ApiParam(name = "address",required = true,value = "地址")@RequestParam String address,
-                               @ApiParam(name = "signature",required = false,value = "签名")@RequestParam(required = false) String signature,
-                               @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType) {
+                               @ApiParam(name = "signature",required = false,value = "签名")@RequestParam(required = false) String signature
+//                               ,@ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+    ) {
         AbstractView jsonView = new MappingJackson2JsonView();
         Map<String, Object> map;
         try {
-            if (appUserService.selectByPhone(phone,appType) != null) {
+            if (appUserService.selectByPhone(phone,(Integer) request.getSession().getAttribute("appType")) != null) {
                 map = MapUtils.buildErrorMap(AppUserConstants.ERROR_APP_USER_5001, AppUserConstants.ERROR_APP_USER_5001_MSG);
             } else {
                 AppUserCreateParam param = new AppUserCreateParam();
@@ -70,7 +73,7 @@ public class AppUserController {
                     param.setBirthday(birthday);
                 }
                 param.setSignature(signature);
-                param.setAppType(appType);
+                param.setAppType((Integer) request.getSession().getAttribute("appType"));
                 map = appUserService.insertAppUser(param);
             }
         } catch (Exception e) {
@@ -84,6 +87,7 @@ public class AppUserController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ApiOperation(value = "APP用户接口-编辑官方用户", notes = "APP用户接口-编辑官方用户")
     public ModelAndView update(@RequestParam Integer id,
+                               HttpServletRequest request,
                                @ApiParam(name = "phone",required = false,value = "电话，即账号")@RequestParam(required = false) String phone,
                                @ApiParam(name = "password",required = false,value = "密码")@RequestParam(required = false) String password,
                                @ApiParam(name = "avatar",required = false,value = "头像")@RequestParam(required = false) String avatar,
@@ -91,15 +95,15 @@ public class AppUserController {
                                @ApiParam(name = "sex",required = false,value = "性别:1男、0女")@RequestParam(required = false) String sex,
                                @ApiParam(name = "address",required = false,value = "地址") @RequestParam(required = false) String address,
                                @ApiParam(name = "birthday",required = false,value = "生日")@RequestParam(required = false) Long birthday,
-                               @ApiParam(name = "signature",required = false,value = "签名")@RequestParam(required = false) String signature,
-                               @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+                               @ApiParam(name = "signature",required = false,value = "签名")@RequestParam(required = false) String signature
+//                               ,@ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
                                ) {
         AbstractView jsonView = new MappingJackson2JsonView();
         AppUserCreateParam param = new AppUserCreateParam();
 
         Map<String, Object> map;
         if(phone!=null && phone!=""){
-            AppUser appUser = appUserService.selectByPhone(phone,appType);
+            AppUser appUser = appUserService.selectByPhone(phone,(Integer) request.getSession().getAttribute("appType"));
             if (appUser != null && !appUser.getId().equals(id)) {
                 map = MapUtils.buildErrorMap(AppUserConstants.ERROR_APP_USER_5001, AppUserConstants.ERROR_APP_USER_5001_MSG);
                 jsonView.setAttributesMap(map);
@@ -140,13 +144,15 @@ public class AppUserController {
 
     @RequestMapping(value = "/queryUser", method = RequestMethod.GET)
     @ApiOperation(value = "动态查询用户", notes = "动态查询用户")
-    public ModelAndView queryUser(@ApiParam(name="page",required = true,value = "页码:从1开始")@RequestParam Integer page,
+    public ModelAndView queryUser(HttpServletRequest request,
+                                  @ApiParam(name="page",required = true,value = "页码:从1开始")@RequestParam Integer page,
                                   @ApiParam(name="official",required = true,value = "是否官方：0用户、1官方")@RequestParam Integer official,
                              @ApiParam(name="pageNumber",required = true,value = "每页显示数量")@RequestParam Integer pageNumber,
                              @ApiParam(name="searchText",required = false,value = "此为用户昵称")@RequestParam(required = false) String searchText,
                              @ApiParam(name="sortName",required = false,value = "排序字段：可以是id、birthday生日、lastLoginTime最后一次登录日期、create_time创建日期、money攀岩币") @RequestParam(required = false) String sortName,
-                             @ApiParam(name="sortOrder",required = false,value = "排序规则：desc倒序、asc正序")@RequestParam(required = false) String sortOrder,
-                             @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType) {
+                             @ApiParam(name="sortOrder",required = false,value = "排序规则：desc倒序、asc正序")@RequestParam(required = false) String sortOrder
+//                             ,@ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+    ) {
         AbstractView jsonView = new MappingJackson2JsonView();
         QueryAppUserParam param = new QueryAppUserParam();
         param.setPageSize(pageNumber);
@@ -161,7 +167,7 @@ public class AppUserController {
         param.setSortName(sortName);
         param.setSortOrder(sortOrder);
         param.setOfficial(official);
-        param.setAppType(appType);
+        param.setAppType((Integer) request.getSession().getAttribute("appType"));
         Map<String, Object> map = appUserService.queryList(param);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);

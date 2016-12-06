@@ -3,7 +3,6 @@ package com.zyx.controller.equip;
 import com.zyx.constants.Constants;
 import com.zyx.model.EquipLabel;
 import com.zyx.model.SysUser;
-import com.zyx.parm.Equip.QueryEquipLabelParam;
 import com.zyx.service.equip.EquipLabelService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -38,15 +37,16 @@ public class EquipLabelController {
     @ApiOperation(value="添加标签",notes="添加标签")
     public ModelAndView add(HttpServletRequest request,
                             @ApiParam(name = "labelName", required = true, value = "标签名字")
-                            @RequestParam(name="labelName",required = true)String labelName,
-                            @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
+                            @RequestParam(name="labelName",required = true)String labelName
+//                            ,@ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+                                                                                                        ){
 
         AbstractView jsonView = new MappingJackson2JsonView();
         EquipLabel equipLabel  =new EquipLabel();
         SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
         equipLabel.setUserId(sysUser.getId());
         equipLabel.setLabelName(labelName);
-        equipLabel.setAppType(appType);
+        equipLabel.setAppType((Integer) request.getSession().getAttribute("appType"));
 
         Map<String,Object> map = equipLabelService.insertEquipLabel(equipLabel);
         jsonView.setAttributesMap(map);
@@ -67,13 +67,15 @@ public class EquipLabelController {
 
     @RequestMapping(value="/queryAll",method = RequestMethod.GET)
     @ApiOperation(value = "查询所有标签",notes="查询所有标签")
-    public ModelAndView queryAll( @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
+    public ModelAndView queryAll( HttpServletRequest request
+//                                  @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+    ){
         AbstractView jsonView = new MappingJackson2JsonView();
 
 //        QueryEquipLabelParam param = new QueryEquipLabelParam();
 //        param.setAppType(appType);
         EquipLabel equipLabel = new EquipLabel();
-        equipLabel.setAppType(appType);
+        equipLabel.setAppType((Integer) request.getSession().getAttribute("appType"));
         Map<String,Object> map = equipLabelService.queryEquipLabel(equipLabel);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
@@ -97,14 +99,16 @@ public class EquipLabelController {
 
     @RequestMapping(value="/queryByState",method = RequestMethod.GET)
     @ApiOperation(value = "查询所有启用状态的标签，用于发布帖子时的标签下拉框",notes="查询所有启用状态的标签，用于发布帖子时的标签下拉框")
-    public ModelAndView queryByState( @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
+    public ModelAndView queryByState( HttpServletRequest request
+//                                      @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+    ){
         AbstractView jsonView = new MappingJackson2JsonView();
 
 //        QueryEquipLabelParam param = new QueryEquipLabelParam();
 //        param.setAppType(appType);
 
         EquipLabel equipLabel = new EquipLabel();
-        equipLabel.setAppType(appType);
+        equipLabel.setAppType((Integer) request.getSession().getAttribute("appType"));
         Map<String,Object> map = equipLabelService.queryByState(equipLabel);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);

@@ -45,8 +45,9 @@ public class CourseController {
                              @ApiParam(name = "title", required = true, value = "标题") @RequestParam(name = "title", required = true) String title,
                              @ApiParam(name = "courseType", required = true, value = "教程类型：图文、视频")@RequestParam(name = "courseType", required = true) String courseType,
                              @ApiParam(name = "labelId", required = true, value = "标签id")@RequestParam(name = "labelId", required = true) Integer labelId,
-                             @ApiParam(name = "imgUrl", required = false, value = "图片路径")@RequestParam(name = "imgUrl", required = false) String imgUrl,
-                             @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
+                             @ApiParam(name = "imgUrl", required = false, value = "图片路径")@RequestParam(name = "imgUrl", required = false) String imgUrl
+//                             ,@ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+    ){
         AbstractView jsonView = new MappingJackson2JsonView();
 
 //        if (imgUrl == null || imgUrl.equals("")) {
@@ -69,7 +70,7 @@ public class CourseController {
         course.setImgUrl(imgUrl);
         course.setTitle(title);
         course.setUserId(sysUser.getId());
-        course.setAppType(appType);
+        course.setAppType((Integer) request.getSession().getAttribute("appType"));
 
         Map<String,Object> map = courseService.insertCourse(course);
         jsonView.setAttributesMap(map);
@@ -79,14 +80,15 @@ public class CourseController {
 
     @RequestMapping(value="/queryCourse",method = RequestMethod.GET)
     @ApiOperation(value="根据标签和类型分页查询教程攻略",notes="根据标签和类型分页查询教程攻略")
-    public ModelAndView queryCourse( @ApiParam(name = "labelId", required = false, value = "标签id")@RequestParam(name="labelId",required = false)Integer labelId,
+    public ModelAndView queryCourse( HttpServletRequest request,@ApiParam(name = "labelId", required = false, value = "标签id")@RequestParam(name="labelId",required = false)Integer labelId,
                                      @ApiParam(name = "courseType", required = false, value = "教程类型：图文、视频")@RequestParam(name="courseType",required = false)String courseType,
                                      @ApiParam(name = "page", required = true, value = "页码")@RequestParam(name="page",required = true)Integer page,
-                                     @ApiParam(name = "pageNumber", required = true, value = "当页显示数量") @RequestParam(name="pageNumber",required = true)Integer pageNumber,
-                                     @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
+                                     @ApiParam(name = "pageNumber", required = true, value = "当页显示数量") @RequestParam(name="pageNumber",required = true)Integer pageNumber
+//            ,@ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+                                                                                                ){
         AbstractView jsonView = new MappingJackson2JsonView();
 
-        Map<String,Object> map = courseService.queryCourse(labelId,courseType,page,pageNumber,appType);
+        Map<String,Object> map = courseService.queryCourse(labelId,courseType,page,pageNumber,(Integer) request.getSession().getAttribute("appType"));
         jsonView.setAttributesMap(map);
 
         return new ModelAndView(jsonView);
@@ -94,11 +96,14 @@ public class CourseController {
 
     @RequestMapping(value="/queryByTitle",method = RequestMethod.GET)
     @ApiOperation(value = "根据标题查询教程",notes="根据标题查询教程")
-    public ModelAndView queryByTitle( @ApiParam(name = "title", required = true, value = "标题")@RequestParam(name="title",required = true)String title,
-                                      @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType){
+    public ModelAndView queryByTitle( HttpServletRequest request,
+                                        @ApiParam(name = "title", required = true, value = "标题")@RequestParam(name="title",required = true)String title
+//            , @ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
+    ){
         AbstractView jsonView = new MappingJackson2JsonView();
 
-        Map<String,Object> map = courseService.queryByTitle(title,appType);
+//        System.out.println("*********"+request.getSession().getAttribute("appType"));
+        Map<String,Object> map = courseService.queryByTitle(title,(Integer) request.getSession().getAttribute("appType"));
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
     }
