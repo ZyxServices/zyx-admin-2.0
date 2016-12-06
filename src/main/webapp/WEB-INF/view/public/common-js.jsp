@@ -17,7 +17,8 @@
 <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
 <script src="../../js/jquery.cookie.min.js" type="text/javascript"></script>
 <script src="../../js/daterangepicker.js" type="text/javascript"></script>
-<script src="../../js/jquery.gritter.js" type="text/javascript"></script><%--消息提示--%>
+<script src="../../js/jquery.gritter.js" type="text/javascript"></script>
+<%--消息提示--%>
 <script src="../../js/bootstrap-table.js" type="text/javascript"></script>
 <script src="../../js/bootstrap-table-zh-CN.min.js"></script>
 <script type="text/javascript" src="../../js/bootstrap-datetimepicker.js"></script>
@@ -42,7 +43,7 @@
         var urlLength = url.split("/").length;
         var getMenuObj = url.split("/")[urlLength - 2];
         var getSecondMenuObj = url.split("/")[urlLength - 1].split("?");
-        if(getSecondMenuObj.length == 2){
+        if (getSecondMenuObj.length == 2) {
             getSecondMenuObj[0] = 'circlelist';
         }
         if (getSecondMenuObj[0] == "home") {
@@ -61,22 +62,47 @@
             $("." + getMenuObj).addClass("active");
             $("." + getMenuObj).find(".selected").show();
         }
+        //默认版本
+        $.ajax({
+            url:'/v2/app/queryAppType',
+            async: false,
+            type: "post",
+            success: function (res) {
+                console.log(res)
+               switch (res.appType){
+                   case 1:
+                      return $('#appName').html('趣攀岩');
+               }
+            }
+
+        })
     })
 
     /*请求的officialId*/
     function queryOfficial(id) {
         $.ajax({
-            url:'/v2/sysUser/choice',
-            type:'post',
+            url: '/v2/sysUser/choice',
+            type: 'post',
             async: false,
-            success:function (res) {
+            success: function (res) {
                 var data = res.data;
                 var option = '';
-                for(var i = 0;i < data.length; i++){
-                    option += '<option value='+data[i].id+'>'+data[i].nickname+'</option>'
+                for (var i = 0; i < data.length; i++) {
+                    option += '<option value=' + data[i].id + '>' + data[i].nickname + '</option>'
                 }
-                $("#"+id).html(option);
+                $("#" + id).html(option);
             }
+        })
+    }
+    function appType(num) {
+        $.ajax({
+            url:'/v2/app/choiceAppType?appType='+num+'',
+            async: false,
+            type: "post",
+            success: function (res) {
+               window.location.reload()
+            }
+
         })
     }
 

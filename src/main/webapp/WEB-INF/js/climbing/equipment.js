@@ -3,7 +3,7 @@
  */
 var $table = $('#dynamic_table'),
     $remove = $('#remove');
-function initTable(num) {
+function initTable() {
     $("#dynamic_table").bootstrapTable('destroy');
     $('#dynamic_table').bootstrapTable({
         url: ("/v2/equip/queryEquip"),
@@ -36,7 +36,7 @@ function initTable(num) {
                 pageNumber: params.pageSize,
                 searchText: params.searchText,
                 sortName: params.sortName,
-                equipType:num
+                equipType:$('#e_user').val()
                 //sortOrder: params.sortOrder
             };
             return param;
@@ -107,7 +107,8 @@ function initTable(num) {
                 start: params.pageNumber - 1,
                 pageSize: params.pageSize,
                 searchText: params.searchText,
-                sortName: params.sortName
+                sortName: params.sortName,
+                appType:$("#appType").val()
                 //sortOrder: params.sortOrder
             };
             return param;
@@ -378,7 +379,6 @@ $(function () {
             type: 'get',
             dataType: 'json',
             success: function (result) {
-                console.log(result)
                 if (result.rows.length == 0) {
                     $.Popup({
                         confirm: false,
@@ -434,8 +434,5 @@ $(function () {
     $(window).resize(function () {
         $('#dynamic_table').bootstrapTable('resetView');
     });
-    $('#e_user').change(function(){
-        initTable($('#e_user').val());
-    })
-    initTable($('#e_user').val());
+    initTable();
 })

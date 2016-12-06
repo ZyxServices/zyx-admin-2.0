@@ -174,7 +174,7 @@
 <script type="text/javascript" src="../../js/share/share_index.js"></script>
 <script>
     //接口调用遍历
-    shareCommon.Ajax(1, function (res) {
+    shareCommon.Ajax(function (res) {
         if (res.user.avatar) {
             $("#userAvatar").attr("src", "http://image.tiyujia.com/" + res.user.avatar)
         }

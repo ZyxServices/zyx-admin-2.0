@@ -40,396 +40,414 @@
 
                 <!-- BEGIN NOTIFICATION DROPDOWN -->
 
-                <li class="dropdown" id="header_notification_bar">
+                <%--<li class="dropdown" id="header_notification_bar">--%>
 
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--%>
 
-                        <i class="icon-warning-sign"></i>
+                        <%--<i class="icon-warning-sign"></i>--%>
 
-                        <span class="badge">6</span>
+                        <%--<span class="badge">6</span>--%>
 
-                    </a>
+                    <%--</a>--%>
 
-                    <ul class="dropdown-menu extended notification">
+                    <%--<ul class="dropdown-menu extended notification">--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <p>You have 14 new notifications</p>
+                            <%--<p>You have 14 new notifications</p>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <a href="#">
+                            <%--<a href="#">--%>
 
-                                <span class="label label-success"><i class="icon-plus"></i></span>
+                                <%--<span class="label label-success"><i class="icon-plus"></i></span>--%>
 
-                                New user registered.
+                                <%--New user registered.--%>
 
-                                <span class="time">Just now</span>
+                                <%--<span class="time">Just now</span>--%>
 
-                            </a>
+                            <%--</a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <a href="#">
+                            <%--<a href="#">--%>
 
-                                <span class="label label-important"><i class="icon-bolt"></i></span>
+                                <%--<span class="label label-important"><i class="icon-bolt"></i></span>--%>
 
-                                Server #12 overloaded.
+                                <%--Server #12 overloaded.--%>
 
-                                <span class="time">15 mins</span>
+                                <%--<span class="time">15 mins</span>--%>
 
-                            </a>
+                            <%--</a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <a href="#">
+                            <%--<a href="#">--%>
 
-                                <span class="label label-warning"><i class="icon-bell"></i></span>
+                                <%--<span class="label label-warning"><i class="icon-bell"></i></span>--%>
 
-                                Server #2 not respoding.
+                                <%--Server #2 not respoding.--%>
 
-                                <span class="time">22 mins</span>
+                                <%--<span class="time">22 mins</span>--%>
 
-                            </a>
+                            <%--</a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <a href="#">
+                            <%--<a href="#">--%>
 
-                                <span class="label label-info"><i class="icon-bullhorn"></i></span>
+                                <%--<span class="label label-info"><i class="icon-bullhorn"></i></span>--%>
 
-                                Application error.
+                                <%--Application error.--%>
 
-                                <span class="time">40 mins</span>
+                                <%--<span class="time">40 mins</span>--%>
 
-                            </a>
+                            <%--</a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <a href="#">
+                            <%--<a href="#">--%>
 
-                                <span class="label label-important"><i class="icon-bolt"></i></span>
+                                <%--<span class="label label-important"><i class="icon-bolt"></i></span>--%>
 
-                                Database overloaded 68%.
+                                <%--Database overloaded 68%.--%>
 
-                                <span class="time">2 hrs</span>
+                                <%--<span class="time">2 hrs</span>--%>
 
-                            </a>
+                            <%--</a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <a href="#">
+                            <%--<a href="#">--%>
 
-                                <span class="label label-important"><i class="icon-bolt"></i></span>
+                                <%--<span class="label label-important"><i class="icon-bolt"></i></span>--%>
 
-                                2 user IP blocked.
+                                <%--2 user IP blocked.--%>
 
-                                <span class="time">5 hrs</span>
+                                <%--<span class="time">5 hrs</span>--%>
 
-                            </a>
+                            <%--</a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li class="external">
+                        <%--<li class="external">--%>
 
-                            <a href="#">See all notifications <i class="m-icon-swapright"></i></a>
+                            <%--<a href="#">See all notifications <i class="m-icon-swapright"></i></a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                    </ul>
+                    <%--</ul>--%>
 
-                </li>
+                <%--</li>--%>
 
-                <!-- END NOTIFICATION DROPDOWN -->
+                <%--<!-- END NOTIFICATION DROPDOWN -->--%>
 
-                <!-- BEGIN INBOX DROPDOWN -->
+                <%--<!-- BEGIN INBOX DROPDOWN -->--%>
 
-                <li class="dropdown" id="header_inbox_bar">
+                <%--<li class="dropdown" id="header_inbox_bar">--%>
 
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--%>
 
-                        <i class="icon-envelope"></i>
+                        <%--<i class="icon-envelope"></i>--%>
 
-                        <span class="badge">5</span>
+                        <%--<span class="badge">5</span>--%>
 
-                    </a>
+                    <%--</a>--%>
 
-                    <ul class="dropdown-menu extended inbox">
+                    <%--<ul class="dropdown-menu extended inbox">--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <p>You have 12 new messages</p>
+                            <%--<p>You have 12 new messages</p>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <a href="inbox.html?a=view">
+                            <%--<a href="inbox.html?a=view">--%>
 
-                                <span class="photo"><img src="../../images/avatar2.jpg" alt="" /></span>
+                                <%--<span class="photo"><img src="../../images/avatar2.jpg" alt="" /></span>--%>
 
-								<span class="subject">
+								<%--<span class="subject">--%>
 
-								<span class="from">Lisa Wong</span>
+								<%--<span class="from">Lisa Wong</span>--%>
 
-								<span class="time">Just Now</span>
+								<%--<span class="time">Just Now</span>--%>
 
-								</span>
+								<%--</span>--%>
 
-								<span class="message">
+								<%--<span class="message">--%>
 
-								Vivamus sed auctor nibh congue nibh. auctor nibh
+								<%--Vivamus sed auctor nibh congue nibh. auctor nibh--%>
 
-								auctor nibh...
+								<%--auctor nibh...--%>
 
-								</span>
+								<%--</span>--%>
 
-                            </a>
+                            <%--</a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <a href="inbox.html?a=view">
+                            <%--<a href="inbox.html?a=view">--%>
 
-                                <span class="photo"><img src="../../images/avatar3.jpg" alt="" /></span>
+                                <%--<span class="photo"><img src="../../images/avatar3.jpg" alt="" /></span>--%>
 
-								<span class="subject">
+								<%--<span class="subject">--%>
 
-								<span class="from">Richard Doe</span>
+								<%--<span class="from">Richard Doe</span>--%>
 
-								<span class="time">16 mins</span>
+								<%--<span class="time">16 mins</span>--%>
 
-								</span>
+								<%--</span>--%>
 
-								<span class="message">
+								<%--<span class="message">--%>
 
-								Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh
+								<%--Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh--%>
 
-								auctor nibh...
+								<%--auctor nibh...--%>
 
-								</span>
+								<%--</span>--%>
 
-                            </a>
+                            <%--</a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <a href="inbox.html?a=view">
+                            <%--<a href="inbox.html?a=view">--%>
 
-                                <span class="photo"><img src="../../images/avatar1.jpg" alt="" /></span>
+                                <%--<span class="photo"><img src="../../images/avatar1.jpg" alt="" /></span>--%>
 
-								<span class="subject">
+								<%--<span class="subject">--%>
 
-								<span class="from">Bob Nilson</span>
+								<%--<span class="from">Bob Nilson</span>--%>
 
-								<span class="time">2 hrs</span>
+								<%--<span class="time">2 hrs</span>--%>
 
-								</span>
+								<%--</span>--%>
 
-								<span class="message">
+								<%--<span class="message">--%>
 
-								Vivamus sed nibh auctor nibh congue nibh. auctor nibh
+								<%--Vivamus sed nibh auctor nibh congue nibh. auctor nibh--%>
 
-								auctor nibh...
+								<%--auctor nibh...--%>
 
-								</span>
+								<%--</span>--%>
 
-                            </a>
+                            <%--</a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li class="external">
+                        <%--<li class="external">--%>
 
-                            <a href="inbox.html">See all messages <i class="m-icon-swapright"></i></a>
+                            <%--<a href="inbox.html">See all messages <i class="m-icon-swapright"></i></a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                    </ul>
+                    <%--</ul>--%>
 
-                </li>
+                <%--</li>--%>
 
-                <!-- END INBOX DROPDOWN -->
+                <%--<!-- END INBOX DROPDOWN -->--%>
 
-                <!-- BEGIN TODO DROPDOWN -->
+                <%--<!-- BEGIN TODO DROPDOWN -->--%>
 
-                <li class="dropdown" id="header_task_bar">
+                <%--<li class="dropdown" id="header_task_bar">--%>
 
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--%>
 
-                        <i class="icon-tasks"></i>
+                        <%--<i class="icon-tasks"></i>--%>
 
-                        <span class="badge">5</span>
+                        <%--<span class="badge">5</span>--%>
 
-                    </a>
+                    <%--</a>--%>
 
-                    <ul class="dropdown-menu extended tasks">
+                    <%--<ul class="dropdown-menu extended tasks">--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <p>You have 12 pending tasks</p>
+                            <%--<p>You have 12 pending tasks</p>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <a href="#">
+                            <%--<a href="#">--%>
 
-								<span class="task">
+								<%--<span class="task">--%>
 
-								<span class="desc">New release v1.2</span>
+								<%--<span class="desc">New release v1.2</span>--%>
 
-								<span class="percent">30%</span>
+								<%--<span class="percent">30%</span>--%>
 
-								</span>
+								<%--</span>--%>
 
-								<span class="progress progress-success ">
+								<%--<span class="progress progress-success ">--%>
 
-								<span style="width: 30%;" class="bar"></span>
+								<%--<span style="width: 30%;" class="bar"></span>--%>
 
-								</span>
+								<%--</span>--%>
 
-                            </a>
+                            <%--</a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <a href="#">
+                            <%--<a href="#">--%>
 
-								<span class="task">
+								<%--<span class="task">--%>
 
-								<span class="desc">Application deployment</span>
+								<%--<span class="desc">Application deployment</span>--%>
 
-								<span class="percent">65%</span>
+								<%--<span class="percent">65%</span>--%>
 
-								</span>
+								<%--</span>--%>
 
-								<span class="progress progress-danger progress-striped active">
+								<%--<span class="progress progress-danger progress-striped active">--%>
 
-								<span style="width: 65%;" class="bar"></span>
+								<%--<span style="width: 65%;" class="bar"></span>--%>
 
-								</span>
+								<%--</span>--%>
 
-                            </a>
+                            <%--</a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <a href="#">
+                            <%--<a href="#">--%>
 
-								<span class="task">
+								<%--<span class="task">--%>
 
-								<span class="desc">Mobile app release</span>
+								<%--<span class="desc">Mobile app release</span>--%>
 
-								<span class="percent">98%</span>
+								<%--<span class="percent">98%</span>--%>
 
-								</span>
+								<%--</span>--%>
 
-								<span class="progress progress-success">
+								<%--<span class="progress progress-success">--%>
 
-								<span style="width: 98%;" class="bar"></span>
+								<%--<span style="width: 98%;" class="bar"></span>--%>
 
-								</span>
+								<%--</span>--%>
 
-                            </a>
+                            <%--</a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <a href="#">
+                            <%--<a href="#">--%>
 
-								<span class="task">
+								<%--<span class="task">--%>
 
-								<span class="desc">Database migration</span>
+								<%--<span class="desc">Database migration</span>--%>
 
-								<span class="percent">10%</span>
+								<%--<span class="percent">10%</span>--%>
 
-								</span>
+								<%--</span>--%>
 
-								<span class="progress progress-warning progress-striped">
+								<%--<span class="progress progress-warning progress-striped">--%>
 
-								<span style="width: 10%;" class="bar"></span>
+								<%--<span style="width: 10%;" class="bar"></span>--%>
 
-								</span>
+								<%--</span>--%>
 
-                            </a>
+                            <%--</a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <a href="#">
+                            <%--<a href="#">--%>
 
-								<span class="task">
+								<%--<span class="task">--%>
 
-								<span class="desc">Web server upgrade</span>
+								<%--<span class="desc">Web server upgrade</span>--%>
 
-								<span class="percent">58%</span>
+								<%--<span class="percent">58%</span>--%>
 
-								</span>
+								<%--</span>--%>
 
-								<span class="progress progress-info">
+								<%--<span class="progress progress-info">--%>
 
-								<span style="width: 58%;" class="bar"></span>
+								<%--<span style="width: 58%;" class="bar"></span>--%>
 
-								</span>
+								<%--</span>--%>
 
-                            </a>
+                            <%--</a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li>
+                        <%--<li>--%>
 
-                            <a href="#">
+                            <%--<a href="#">--%>
 
-								<span class="task">
+								<%--<span class="task">--%>
 
-								<span class="desc">Mobile development</span>
+								<%--<span class="desc">Mobile development</span>--%>
 
-								<span class="percent">85%</span>
+								<%--<span class="percent">85%</span>--%>
 
-								</span>
+								<%--</span>--%>
 
-								<span class="progress progress-success">
+								<%--<span class="progress progress-success">--%>
 
-								<span style="width: 85%;" class="bar"></span>
+								<%--<span style="width: 85%;" class="bar"></span>--%>
 
-								</span>
+								<%--</span>--%>
 
-                            </a>
+                            <%--</a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                        <li class="external">
+                        <%--<li class="external">--%>
 
-                            <a href="#">See all tasks <i class="m-icon-swapright"></i></a>
+                            <%--<a href="#">See all tasks <i class="m-icon-swapright"></i></a>--%>
 
-                        </li>
+                        <%--</li>--%>
 
-                    </ul>
+                    <%--</ul>--%>
 
-                </li>
+                <%--</li>--%>
 
                 <!-- END TODO DROPDOWN -->
 
                 <!-- BEGIN USER LOGIN DROPDOWN -->
+                <li class="dropdown appType">
+                    <%--<span style=" margin-top: 10px; color: white; font-size: 14px;display: inline-block;">切换app:</span>--%>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 10px;font-size: 14px;float: right;">
 
+                        <%--<img alt="" src="../../images/avatar1_small.jpg" />--%>
+
+                         <span id="appName" class="username"></span>
+
+                        <i class="icon-angle-down"></i>
+
+                    </a>
+
+                    <ul class="dropdown-menu" id="aPPType">
+
+                        <li><a onclick="appType(1)"><i class=""></i> 趣攀岩</a></li>
+
+                    </ul>
+
+                </li>
                 <li class="dropdown user">
 
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -475,3 +493,4 @@
     <!-- END TOP NAVIGATION BAR -->
 
 </div>
+

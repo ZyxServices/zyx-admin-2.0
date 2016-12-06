@@ -203,7 +203,13 @@
                             <label class="control-label">难度系数</label>
 
                             <div class="controls col-xs-5">
-                                <input type="text" id="v_title" name="level" class="span6" placeholder="请输入场馆难度系数"/>
+                                <select  type="text" id="v_title" name="level">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
                                 <span class="help-inline required">*</span>
                             </div>
                         </div>

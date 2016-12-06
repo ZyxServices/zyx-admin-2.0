@@ -110,7 +110,7 @@
 <script type="text/javascript" src="../../js/share/share_index.js"></script>
 <script>
     //接口调用遍历
-    shareCommon.Ajax(3, function (res) {
+    shareCommon.Ajax( function (res) {
         var _activity = res.activity;
         $("#imgShow").attr("src","http://image.tiyujia.com/"+_activity.imgUrls);
         if(_activity.paymentType == 0){

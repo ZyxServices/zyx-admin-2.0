@@ -70,7 +70,7 @@
     </div>
     <div class="row pb20" style="margin-top: 20px">
         <div class="col-xs-12"><h4>开发背景</h4></div>
-        <div class="col-xs-12">
+        <div id="v-background" class="col-xs-12">
             本次比赛设速度攀岩、难度攀岩、攀石比赛，分男女少年A组、少年B组、青年组，共18个单项。据官方统计，本届比赛共吸引了来自41个国家和地区近500名运动员报名参赛，
         </div>
     </div>
@@ -87,7 +87,7 @@
 <script src="../../js/dataformat.js" type="text/javascript"></script>
 <script>
     //接口调用遍历
-    shareCommon.Ajax(4, function (res) {
+    shareCommon.Ajax(function (res) {
         var data = {
             dataPush: function (obj, res) {
                 for (var i in obj) {
@@ -138,6 +138,7 @@
             {field: 'res.venue.imgUrls', id: 'v-imgUrls', formatter: data.imgFormatter},
             {field: 'res.paths', id: 'v-paths', formatter: data.pathsFormatter},
             {field: 'res.comments', id: 'v-comments', formatter: shareCommon.commentsFormatter},
+            {field: 'res.venue.background', id: 'v-background'},
         ], res)
         //字符串重复
         String.prototype.repeat = function (n) {

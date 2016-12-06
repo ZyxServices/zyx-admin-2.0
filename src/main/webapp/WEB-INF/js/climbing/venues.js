@@ -204,7 +204,7 @@ var operateEventssssss = {
         $('#v_name').val(row.name)
         $('#v_title').val(row.level)
         $('#activity-summernote').summernote('code', row.description);
-        //$('#activity-summernote').val(row.description)
+        $('#background-summernote').summernote('code',row.background)
         $('#v_address').val(row.address)
         $('#v_longitude').val(row.longitude)
         $('#v_latitude').val(row.latitude)

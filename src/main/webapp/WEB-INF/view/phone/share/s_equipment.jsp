@@ -35,7 +35,7 @@
 <script src="../../js/dataformat.js" type="text/javascript"></script>
 <script>
     //接口调用遍历
-    shareCommon.Ajax(2, function (res) {
+    shareCommon.Ajax(function (res) {
         var data = {
             dataPush: function (obj, res) {
                 for (var i in obj) {

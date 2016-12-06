@@ -32,7 +32,7 @@
 <script type="text/javascript" src="../../js/share/share_index.js"></script>
 <script>
     //接口调用遍历
-    shareCommon.Ajax(0,function(res){
+    shareCommon.Ajax(function(res){
             var data = {
                 dataPush: function (obj, res) {
                     for (var i in obj) {

@@ -119,7 +119,7 @@ function selectResult(index) {
 function search(){
     mapObj.plugin(["AMap.PlaceSearch",'AMap.Geocoder'], function(e) {
         var placeSearch = new AMap.PlaceSearch({ //构造地点查询类
-            pageSize: 5,
+            pageSize: 10,
             pageIndex: 1,
             city: "010", //城市
             map: mapObj//,
@@ -171,8 +171,7 @@ function addmarker(i, d) {
     var latxy='"'+lngX+'.'+latY+'"';
     var address='"'+d.address+'"'
     var name='"'+d.name+'"'
-    var c= '"'+d.pname+d.name+'"'
-    console.log(d)
+    var c= '"'+d.pname+d.name
     var markerOption = {
         map:mapObj,
         icon:"http://webapi.amap.com/images/" + (i + 1) + ".png",
@@ -192,7 +191,6 @@ function addmarker(i, d) {
             lng_str = nowPosition.lng,
             lat_str = nowPosition.lat;
         infoWindow.open(mapObj, nowPosition);
-        console.log(lng_str, lng_str)
 //            document.getElementById("lngX").value = lng_str;
 //            document.getElementById("latY").value = lat_str;
     };
