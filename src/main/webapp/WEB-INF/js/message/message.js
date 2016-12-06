@@ -43,8 +43,7 @@ function initMessageTable() {
         queryParams: function (params) {
             return {
                 page: params.offset,
-                pageNumber: params.limit,
-                appType:$("#appType").val()
+                pageNumber: params.limit
             }
         },
         responseHandler:groupFromData
