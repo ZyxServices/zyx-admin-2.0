@@ -110,7 +110,7 @@
 
 
     <select id="queryIsDeva" parameterType="java.lang.Integer" resultType="boolean">
-        SELECT NOT ISNULL(id) as isDeva FROM devaluation WHERE model = 8 AND model_id = #{id}
+        SELECT NOT ISNULL(id) as isDeva FROM devaluation WHERE model = 3 AND model_id = #{id} AND del=0
     </select>
 
     <select id="selectCountEquip" resultType="java.lang.Integer" parameterType="com.zyx.parm.Equip.QueryEquipParam">
