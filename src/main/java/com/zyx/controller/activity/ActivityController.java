@@ -7,6 +7,7 @@ import com.zyx.service.activity.ActivityService;
 import com.zyx.service.deva.DevaService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +18,12 @@ import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Map;
 
 import static com.zyx.utils.GetTimeUtil.getDateTime;
+import static org.bouncycastle.asn1.x500.style.RFC4519Style.title;
 
 /**
  * Created by SubDong on 16-7-12.
@@ -44,7 +47,8 @@ public class ActivityController {
     @RequestMapping(value = "/release", method = RequestMethod.POST)
     @ApiOperation(value = "活动发布", notes = "活动发布")
     public ModelAndView release(@ApiParam(name = "userId",required = true,value = "用户id") @RequestParam(name = "userId", required = true) Integer userId,
-                                @ApiParam(name = "appType",required = true,value = "app类型 1为趣攀岩") @RequestParam(name = "appType", required = true) Integer appType,
+                                HttpServletRequest request,
+                                //@ApiParam(name = "appType",required = true,value = "app类型 1为趣攀岩") @RequestParam(name = "appType", required = true) Integer appType,
                                 @ApiParam(name = "title",required = true,value = "活动名称")@RequestParam(name = "title", required = true) String title,
                                 @ApiParam(name = "descContent",required = true,value = "活动简介")@RequestParam(name = "descContent", required = true) String descContent,
                                 @ApiParam(name = "imageUrls",required = false,value = "活动图片")@RequestParam(name = "imageUrls", required = false) String imageUrls,
@@ -65,6 +69,7 @@ public class ActivityController {
         AbstractView jsonView = new MappingJackson2JsonView();
         Activity activity = new Activity();
         activity.setUserId(userId);
+        Integer appType=(Integer) request.getSession().getAttribute("appType");
         activity.setAppType(appType);
         activity.setTitle(title);
         activity.setLatitude(latitude);
@@ -124,7 +129,8 @@ public class ActivityController {
     public ModelAndView queryActivity(@ApiParam(name = "type",required = false,value = "活动分类 0-官方 1用户")@RequestParam(name = "type", required = false) Integer type,
                                       @ApiParam(name = "activityType",required = false,value = "活动类型 1-求约 2-求带")@RequestParam(name = "activityType", required = false) Integer activityType,
                                       @ApiParam(name = "paymentType",required = false,value = "付费类型 0-奖励 1-免费 2-AA")@RequestParam(name = "paymentType", required = false) Integer paymentType,
-                                      @ApiParam(name = "appType",required = true,value = "app类型 1为趣攀岩")@RequestParam(name = "appType", required = true) Integer appType,
+                                      HttpServletRequest request,
+                                      //@ApiParam(name = "appType",required = true,value = "app类型 1为趣攀岩")@RequestParam(name = "appType", required = true) Integer appType,
                                       @ApiParam(name = "title",required = false,value = "搜索标题")@RequestParam(name = "title", required = false) String title,
                                       @ApiParam(name = "page",required = true,value = "页码 从0开始")@RequestParam(name = "page", required = true) Integer page,
                                       @ApiParam(name = "pageNumber",required = true,value = "每页显示数量")@RequestParam(name = "pageNumber", required = true) Integer pageNumber,
@@ -132,9 +138,10 @@ public class ActivityController {
 
         AbstractView jsonView = new MappingJackson2JsonView();
         QueryActivityParm queryActivityParm = new QueryActivityParm();
+        Integer appType=(Integer) request.getSession().getAttribute("appType");
         queryActivityParm.setAppType(appType);
-        queryActivityParm.setPage(page);
-        queryActivityParm.setPageNumber(pageNumber);
+        queryActivityParm.setPageSize(pageNumber);
+        queryActivityParm.setPageNumber(page);
         queryActivityParm.setType(type);
         queryActivityParm.setTitle(title);
         queryActivityParm.setActivityType(activityType);

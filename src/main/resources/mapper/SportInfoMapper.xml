@@ -59,25 +59,25 @@
                 venue_id = #{venueId},
             </if>
 
-            <if test="level != null and level != ''">
+            <if test="level != null">
                 level = #{level},
             </if>
             <if test="score != null and score != ''">
                 score = #{score},
             </if>
-            <if test="type != null and type != ''">
+            <if test="type != null">
                 type = #{type},
             </if>
-            <if test="pathType != null and pathType != ''">
+            <if test="pathType != null">
                 path_type = #{pathType},
             </if>
             <if test="developer != null and developer != ''">
                 developer = #{developer},
             </if>
-            <if test="developTime != null and developTime != ''">
+            <if test="developTime != null">
                 develop_time = #{developTime},
             </if>
-            <if test="pathLength != null and pathLength != ''">
+            <if test="pathLength != null">
                 path_length = #{pathLength},
             </if>
             <if test="location != null and location != ''">

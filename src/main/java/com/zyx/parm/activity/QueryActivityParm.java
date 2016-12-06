@@ -1,9 +1,8 @@
 package com.zyx.parm.activity;
 
-import java.io.Serializable;
-import java.lang.reflect.Type;
+import com.zyx.parm.QueryParam;
 
-import static org.bouncycastle.asn1.x500.style.RFC4519Style.title;
+import java.io.Serializable;
 
 /**
  * Created by Rainbow on 16-6-13.
@@ -13,15 +12,13 @@ import static org.bouncycastle.asn1.x500.style.RFC4519Style.title;
  *          Copyright (c)2016 tyj-版权所有
  * @title com.zyx.entity.activity.parm
  */
-public class QueryActivityParm {
+public class QueryActivityParm extends QueryParam{
 
     private Integer createId;
     private Integer id;
     private String groupName;
     private Long startTime;
     private Long endTime;
-    private Integer pageNumber;
-    private Integer page;
     private Integer type;
     private  String title;
     private Integer activityType;
@@ -55,21 +52,6 @@ public class QueryActivityParm {
         this.groupName = groupName;
     }
 
-    public Integer getPageNumber() {
-        return pageNumber;
-    }
-
-    public void setPageNumber(Integer pageNumber) {
-        this.pageNumber = pageNumber;
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
 
     public Long getStartTime() {
         return startTime;

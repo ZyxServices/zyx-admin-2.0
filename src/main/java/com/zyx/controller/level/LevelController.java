@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 import static org.bouncycastle.asn1.x509.X509ObjectIdentifiers.id;
@@ -34,9 +35,11 @@ public class LevelController {
                                @ApiParam(name = "step",required = true,value = "阶级")@RequestParam(name = "step",required = true) String step,
                                @ApiParam(name = "minScore",required = true,value = "等级最小积分 如：0-300")@RequestParam(name = "minScore",required = true) Integer minScore,
                                @ApiParam(name = "maxScore",required = true,value = "等级最大积分 如：0-300")@RequestParam(name = "maxScore",required = true) Integer maxScore,
-                               @ApiParam(name = "appType",required = true,value = "app类型，1为趣攀岩，默认值为1")@RequestParam(name = "appType",required = true) Integer appType
+                               HttpServletRequest request
+                               //@ApiParam(name = "appType",required = true,value = "app类型，1为趣攀岩，默认值为1")@RequestParam(name = "appType",required = true) Integer appType
                                 ){
         AbstractView jsonView = new MappingJackson2JsonView();
+        Integer appType=(Integer) request.getSession().getAttribute("appType");
         Level level = new Level();
         level.setName(name);
         level.setStep(step);
@@ -79,8 +82,10 @@ public class LevelController {
 
     @ApiOperation(value = "获取所有等级",notes = "获取所有等级")
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public  ModelAndView list(@ApiParam(name = "appType",required = true,value = "app类型，1为趣攀岩，默认值为1")@RequestParam(name = "appType",required = true) Integer appType){
+    public  ModelAndView list(//@ApiParam(name = "appType",required = true,value = "app类型，1为趣攀岩，默认值为1")@RequestParam(name = "appType",required = true) Integer appType
+                              HttpServletRequest request){
         AbstractView jsonView = new MappingJackson2JsonView();
+        Integer appType=(Integer) request.getSession().getAttribute("appType");
         Level query = new Level();
         query.setAppType(appType);
         Map<String,Object> map=levelService.queryLevel(query);
