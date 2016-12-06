@@ -94,41 +94,6 @@ $(function () {
     /*初始化表格*/
     initAppointmentTable();
 
-   /* $('#activity-summernote').on('summernote.change', function (content, $editable) {
-        $("#desc").val($editable);
-        $('#updateCreateFrom').data('bootstrapValidator')
-            .updateStatus('descContent', 'NOT_VALIDATED', null)
-            .validateField('descContent');
-    }).summernote({
-        callbacks: {
-            onImageUpload: function (files) {
-                //上传图片到服务器，使用了formData对象，至于兼容性...据说对低版本IE不太友好
-                console.log(files)
-                var formData = new FormData();
-                formData.append('file', files[0]);
-                $.ajax({
-                    url: '/v1/upload/file',//后台文件上传接口
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (result) {
-                        if (result.state == 200) {
-                            $('#activity-summernote').summernote('insertImage', "http://image.tiyujia.com/" + result.data.url, 'img');
-                        } else {
-                            $.Popup({
-                                confirm: false,
-                                template: result.successmsg
-                            })
-                        }
-                    }
-                });
-            }
-        },
-        lang: 'zh-CN',
-        height: 200
-    });*/
-
     $('#activityStartTime').datetimepicker({
         language: 'zh-CN',
         format: 'yyyy-mm-dd hh:ii',
@@ -253,11 +218,6 @@ function fromData(res) {
             item.status = isActivityStart(item.startTime);
             dataArray.push(item)
         });
-        if (datas.length == 0) {
-            var dataObj = {};
-            dataArray.push(dataObj);
-        }
-        console.log(dataArray)
         return {
             rows: dataArray,
             total: res.total
