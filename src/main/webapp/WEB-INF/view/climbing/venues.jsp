@@ -469,5 +469,14 @@
 <script type="text/javascript" src="../../js/climbing/venues.js"></script>
 //地图
 <script src="../../js/public/map.js" type="text/javascript"></script>
+<script>
+
+    jQuery(document).ready(function () {
+
+        App.init(); // initlayout and core plugins
+
+    });
+
+</script>
 </body>
 </html>
