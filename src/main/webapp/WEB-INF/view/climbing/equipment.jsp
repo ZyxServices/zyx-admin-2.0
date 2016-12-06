@@ -48,7 +48,7 @@
                 <h3 class="page-title"> 装备帖子管理</h3>
                 <HR style="border:1 dashed #987cb9;margin: 5px 0" width="100%" color=rgb(51, 51, 51) SIZE=1>
                 <div class="controls">
-                    <select id="e_user" name="labelId">
+                    <select id="e_user" name="labelId" onchange="initTable()">
                         <option value="1">官方</option>
                         <option value="0">用户</option>
                     </select>
