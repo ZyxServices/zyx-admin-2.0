@@ -296,6 +296,19 @@ public class MySwaggerConfig {
 
     }
 
+    @Bean
+    public Docket choiceApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("choice-api")
+                .select()  // 选择那些路径和api会生成document
+                .apis(RequestHandlerSelectors.basePackage("com.zyx.controller.choiceAPPType"))
+                .paths(PathSelectors.any()) // 对所有路径进行监控
+                .build()
+                .apiInfo(choiceAppTypeApiInfo());
+
+    }
+
+
 
 
 
@@ -555,6 +568,19 @@ public class MySwaggerConfig {
     private ApiInfo opinionApiInfo() {
         ApiInfo apiInfo = new ApiInfo("用户的意见反馈接口API",//大标题
                 "意见反馈管理",//小标题
+                "2.0",//版本
+                "成都term",
+                new Contact("赵家兴", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
+                "智悠行",//链接显示文字
+                "http://112.74.112.143:8081/ui/Delta/index.html "//网站链接
+        );
+
+        return apiInfo;
+    }
+
+    private ApiInfo choiceAppTypeApiInfo() {
+        ApiInfo apiInfo = new ApiInfo("选择app类型接口API",//大标题
+                "选择app类型",//小标题
                 "2.0",//版本
                 "成都term",
                 new Contact("赵家兴", "http://112.74.112.143:8081/ui/Delta/index.html", "449598723@qq.com"),// 作者
