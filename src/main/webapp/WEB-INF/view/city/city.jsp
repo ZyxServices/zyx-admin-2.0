@@ -57,7 +57,7 @@
                                 <th data-field="id">ID</th>
                                 <th data-field="cityName">城市名称</th>
                                 <th data-field="state">是否启用</th>
-                                <th data-field="createTime">城市名称创建时间</th>
+                                <th data-field="createTime" data-formatter="timeFormat">城市名称创建时间</th>
                                 <th data-formatter="operate" data-events="operateEvents">操作</th>
                             </tr>
                             </thead>

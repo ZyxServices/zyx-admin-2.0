@@ -151,6 +151,7 @@ var operateEvent = {
     },
     //推荐
     'click .recommend': function (e, value, row, index) {
+        $("#imageUrl").val(row.imgUrl);
         $("#courseSelect").empty();
         $.post("/v2/deva/sequence", {area: "1"}, function (result) {
             if (result.state == 200) {
