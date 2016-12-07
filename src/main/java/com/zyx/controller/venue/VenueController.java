@@ -149,22 +149,18 @@ public class VenueController {
                                    HttpServletRequest request,
                                    @ApiParam(name = "type",required =false,value = "场馆类型 1-室内 2-室外")
                                    @RequestParam(name = "type",required = false)Integer type,
-                                   @ApiParam(name = "city",required = false, value = "城市")
-                                   @RequestParam(name = "city",required = false)String city,
-                                   @ApiParam(name = "mark", value = "标签名称")
-                                   @RequestParam(name = "mark",required = false)String mark,
-                                   @ApiParam(name = "name", value = "场馆名称")
-                                   @RequestParam(name="name",required =false)String name){
+                                   @ApiParam(name = "search",required = false, value = "搜索")
+                                   @RequestParam(name = "search",required = false)String search
+                                   ){
         AbstractView jsonView = new MappingJackson2JsonView();
         Integer appType=(Integer) request.getSession().getAttribute("appType");
         VenueParam venueParam = new VenueParam();
         venueParam.setAppType(appType);
         venueParam.setPageSize(pageNumber);
         venueParam.setPageNumber(page);
+        venueParam.setSearch(search);
         venueParam.setType(type);
-        venueParam.setCity(city);
-        venueParam.setMark(mark);
-        venueParam.setName(name);
+        venueParam.setSearch(search);
         Map<String,Object> map = venueService.queryVenue(venueParam);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);

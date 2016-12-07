@@ -179,9 +179,6 @@
 
     <select id="selectAppUserGetName" parameterType="int" resultType="java.lang.String">
         SELECT nickname FROM user where id = #{userId} and del != 1
-        <if test="appType != null">
-            and app_type=#{appType}
-        </if>
     </select>
 
     <select id="queryAppUserList" parameterType="com.zyx.parm.QueryAppUserParam" resultMap="BaseResultMap">

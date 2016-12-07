@@ -66,7 +66,7 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements Ac
 
     @Override
     public Map<String, Object> queryActivity(QueryActivityParm queryActivityParm) {
-        queryActivityParm.setPageNumber(queryActivityParm.getPageNumber()*queryActivityParm.getPageNumber());
+        queryActivityParm.setPageNumber(queryActivityParm.getPageNumber()*queryActivityParm.getPageSize());
         List<ActivityDto> activities = activityMapper.queryActivity(queryActivityParm);
         int i = activityMapper.selectCountActivity(queryActivityParm);
         Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", activities);

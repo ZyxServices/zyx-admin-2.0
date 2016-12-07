@@ -11,6 +11,7 @@ public class VenueParam extends QueryParam{
     private String mark;
     private String name;
     private Integer appType;
+    private String search;
 
     public Integer getType() { return type; }
 
@@ -31,4 +32,8 @@ public class VenueParam extends QueryParam{
     public Integer getAppType() { return appType; }
 
     public void setAppType(Integer appType) { this.appType = appType; }
+
+    public String getSearch() { return search; }
+
+    public void setSearch(String search) { this.search = search; }
 }

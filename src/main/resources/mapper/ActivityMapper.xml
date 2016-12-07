@@ -71,7 +71,7 @@
     </select>
 
     <select id="queryIsDeva" parameterType="java.lang.Integer" resultType="boolean">
-        SELECT NOT ISNULL(id) as isDeva FROM devaluation WHERE model = 2 AND model_id = #{id}
+        SELECT NOT ISNULL(id) as isDeva FROM devaluation WHERE model = 2 AND model_id = #{id} and del=0
     </select>
 
     <select id="queryJoinNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
