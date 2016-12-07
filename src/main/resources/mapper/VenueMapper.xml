@@ -40,8 +40,11 @@
         <if test="type != null">
             and TYPE =#{type}
         </if>
+        <if test="city != null and city != ''">
+            and city =#{city}
+        </if>
         <if test="search != null and search != ''">
-            and (name LIKE CONCAT('%',#{search},'%' ) OR city like CONCAT('%',#{search},'%' ) OR mark like CONCAT('%',#{search},'%' ))
+            and (name LIKE CONCAT('%',#{search},'%' ) OR mark like CONCAT('%',#{search},'%' ))
         </if>
         <if test="appType != null">
             and app_type=#{appType}
@@ -57,8 +60,11 @@
         <if test="type != null">
             and TYPE =#{type}
         </if>
+        <if test="city != null and city != ''">
+            and city =#{city}
+        </if>
         <if test="search != null and search != ''">
-            and (name LIKE CONCAT('%',#{search},'%' ) OR city like CONCAT('%',#{search},'%' ) OR mark like CONCAT('%',#{search},'%' ))
+            and (name LIKE CONCAT('%',#{search},'%' ) OR mark like CONCAT('%',#{search},'%' ))
         </if>
         <if test="appType != null">
             and app_type=#{appType}

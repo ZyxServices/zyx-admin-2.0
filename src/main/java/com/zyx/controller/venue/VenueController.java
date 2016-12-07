@@ -17,6 +17,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
+import static org.bouncycastle.asn1.x500.style.RFC4519Style.c;
 import static org.bouncycastle.asn1.x500.style.RFC4519Style.name;
 
 /**
@@ -149,18 +150,20 @@ public class VenueController {
                                    HttpServletRequest request,
                                    @ApiParam(name = "type",required =false,value = "场馆类型 1-室内 2-室外")
                                    @RequestParam(name = "type",required = false)Integer type,
+                                   @ApiParam(name = "city",required =false,value = "城市")
+                                   @RequestParam(name = "city",required = false)String city,
                                    @ApiParam(name = "search",required = false, value = "搜索")
                                    @RequestParam(name = "search",required = false)String search
                                    ){
         AbstractView jsonView = new MappingJackson2JsonView();
         Integer appType=(Integer) request.getSession().getAttribute("appType");
         VenueParam venueParam = new VenueParam();
+        venueParam.setCity(city);
         venueParam.setAppType(appType);
         venueParam.setPageSize(pageNumber);
         venueParam.setPageNumber(page);
         venueParam.setSearch(search);
         venueParam.setType(type);
-        venueParam.setSearch(search);
         Map<String,Object> map = venueService.queryVenue(venueParam);
         jsonView.setAttributesMap(map);
         return new ModelAndView(jsonView);
