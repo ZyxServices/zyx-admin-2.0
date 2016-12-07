@@ -47,7 +47,7 @@ public class ConcernServiceImpl extends BaseServiceImpl<Concern> implements Conc
         Optional.ofNullable(pageSize).orElse(0);
         Optional.ofNullable(appType).orElse(0);
         List<ConcernVo> concerns = concernMapper.findByPager(start * pageSize, pageSize,appType);
-        Integer count = concernMapper.count();
+        Integer count = concernMapper.countConcern(start * pageSize, pageSize,appType);
 
         Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", concerns, new HashMap() {{
             put("total", count);
@@ -191,7 +191,13 @@ public class ConcernServiceImpl extends BaseServiceImpl<Concern> implements Conc
             return MapUtils.buildErrorMap(Constants.PARAM_MISS, Constants.MSG_PARAM_MISS);
         }
         List<Concern> concerns = concernMapper.search(userName, start * pageSize, pageSize,appType);
-        return MapUtils.buildSuccessMap(PgConstants.SUCCESS, PgConstants.PG_ERROR_CODE_34000_MSG, concerns);
+//        return MapUtils.buildSuccessMap(PgConstants.SUCCESS, PgConstants.PG_ERROR_CODE_34000_MSG, concerns);
+        Integer count = concernMapper.serachCount(userName, start * pageSize, pageSize,appType);
+
+        Map<String, Object> map = MapUtils.buildSuccessMap(Constants.SUCCESS, "成功", concerns, new HashMap() {{
+            put("total", count);
+        }});
+        return map;
     }
 
     /**

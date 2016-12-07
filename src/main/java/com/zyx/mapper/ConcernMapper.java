@@ -18,7 +18,7 @@ public interface ConcernMapper extends Mapper<Concern> {
      *
      * @return
      */
-    int count();
+    int countConcern(@Param(value = "start") int start, @Param(value = "end") int end, @Param(value = "appType") int appType);
 
     /**
      * 添加动态
@@ -70,4 +70,5 @@ public interface ConcernMapper extends Mapper<Concern> {
      */
     List<Concern> search(@Param(value = "userName") String userName, @Param(value = "start") Integer start, @Param(value = "end") Integer pageSize, @Param(value = "appType") int appType);
 
+    int serachCount(@Param(value = "userName") String userName, @Param(value = "start") Integer start, @Param(value = "end") Integer pageSize, @Param(value = "appType") int appType);
 }

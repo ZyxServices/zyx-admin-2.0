@@ -72,13 +72,25 @@
         concern
         WHERE state!=-1
         <if test="appType != null">
-            and app_type=#{appType}
+            and concern.app_type=#{appType}
         </if>
     ORDER BY
     create_time DESC
     LIMIT #{start},#{end}
 --         WHERE state !=-1
   </select>
+
+    <select id="countConcern" resultType="java.lang.Integer">
+        SELECT COUNT(concern.id) FROM
+        concern
+        WHERE state!=-1
+        <if test="appType != null">
+            and concern.app_type=#{appType}
+        </if>
+        --         WHERE state !=-1
+    </select>
+
+
     <!--SELECT * FROM concern WHERE state >=0 ORDER BY create_time DESC  LIMIT #{start},#{end}-->
     <!--<select id="findById" resultMap="concernMap">-->
             <!--SELECT * FROM concern  WHERE id=#{id}-->
@@ -127,8 +139,20 @@
     WHERE (`user`.nickname LIKE CONCAT('%','${userName}','%' ) OR `concern`.`topic_content` LIKE CONCAT('%','${userName}','%'))
     AND concern.state!=-1
         <if test="appType != null">
-            and app_type=#{appType}
+            and concern.app_type=#{appType}
         </if>
     ORDER BY create_time DESC  LIMIT #{start},#{end}
+    </select>
+
+    <select id="serachCount" resultType="java.lang.Integer">
+        SELECT count(concern.id)
+        FROM
+        concern
+        INNER JOIN `user` ON concern.user_id = `user`.id
+        WHERE (`user`.nickname LIKE CONCAT('%','${userName}','%' ) OR `concern`.`topic_content` LIKE CONCAT('%','${userName}','%'))
+        AND concern.state!=-1
+        <if test="appType != null">
+            and concern.app_type=#{appType}
+        </if>
     </select>
 </mapper>
