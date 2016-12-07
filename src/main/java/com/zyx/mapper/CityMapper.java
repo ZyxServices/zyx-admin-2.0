@@ -2,6 +2,7 @@ package com.zyx.mapper;
 
 import com.zyx.base.BaseMapper;
 import com.zyx.model.City;
+import com.zyx.parm.city.QueryCityParam;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,4 +29,11 @@ public interface CityMapper extends BaseMapper<City>{
      * @return
      */
     List<City> queryByState(City city);
+
+    /**
+     * 查询所有城市
+     * @param param
+     * @return
+     */
+    List<City> queryAll(QueryCityParam param);
 }

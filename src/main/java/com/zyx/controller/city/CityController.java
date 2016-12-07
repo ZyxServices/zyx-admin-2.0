@@ -1,6 +1,7 @@
 package com.zyx.controller.city;
 
 import com.zyx.model.City;
+import com.zyx.parm.city.QueryCityParam;
 import com.zyx.service.city.CityService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -65,9 +66,9 @@ public class CityController {
     ){
         AbstractView jsonView = new MappingJackson2JsonView();
 
-//        QueryCityParam param = new QueryCityParam();
+        QueryCityParam city = new QueryCityParam();
 //        param.setAppType(appType);
-        City city = new City();
+//        City city = new City();
         city.setAppType((Integer) request.getSession().getAttribute("appType"));
         Map<String,Object> map = cityService.queryCity(city);
         jsonView.setAttributesMap(map);

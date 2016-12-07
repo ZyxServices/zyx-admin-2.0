@@ -80,8 +80,8 @@ public class CityServiceImpl  extends BaseServiceImpl<City> implements CityServi
      * @return
      */
     @Override
-    public Map<String, Object> queryCity(City city) {
-        List<City> cityList = cityMapper.select(city);
+    public Map<String, Object> queryCity(QueryCityParam param) {
+        List<City> cityList = cityMapper.queryAll(param);
         if(cityList!=null && cityList.size()>0){
             return MapUtils.buildSuccessMap(Constants.SUCCESS,"查询成功",cityList);
         }else {

@@ -22,5 +22,12 @@
         </if>
     </select>
 
+    <select id="queryAll" parameterType="com.zyx.parm.city.QueryCityParam" resultMap="cityMapper">
+        SELECT * FROM city
+        <if test="appType != null">
+            WHERE  app_type=#{appType}
+        </if>
+    </select>
+
 
 </mapper>

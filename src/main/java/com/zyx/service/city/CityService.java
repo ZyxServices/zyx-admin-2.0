@@ -1,6 +1,7 @@
 package com.zyx.service.city;
 
 import com.zyx.model.City;
+import com.zyx.parm.city.QueryCityParam;
 import com.zyx.service.BaseService;
 
 import java.util.Map;
@@ -34,7 +35,7 @@ public interface CityService extends BaseService<City> {
      * 查询所有城市
      * @return
      */
-    Map<String,Object>queryCity(City city);
+    Map<String,Object>queryCity(QueryCityParam param);
 
     /**
      * 查询所有已经启用的城市
