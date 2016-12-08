@@ -30,7 +30,7 @@ function initBanner() {
         striped: true,           //是否显示行间隔色
         pagination: true,
         cache: false,
-        search: true,
+        search: false,
         strictSearch: true,
         uniqueId: "id",
         height:500,
@@ -44,9 +44,7 @@ function initBanner() {
             return {
                 area: $('#b-area').val(),
                 pageDataNum: params.limit,
-                pageNum: (params.offset + 1),
-                search: params.search,
-                appType:$("#appType").val()
+                pageNum: (params.offset + 1)
             }
         },
         responseHandler:groupFromData
@@ -163,8 +161,7 @@ var operateEvents = {
         $("#area").val(row.area);
         $("#imageUrl").val(row._image);
         $("#preImage").html('<img src="http://image.tiyujia.com/'+ row._image+'">');
-        $("#createEditAppType").val(row.appType);
-        getBannerSequence(row.area,row.sequence,row.appType);
+        getBannerSequence(row.area,row.sequence);
         $("#sequence").val(row.sequence);
         EDITAREA = row.area;
         EDITSEQUENCE = row.sequence;
@@ -182,13 +179,13 @@ var EDITSEQUENCE = '';
 /*
  * banner序列的请求
  * */
-function getBannerSequence(area, currentSequence,appType) {
+function getBannerSequence(area, currentSequence) {
     $.ajax({
         url: "/v2/deva/sequence",
         type: 'POST',
         dataType: 'json',
         async:false,
-        data: {area: area,appType:appType},
+        data: {area: area},
         success: function (result) {
             if(result.state == 200){
                 var bannerNoArr = result.data;
@@ -219,12 +216,11 @@ function getBannerSequence(area, currentSequence,appType) {
 /*改变推荐位置*/
 function changeDevArea(obj) {
     var area = $(obj).val();
-    var appType = $("#createEditAppType").val()
     if(EDITAREA == area){/*当前自己的序列号*/
-        getBannerSequence(area,EDITSEQUENCE,appType);
+        getBannerSequence(area,EDITSEQUENCE);
         $("#sequence").val(EDITSEQUENCE);
     }else{/*不存在序列号的时候*/
-        getBannerSequence(area,'',appType);
+        getBannerSequence(area,'');
     }
 }
 /*

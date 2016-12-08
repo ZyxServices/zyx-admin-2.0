@@ -49,7 +49,6 @@
                     <div class="span6">
                         <a class="btn btn-default" href="javascript:void(0)" onclick="createcourse()">发布教程攻略</a>
                         <a class="btn btn-default" onclick="courseLabel()">管理标签</a>
-                        <a class="btn btn-default" href="javascript:void(0)" onclick="batchDelete()">批量删除</a>
                     </div>
                 </div>
                 <div class="row-fluid">

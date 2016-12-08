@@ -151,7 +151,7 @@ function confirmMessage() {
                     template: "消息添加成功"
                 });
                 $("#messageList").show();
-                $("#messageEdit").hide();
+                $("#messageCreate").hide();
                 $('#message-list-table').bootstrapTable('refresh');
             } else if (result.state && result.state == 303) {
                 $.Popup({

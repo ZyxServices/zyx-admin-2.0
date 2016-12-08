@@ -11,7 +11,7 @@
 
     <div class="footer-inner">
 
-        2013 &copy; Metronic by keenthemes.
+        2016 &copy; 趣攀岩.
 
     </div>
 

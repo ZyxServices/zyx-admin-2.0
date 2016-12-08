@@ -51,37 +51,23 @@ $(function () {
         paginationPreText: "上一页",
         paginationNextText: "下一页",
         pageNumber: 0,            //初始化加载第一页，默认第一页
-        pageSize: 10,            //每页的记录行数（*）
+        pageSize: 13,            //每页的记录行数（*）
+        pageList: [13],
         checkbox: true,
         checkboxHeader: "true",
         sortable: true,           //是否启用排序
         sortOrder: "asc",          //排序方式
-        pageList: [10, 25, 50, 100],    //可供选择的每页的行数（*）
-        smartDisplay: false,
-        height: 460,            //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+        height: 500,            //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
         uniqueId: "id",           //每一行的唯一标识，一般为主键列
         search: true,
         sidePagination: "server",
         strictSearch: false,        //是否启用模糊收索
         queryParamsType: "undefined",
         dataField: "data",
-        /*        queryParams: function queryParams(params) {   //设置查询参数
-         console.log(params)
-         var param = {
-         start: 0,
-         pageSize: params.pageSize,
-         searchText: params.searchText
-         //sortName: params.sortName
-         //sortOrder: params.sortOrder
-         };
-         return param;
-         },*/
-        onLoadSuccess: function (data) {  //加载成功时执行
-            console.log(data)
+        queryParams: function queryParams(params) {   //设置查询参数
+            return [];
         },
         columns: [
-            /*    {field: '', checkbox: true, align: 'center', valign: 'middle'},
-             {field: 'id', title: 'id', align: 'center', valign: 'middle'},*/
             {field: 'step', title: '阶级'},
             {field: 'name', title: '等级名称'},
             {field: 'minScore', title: '等级最小积分'},

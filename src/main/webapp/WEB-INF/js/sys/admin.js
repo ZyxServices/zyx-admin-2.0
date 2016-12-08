@@ -2,7 +2,7 @@
  * Created by ZYX on 2016/7/20.
  */
 $(function () {
-/*创建的验证*/
+    /*创建的验证*/
     $("#sysUserCreateForm").bootstrapValidator({
         message: '数据无效',
         feedbackIcons: {
@@ -99,19 +99,19 @@ function timeFormat(data) {
     return new Date(data).format("yyyy-mm-dd HH:MM:ss")
 }
 function stateFormat(data) {
-    return data == 0?"操作成功":"操作失败"
+    return data == 0 ? "操作成功" : "操作失败"
 }
 function getAllOfficial() {
     $.ajax({
-        url:'/v2/appUser/queryUser',
-        type:'GET',
-        data:{page:1 ,pageNumber:50, official:1},
+        url: '/v2/appUser/queryUser',
+        type: 'GET',
+        data: {page: 1, pageNumber: 50, official: 1},
         async: false,
-        success:function (res) {
+        success: function (res) {
             var data = res.data;
             var option = '';
-            for(var i = 0;i < data.length; i++){
-                option += '<option value='+data[i].id+'>'+data[i].nickname+'</option>'
+            for (var i = 0; i < data.length; i++) {
+                option += '<option value=' + data[i].id + '>' + data[i].nickname + '</option>'
             }
             $("#userId").html(option);
         }
@@ -121,23 +121,21 @@ function getAllOfficial() {
 var operateEvent = {
     'click .look': function (e, value, row) {
         $("#operateLogModal").modal("show");
-        // $("#administrators-log-table").bootstrapTable('destroy');
+        $("#administrators-log-table").bootstrapTable('destroy');
         $("#administrators-log-table").bootstrapTable({
             toolbar: '#toolbar',        //工具按钮用哪个容器
             striped: true,           //是否显示行间隔色
-            cache: true,            //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            cache: false,            //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
             pagination: true,          //是否显示分页（*）
             paginationPreText: "上一页",
             paginationNextText: "下一页",
             pageNumber: 1,            //初始化加载第一页，默认第一页
             pageSize: 10,            //每页的记录行数（*）
-            pageList: [10, 15, 20, 25],  //记录数可选列表
+            pageList: [10],  //记录数可选列表
             checkbox: true,
             height: 300,
-            checkboxHeader: "true",
             sortable: true,           //是否启用排序
             sortOrder: "asc",          //排序方式
-            strictSearch: true,
             sidePagination: "server",
             method: "get",
             url: "/v2/sysUser/queryOperation",
@@ -151,7 +149,7 @@ var operateEvent = {
                 };
                 return param;
             },
-            onLoadSuccess:function () {
+            onLoadSuccess: function () {
             }
         });
     },
@@ -184,7 +182,7 @@ var operateEvent = {
             template: '确定删除该管理员',
             saveEvent: function () {
                 $.ajax({
-                    url: "/v2/sysUser/delete?id="+row.id,
+                    url: "/v2/sysUser/delete?id=" + row.id,
                     async: false,
                     type: "delete",
                     dateType: "json",
@@ -202,7 +200,7 @@ var operateEvent = {
                             })
                         }
                     },
-                    error:function (res) {
+                    error: function (res) {
                         $.Popup({
                             confirm: false,
                             template: res
@@ -212,16 +210,16 @@ var operateEvent = {
             }
         })
     },
-    'click .distribution':function (e, value, row) {
+    'click .distribution': function (e, value, row) {
         $("#distributionModal").modal('show');
         $("#userId").val('');
         $("#officialId").val(row.id);
         $("#userId").chosen("destroy");
-        if(row.officialUserListDto){
-            for(var j = 0;j < row.officialUserListDto.length;j++){
-                $("#userId option[value='"+row.officialUserListDto[j].id+"']").attr("selected","selected");
+        if (row.officialUserListDto) {
+            for (var j = 0; j < row.officialUserListDto.length; j++) {
+                $("#userId option[value='" + row.officialUserListDto[j].id + "']").attr("selected", "selected");
             }
-        }else{
+        } else {
             $("#userId").val('');
         }
         $("#userId").trigger("liszt:updated");
@@ -321,7 +319,7 @@ function distributionOfficial() {
         url: '/v2/sysUser/addOfficial',
         type: 'post',
         dataType: 'json',
-        data:{id:$("#officialId").val(),userId:$("#userId").val().join()},
+        data: {id: $("#officialId").val(), userId: $("#userId").val().join()},
         success: function (result) {
             if (result.state == 200) {
                 $("#distributionModal").modal('hide');

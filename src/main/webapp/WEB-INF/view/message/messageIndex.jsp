@@ -46,7 +46,7 @@
         <div class="row-fluid margin-bottom-10">
           <div class="span12 margin-bottom-10">
             <a class="btn btn-default" href="javascript:void(0)" onclick="createMessage()">创建消息</a>
-            <a class="btn btn-default" href="javascript:void(0)" onclick="batchDelete()">批量删除</a>
+            <%--<a class="btn btn-default" href="javascript:void(0)" onclick="batchDelete()">批量删除</a>--%>
           </div>
         </div>
         <div class="row-fluid">
