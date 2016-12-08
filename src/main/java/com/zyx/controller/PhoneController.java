@@ -37,5 +37,9 @@ public class PhoneController {
     public ModelAndView redirectAgreement() {
         return new ModelAndView("/phone/agreement/agreement");
     }
+    @RequestMapping(value = "/share/index", method = RequestMethod.GET)
+    public ModelAndView redirectIndex() {
+        return new ModelAndView("/phone/share/s_index");
+    }
 }
 

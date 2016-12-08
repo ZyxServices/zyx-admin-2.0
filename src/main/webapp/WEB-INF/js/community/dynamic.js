@@ -49,7 +49,7 @@ function initTable() {
         columns: [
             {field: '', checkbox: true, align: 'center', valign: 'middle'},
             {field: 'id', title: 'id', align: 'center', valign: 'middle'},
-            {field: 'topicContent', title: '动态内容'},
+            {field: 'topicContent', title: '动态内容', width:'30%'},
             {field: 'userVo.nickName', title: '发布人'},
             {field: 'createTime', title: '发布时间',formatter: timeFormat},
             {field: 'commentCounts', title: '评论数', sortable: true, width: 200},
@@ -226,7 +226,6 @@ var operateEventssssss = {
         $('#imgFileUrl').val(row.imgUrl)
         $('#visible').val(row.topicVisible)
         $('#visible').attr('name', 'topicVisible')
-        console.log(row.topicVisible)
         $('#createDynamicForm').append('<input style="display: none" name="id"  value=' + row.id + '>')
         $(".officeUser").hide()
         $('#dynamicImg').empty()
@@ -256,109 +255,6 @@ var operateEventssssss = {
 
         $(".dynamicEdit").addClass('on')
         $(".release").addClass('hide')
-    },
-    'click .recommend': function (e, value, row, index) {
-        var html = ''
-        html += '   <form class="form-horizontal" role="form" id="recommend" enctype="multipart/form-data">            '
-        html += '	<div class="container-fluid">';
-        html += '	    <div class="row">';
-        html += '	        <label class="control-label ">动态名称:</label><label class="control-label " style="text-align: left" >' + judgeTiltle(row.topicTitle) + '</label>';
-        html += '	    </div>';
-        html += '	    <div class="row">';
-        html += '	        <label class="col-xs-4 control-label ">推荐模块:</label>';
-        html += '	            <label class="control-label " style="text-align: left" >首页</label>';
-        html += '           <div class="controls">';
-        html += '	            <label class="radio col-xs-4 ">';
-        html += '	              <input value="1" name="area" id="inlineCheckbox1" style="display: none" > ';
-        html += '	            </label>'
-        //html += '	            <label class="radio col-xs-4 ">';
-        //html += '	              <input type="radio" value="3" name="area" id="inlineCheckbox1" > 看台';
-        //html += '	            </label>';
-        html += '	        </div>';
-        html += '	    </div>';
-        html += '	    <div class="row">';
-        html += '	            <div >';
-        html += '	                <input style="display: none" name="model" value="5">';
-        html += '	                <input style="display: none" name="modelId" value="' + row.id + '">';
-        html += '	                <label class="col-xs-6 control-label ">显示顺序: </label>';
-        html += '	                <select name="sequence" class="span2" id="hotSelect">';
-        html += '	                </select>';
-        html += '	            </div>';
-        html += '	     </div>';
-        html += '	     <div class="row">';
-        html += '	         <label class="col-xs-6  control-label ">封面图:</label>';
-        html += '	         <label class="control-label "><input name="imageUrl"  id="Cover" type="file"></label>';
-        html += '	     </div>';
-        html += '	    <div class="row">';
-        html += '	        <label class="col-xs-6 control-label ">推荐状态:</label>';
-        html += '           <div class="controls">';
-        html += '	            <label class="radio col-xs-4 ">';
-        html += '	              <input type="radio" value="1" name="state" checked="checked" > 激活';
-        html += '	            </label>'
-        html += '	            <label class="radio col-xs-4 ">';
-        html += '	              <input type="radio" value="0" name="state"  > 未激活';
-        html += '	            </label>';
-        html += '	        </div>';
-        html += '	    </div>';
-        html += '	</div>';
-        html += '   </from>'
-        $.ajax({
-            type: "get",
-            dateType: "json",
-            url: "/v1/deva/sequence?model=5&area=1",
-            async: false,
-            success: function (res) {
-                if (res.data == 0) {
-                    $.Popup({
-                        confirm: false,
-                        template: '推荐位置已满，请到banner推荐列表中删除，再重新上传推荐！！！'
-                    })
-                } else {
-                    $.Popup({
-                        title: '动态推荐',
-                        template: html,
-                        remove: false,
-                        saveEvent: function () {
-                            $("#upload").modal({backdrop: 'static', keyboard: false});
-                            var formData = new FormData();
-                            formData.append('avatar',  $('#Cover')[0].files[0]);
-                            if ($('#Cover')[0].files.length > 0) {
-                                $.ajax({
-                                    url: 'http://119.61.66.55:18100/v2/upload',//后台文件上传接口
-                                    type: 'POST',
-                                    data: formData,
-                                    processData: false,
-                                    contentType: false,
-                                    success: function (result) {
-                                        console.log(result)
-                                        if (result.state == 200) {
-                                            $('#recommend').append('<input style="display: none" class="CoverP" name="imageUrl"  value="' + result.data.url + '" >');
-                                            devDynamic()
-                                        } else {
-                                            removeEvent('upload')
-                                            $.Popup({
-                                                confirm: false,
-                                                template: result.successmsg
-                                            })
-                                        }
-                                    },
-                                    error: function (res) {
-                                        $('#recommend').append('<input style="display: none" class="CoverP" name="imageUrl"  value="" >');
-                                        devDynamic();
-                                    }
-                                });
-                            } else {
-                                $('#recommend').append('<input style="display: none" class="CoverP" name="imageUrl"  value="" >');
-                                devDynamic()
-                            }
-                        }
-                    })
-                    res.data.forEach(function (e) {
-                        $('#hotSelect').append("<option value='" + e + "'>" + e + "</option>")
-                    })
-                }
-            }
-        })
     },
     'click .Shield': function (e, value, row, index) {
         var state, btnval, btn,html;
@@ -442,7 +338,6 @@ $(function () {
            $(".live_index").addClass('hide')
 
     })
-
     $(window).resize(function () {
         $('#dynamic_table').bootstrapTable('resetView');
     });

@@ -465,6 +465,11 @@ $(function () {
     });
     initTable();
 })
+function addLevel(){
+    $('#v-score span').html($("#score option:selected").val())
+    $('#v-score').show()
+    $('#level').val($("#score option:selected").text())
+}
 function typeInfo() {
     $("#addLine").hide();
     $("#venuesList").hide();

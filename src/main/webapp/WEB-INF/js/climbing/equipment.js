@@ -34,7 +34,7 @@ function initTable() {
             var param = {
                 page: params.pageNumber,
                 pageNumber: params.pageSize,
-                searchText: params.searchText,
+                title: params.searchText,
                 sortName: params.sortName,
                 equipType:$('#e_user').val()
                 //sortOrder: params.sortOrder

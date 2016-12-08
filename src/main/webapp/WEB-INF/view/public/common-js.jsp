@@ -68,7 +68,6 @@
             async: false,
             type: "post",
             success: function (res) {
-                console.log(res)
                switch (res.appType){
                    case 1:
                       return $('#appName').html('趣攀岩');

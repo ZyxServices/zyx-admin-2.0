@@ -336,7 +336,7 @@
     <!-- END PAGE -->
 </div>
 <%--添加线路modal--%>
-<div class="modal fade hide" style=" width:60%;left:20%;right:20%" id="addLineModal" tabindex="-1" role="dialog"
+<div class="modal fade hide" style=" " id="addLineModal" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-header">
@@ -377,20 +377,52 @@
                 </div>
             </div>
 
-            <div class="control-group">
+            <div class="control-group radio_box">
                 <label class="control-label">难度对应得分</label>
-
                 <div class="controls">
-                    <input name="score" type="text"/>
+                    <input id="level" name="level" type="text"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label">难度等级</label>
-
                 <div class="controls">
-                    <input name="level" type="text"/>
+                    <select id="score" name="score" class="form-control" onchange="addLevel()">
+                        <option value="1  ">5.1  </option>
+                        <option value="2  ">5.2  </option>
+                        <option value="3  ">5.3   </option>·
+                        <option value="4  ">5.4  </option>
+                        <option value="5  ">5.5  </option>
+                        <option value="6  ">5.6  </option>
+                        <option value="7  ">5.7  </option>
+                        <option value="8  ">5.8  </option>
+                        <option value="15 ">5.9  </option>
+                        <option value="25">5.10a</option>
+                        <option value="28">5.10b</option>
+                        <option value="31">5.10c</option>
+                        <option value="35">5.10d</option>
+                        <option value="40">5.11a</option>
+                        <option value="44">5.11b</option>
+                        <option value="48">5.11c</option>
+                        <option value="52">5.11d</option>
+                        <option value="60">5.12a</option>
+                        <option value="65">5.12b</option>
+                        <option value="70">5.12c</option>
+                        <option value="75">5.12d</option>
+                        <option value="82">5.13a</option>
+                        <option value="90">5.13b</option>
+                        <option value="95">5.13c</option>
+                        <option value="100">5.13d</option>
+                        <option value="110">5.14a</option>
+                        <option value="120">5.14b</option>
+                        <option value="130">5.14c</option>
+                        <option value="150">5.14d</option>
+                        <option value="180">5.15a</option>
+                        <option value="200">5.15b</option>
+                    </select>
+                    <%--<input name="level" type="text"/>--%>
                 </div>
+                <div id="v-score" class="controls radio_box">对应荣誉值:<span></span></div>
             </div>
 
             <div class="control-group">

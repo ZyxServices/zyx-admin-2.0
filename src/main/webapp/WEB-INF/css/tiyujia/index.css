@@ -158,7 +158,9 @@ body {
     height: 24px;
     margin-top: 7px;
 }
-
+#c-content img{
+    max-width: 100% !important;
+}
 /* 4寸以下 */
 @media (min-width: 0px) {
     .col-xs-12 .phone1{
