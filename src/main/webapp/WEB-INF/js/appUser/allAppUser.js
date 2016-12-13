@@ -71,13 +71,15 @@ function timeFormat(data) {
 // 操作
 function operateFormatter(value, row, index) {
     var _html = [];
-    _html.push('<a class="edit p5" href="javascript:void(0)" disabled>编辑</a>');
+    if(row.official == 1){
+        _html.push('<a class="edit p5" href="javascript:void(0)" disabled>编辑</a>');
+        _html.push('<a class="remove p5" href="javascript:void(0)">删除</a>')
+    }
     if (row.mask) {
         _html.push('<a class="isMask p5" href="javascript:void(0)" title="屏蔽">屏蔽</a>');
     } else {
         _html.push('<a class="isMask p5" href="javascript:void(0)" title="取消屏蔽">取消屏蔽</a>');
     }
-    _html.push('<a class="remove p5" href="javascript:void(0)">删除</a>')
     return _html.join('');
 }
 var ISCHANGEIMG = '';/*判断是否修改了图片*/

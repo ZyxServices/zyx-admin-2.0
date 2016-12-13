@@ -161,10 +161,10 @@
                                 <span class="help-inline">*</span>
                             </div>
                         </div>
-                        <div class="control-group form-group">
+                        <div class="control-group">
                             <label class="control-label">类型</label>
                             <div class="controls">
-                                <select class="span6" id="examine" name="courseType"<%-- onchange="isReviewed()"--%>>
+                                <select class="span6" id="examine" name="courseType">
                                     <option value="图文">图文</option>
                                     <option value="视频">视频</option>
                                 </select>

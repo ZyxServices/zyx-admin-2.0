@@ -21,7 +21,7 @@ $(function () {
             "content": {
                 validators: {
                     notEmpty: {
-                        message: '请上传圈子头像'
+                        message: '请输入类容'
                     }
                 }
             },
@@ -29,13 +29,6 @@ $(function () {
                 validators: {
                     notEmpty: {
                         message: '请选择分类'
-                    }
-                }
-            },
-            "courseType": {
-                validators: {
-                    notEmpty: {
-                        message: '请输入简介'
                     }
                 }
             }
@@ -182,12 +175,15 @@ var operateEvent = {
     'click .edit': function (e, value, row, index) {
         $("#createModify").show();
         $("#activityList").hide();
+        console.log(row)
         queryOfficial("choiceOfficial");
         $("#courseCreateFrom").attr("value", 2);
         $("input[name=title]").val(row.title);
         $("#choiceOfficial").val(row.officialId);
         $("#image").val(row.imgUrl);
         $("#courseId").val(row.id);
+        $("#choiceOfficial").val(row.userId);
+        $("#choiceOfficial").attr("disabled",true);
         /*在编辑的时候判断是否修改了图片*/
         ISCHANGEIMG = row.imgUrl;
         $("#images").attr("src",'http://image.tiyujia.com/'+row.imgUrl+'');
@@ -348,10 +344,13 @@ function createcourse() {
     $("#createModify").show();
     $("#activityList").hide();
     queryOfficial("choiceOfficial");
-    $('#courseCreateFrom').data('bootstrapValidator').resetForm(true);
+    $("#images").attr("src","");
+    $("#course-summernote").summernote('reset');
     $("#courseCreateFrom")[0].reset();
+    $('#courseCreateFrom').data('bootstrapValidator').resetForm(true);
     $("#courseCreateFrom").attr("value", 1);
     $("#labelId").chosen();
+    $("#labelId").val('');
     courseLable;
     ISCHANGEIMG = '';
 }
@@ -454,6 +453,7 @@ function Grade(url, template, errmsg) {
             return $("#courseCreateFrom").data('bootstrapValidator').isValid();
         },
         success: function (result) {
+            $("#upload").modal('hide');
             if (result.state && result.state == 200) {
                 $.Popup({
                     confirm: false,
@@ -463,6 +463,7 @@ function Grade(url, template, errmsg) {
                 $("#activityList").show();
                 $('#Course_table').bootstrapTable('refresh');
             } else {
+                $("#upload").modal('hide');
                 $.Popup({
                     confirm: false,
                     template: result.errmsg
