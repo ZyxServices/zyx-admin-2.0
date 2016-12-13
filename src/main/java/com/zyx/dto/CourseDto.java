@@ -68,6 +68,8 @@ public class CourseDto implements Serializable{
     @Column(name="user_id")
     private Integer userId;
 
+    private String userName;
+
     /**
      * 评论数
      */
@@ -223,5 +225,13 @@ public class CourseDto implements Serializable{
 
     public void setAppType(Integer appType) {
         this.appType = appType;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

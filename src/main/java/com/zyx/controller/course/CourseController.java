@@ -2,7 +2,6 @@ package com.zyx.controller.course;
 
 import com.zyx.constants.Constants;
 import com.zyx.model.Course;
-import com.zyx.model.SysUser;
 import com.zyx.service.course.CourseService;
 import com.zyx.service.deva.DevaService;
 import com.zyx.utils.MapUtils;
@@ -41,6 +40,8 @@ public class CourseController {
     @RequestMapping(value="/add",method = RequestMethod.POST)
     @ApiOperation(value="发布教程",notes="发布教程")
     public ModelAndView add( HttpServletRequest request,
+                             @ApiParam(name = "officialId", required = true, value = "官方账户id")
+                             @RequestParam(name="officialId",required = true)Integer officialId,
                              @ApiParam(name = "content", required = true, value = "内容")@RequestParam(name="content",required = true)String content,
                              @ApiParam(name = "title", required = true, value = "标题") @RequestParam(name = "title", required = true) String title,
                              @ApiParam(name = "courseType", required = true, value = "教程类型：图文、视频")@RequestParam(name = "courseType", required = true) String courseType,
@@ -56,7 +57,7 @@ public class CourseController {
 //        }
 
         Course course = new Course();
-        SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
+//        SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
         if(courseType.equals("图文")){
             course.setCourseType(0);
         }else if(courseType.equals("视频")){
@@ -69,7 +70,7 @@ public class CourseController {
         course.setContent(content);
         course.setImgUrl(imgUrl);
         course.setTitle(title);
-        course.setUserId(sysUser.getId());
+        course.setUserId(officialId);
         course.setAppType((Integer) request.getSession().getAttribute("appType"));
 
         Map<String,Object> map = courseService.insertCourse(course);

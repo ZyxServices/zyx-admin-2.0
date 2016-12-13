@@ -1,8 +1,6 @@
 package com.zyx.controller.equip;
 
-import com.zyx.constants.Constants;
 import com.zyx.model.Equip;
-import com.zyx.model.SysUser;
 import com.zyx.parm.Equip.QueryEquipParam;
 import com.zyx.service.equip.EquipService;
 import io.swagger.annotations.ApiOperation;
@@ -50,7 +48,7 @@ public class EquipController {
                                                                                                                                                 ){
 
         AbstractView jsonView = new MappingJackson2JsonView();
-        SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
+//        SysUser sysUser =(SysUser) request.getSession().getAttribute(Constants.CURRENT_USER);
         Equip equip = new Equip();
         equip.setAccountId(officialId);
         equip.setContent(content);

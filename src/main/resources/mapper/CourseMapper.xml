@@ -22,6 +22,7 @@
         <association property="zanCount" column="id" select="zanCountsSelect"/>
         <association property="commentCount" column="id" select="commentCountsSelect"/>
         <association property="courseLabelName" column="label_id" select="courseLabelSelect"/>
+        <association property="userName" column="user_id" select="queryByUserId"></association>
     </resultMap>
 
     <select id="zanCountsSelect" parameterType="int" resultType="int">
@@ -34,6 +35,10 @@
 
     <select id="courseLabelSelect" parameterType="int" resultType="java.lang.String">
         SELECT label_name FROM t_course_label WHERE id=#{label_id}
+    </select>
+
+    <select id="queryByUserId" parameterType="int" resultType="java.lang.String">
+        SELECT nickname FROM user WHERE id=#{user_id}
     </select>
 
 
