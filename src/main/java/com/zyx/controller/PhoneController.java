@@ -33,9 +33,15 @@ public class PhoneController {
         }
     }
 //    return new ModelAndView("/phone/share/s_index");
-    @RequestMapping(value = "/agreement", method = RequestMethod.GET)
-    public ModelAndView redirectAgreement() {
-        return new ModelAndView("/phone/agreement/agreement");
+    @RequestMapping(value = "agreement/permit", method = RequestMethod.GET)
+    public ModelAndView redirectPermit() {return new ModelAndView("/phone/Agreement/permit");}
+    @RequestMapping(value = "agreement/release", method = RequestMethod.GET)
+    public ModelAndView redirectRelease() {
+        return new ModelAndView("/phone/Agreement/release");
+    }
+    @RequestMapping(value = "rule/climbingCoins", method = RequestMethod.GET)
+    public ModelAndView redirectClimbingCoins() {
+        return new ModelAndView("/phone/rule/climbingCoins");
     }
     @RequestMapping(value = "/share/index", method = RequestMethod.GET)
     public ModelAndView redirectIndex() {
