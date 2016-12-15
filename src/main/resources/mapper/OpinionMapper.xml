@@ -27,7 +27,10 @@
 
 
     <select id="queryByUser" parameterType="com.zyx.parm.appUser.OpinionParam" resultMap="OpinionListDto">
-        SELECT * FROM t_opinion where app_type=#{appType} and del != 1 and user_id=#{userId}
+        SELECT * FROM t_opinion where app_type=#{appType} and del != 1
+        <if test="userId != null and userId != ''">
+            and user_id=#{userId}
+        </if>
         <if test="sortName != null and sortName != ''">
             ORDER BY #{sortName} #{sortOrder}
         </if>
@@ -37,7 +40,10 @@
     </select>
 
     <select id="queryByUserCount" parameterType="com.zyx.parm.appUser.OpinionParam" resultType="int">
-        SELECT count(*) FROM t_opinion where app_type=#{appType} and del != 1 and user_id=#{userId}
+        SELECT count(*) FROM t_opinion where app_type=#{appType} and del != 1
+        <if test="userId != null and userId != ''">
+            and user_id=#{userId}
+        </if>
     </select>
 
 

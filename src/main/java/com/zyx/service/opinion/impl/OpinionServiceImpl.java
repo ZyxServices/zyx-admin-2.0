@@ -35,7 +35,7 @@ public class OpinionServiceImpl extends BaseServiceImpl<Opinion> implements Opin
 
     @Override
     public Map<String, Object> queryByUser(OpinionParam param) {
-        if(param.getAppType()>0 && param.getUserId()>0){
+        if(param.getAppType()>0){
             List<OpinionListDto> list = opinionMapper.queryByUser(param);
             int count = opinionMapper.queryByUserCount(param);
 

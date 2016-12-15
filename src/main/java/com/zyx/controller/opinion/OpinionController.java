@@ -39,8 +39,8 @@ public class OpinionController {
     @ApiOperation(value = "分页查询意见", notes = "分页查询意见")
     public ModelAndView queryUser(HttpServletRequest request,
                                   @ApiParam(name="page",required = true,value = "页码:从1开始")@RequestParam Integer page,
-                                  @ApiParam(name="pageNumber",required = true,value = "每页显示数量")@RequestParam Integer pageNumber,
-                                  @ApiParam(name="userId",required = true,value = "用户id")@RequestParam(required = true) Integer userId
+                                  @ApiParam(name="pageNumber",required = true,value = "每页显示数量")@RequestParam Integer pageNumber
+//                                  ,@ApiParam(name="userId",required = true,value = "用户id")@RequestParam(required = true) Integer userId
 //                             ,@ApiParam(name="appType",required = true,value = "app类型：1趣攀岩")@RequestParam(required = true) Integer appType
     ) {
         AbstractView jsonView = new MappingJackson2JsonView();
@@ -53,7 +53,7 @@ public class OpinionController {
             return new ModelAndView(jsonView);
         }
 
-        param.setUserId(userId);
+//        param.setUserId(userId);
         param.setAppType((Integer) request.getSession().getAttribute("appType"));
 
         Map<String, Object> map = opinionService.queryByUser(param);
