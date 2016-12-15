@@ -33,7 +33,7 @@
                 name="menu:climbing:banner or menu:climbing:equipment or menu:climbing:talentshow or menu:climbing:appointment or menu:climbing:venues or menu:climbing:introduction">
             <li class="climbing">
                 <a href="javascript:;">
-                    <i class="icon-tags"></i>
+                    <i class=" icon-eject"></i>
                     <span class="title">攀岩管理</span>
                     <span class="arrow"></span>
                     <span class="selected hide"></span>
@@ -77,7 +77,7 @@
         <shiro:hasPermission name="menu:community:dynamic or menu:community:grades">
             <li class="community">
                 <a href="javascript:;">
-                    <i class="icon-globe"></i>
+                    <i class="icon-bell"></i>
                     <span class="title">社区管理</span>
                     <span class="arrow"></span>
                     <span class="selected hide"></span>
@@ -102,7 +102,7 @@
         <shiro:hasPermission name="menu:city:city">
             <li class="city">
                 <a href="<%=request.getContextPath()%>/menu/city/city">
-                    <i class="icon-play-circle"></i>
+                    <i class="icon-plane"></i>
                     <span class="title">城市</span>
                     <span class="selected hide"></span>
                 </a>
@@ -291,8 +291,18 @@
         <shiro:hasPermission name="menu:version:version">
             <li class="version">
                 <a href="<%=request.getContextPath()%>/menu/version/version">
-                    <i class="icon-comment"></i>
+                    <i class="icon-time"></i>
                     <span class="title">版本控制</span>
+                    <span class="selected hide"></span>
+                </a>
+            </li>
+        </shiro:hasPermission>
+<%--用户意见管理--%>
+        <shiro:hasPermission name="menu:option:option">
+            <li class="version">
+                <a href="<%=request.getContextPath()%>/menu/option/option">
+                    <i class="icon-list"></i>
+                    <span class="title">用户意见管理</span>
                     <span class="selected hide"></span>
                 </a>
             </li>

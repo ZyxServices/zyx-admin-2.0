@@ -177,6 +177,11 @@ public class MenuController {
     public ModelAndView redirectVersionVersion() {
         return new ModelAndView("/version/version");
     }
+    /*意见*/
+    @RequestMapping(value = "/option/option", method = RequestMethod.GET)
+    public ModelAndView redirectOptionOption() {
+        return new ModelAndView("/option/option");
+    }
 
 //    攀岩
 }

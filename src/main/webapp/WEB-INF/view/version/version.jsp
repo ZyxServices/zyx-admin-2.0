@@ -12,7 +12,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <meta content="体育家-版本管理" name="description" />
+    <meta content="去攀岩-版本管理" name="description" />
 
     <meta content="" name="author" />
 
