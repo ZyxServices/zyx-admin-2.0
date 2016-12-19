@@ -49,22 +49,22 @@ public class RequestLogFilter extends AbstractFilter {
 			HttpServletResponse response, FilterChain chain,
 			HttpSession session, String method, String url)
 			throws IOException, ServletException {
-		logger.info("Accept:{}",request.getHeader("Accept"));
-		logger.info("Content-Type:{}",request.getHeader("Content-Type"));
-		logger.info("------开始过滤--------");
+		logger.debug("Accept:{}",request.getHeader("Accept"));
+		logger.debug("Content-Type:{}",request.getHeader("Content-Type"));
+		logger.debug("------开始过滤--------");
 
 		long before = System.currentTimeMillis();
-		logger.info("拦截到请求:{} : {}{}", method,url,getParamsString(request.getParameterMap()));
+		logger.debug("拦截到请求:{} : {}{}", method,url,getParamsString(request.getParameterMap()));
 
 
 		chain.doFilter(request, response);
 		long after = System.currentTimeMillis();
-		logger.info("请求结果:" + url + " status:" + response.getStatus());
-		logger.info("花费时间：" + (after - before) + "ms");
+		logger.debug("请求结果:" + url + " status:" + response.getStatus());
+		logger.debug("花费时间：" + (after - before) + "ms");
 
 		
 
-		logger.info("------过滤结束---------\n");
+		logger.debug("------过滤结束---------\n");
 
 	}
 
