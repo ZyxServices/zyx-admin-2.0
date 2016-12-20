@@ -29,6 +29,9 @@ function initTable() {
         queryParamsType: "undefined",
         dataField: "data",
         silentSort: false,
+        formatSearch:function () {
+            return "发布人"
+        },
         queryParams: function queryParams(params) {   //设置查询参数
             var param = {
                 page: params.pageNumber-1 ,

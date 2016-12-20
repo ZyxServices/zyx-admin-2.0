@@ -50,7 +50,7 @@ $(function () {
         pagination: true,          //是否显示分页（*）
         paginationPreText: "上一页",
         paginationNextText: "下一页",
-        pageNumber: 0,            //初始化加载第一页，默认第一页
+        pageNumber: 1,            //初始化加载第一页，默认第一页
         pageSize: 13,            //每页的记录行数（*）
         pageList: [13],
         checkbox: true,
@@ -59,7 +59,6 @@ $(function () {
         sortOrder: "asc",          //排序方式
         height: 500,            //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
         uniqueId: "id",           //每一行的唯一标识，一般为主键列
-        search: true,
         sidePagination: "server",
         strictSearch: false,        //是否启用模糊收索
         queryParamsType: "undefined",

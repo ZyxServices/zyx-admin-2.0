@@ -66,6 +66,9 @@ $(function () {
         url: "/v2/sysUser/list",
         dataField: "data",
         queryParamsType: "undefined",
+        formatSearch:function () {
+            return "账号/管理员名称"
+        },
         queryParams: function queryParams(params) {   //设置查询参数
             var param = {
                 pageNumber: params.pageNumber,
