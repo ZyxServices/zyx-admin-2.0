@@ -114,17 +114,17 @@
     /*border-bottom:#333333 1px solid ;*/
   }
   .shop {
-    margin: 60px 0 55px 0;
+    margin: 20px 0 55px 0;
   }
 </style>
 <body>
-<div class="header header-Cd80204">
+<%--<div class="header header-Cd80204">--%>
   <!--<div class="back-button"><</div>-->
   <!--<div class="header-function-button">编辑</div>-->
-  <div class="title">活动发布服务协议</div>
-</div>
+  <%--<div class="title">活动发布服务协议</div>--%>
+<%--</div>--%>
 <div class="shop content Software_agreement">
-  <div class="title">趣攀岩活动发布服务协议</div>
+  <div class="title">活动发布服务协议</div>
   <div class="agreemnet">
     <ul>
       <li>一、活动性质</li>
