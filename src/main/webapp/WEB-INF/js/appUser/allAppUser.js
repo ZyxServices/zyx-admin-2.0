@@ -18,6 +18,7 @@ function initAppUserTable() {
         pageSize: 10,            //每页的记录行数（*）
         checkbox: true,
         checkboxHeader: "true",
+        // formatSearch:"输入用户昵称",
         sortable: true,           //是否启用排序
         sortOrder: "desc",          //排序方式
         pageList: [10, 25, 50, 100],    //可供选择的每页的行数（*）
@@ -29,6 +30,9 @@ function initAppUserTable() {
         queryParamsType: "undefined",
         dataField: "data",
         silentSort: false,
+        formatSearch:function () {
+          return "昵称搜索"
+        },
         queryParams: function queryParams(params) {   //设置查询参数
             var param = {
                 page: params.pageNumber,

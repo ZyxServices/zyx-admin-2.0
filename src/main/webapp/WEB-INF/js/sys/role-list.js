@@ -83,6 +83,9 @@ $(function () {
         url: "/v2/role/list",
         dataField: "data",
         queryParamsType: "undefined",
+        formatSearch:function () {
+        return "权限名称"
+    },
         queryParams: function queryParams(params) {   //设置查询参数
             var param = {
                 pageNumber: params.pageNumber,

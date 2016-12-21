@@ -170,6 +170,9 @@ function initAppointmentTable() {
         search: true,
         sidePagination: "server",
         queryParamsType: "undefined",
+        formatSearch:function () {
+            return "活动名称"
+        },
         queryParams: queryParams,
         responseHandler: fromData
     })
