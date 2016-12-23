@@ -42,7 +42,7 @@
                     <div class="span6">
                         <a class="btn btn-default" href="javascript:void(0)"
                            onclick=" $('#createModify').show(); $('#activityList').hide();">发布帖子</a>
-                        <a class="btn btn-default" href="javascript:void(0)" onclick="manageLabel()">装备管理标签</a>
+                        <%--<a class="btn btn-default" href="javascript:void(0)" onclick="manageLabel()">装备管理标签</a>--%>
                     </div>
                 </div>
                 <h3 class="page-title"> 装备帖子管理</h3>
