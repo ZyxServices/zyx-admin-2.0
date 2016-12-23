@@ -56,8 +56,8 @@
                 and #{currentTime} &gt; end_time
             </if>
             <if test="status==0">
-                and  #{currentTime} &gt;= start_time
-                and  #{currentTime} &lt;= last_time
+                and  #{currentTime} &gt;= create_time
+                and  #{currentTime} &lt;= start_time
             </if>
         </if>
         AND del = 0
@@ -110,8 +110,8 @@
                 and #{currentTime} &gt; end_time
             </if>
             <if test="status==0">
-                and  #{currentTime} &gt;= start_time
-                and  #{currentTime} &lt;= last_time
+                and  #{currentTime} &gt;= create_time
+                and  #{currentTime} &lt;= start_time
             </if>
         </if>
     </select>
