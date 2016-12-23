@@ -62,7 +62,7 @@
         <property name="filterChainDefinitions">
             <value>
                 <!--/users/**=noSessionCreation,rest-->
-                /v2/sysUser/insert=authc
+                /v2/sysUser/insert=anon
                 /v2/sysUser/list=anon
                 /v2/role/insert=noSessionCreation,rest
                 <!--/v2/role/list=authc-->
