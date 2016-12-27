@@ -162,7 +162,7 @@
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <a href="javascript:void(0)" class="btn btn-default"
-                       onclick="window.location.reload();">返回</a>
+                       onclick="operateEventssssss.back()">返回</a>
                 </div>
             </div>
         </div>
@@ -199,7 +199,7 @@
                             <label class="control-label">难度系数</label>
 
                             <div class="controls col-xs-5">
-                                <select  type="text" id="v_title" name="level">
+                                <select type="text" id="v_title" name="level">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -262,7 +262,7 @@
 
                             <div class="controls">
                                 <input type="text" id="v_longitude" name="longitude" class="span6"
-                                       placeholder="" readonly />
+                                       placeholder="" readonly/>
                             </div>
                         </div>
 
@@ -321,7 +321,7 @@
                             <button class="btn btn-default" id="czs" onclick="operateEventssssss.createVenue()">确定
                             </button>
                             <a href="javascript:void(0)" class="btn btn-default"
-                               onclick="window.location.reload();">返回</a>
+                               onclick="operateEventssssss.back();">返回</a>
                         </div>
                     </div>
                 </div>
@@ -379,6 +379,7 @@
 
             <div class="control-group radio_box">
                 <label class="control-label">难度对应得分</label>
+
                 <div class="controls">
                     <input id="level" name="level" type="text"/>
                 </div>
@@ -386,17 +387,19 @@
 
             <div class="control-group">
                 <label class="control-label">难度等级</label>
+
                 <div class="controls">
                     <select id="score" name="score" class="form-control" onchange="addLevel()">
-                        <option value="1  ">5.1  </option>
-                        <option value="2  ">5.2  </option>
-                        <option value="3  ">5.3   </option>·
-                        <option value="4  ">5.4  </option>
-                        <option value="5  ">5.5  </option>
-                        <option value="6  ">5.6  </option>
-                        <option value="7  ">5.7  </option>
-                        <option value="8  ">5.8  </option>
-                        <option value="15 ">5.9  </option>
+                        <option value="1  ">5.1</option>
+                        <option value="2  ">5.2</option>
+                        <option value="3  ">5.3</option>
+                        ·
+                        <option value="4  ">5.4</option>
+                        <option value="5  ">5.5</option>
+                        <option value="6  ">5.6</option>
+                        <option value="7  ">5.7</option>
+                        <option value="8  ">5.8</option>
+                        <option value="15 ">5.9</option>
                         <option value="25">5.10a</option>
                         <option value="28">5.10b</option>
                         <option value="31">5.10c</option>
@@ -492,6 +495,13 @@
             </div>
         </div>
     </div>
+</div>
+<div class="modal fade hide" id="sucModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-body">
+        上传中....
+    </div>
+
 </div>
 </div>
 <jsp:include page="../public/footer.jsp"/>

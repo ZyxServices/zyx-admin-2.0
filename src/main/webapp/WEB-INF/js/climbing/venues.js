@@ -215,7 +215,7 @@ var operateEventssssss = {
         $("#imgUrls").val(row.imgUrls)
         $("#createVenue").append("<input name='id' class='hide' value='" + row.id + "'>")
         if (row.imgUrls != '') {
-            $("#v_imagesWrap").append('<img src=' + 'http://image.tiyujia.com/' + row.imgUrls + '>')
+            $("#v_imagesWrap").html('<img src=' + 'http://image.tiyujia.com/' + row.imgUrls + '>')
         }
     },
     'click .addLine': function (e, value, row, index) {
@@ -275,15 +275,16 @@ var operateEventssssss = {
         }
     },
     submitVenuesForm: function (url) {
+        $('#sucModel').modal('show')
         $.ajax({
             url: url,//提交地址
             data: $("#createVenue").serialize(),//将表单数据序列化
             type: "POST",
             dataType: "json",
             success: function (result) {
+                $('#sucModel').modal('hide')
                 if (result.state == 200) {
-                    console.log(result.url)
-                    window.location.reload();
+                    operateEventssssss.back()
                 } else {
                     $.Popup({
                         confirm: false,
@@ -336,8 +337,17 @@ var operateEventssssss = {
         $('#lineUrl').val('');
         $('#lineForm')[0].reset()
         $('#venueId').val(venueId);
+    },
+    back:function(){
+        $("#addLine").show();
+        $("#venuesList").show();
+        $("#createModify").hide();
+        $("#createVenue")[0].reset();
+        $("#createVenue input[name='id']").remove();
+        $('#pageTitle').html('上传场馆信息')
+        $('#sureLine').attr('onclick', 'operateEventssssss.submitLineForm(this)')
+        $table.bootstrapTable("refresh");
     }
-
 };
 
 //查看Url事件
@@ -471,6 +481,9 @@ function addLevel(){
     $('#level').val($("#score option:selected").text())
 }
 function typeInfo() {
+    $('#v_imagesWrap').empty()
+    $('#activity-summernote').summernote('reset');
+    $("#createVenue")[0].reset();
     $("#addLine").hide();
     $("#venuesList").hide();
     $("#createModify").show();
