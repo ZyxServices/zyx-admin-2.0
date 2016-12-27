@@ -61,8 +61,8 @@
             </if>
         </if>
         AND del = 0
-        <if test="appType!=null">
-            and app_type=#{appType}
+        <if test="activityModule!=null">
+            and activity_module=#{activityModule}
         </if>
         ORDER BY create_time desc
         <if test="pageNumber != null and pageSize != null">
@@ -102,8 +102,8 @@
             and payment_type=#{paymentType}
         </if>
 
-        <if test="appType != null">
-            and app_type=#{appType}
+        <if test="activityModule != null">
+            and activity_module=#{activityModule}
         </if>
         <if test="status != null">
             <if test="status==1">
