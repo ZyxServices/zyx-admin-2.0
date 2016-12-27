@@ -70,7 +70,8 @@ public class ActivityController {
         Activity activity = new Activity();
         activity.setUserId(userId);
         Integer appType=(Integer) request.getSession().getAttribute("appType");
-        activity.setAppType(appType);
+        activity.setActivityType(appType);
+        activity.setActivityModule(appType);
         activity.setTitle(title);
         activity.setLatitude(latitude);
         activity.setLongitude(longitude);
@@ -140,6 +141,7 @@ public class ActivityController {
         QueryActivityParm queryActivityParm = new QueryActivityParm();
         Integer appType=(Integer) request.getSession().getAttribute("appType");
         queryActivityParm.setAppType(appType);
+        queryActivityParm.setActivityModule(appType);
         queryActivityParm.setPageSize(pageNumber);
         queryActivityParm.setPageNumber(page);
         queryActivityParm.setType(type);
