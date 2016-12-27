@@ -344,6 +344,7 @@ var operateEventssssss = {
         $("#addLine").show();
         $("#venuesList").show();
         $("#createModify").hide();
+        $("#lineList").hide();
         $("#createVenue")[0].reset();
         $("#createVenue input[name='id']").remove();
         $('#pageTitle').html('上传场馆信息')

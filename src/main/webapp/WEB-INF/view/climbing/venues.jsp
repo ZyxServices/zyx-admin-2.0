@@ -320,7 +320,7 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <button class="btn btn-default" id="czs" onclick="operateEventssssss.createVenue()">确定
                             </button>
-                            <a href="javascript:void(0)" class="btn btn-default"
+                            <a href="javascript:void(0)" id="back" class="btn btn-default"
                                onclick="operateEventssssss.back();">返回</a>
                         </div>
                     </div>
@@ -509,7 +509,6 @@
 <script src="../../js/app.js" type="text/javascript"></script>
 <script src="../../js/index.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../js/climbing/venues.js"></script>
-//地图
 <script src="../../js/public/map.js" type="text/javascript"></script>
 <script>
 
