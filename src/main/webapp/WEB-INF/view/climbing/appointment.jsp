@@ -134,22 +134,26 @@
                         <a class="btn btn-default" href="javascript:void(0)" onclick="batchDelete()">批量删除</a>
                     </div>
                         <select name="type" id="searchType" onchange="initAppointmentTable()">
+                            <option value="">全部用户</option>
                             <option value="0">官方</option>
                             <option value="1">用户</option>
                         </select>
 
                         <select name="activityType" id="searchActivityType" onchange="initAppointmentTable()">
+                            <option value="">全部类型</option>
                             <option value="1">求约</option>
                             <option value="2">求带</option>
                         </select>
 
                         <select name="paymentType" id="searchPaymentType" onchange="initAppointmentTable()">
+                            <option value="">收费状况</option>
                             <option value="0">奖励</option>
                             <option value="1">免费</option>
                             <option value="2">AA</option>
                         </select>
 
                         <select name="status" id="searchStatus" onchange="initAppointmentTable()">
+                            <option value="">全部状态</option>
                             <option value="0">正在报名</option>
                             <option value="1">已结束</option>
                         </select>
