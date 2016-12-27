@@ -26,6 +26,7 @@ public class QueryActivityParm extends QueryParam{
     private Integer appType;
     private Integer status;
     private Long currentTime;
+    private Integer activityModule;
 
 
     public Integer getCreateId() {
@@ -96,4 +97,8 @@ public class QueryActivityParm extends QueryParam{
     public Long getCurrentTime() { return currentTime; }
 
     public void setCurrentTime(Long currentTime) { this.currentTime = currentTime; }
+
+    public Integer getActivityModule() { return activityModule; }
+
+    public void setActivityModule(Integer activityModule) { this.activityModule = activityModule; }
 }
