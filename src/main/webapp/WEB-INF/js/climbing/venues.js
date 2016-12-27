@@ -192,6 +192,7 @@ var operateEventssssss = {
         $("#imgUrls").val(row.imgUrls).attr("disabled", "disabled")
         $("#createVenue").append("<input name='id' class='hide' value='" + row.id + "'>")
         $("#v_imgtitle").html("场馆封面图")
+        $('#back').attr('onclick', 'window.location.reload()')
         $("#v_img").empty()
         if (row.imgUrls != '') {
             $('#v_img').append('<img style="max-width: 333px" src=' + 'http://image.tiyujia.com/' + row.imgUrls + '>')
@@ -293,6 +294,7 @@ var operateEventssssss = {
                 }
             },
             error: function () {
+                $('#sucModel').modal('hide')
                 $.Popup({
                     confirm: false,
                     template: '上传失败,请检查内容是否填写完整'
