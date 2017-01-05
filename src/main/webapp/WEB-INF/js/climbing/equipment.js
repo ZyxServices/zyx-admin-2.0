@@ -28,7 +28,7 @@ function initTable() {
         sidePagination: "server",
         strictSearch: true,        //是否启用模糊收索
         queryParamsType: "undefined",
-        dataField: "data",
+        //dataField: "data",
         silentSort: false,
         formatSearch:function () {
             return "装备标题"
@@ -44,6 +44,7 @@ function initTable() {
             };
             return param;
         },
+        responseHandler: fromData,
         columns: [
             {field: '', checkbox: true, align: 'center', valign: 'middle'},
             {field: 'id', title: 'id', align: 'center', valign: 'middle'},
@@ -103,7 +104,7 @@ function initTable() {
         sidePagination: "server",
         strictSearch: true,        //是否启用模糊收索
         queryParamsType: "undefined",
-        dataField: "data",
+        //dataField: "data",
         silentSort: false,
         queryParams: function queryParams(params) {   //设置查询参数
             var param = {
@@ -114,7 +115,7 @@ function initTable() {
                 appType:$("#appType").val()
                 //sortOrder: params.sortOrder
             };
-            return param;
+            return true;
         },
         onLoadSuccess: function (result) {  //加载成功时执行
 
@@ -147,6 +148,14 @@ function initTable() {
         }
     })
     queryOfficial('choiceUser')
+}
+function fromData(res){
+    if(res.total==undefined){
+        return { rows: {},total: 0}
+    }else{
+        $('.Pagination').show()
+        return {rows:res.data,total: res.total}
+    }
 }
 //操作
 function operateFormatter(value, row, index) {
