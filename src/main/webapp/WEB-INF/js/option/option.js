@@ -47,6 +47,11 @@ function groupFromData(res) {
             rows: dataArray,
             total: res.data.length
         }
+    }else if(res.state == 804){
+        return {
+            rows: [],
+            total: {}
+        }
     }
 }
 function timeFormat(data) {

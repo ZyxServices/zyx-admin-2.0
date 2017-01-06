@@ -299,7 +299,7 @@
         </shiro:hasPermission>
 <%--用户意见管理--%>
         <shiro:hasPermission name="menu:option:option">
-            <li class="version">
+            <li class="option">
                 <a href="<%=request.getContextPath()%>/menu/option/option">
                     <i class="icon-list"></i>
                     <span class="title">用户意见管理</span>
